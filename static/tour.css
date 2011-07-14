@@ -1,0 +1,119 @@
+body {
+	font-family: 'Droid Serif', serif;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	font-size: 120%;
+}
+.slides {
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top: 0px;
+}
+.slidenum {
+	float: right;
+	color: white;
+	padding: 5px;
+	margin: 0;
+}
+
+pre {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+pre span {
+	font-family: 'Droid Serif', serif;
+}
+
+h1, h2, h3 {
+	font-family: 'Droid Sans', sans-serif;
+	margin-top: 20px;
+}
+h1 {
+	color: #fff;
+	background-color: #444;
+	margin: 0px;
+	padding: 5px;
+}
+
+code, pre, textarea {
+	font-family: 'Droid Sans Mono', monospace;
+	font-size: 100%;
+}
+
+div.code {
+	border: 1px solid black;
+	float: left;
+	width: 45%;
+	height: 80%;
+	margin: 0px 1em 0px 0px;
+}
+
+textarea {
+	border: 0px;
+	display: block;
+	padding: 5px;
+
+	width: 100%;
+	height: 95%;
+	margin-top: 0px;
+}
+
+textarea:focus {
+	border: 0px;
+	outline: 0px;
+}
+
+.programoutput {
+	color: #0000cc;
+}
+
+.compileerrors {
+	color: #cc0000;
+}
+
+hr {
+	border: 1px solid #ccc;
+}
+
+button {
+	display: inline;
+	font-size: 60%;
+	font-family: 'Droid Sans', sans-serif;
+	color: #000;
+	background-color: #eee;
+	border-color: #000;
+	border-width: 1px;
+	padding: 3px;
+	margin: 3px;
+}
+
+button.next {
+	margin-left: 1em;
+}
+
+button:hover {
+	background-color: #fff;
+}
+
+div.nav {
+	display: block;
+	text-align: right;
+	float: right;
+}
+
+div.clear {
+	clear: right;
+}
+
+h2.nocode {
+	text-align: center;
+	font-size: 300%;
+	margin-bottom: 1em;
+}
+
+div.toc {
+	display: none;
+	visibility: hidden;
+}

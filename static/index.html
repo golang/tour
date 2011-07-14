@@ -1,0 +1,1711 @@
+<!--
+TODO
+
+Finish slides.
+Table of contents or some other navigation.
+Fix infinite loop behavior.
+-->
+
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="tour.css" charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="tour.js"></script>
+
+<h2 class="slidenum" id="num"></h2>
+<h1>A Tour of Go</h1>
+<div class="slides">
+
+<div class="toc">Introduction</div>
+
+<div class="slide">
+	<h2>Hello, 世界</h2>
+	<p>
+	Welcome to a tour of the Go programming language.
+	<p>
+	To run this program, click the Compile button (or type Shift-Enter).
+	<p>
+	The programs in the tour are meant to be starting points for your own experimentation.
+	Edit the program and run it again.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, 世界")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Hey</h2>
+	<p>
+	Now that the formalities are over, we can look at what's going on.
+	When you type Shift-Enter, your computer compiles and runs the
+	program and displays the result below.
+	<p>
+	Example programs demonstrate different aspects of Go.
+	Play with them to try new things and explore the language.
+	<p>
+	Whenever you're ready to move on, click the Next button or type the PageDown key.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hey")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Imports</h2>
+	<p>
+	This program shows a factored import statement.
+	You can also write multiple import statements, like:
+	<pre>
+	import "fmt"
+	import "math"
+	</pre>
+	but it's common to use the factored form to eliminate clutter.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Printf("Now you have %g problems.",
+		math.Nextafter(2, 3))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Packages</h2>
+	<p>
+	Every Go program is made up of packages.
+	<p>
+	Programs start running in package <code>main</code>.
+	<p>
+	This program is using the packages with import paths
+	<code>"fmt"</code> and <code>"math"</code>.
+	<p>
+	By convention, the package name is the same as the
+	last element of the import path.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Println("Happy", math.Pi, "Day")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exported names</h2>
+	<p>
+	After importing a package, you can refer to the names it exports.
+	<p>
+	In Go, a name is exported if it begins with a capital letter.
+	<p>
+	<code>Pi</code> is an exported name; so is <code>PI</code>; not <code>pi</code>.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Println(math.pi)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	A function can take zero or more arguments.
+	<p>
+	In this example, <code>add</code> takes two parameters of type <code>int</code>.
+	<p>
+	Notice that the type comes <i>after</i> the variable name.
+<div>
+package main
+
+import "fmt"
+
+func add(x int, y int) int {
+	return x + y
+}
+
+func main() {
+	fmt.Println(add(42, 13))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	When two or more consecutive function parameters share a type,
+	you can omit the type from all but the last.
+	<p>
+	In this example, we shortened <code>x int, y int</code> to <code>x, y int</code>.
+<div>
+package main
+
+import "fmt"
+
+func add(x, y int) int {
+	return x + y
+}
+
+func main() {
+	fmt.Println(add(42, 13))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	A function can return zero or more results.
+	<p>
+	This function returns two strings.
+<div>
+package main
+
+import "fmt"
+
+func swap(x, y string) (string, string) {
+	return y, x
+}
+
+func main() {
+	fmt.Println(swap("hello", "world"))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	Function results can be named, in which case a
+	<code>return</code> statement without arguments
+	returns the current values of the results.
+<div>
+package main
+
+import "fmt"
+
+func split(sum int) (x, y int) {
+	x = sum * 4/9
+	y = sum - x
+	return
+}
+
+func main() {
+	fmt.Println(split(17))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Variables</h2>
+	<p>
+	The <code>var</code> statement declares a list of variables;
+	like in function argument lists, the type is last.
+	<p>
+	(For more about why types look the way they do, see <a target="_blank" href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">this blog post</a>.)
+
+<div>
+package main
+
+import "fmt"
+
+var x, y, z int
+var c, python, java bool
+
+func main() {
+	fmt.Println(x, y, z, c, python, java)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Variables</h2>
+	<p>
+	A var declaration can include initializers, one per variable.
+	<p>
+	If an initializer is present, the type can be omitted;
+	the variable will take the type of the initializer.
+<div>
+package main
+
+import "fmt"
+
+var x, y, z int = 1, 2, 3
+var c, python, java = true, false, "no way!"
+
+func main() {
+	fmt.Println(x, y, z, c, python, java)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Variables</h2>
+	<p>
+	Inside a function, the <code>:=</code> short assignment statement
+	can be used in place of the short <code>var</code> declaration.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	var x, y, z int = 1, 2, 3
+	c, python, java := true, false, "certainly not"
+
+	fmt.Println(x, y, z, c, python, java)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Constants</h2>
+	<p>
+	Constants are declared like variables, but with the <code>const</code> keyword.
+<div>
+package main
+
+import "fmt"
+
+const Beta = 'β'
+
+const (
+	Pi = 3.14
+	World = "世界"
+)
+
+func main() {
+	fmt.Println("Hello", World)
+	fmt.Println("Happy", Pi, "Day")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Constants</h2>
+	<p>
+	Constants are high-precision <i>values</i>: numbers and strings.
+	<p>
+	An untyped constant takes the type needed by its context.
+	<p>
+	Try printing <code>needInt(Big)</code> too.
+
+<div>
+package main
+
+import "fmt"
+
+const (
+	Big = 1<<100
+	Small = Big>>99
+)
+
+func needInt(x int) int { return x*10 + 1 }
+func needFloat(x float64) float64 { return x*0.1 }
+
+func main() {
+	fmt.Println(needInt(Small),
+		needFloat(Small), needFloat(Big))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>For</h2>
+	<p>
+	Go has a single looping construct, the <code>for</code> loop.
+	<p>
+	The basic <code>for</code> loop looks like it does in C or Java,
+	except that the <code>( )</code> are gone and the <code>{ }</code> are required.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	sum := 0
+	for i := 0; i < 10; i++ {
+		sum += i
+	}
+	fmt.Println(sum)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>For</h2>
+	<p>
+	Like in C or Java, you can leave the pre and post statements empty.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	sum := 1
+	for ; sum < 1000; {
+		sum += sum
+	}
+	fmt.Println(sum)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>For</h2>
+	<p>
+	At that point you can drop the semicolons:
+	C's <code>while</code> is spelled <code>for</code> in Go.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	sum := 1
+	for sum < 1000 {
+		sum += sum
+	}
+	fmt.Println(sum)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>For</h2>
+	<p>
+	If you omit the loop condition, it loops forever.
+<div>
+package main
+
+func main() {
+	for ; ; {
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>For</h2>
+	<p>
+	Like before, you can drop the semicolons.
+<div>
+package main
+
+func main() {
+	for {
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>If</h2>
+	<p>
+	The <code>if</code> statement looks like it does in C or Java,
+	except that the <code>( )</code> are gone and the <code>{ }</code> are required.
+	(Sound familiar?)
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func sqrt(x float64) string {
+	if x < 0 {
+		return sqrt(-x) + "i"
+	}
+	return fmt.Sprint(math.Sqrt(x))
+}
+
+func main() {
+	fmt.Println(sqrt(2), sqrt(-4))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>If</h2>
+	<p>
+	Like <code>for</code>, the <code>if</code> statement can start with a short
+	statement to execute before the condition.
+	<p>
+	Variables declared by the statement are only in scope until the end of the <code>if</code>.
+	(Try adding <code>neg</code> to the <code>fmt.Sprint</code> call.)
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func sqrt(x float64) string {
+	if neg := math.Signbit(x); neg {
+		return sqrt(-x) + "i"
+	}
+	return fmt.Sprint(math.Sqrt(x))
+}
+
+func main() {
+	fmt.Println(sqrt(2), sqrt(-4))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Basic types</h2>
+	<p>
+	Go's basic types are
+	<pre>
+	bool
+	string
+	int       int8      int16     int32     int64
+	uint      uint8     uint16    uint32    uint64
+	float32   float64
+	complex64 complex128
+	</pre>
+<div>
+package main
+
+import (
+	"cmath"
+	"fmt"
+)
+
+var (
+	ToBe bool = false
+	MaxInt uint64 = 1<<64 - 1
+	z complex128 = cmath.Sqrt(-5+12i)
+)
+
+func main() {
+	fmt.Printf("%T(%v) %T(%v) %T(%v)\n",
+		ToBe, ToBe,
+		MaxInt, MaxInt,
+		z, z,
+	)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Structs</h2>
+	<p>
+	A <code>struct</code> is a collection of fields.
+	<p>
+	(And a <code>type</code> declaration does what you'd expect.)
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	X int
+	Y int
+}
+
+func main() {
+	fmt.Println(Point{1, 2})
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Pointers</h2>
+	<p>
+	Go has pointers, but no pointer arithmetic.
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	X int
+	Y int
+}
+
+func main() {
+	p := Point{1, 2}
+	q := &p
+	q.X = 1e9
+	fmt.Println(p)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Struct Literals</h2>
+	<p>
+	A struct literal denotes a struct value by listing the values
+	of its fields.
+	<p>
+	You can list just a few fields by using the <code>Name:</code> syntax.
+	<p>
+	The special prefix <code>&</code> constructs a pointer to a struct literal.
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	X, Y int
+}
+
+var (
+	p = Point{1, 2}   // has type Point
+	q = &Point{1, 2}  // has type *Point
+	r = Point{X: 1}   // Y:0 is implicit
+	s = Point{}       // X:0 and Y:0 are implicit
+)
+
+func main() {
+	fmt.Println(p, q, r, s)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Maps</h2>
+	<p>
+	A map maps keys to values.
+	<p>
+	<!-- TODO: empty part not true in compilers yet -->
+	Maps must be created with <code>make</code> before use; the <code>nil</code> map is empty
+	and cannot be assigned to.
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	Lat, Long float64
+}
+
+var m map[string]Point
+
+func main() {
+	m = make(map[string]Point)
+	m["Bell Labs"] = Point{40.68433, 74.39967}
+	fmt.Println(m["Bell Labs"])
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Maps</h2>
+	<p>
+	Map literals are like struct literals, but the keys are required.
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	Lat, Long float64
+}
+
+var m = map[string]Point{
+	"Bell Labs": Point{40.68433, -74.39967},
+	"Google":    Point{37.42202, -122.08408},
+}
+
+func main() {
+	fmt.Println(m)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Slices</h2>
+	<p>
+	A slice points at an array of values and also includes a length.
+<div>
+package main
+
+import "fmt"
+
+type Point struct {
+	Lat, Long float64
+}
+
+var places = []Point{
+	Point{40.68433, -74.39967},
+	Point{37.42202, -122.08408},
+}
+
+var empty []Point
+
+var five = make([]Point, 5)
+
+func main() {
+	fmt.Println("Empty: ", len(empty), empty)
+	fmt.Println("Five:  ", len(five), five)
+	fmt.Println("Places:", len(places), places)
+
+	primes := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("Primes:", primes)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	Functions are values too.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+
+	fmt.Println(hypot(3, 4))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Functions</h2>
+	<p>
+	And functions are full closures.
+<div>
+package main
+
+import "fmt"
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func main() {
+	pos, neg := adder(), adder()
+
+	for i := 0; i < 10; i++ {
+		fmt.Println(i, pos(i), neg(-2*i))
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Range</h2>
+	<p>
+	The <code>range</code> form of the <code>for</code>
+	loop iterates over a slice or map.
+<div>
+package main
+
+import "fmt"
+
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+func main() {
+	for key, value := range pow {
+		fmt.Printf("2^%d = %d\n", key, value)
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Range</h2>
+	<p>
+	You can skip the key or value by assigning to <code>_</code>.
+	<p>
+	You can also drop the &ldquo;<code>, value</code>&rdquo; entirely.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	pow := make([]int, 10)
+	for i := range pow {
+		pow[i] = 1&lt;&lt;uint(i)
+	}
+	for _, value := range pow {
+		fmt.Printf("%d\n", value)
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Switch</h2>
+	<p>
+	You probably knew what <code>switch</code> was going to look like.
+	<p>
+	A case body breaks automatically, unless it ends with a <code>fallthrough</code> statement.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Printf("Go runs on OS X.\n")
+	case "freebsd":
+		fmt.Printf("Go runs on FreeBSD.\n")
+	case "linux":
+		fmt.Printf("Go runs on Linux.\n")
+	case "plan9":
+		fmt.Printf("Go runs on Plan 9.\n")
+	case "windows":
+		fmt.Printf("Go runs on Windows.\n")
+	default:
+		fmt.Printf("I forgot %s.\n", os)
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Switch</h2>
+	<p>
+	Switch cases don't have to be constants; the first match wins.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	today := time.LocalTime().Weekday
+	switch 6 {
+	case today+0:
+		fmt.Println("It's Saturday.")
+	case today+1:
+		fmt.Println("Tomorrow's Saturday.")
+	case today+2:
+		fmt.Println("Two days to Saturday.")
+	default:
+		fmt.Println("Saturday is too far away.")
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Switch</h2>
+	<p>
+	Switch without a condition is the same as <code>switch true</code>.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	t := time.LocalTime()
+	switch {
+	case t.Hour < 12:
+		fmt.Println("Good morning!")
+	case t.Hour < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Loops and Functions</h2>
+	<p>
+	As a simple way to play with functions and loops, implement
+	the square root function using Newton's method.
+	<p>
+	In this case, Newton's method is to approximate <code>Sqrt(x)</code>
+	by picking a starting point <i>z</i> and then repeating:
+	<center>
+	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^2-x}{2x}">
+	</center>
+	<p>
+	To begin with, just repeat that calculation 10 times and see how close you
+	get to the answer for various values (1, 2, 3, ...).
+	<p>
+	Next, change the loop condition to stop once the value has stopped changing.
+	See if that's more or fewer iterations.
+	How close are you to the <a target="_blank" href="http://golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
+	<p>
+	Hint: to declare and initialize a floating point value, give it
+	floating point syntax or use a conversion:
+	<pre>
+	z := float64(0)
+	z := 0.0
+	</pre>
+
+<div>
+package main
+
+import (
+	"fmt"
+)
+
+func Sqrt(x float64) float64 {
+}
+
+func main() {
+	fmt.Println(Sqrt(2))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Maps</h2>
+	<p>
+	Implement <code>WordCount</code>.  It should return a map of the
+	counts of each &ldquo;word&rdquo; in the string <code>s</code>.
+	With the binary running, visit <a target="_blank" href="http://localhost:4000/">this page</a>
+	to count words interactively.
+	<p>
+	You might find <a target="_blank" href="http://golang.org/pkg/strings/#Fields">strings.Fields</a> helpful.
+
+<div>
+package main
+
+import (
+	"go-tour.googlecode.com/hg/wc"
+)
+
+func WordCount(s string) map[string]int {
+	return map[string]int{"x": 1}
+}
+
+func main() {
+	wc.Serve(WordCount)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Slices</h2>
+	<p>
+	Implement <code>Pic</code>.  It should return a slice of length <code>dy</code>,
+	each element of which is a slice of <code>dx</code> 8-bit unsigned integers.
+	When you run the program, it will display your picture, interpreting the
+	integers as grayscale (well, bluescale) values.
+	<p>
+	The choice of image is up to you.
+	Interesting functions include <code>x^y</code>, <code>(x+y)/2</code>, and <code>x*y</code>.
+
+<div>
+package main
+
+import "go-tour.googlecode.com/hg/pic"
+
+func Pic(dx, dy int) [][]uint8 {
+}
+
+func main() {
+	pic.Show(Pic)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Advanced Exercise: Complex cube roots</h2>
+	<p>
+	Let's explore Go's built-in support for complex numbers via the
+	<code>complex64</code> and <code>complex128</code> types.
+	For cube roots, Newton's method amounts to repeating:
+	<center>
+	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^3-x}{3x^2}">
+	</center>
+	<p>
+	Find the cube root of 2, just to make sure the algorithm works.
+	There is a <a target="_blank" href="http://golang.org/pkg/cmath/#Pow">cmath.Pow</a> function.
+
+<div>
+package main
+
+import "fmt"
+
+func Cbrt(x complex128) complex128 {
+}
+
+func main() {
+	fmt.Println(Cbrt(2))
+}
+</div>
+</div>
+
+
+<div class="slide">
+	<h2>Advanced Exercise: High Precison</h2>
+	<p>
+	<a target="_blank" href="http://golang.org/pkg/big/">Package big</a>
+	implements arbitrary precision integer arithmetic.
+	Convert your square root program to work in fixed point arithmetic
+	for some number of decimal places <code>P</code> and then compute
+	50 digits of the square of 2.  Double check them against the
+	constant listed in the <a target="_blank" href="http://golang.org/pkg/math/">package math documentation</a>.
+
+<div>
+package main
+
+func main() {
+}
+</div>
+</div>
+
+<div class="toc">Methods and Interfaces</div>
+
+<div class="slide nocode">
+<h2>Methods and Interfaces</h2>
+</div>
+
+<div class="slide">
+	<h2>Methods</h2>
+	<p>
+	Methods can be associated with any named type,
+	but only the package that defines a type can
+	define methods on it.
+
+	<p>
+	The <i>method receiver</i> appears in its own argument list
+	between the <code>func</code> keyword and the method name.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Point struct {
+	X, Y float64
+}
+
+func (p *Point) Abs() float64 {
+	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+}
+
+func main() {
+	p := &Point{3, 4}
+	fmt.Println(p.Abs())
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Methods</h2>
+	<p>
+	Methods can be associated with <i>any</i> named type.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+func main() {
+	f := MyFloat(-math.Sqrt2)
+	fmt.Println(f.Abs())
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Interfaces</h2>
+	<p>
+	An interface type is defined by a set of methods.
+	<p>
+	A value of interface type can hold any value that
+	implements those methods.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Abser interface {
+	Abs() float64
+}
+
+func main() {
+	var (
+		a Abser
+		f = MyFloat(-math.Sqrt2)
+		p = Point{3, 4}
+	)
+
+	a = f     // f, a MyFloat, implements Abser
+	a = &p    // &p, a *Point, implements Abser
+	a = p     // p, a Point, does NOT implement Abser
+
+	fmt.Println(a.Abs())
+}
+
+
+
+
+
+
+
+
+
+
+
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+type Point struct {
+	X, Y float64
+}
+
+func (p *Point) Abs() float64 {
+	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Interfaces</h2>
+	<p>
+	A type implements an interface by implementing the methods.
+	<p>
+	<i>There is no explicit declaration of intent.</i>
+	<p>
+	This decouples implementation packages from the packages that define the interfaces:
+	neither depends on the other.
+	<p>
+	It also encourages the definition of precise interfaces,
+	because you don't have to find every implementation and tag it with the new interface name.
+	<p>
+	<a href="http://golang.org/pkg/io/">Package io</a> defines <code>Reader</code> and <code>Writer</code>; you don't have to.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+type Reader interface {
+	Read(b []byte) (n int, err os.Error)
+}
+
+type Writer interface {
+	Write(b []byte) (n int, err os.Error)
+}
+
+type ReadWriter interface {
+	Reader
+	Writer
+}
+
+func main() {
+	var w Writer
+	w = os.Stdout  // os.Stdout implements our interface
+	fmt.Fprintf(w, "hello, writer\n")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Errors</h2>
+	<p>
+	An error is anything that can describe itself:
+	<pre>
+	package os
+
+	type Error interface {
+		String() string
+	}
+	</pre>
+
+<div>
+package main
+
+import (
+	"fmt"
+	"time"
+	"os"
+)
+
+type MyError struct {
+	When *time.Time
+	What string
+}
+
+func (e *MyError) String() string {
+	return "at " + e.When.String() + ", " + e.What
+}
+
+func run() os.Error {
+	return &MyError{time.LocalTime(), "it didn't work"}
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Println(err)
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Web servers</h2>
+	<p>
+	<a href="http://golang.org/pkg/http/">Package http</a> serves HTTP requests using any value
+	that implements <code>http.Handler</code>:
+	<pre>
+	package http
+
+	type Handler interface {
+		ServeHTTP(w ResponseWriter, req *Request)
+	}
+	</pre>
+	<p>
+	In this example, the type <code>MyHandler</code> implements <code>http.Handler</code>.
+	<p>
+	Visit <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a> to see the greeting.
+<div>
+package main
+
+import (
+	"fmt"
+	"http"
+	"log"
+)
+
+type MyHandler struct{}
+
+func (h MyHandler) ServeHTTP(w http.ResponseWriter,
+                             r *http.Request) {
+	fmt.Fprint(w, "Hello!")
+}
+
+func main() {
+	var h MyHandler
+	err := http.ListenAndServe("localhost:4000", h)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Images</h2>
+	<p>
+	<a href="http://golang.org/pkg/image/#Image">Package image</a> defines the <code>Image</code>
+	interface:
+	<pre>
+package image
+
+type Image interface {
+	<span>// ColorModel returns the Image's ColorModel.</span>
+	ColorModel() ColorModel
+
+	<span>// Bounds returns the domain for which At can return non-zero color.</span>
+	<span>// The bounds do not necessarily contain the point (0, 0).</span>
+	Bounds() Rectangle
+
+	<span>// At returns the color of the pixel at (x, y).</span>
+	<span>// At(Bounds().Min.X, Bounds().Min.Y) returns the upper-left pixel of the grid.</span>
+	<span>// At(Bounds().Max.X-1, Bounds().Max.Y-1) returns the lower-right one.</span>
+	At(x, y int) Color
+}</pre>
+	<p>
+	<code>Color</code> and <code>ColorModel</code> are interfaces too,
+	but we'll ignore that by using the predefined implementations
+	<code>image.RGBAColor</code> and <code>image.RGBAColorModel</code>.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"image"
+)
+
+func main() {
+	m := image.NewRGBA(100, 100)
+	fmt.Println(m.Bounds())
+	fmt.Println(m.At(0, 0).RGBA())
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Hello, world 2.0</h2>
+	<p>
+	Implement an <code>http.Handler</code> that responds to every request by saying
+<pre>	Hello, <i>name</i></pre>
+	<p>
+	where <i>name</i> is the value of the request parameter <code>name</code>.
+	<p>
+	For example, <a target="_blank"
+	href="http://localhost:4000/?name=Joe">http://localhost:4000/?name=Joe</a>
+	should display
+<pre>	Hello, Joe</pre>
+	<p>
+	Hint: use the <code><a href="http://golang.org/pkg/http/#Request.FormValue"
+	target="_blank">FormValue</a></code> method of
+	<code>*http.Request</code> to access the request parameters.
+<div>
+package main
+
+import (
+	"http"
+)
+
+func main() {
+	var h http.Handler = // your value here
+	http.ListenAndServe("localhost:4000", h)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: HTTP Handlers</h2>
+	<p>
+	Implement the following types and define ServeHTTP methods on them.
+	Register them to handle specific paths in your web server.
+<pre>type String string
+	
+type Struct struct {
+	Greeting string
+	Punct    string
+	Who      string
+}</pre>
+	<p>
+	For example, you should be able to register handlers using:
+<pre>http.Handle("/string", String("I'm a frayed knot."))
+http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})</pre>
+<div>
+package main
+
+import (
+	"http"
+)
+
+func main() {
+	// your http.Handle calls here
+	http.ListenAndServe("localhost:4000", nil)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Images</h2>
+	<p>
+	Remember the picture generator you wrote earlier?
+	Let's write another one, but this time it will return
+	an implementation of <code>image.Image</code> instead of a slice of data.
+	<p>
+	Define your own <code>Image</code> type, implement
+	<a href="http://golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
+	and call <code>pic.ShowImage</code>.
+	<p>
+	<code>Bounds</code> should return a <code>image.Rectangle</code>, like
+	<code>image.Rect(0, 0, w, h)</code>.
+	<p>
+	<code>ColorModel</code> should return <code>image.RGBAColorModel</code>.
+	<p>
+	<code>At</code> should return a color;
+	the value <code>v</code> in the last picture generator corresponds to
+	<code>image.RGBAColor{v, v, 255, 255}</code> in this one.
+
+<div>
+package main
+
+import (
+	"image"
+	"go-tour.googlcode.com/hg/pic"
+)
+
+func main() {
+	m := ... my image
+	pic.ShowImage(m)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Images</h2>
+	<p>
+	Let's eliminate some more scaffolding. 
+<div>
+</div>
+</div>
+
+
+<div class="toc">Concurrency</div>
+
+<div class="slide nocode">
+<h2>Concurrency</h2>
+</div>
+
+<div class="slide">
+	<h2>Goroutines</h2>
+
+        <p><code>go f(x, y, z)</code> starts a new goroutine running <code>f(x,
+        y, z)</code>.  The evaluation
+        of <code>f</code>, <code>x</code>, <code>y</code>, and <code>z</code>
+        happens in the current goroutine.  After they are evaluated, a new goroutine
+        is created and it calls <code>f</code> with those arguments.
+
+        <p>Goroutines share memory, so access to shared memory must be
+        synchronized.  The <code>sync</code> package provides useful primitives.
+<div>
+package main
+
+import (
+       "fmt"
+       "time"
+)
+
+func say(s string) {
+       for i := 0; i < 5; i++ {
+               time.Sleep(100e6)
+               fmt.Println(s)
+       }
+}
+
+func main() {
+       go say("world")
+       say("hello")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Channels</h2>
+
+<p>
+Channels are typed message buffers with send and receive.
+
+<p>Like maps and slices, channels must be created before use:
+<pre>
+ch := make(chan int, 100)
+</pre>
+
+<p>This channel has room for 100 ints in its buffer.  Sends block when the
+buffer is full.  Receives block when there's nothing available.  This allows
+goroutines to synchronize without explicit locks or condition variables.
+
+<p>If the second arg to <code>make</code> is omitted or zero, the channel is
+  unbuffered.  Sends to an unbuffered channel block until another goroutine
+  receives from that channel, and receives block until a value is sent.
+
+<p>The built-in function <code>cap(ch)</code> returns the size
+of <code>ch</code>'s buffer; <code>len(ch)</code> returns the number of elements
+in the buffer ready to be received.
+
+<div>
+package main
+
+import (
+	"fmt"
+)
+
+func sum(a []int, c chan int) {
+	res := 0
+	for _, v := range a {
+		res += v
+	}
+	c <- res
+}
+
+func main() {
+	a := []int{7, 2, 8, -9, 4, 0}
+
+        c := make(chan int)
+	go sum(a[:len(a)/2], c)
+	go sum(a[len(a)/2:], c)
+        x, y := <-c, <-c
+
+	fmt.Println(x, y, x + y)
+}
+</div>
+</div>
+
+
+<div class="slide">
+	<h2>Range and Close</h2>
+
+<p>A sender can <code>close</code> a channel to indicate that no more values
+will be sent.  Receivers can test whether a channel has been closed by assigning
+  a second parameter to the receive expression: in <code>v, ok :=
+    &lt;-ch</code>, <code>ok</code> is <code>false</code> if <code>ch</code> is closed.
+
+<p>The loop <code>for i := range c</code> receives values from the channel
+repeatedly until it is closed.
+
+<p>Note: Only the sender should close a channel, never the receiver.
+<div>
+package main
+
+import (
+	"fmt"
+)
+
+func fibonacci(n int, c chan int) {
+        x, y := 1, 1
+        for i := 0; i < n; i++ {
+                c <- x
+                x, y = y, x + y
+        }
+        close(c)
+}
+
+func main() {
+        c := make(chan int, 10)
+	go fibonacci(cap(c), c)
+        for i := range c {
+                fmt.Println(i)
+        }
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Select</h2>
+
+<p>The <code>select</code> statement lets a goroutine wait on multiple send or
+receive operations.
+
+<p>A <code>select</code> blocks until one of its cases can run, then it executes
+  that case.  It chooses one at random if multiple are ready.
+
+<div>
+package main
+
+import (
+	"fmt"
+)
+
+func fibonacci(c, quit chan int) {
+        x, y := 1, 1
+        for {
+                select {
+                case c <- x:
+                          x, y = y, x + y
+                case <-quit:
+                        return
+                }
+        }
+}
+
+func main() {
+        c, quit := make(chan int), make(chan int)
+	go fibonacci(c, quit)
+        for i := 0; i < 10; i++ {
+                fmt.Println(<-c)
+        }
+        quit <- 0
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Default Selection</h2>
+
+<p>A <code>default</code> case in a <code>select</code> can always run.
+
+<p>Use a <code>default</code> case to try a send or receive without blocking:
+<pre>
+select {
+case i := <-c:
+	// use i
+default:
+	// receiving from c would block
+}
+</pre>
+
+<div>
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+        tick := time.Tick(1e8)
+        boom := time.After(5e8)
+        for {
+                select {
+                case <-tick:
+                        fmt.Println("tick.")
+                case <-boom:
+                        fmt.Println("BOOM!")
+                        return
+                default:
+                        fmt.Println("    .")
+                        time.Sleep(5e7)
+                }
+        }
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Exercise: Web Crawler</h2>
+	<p>
+
+<p>Change <code>Crawl</code> to run each call to <code>fetcher.Fetch</code> in
+its own goroutine and avoid fetching the same URL twice.
+<div>
+package main
+
+import (
+        "os"
+        "fmt"
+)
+
+type Fetcher interface {
+        // Fetch returns the contents of url and a slice
+        // of URLs on that page that may be crawled.
+        // It returns an error if url was not found or the fetch failed.
+        Fetch(url string) (contents string, urls []string, err os.Error)
+}
+
+// Crawl fetches pages recursively starting from url to depth using fetcher.
+func Crawl(url string, depth int, fetcher Fetcher) {
+        // TODO(you): Run each call to fetcher.Fetch in its own goroutine.
+        // TODO(you): Don't fetch the same URL twice.
+        // This implementation doesn't do either:
+        if depth <= 0 {
+                return
+        }
+        contents, urls, err := fetcher.Fetch(url)
+        if err != nil {
+                fmt.Println(err)
+                return
+        }
+        fmt.Println(contents)
+        for _, u := range urls {
+                Crawl(u, depth-1, fetcher)
+        }
+        return
+}
+
+// Fake web of URLs for testing.
+type fakeResult struct {
+	contents string
+	urls []string
+}
+
+type fakeFetcher map[string]*fakeResult
+
+func (f *fakeFetcher) Fetch(url string) (contents string, urls []string, err os.Error) {
+        if res, ok := (*f)[url]; ok {
+                return res.contents, res.urls, nil
+        }
+        return "", nil, fmt.Errorf("not found: %s", url)
+}
+
+func main() {
+        fetcher := &fakeFetcher{
+                "http://golang.org": &fakeResult{
+                        "The Go Programming Language",
+                        []string{
+                                "http://golang.org/pkg",
+                                "http://golang.org/cmd",
+                        },
+                },
+                "http://golang.org/pkg": &fakeResult{
+                        "Packages",
+                        []string{
+                                "http://golang.org",
+                                "http://golang.org/cmd",
+                                "http://golang.org/pkg/fmt",
+                                "http://golang.org/pkg/os",
+                        },
+                },
+                "http://golang.org/pkg/fmt": &fakeResult{
+                        "Package fmt",
+                        []string{},
+                },
+                "http://golang.org/pkg/os": &fakeResult{
+                        "Package os",
+                        []string{},
+                },
+        }
+	Crawl("http://golang.org", 3, fetcher)
+}
+</div>
+</div>
+
+<div class="slide nocode">
+<h2>More here...</h2>
+</div>
+
+</div>
