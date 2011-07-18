@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 
 	// Imports so that goinstall automatically installs them.
@@ -65,12 +66,31 @@ func main() {
 	root := filepath.Join(t.SrcDir(), basePkg, "static")
 	log.Println("Serving content from", root)
 	http.Handle("/", http.FileServer(http.Dir(root)))
+	//r58: http.Handle("/", http.FileServer(root, "/"))
 
+	// set include path for ld and gc
 	pkgDir = t.PkgDir()
 
+	if !strings.HasPrefix(*httpListen, "127.0.0.1") &&
+		!strings.HasPrefix(*httpListen, "localhost") {
+		log.Print(localhostWarning)
+	}
+		
 	log.Printf("Serving at http://%s/", *httpListen) 
 	log.Fatal(http.ListenAndServe(*httpListen, nil))
 }
+
+const localhostWarning = `
+WARNING!  WARNING!  WARNING!
+
+I appear to be listening on an address that is not localhost.
+Anyone with access to this address and port will have access
+to this machine as the user running gotour.
+
+If you don't understand this message, hit Control-C to terminate this process.
+
+WARNING!  WARNING!  WARNING!
+`
 
 var running struct {
 	sync.Mutex

@@ -277,7 +277,19 @@ function compileUpdate(req, seq) {
 	compileSeq++;
 }
 
+function initViewToggle() {
+	$("#num").click(function() {
+		var $s = $("#slides")
+		if ($s.hasClass("codeleft")) {
+			$s.removeClass("codeleft").addClass("codetop");
+		} else {
+			$s.removeClass("codetop").addClass("codeleft");
+		}
+	});
+}
+
 function init() {
 	slides = initSlides();
 	show(urlSlideNumber(location.href));
+	initViewToggle();
 }
