@@ -22,6 +22,7 @@ import (
 
 	// Imports so that goinstall automatically installs them.
 	_ "go-tour.googlecode.com/hg/pic"
+	_ "go-tour.googlecode.com/hg/tree"
 	_ "go-tour.googlecode.com/hg/wc"
 )
 
@@ -65,8 +66,8 @@ func main() {
 	}
 	root := filepath.Join(t.SrcDir(), basePkg, "static")
 	log.Println("Serving content from", root)
-	http.Handle("/", http.FileServer(http.Dir(root)))
-	//r58: http.Handle("/", http.FileServer(root, "/"))
+	//tip: http.Handle("/", http.FileServer(http.Dir(root)))
+	http.Handle("/", http.FileServer(root, "/"))
 
 	// set include path for ld and gc
 	pkgDir = t.PkgDir()
