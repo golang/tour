@@ -60,11 +60,12 @@ div.code {
 	height: 50%;
 }
 .codetop div.code textarea {
-	height: 93%;
+	height: 90%;
 }
 .codetop .slide h2,
 .codetop .slide hr,
-.codetop .slide .nav,
+.codetop .slide > pre,
+.codetop .slide > .nav,
 .codetop .slide p {
 	display: none;
 }
