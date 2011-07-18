@@ -1397,15 +1397,6 @@ func main() {
 </div>
 </div>
 
-<div class="slide">
-	<h2>Exercise: Images</h2>
-	<p>
-	Let's eliminate some more scaffolding. 
-<div>
-</div>
-</div>
-
-
 <div class="toc">Concurrency</div>
 
 <div class="slide nocode">
@@ -1415,14 +1406,18 @@ func main() {
 <div class="slide">
 	<h2>Goroutines</h2>
 
-        <p><code>go f(x, y, z)</code> starts a new goroutine running <code>f(x,
-        y, z)</code>.  The evaluation
+        <p>
+	<code>go f(x, y, z)</code> starts a new goroutine running <code>f(x,
+        y, z)</code>.
+	<p>
+	The evaluation
         of <code>f</code>, <code>x</code>, <code>y</code>, and <code>z</code>
-        happens in the current goroutine.  After they are evaluated, a new goroutine
-        is created and it calls <code>f</code> with those arguments.
+        happens in the current goroutine and the execution of <code>f</code>
+	happens in the new goroutine.
 
-        <p>Goroutines share memory, so access to shared memory must be
-        synchronized.  The <code>sync</code> package provides useful primitives.
+	<p>Goroutines share memory, so access to shared memory must be
+	synchronized.  The <code><a href="http://golang.org/pkg/sync/"
+	target="_blank">sync</a></code> package provides useful primitives.
 <div>
 package main
 
@@ -1448,39 +1443,36 @@ func main() {
 <div class="slide">
 	<h2>Channels</h2>
 
-<p>
-Channels are typed message buffers with send and receive.
-
-<p>Like maps and slices, channels must be created before use:
+	<p>
+	Channels are a typed conduit through which you can send and receive values with the channel operator, <code>&lt;-</code>.
 <pre>
-ch := make(chan int, 100)
+ch <- v    // send v to channel ch
+v := <-ch  // receive from ch, assign value to v
+</pre>
+	<p>
+	(The data flows in the direction of the "arrow".)
+
+	<p>
+	Like maps and slices, channels must be created before use:
+<pre>
+ch := make(chan int)
 </pre>
 
-<p>This channel has room for 100 ints in its buffer.  Sends block when the
-buffer is full.  Receives block when there's nothing available.  This allows
-goroutines to synchronize without explicit locks or condition variables.
-
-<p>If the second arg to <code>make</code> is omitted or zero, the channel is
-  unbuffered.  Sends to an unbuffered channel block until another goroutine
-  receives from that channel, and receives block until a value is sent.
-
-<p>The built-in function <code>cap(ch)</code> returns the size
-of <code>ch</code>'s buffer; <code>len(ch)</code> returns the number of elements
-in the buffer ready to be received.
-
+	<p>
+	Sends and receives block until the other side is ready. This allows
+	goroutines to synchronize without explicit locks or condition
+	variables.
 <div>
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func sum(a []int, c chan int) {
-	res := 0
+	sum := 0
 	for _, v := range a {
-		res += v
+		sum += v
 	}
-	c <- res
+	c <- sum  // send sum to c
 }
 
 func main() {
@@ -1489,13 +1481,45 @@ func main() {
         c := make(chan int)
 	go sum(a[:len(a)/2], c)
 	go sum(a[len(a)/2:], c)
-        x, y := <-c, <-c
+        x, y := <-c, <-c  // receive from c
 
 	fmt.Println(x, y, x + y)
 }
 </div>
 </div>
 
+
+<div class="slide">
+	<h2>Buffered Channels</h2>
+	
+	<p>
+	Channels can be <i>buffered</i>.  Provide the buffer length as the
+	second argument to <code>make</code> to initialize a buffered channel:
+<pre>
+ch := make(chan int, 100)
+</pre>
+
+	<p>
+	Sends to a buffered channel only block when the buffer is full.
+	Receives block when the buffer is empty.
+
+	<p>
+	Modify the example to overfill the buffer and see what happens.
+
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	c := make(chan int, 2)
+	c <- 1
+	c <- 2
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+}
+</div>
+</div>
 
 <div class="slide">
 	<h2>Range and Close</h2>
@@ -1617,95 +1641,98 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Exercise: Web Crawler</h2>
+	<h2>Exercise: Equivalent Binary Trees</h2>
 	<p>
+	There can be many different binary trees with the same sequence of
+	values stored at the leaves.
+	For example, here are two binary trees storing the sequence
+	1, 1, 2, 3, 5, 8, 13.
+	<img src="fig4.png">
+	<p>
+	A function to check whether two binary trees store the same sequence is
+	quite complex in most languages. We'll use Go's concurrency and
+	channels to write a simple solution.
+	<p>
+	This example uses the <code>tree</code> package, which defines the type:
+<pre>
+type Tree struct {
+	Left  *Tree
+	Value int
+	Right *Tree
+}
+</pre>
+</div>
 
-<p>Change <code>Crawl</code> to run each call to <code>fetcher.Fetch</code> in
-its own goroutine and avoid fetching the same URL twice.
+<div class="slide">
+	<h2>Exercise: Equivalent Binary Trees</h2>
+	<p>
+	<b>1.</b> Implement the <code>Walk</code> function.
+	<p>
+	<b>2.</b> Test the <code>Walk</code> function.
+	<p>
+	The function <code>tree.New(k)</code> constructs a randomly-structured
+	binary tree holding the values <code>k</code>, <code>2k</code>, <code>3k</code>, ...,
+	<code>10k</code>.
+	<p>
+	Create a new channel <code>ch</code> and kick off the walker:
+<pre>
+go Walk(tree.New(1), ch)
+</pre>
+	<p>
+	Then read and print 10 values from the channel.
+	It should be the numbers 1, 2, 3, ..., 10.
+	<p>
+	<b>3.</b> Implement the <code>Same</code> function using <code>Walk</code>
+	to determine whether <code>t1</code> and <code>t2</code> store the same values.
+	<p>
+	<b>4.</b> Test the <code>Same</code> function. 
+	<p>
+	<code>Same(tree.New(1), tree.New(2))</code> should return true, and
+	<code>Same(tree.New(1), tree.New(2))</code> should return false.
+
 <div>
 package main
 
-import (
-        "os"
-        "fmt"
-)
+import "go-tour.googlecode.com/hg/tree"
 
-type Fetcher interface {
-        // Fetch returns the contents of url and a slice
-        // of URLs on that page that may be crawled.
-        // It returns an error if url was not found or the fetch failed.
-        Fetch(url string) (contents string, urls []string, err os.Error)
-}
+// Walk walks the tree t sending all values
+// from the tree to the channel ch.
+func Walk(t *tree.Tree, ch chan int)
 
-// Crawl fetches pages recursively starting from url to depth using fetcher.
-func Crawl(url string, depth int, fetcher Fetcher) {
-        // TODO(you): Run each call to fetcher.Fetch in its own goroutine.
-        // TODO(you): Don't fetch the same URL twice.
-        // This implementation doesn't do either:
-        if depth <= 0 {
-                return
-        }
-        contents, urls, err := fetcher.Fetch(url)
-        if err != nil {
-                fmt.Println(err)
-                return
-        }
-        fmt.Println(contents)
-        for _, u := range urls {
-                Crawl(u, depth-1, fetcher)
-        }
-        return
-}
-
-// Fake web of URLs for testing.
-type fakeResult struct {
-	contents string
-	urls []string
-}
-
-type fakeFetcher map[string]*fakeResult
-
-func (f *fakeFetcher) Fetch(url string) (contents string, urls []string, err os.Error) {
-        if res, ok := (*f)[url]; ok {
-                return res.contents, res.urls, nil
-        }
-        return "", nil, fmt.Errorf("not found: %s", url)
-}
+// Same determines whether the trees
+// t1 and t2 contain the same values.
+func Same(t1, t2 *tree.Tree) bool
 
 func main() {
-        fetcher := &fakeFetcher{
-                "http://golang.org": &fakeResult{
-                        "The Go Programming Language",
-                        []string{
-                                "http://golang.org/pkg",
-                                "http://golang.org/cmd",
-                        },
-                },
-                "http://golang.org/pkg": &fakeResult{
-                        "Packages",
-                        []string{
-                                "http://golang.org",
-                                "http://golang.org/cmd",
-                                "http://golang.org/pkg/fmt",
-                                "http://golang.org/pkg/os",
-                        },
-                },
-                "http://golang.org/pkg/fmt": &fakeResult{
-                        "Package fmt",
-                        []string{},
-                },
-                "http://golang.org/pkg/os": &fakeResult{
-                        "Package os",
-                        []string{},
-                },
-        }
-	Crawl("http://golang.org", 3, fetcher)
 }
 </div>
 </div>
 
-<div class="slide nocode">
-<h2>More here...</h2>
+<div class="slide">
+	<h2>Where to Go from here...</h2>
+	<p>
+	The <a href="http://golang.org/doc/docs.html">Go Documentation</a> is
+	a great place to start. It contains references, tutorials, videos, and more.
+	<p>
+	If you need help with the standard library,
+	see the <a href="http://golang.org/pkg/">package reference</a>.
+	For help with the language itself, you might be surprised to find the
+	<a href="http://golang.org/doc/go_spec.html">Language Spec</a> is quite readable.
+	<p>
+	If you're interested in writing web applications,
+	see the <a href="http://golang.org/doc/codelab/wiki/">Wiki Codelab</a>.
+	<p>
+	If you want to further explore Go's concurrency model, see the
+	<a href="http://golang.org/doc/codewalk/sharemem/">Share Memory by Communicating</a>
+	codewalk.
+	<p>
+	The <a href="http://golang.org/doc/codewalk/functions/">First Class Functions in Go</a>
+	codewalk gives an interesting perspective on Go's function types.
+	<p>
+	The <a href="http://blog.golang.org/">Go Blog</a> has a large archive of
+	informative Go articles.
+	<p>
+	Visit <a href="http://golang.org">golang.org</a> for more.
 </div>
 
 </div>
