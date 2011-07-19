@@ -92,7 +92,6 @@ function hideToc() {
 }
 
 function show(i) {
-	console.log("show", i);
 	if(i < 0 || i >= slides.length)
 		return;
 	if(slide != null) {
