@@ -15,6 +15,15 @@ function findclass(el, name) {
 }
 
 function initSlides() {
+	var $toc = $("#toc").hide();
+	$("#tocbtn").click(function() {
+		if ($("#toc").is(":visible")) {
+			hideToc();
+		} else {
+			showToc();
+		}
+	});
+
 	var $slides = $("div.slide");
 	$slides.each(function(i, slide) {
 		var $s = $(slide).hide();
@@ -41,6 +50,12 @@ function initSlides() {
 				}).text("NEXT").addClass("next"));
 			}
 			$nav.insertBefore($h2);
+
+			var thisI = i;
+			var $entry = $("<li/>").text($h2.text()).click(
+				function() { hideToc(); show(thisI); });
+			$toc.append($entry);
+
 		}
 		if ($s.hasClass("nocode"))
 			$h2.addClass("nocode");
@@ -62,6 +77,18 @@ function initSlides() {
 		$s.append('<div class="programoutput"/>')
 	});
 	return $slides;
+}
+
+function showToc() {
+	$("#toc").show();
+	$("#slides").hide();
+	$("#tocbtn").text("SLIDES");
+}
+
+function hideToc() {
+	$("#toc").hide();
+	$("#slides").show();
+	$("#tocbtn").text("INDEX");
 }
 
 function show(i) {

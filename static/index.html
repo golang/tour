@@ -2,19 +2,35 @@
 TODO
 
 Finish slides.
-Table of contents or some other navigation.
-Fix infinite loop behavior.
+"Kill" button
+pgup/dn on nocode slides
+<title> update for each page
+discuss iota
+detect #nn changes
+gofmt button
+highlight error line
 -->
+<html>
 
+<head>
 <link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="tour.css" charset="utf-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script src="tour.js"></script>
+</head>
+
+<body>
 
 <h2 class="slidenum" id="num"></h2>
+<div id="topnav" class="nav">
+	<button id="tocbtn">INDEX</button>
+</div>
 <h1>A Tour of Go</h1>
+
+<ol id="toc"></ol>
+
 <div id="slides" class="slides codeleft">
 
 <div class="toc">Introduction</div>
@@ -488,12 +504,12 @@ func main() {
 	<p>
 	Go's basic types are
 	<pre>
-	bool
-	string
-	int       int8      int16     int32     int64
-	uint      uint8     uint16    uint32    uint64
-	float32   float64
-	complex64 complex128
+bool
+string
+int       int8      int16     int32     int64
+uint      uint8     uint16    uint32    uint64
+float32   float64
+complex64 complex128
 	</pre>
 <div>
 package main
@@ -1225,11 +1241,11 @@ func main() {
 	<a href="http://golang.org/pkg/http/">Package http</a> serves HTTP requests using any value
 	that implements <code>http.Handler</code>:
 	<pre>
-	package http
+package http
 
-	type Handler interface {
-		ServeHTTP(w ResponseWriter, req *Request)
-	}
+type Handler interface {
+	ServeHTTP(w ResponseWriter, req *Request)
+}
 	</pre>
 	<p>
 	In this example, the type <code>MyHandler</code> implements <code>http.Handler</code>.
@@ -1736,4 +1752,7 @@ func main() {
 	Visit <a href="http://golang.org">golang.org</a> for more.
 </div>
 
-</div>
+</div><!-- end slides -->
+
+</body>
+</html>

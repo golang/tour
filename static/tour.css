@@ -5,6 +5,22 @@ body {
 	margin-top: 0px;
 	font-size: 120%;
 }
+
+#topnav {
+	padding: 8px;
+}
+
+#toc {
+	padding-left: 4em;
+	font-size: 12pt;
+}
+#toc li {
+	cursor: pointer;
+}
+#toc li:hover {
+	background: #ddd;
+}
+
 .slides {
 	margin-left: 1em;
 	margin-right: 1em;
