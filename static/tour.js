@@ -275,24 +275,27 @@ function compile(el) {
 	req.open("POST", "/compile", true);
 	req.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
 	req.send(prog);
-	if (output) {
-		var seq = compileSeq;
-		if (errors)
-			errors.innerHTML = "";
-		output.innerHTML = "";
-		setTimeout(function() {
-			if (seq == compileSeq) {
-				$(output).html("<p>Running...</p>");
-				$("<button/>").text("KILL").click(function() {
-					$.ajax("/kill", {
-						success: function() {
-							$(output).empty();
-						}
-					});
-				}).appendTo(output);
-			}
-		}, 1000);
+	if (!output) {
+		return;
 	}
+	if (errors)
+		errors.innerHTML = "";
+	output.innerHTML = "";
+
+	var seq = compileSeq;
+	setTimeout(function() {
+		if (seq != compileSeq) {
+			return;
+		}
+		$(output).html("<p>Running...</p>");
+		$("<button/>").text("KILL").click(function() {
+			$.ajax("/kill", {
+				success: function() {
+					$(output).empty();
+				}
+			});
+		}).appendTo(output);
+	}, 1000);
 }
 
 function compileUpdate(req, seq) {
