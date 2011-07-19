@@ -282,7 +282,14 @@ function compile(el) {
 		output.innerHTML = "";
 		setTimeout(function() {
 			if (seq == compileSeq) {
-				output.innerHTML = "running...";
+				$(output).html("<p>Running...</p>");
+				$("<button/>").text("KILL").click(function() {
+					$.ajax("/kill", {
+						success: function() {
+							$(output).empty();
+						}
+					});
+				}).appendTo(output);
 			}
 		}, 1000);
 	}

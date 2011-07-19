@@ -76,6 +76,8 @@ func main() {
 		!strings.HasPrefix(*httpListen, "localhost") {
 		log.Print(localhostWarning)
 	}
+
+	http.HandleFunc("/kill", kill)
 		
 	log.Printf("Serving at http://%s/", *httpListen) 
 	log.Fatal(http.ListenAndServe(*httpListen, nil))
@@ -105,6 +107,10 @@ func stopRun() {
 		running.cmd = nil
 	}
 	running.Unlock()
+}
+
+func kill(w http.ResponseWriter, r *http.Request) {
+	stopRun()
 }
 
 func compile(req *http.Request) (out []byte, err os.Error) {
