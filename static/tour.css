@@ -69,7 +69,7 @@ div.code {
 	margin: 0px 1em 0px 0px;
 }
 .codeleft div.code textarea {
-	height: 95%;
+	height: 93%;
 }
 .codetop div.code {
 	margin: 1em 0px 1em 0px;
@@ -80,6 +80,7 @@ div.code {
 }
 .codetop .slide h2,
 .codetop .slide hr,
+.codetop .slide img,
 .codetop .slide > pre,
 .codetop .slide > .nav,
 .codetop .slide p {
@@ -151,4 +152,16 @@ h2.nocode {
 div.toc {
 	display: none;
 	visibility: hidden;
+}
+
+table.matrix td {
+	font-size: 120%;
+	text-align: center;
+	padding: 10px;
+}
+table.matrix td.good {
+	background: #bfb;
+}
+table.matrix td.bad {
+	background: #fbb;
 }

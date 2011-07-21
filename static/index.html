@@ -1,7 +1,7 @@
 <!--
 TODO
 
-Finish slides.
+better if short statement example
 <title> update for each page
 discuss iota
 detect #nn changes
@@ -11,6 +11,9 @@ highlight error line
 <html>
 
 <head>
+
+<title>A Tour of Go</title>
+
 <link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
@@ -31,6 +34,72 @@ highlight error line
 
 <div id="slides" class="slides codeleft">
 
+<div class="toc">Welcome</div>
+
+<div class="slide nocode">
+	<h2>Welcome</h2>
+	<p>
+	Welcome to <i>A Tour of Go</i>.
+	<p>
+	This tour is divided into three sections.
+	<p>
+	Each section consists of a short lecture and some programming exercises.
+	<p>
+	You must have a working Go installion to participate.
+</div>
+
+<div class="slide nocode">
+	<h2>Why Go?</h2>
+	<p>
+	Go was born out of frustration with existing languages.
+	<p>
+	<i>"Speed or ease of use; pick one."</i>
+	<p>
+	<table class="matrix">
+	<tr>
+	<td>"Systems" languages<br>
+		<i>(C, C++, Java)</i>
+	<td>"Scripting" languages<br>
+		<i>(Python, JavaScript, Perl)</i>
+	<tr>
+	<td class="good">
+		Efficient
+	<td class="bad">
+		Inefficient<br>
+		(unless you're very careful)
+	<tr>
+	<td class="good">
+		Compile-time type checking
+	<td class="bad">
+		No type checking
+	<tr>
+	<td class="bad">
+		Verbose, fussy
+	<td class="good">
+		Lightweight, productive
+	<tr>
+	<td class="bad">
+		Slow compilation
+	<td class="good">
+		No (or JIT) compilation
+	</table>
+</div>
+
+<div class="slide nocode">
+	<h2>What is Go?</h2>
+	<p>
+	Go is a general-purpose programming language.
+	<p>
+	Goals of Go
+	<ul>
+	<li>Feel lightweight on the page.</li>
+	<li>Feel flexible, adaptable.</li>
+	<li>Allow enough control to write efficient programs.</li>
+	<li>Compile fast.</li>
+	<li>Allow interesting, productive tools.</li>
+	</ul>
+</div>
+
 <div class="toc">Introduction</div>
 
 <div class="slide">
@@ -40,6 +109,7 @@ highlight error line
 	<p>
 	To run this program, click the Compile button (or type Shift-Enter).
 	<p>
+	These example programs demonstrate different aspects of Go.
 	The programs in the tour are meant to be starting points for your own experimentation.
 	Edit the program and run it again.
 <div>
@@ -56,12 +126,10 @@ func main() {
 <div class="slide">
 	<h2>Hey</h2>
 	<p>
-	Now that the formalities are over, we can look at what's going on.
+	What's going on here?
+	<p>
 	When you type Shift-Enter, your computer compiles and runs the
 	program and displays the result below.
-	<p>
-	Example programs demonstrate different aspects of Go.
-	Play with them to try new things and explore the language.
 	<p>
 	Whenever you're ready to move on, click the Next button or type the PageDown key.
 <div>
@@ -71,31 +139,6 @@ import "fmt"
 
 func main() {
 	fmt.Println("Hey")
-}
-</div>
-</div>
-
-<div class="slide">
-	<h2>Imports</h2>
-	<p>
-	This program shows a factored import statement.
-	You can also write multiple import statements, like:
-	<pre>
-	import "fmt"
-	import "math"
-	</pre>
-	but it's common to use the factored form to eliminate clutter.
-<div>
-package main
-
-import (
-	"fmt"
-	"math"
-)
-
-func main() {
-	fmt.Printf("Now you have %g problems.",
-		math.Nextafter(2, 3))
 }
 </div>
 </div>
@@ -122,6 +165,31 @@ import (
 
 func main() {
 	fmt.Println("Happy", math.Pi, "Day")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Imports</h2>
+	<p>
+	This program shows a factored import statement.
+	You can also write multiple import statements, like:
+	<pre>
+	import "fmt"
+	import "math"
+	</pre>
+	but it's common to use the factored form to eliminate clutter.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Printf("Now you have %g problems.",
+		math.Nextafter(2, 3))
 }
 </div>
 </div>
@@ -293,7 +361,7 @@ import "fmt"
 
 func main() {
 	var x, y, z int = 1, 2, 3
-	c, python, java := true, false, "certainly not"
+	c, python, java := true, false, "no way!"
 
 	fmt.Println(x, y, z, c, python, java)
 }
@@ -309,14 +377,10 @@ package main
 
 import "fmt"
 
-const Beta = 'β'
-
-const (
-	Pi = 3.14
-	World = "世界"
-)
+const Pi = 3.14
 
 func main() {
+	const World = "世界"
 	fmt.Println("Hello", World)
 	fmt.Println("Happy", Pi, "Day")
 }
@@ -346,8 +410,9 @@ func needInt(x int) int { return x*10 + 1 }
 func needFloat(x float64) float64 { return x*0.1 }
 
 func main() {
-	fmt.Println(needInt(Small),
-		needFloat(Small), needFloat(Big))
+	fmt.Println(needInt(Small))
+	fmt.Println(needFloat(Small))
+	fmt.Println(needFloat(Big))
 }
 </div>
 </div>
@@ -755,8 +820,8 @@ import "fmt"
 var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
 
 func main() {
-	for key, value := range pow {
-		fmt.Printf("2^%d = %d\n", key, value)
+	for k, v := range pow {
+		fmt.Printf("2^%d = %d\n", k, v)
 	}
 }
 </div>
@@ -873,6 +938,26 @@ func main() {
 	}
 }
 </div>
+</div>
+
+<div class="slide nocode">
+	<h2>Installing the tour</h2>
+	<p>
+	If you don't already have Go installed, follow the installation
+	instructions at
+	<p>
+	<pre>
+	http://golang.org/doc/install.html
+	</pre>
+	To install the interactive tour program, run
+	<p>
+	<pre>
+	goinstall go-tour.googlecode.com/hg/gotour
+	</pre>
+	This will install the tour to your <code>GOROOT</code>
+	(or <code>GOPATH</code>, if you have one set).
+	<p>
+	To start the tour, type "<code>gotour</code>" at the command line.
 </div>
 
 <div class="slide">
