@@ -1,7 +1,6 @@
 <!--
 TODO
 
-better if short statement example
 <title> update for each page
 discuss iota
 detect #nn changes
@@ -799,7 +798,6 @@ func adder() func(int) int {
 
 func main() {
 	pos, neg := adder(), adder()
-
 	for i := 0; i < 10; i++ {
 		fmt.Println(i, pos(i), neg(-2*i))
 	}
@@ -866,19 +864,20 @@ import (
 )
 
 func main() {
+	fmt.Print("Go runs on ")
 	switch os := runtime.GOOS; os {
 	case "darwin":
-		fmt.Printf("Go runs on OS X.\n")
+		fmt.Println("OS X.")
 	case "freebsd":
-		fmt.Printf("Go runs on FreeBSD.\n")
+		fmt.Println("FreeBSD.")
 	case "linux":
-		fmt.Printf("Go runs on Linux.\n")
+		fmt.Println("Linux.")
 	case "plan9":
-		fmt.Printf("Go runs on Plan 9.\n")
+		fmt.Println("Plan 9.")
 	case "windows":
-		fmt.Printf("Go runs on Windows.\n")
+		fmt.Println("Windows.")
 	default:
-		fmt.Printf("I forgot %s.\n", os)
+		fmt.Println("%s.", os)
 	}
 }
 </div>
@@ -898,16 +897,17 @@ import (
 )
 
 func main() {
+	fmt.Println("When's Saturday?")
 	today := time.LocalTime().Weekday
 	switch 6 {
 	case today+0:
-		fmt.Println("It's Saturday.")
+		fmt.Println("Today.")
 	case today+1:
-		fmt.Println("Tomorrow's Saturday.")
+		fmt.Println("Tomorrow.")
 	case today+2:
-		fmt.Println("Two days to Saturday.")
+		fmt.Println("Two days from now.")
 	default:
-		fmt.Println("Saturday is too far away.")
+		fmt.Println("Too far away.")
 	}
 }
 </div>
