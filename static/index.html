@@ -2,7 +2,6 @@
 TODO
 
 Expand examples as per existing slides
-Link to slices blog post
 Pointer examples
 Formatting screen width.
 better if short statement example
@@ -811,7 +810,7 @@ func main() {
 <div class="slide">
 	<h2>Slices</h2>
 	<p>
-	The <code>make</code> function allocates an zeroed array and returns
+	The <code>make</code> function allocates a zeroed array and returns
 	a slice that refers to that array:
 	<pre>
 a := make([]int, 5)  // len(b) == 5
@@ -858,6 +857,10 @@ func printSlice(n string, s []int) {
 	The zero value of a slice is <code>nil</code>.
 	<p>
 	A nil slice has a length and capacity of 0.
+	<p>
+	<i>For more detail see the 
+	"<a href="http://blog.golang.org/2011/01/go-slices-usage-and-internals.html">Go Slices: usage and internals</a>"
+	article.</i>
 <div>
 package main
 
