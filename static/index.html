@@ -2,7 +2,7 @@
 TODO
 
 Expand examples as per existing slides
-Slice examples
+Link to slices blog post
 Pointer examples
 Formatting screen width.
 better if short statement example
@@ -22,7 +22,7 @@ highlight error line
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="tour.css" charset="utf-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="jquery.js"></script>
 <script src="tour.js"></script>
 </head>
 
@@ -32,6 +32,27 @@ highlight error line
 <div id="topnav" class="nav">
 	<button id="tocbtn">INDEX</button>
 </div>
+
+<div class="slide nocode">
+	<h2>Installing the tour</h2>
+	<p>
+	If you don't already have Go installed, follow the installation
+	instructions at
+	<p>
+	<pre>
+	http://golang.org/doc/install.html
+	</pre>
+	To install the interactive tour program, run
+	<p>
+	<pre>
+	goinstall go-tour.googlecode.com/hg/gotour
+	</pre>
+	This will install the tour to your <code>GOROOT</code>
+	(or <code>GOPATH</code>, if you have one set).
+	<p>
+	To start the tour, type "<code>gotour</code>" at the command line.
+</div>
+
 <h1>A Tour of Go</h1>
 
 <ol id="toc"></ol>
@@ -613,13 +634,13 @@ package main
 
 import "fmt"
 
-type Point struct {
+type Vertex struct {
 	X int
 	Y int
 }
 
 func main() {
-	fmt.Println(Point{1, 2})
+	fmt.Println(Vertex{1, 2})
 }
 </div>
 </div>
@@ -633,13 +654,13 @@ package main
 
 import "fmt"
 
-type Point struct {
+type Vertex struct {
 	X int
 	Y int
 }
 
 func main() {
-	p := Point{1, 2}
+	p := Vertex{1, 2}
 	q := &p
 	q.X = 1e9
 	fmt.Println(p)
@@ -661,15 +682,15 @@ package main
 
 import "fmt"
 
-type Point struct {
+type Vertex struct {
 	X, Y int
 }
 
 var (
-	p = Point{1, 2}   // has type Point
-	q = &Point{1, 2}  // has type *Point
-	r = Point{X: 1}   // Y:0 is implicit
-	s = Point{}       // X:0 and Y:0 are implicit
+	p = Vertex{1, 2}   // has type Vertex
+	q = &Vertex{1, 2}  // has type *Vertex
+	r = Vertex{X: 1}   // Y:0 is implicit
+	s = Vertex{}       // X:0 and Y:0 are implicit
 )
 
 func main() {
@@ -691,15 +712,15 @@ package main
 
 import "fmt"
 
-type Point struct {
+type Vertex struct {
 	Lat, Long float64
 }
 
-var m map[string]Point
+var m map[string]Vertex
 
 func main() {
-	m = make(map[string]Point)
-	m["Bell Labs"] = Point{40.68433, 74.39967}
+	m = make(map[string]Vertex)
+	m["Bell Labs"] = Vertex{40.68433, 74.39967}
 	fmt.Println(m["Bell Labs"])
 }
 </div>
@@ -714,13 +735,13 @@ package main
 
 import "fmt"
 
-type Point struct {
+type Vertex struct {
 	Lat, Long float64
 }
 
-var m = map[string]Point{
-	"Bell Labs": Point{40.68433, -74.39967},
-	"Google":    Point{37.42202, -122.08408},
+var m = map[string]Vertex{
+	"Bell Labs": Vertex{40.68433, -74.39967},
+	"Google":    Vertex{37.42202, -122.08408},
 }
 
 func main() {
@@ -733,31 +754,121 @@ func main() {
 	<h2>Slices</h2>
 	<p>
 	A slice points at an array of values and also includes a length.
+	<p>
+	<code>[]T</code> is a slice with elements of type <code>T</code>.
+	<p>
+	Element values can be read and written by index:
+	<pre>
+s := []int{12, 24}
+fmt.Print(s[1])    // "24"
+s[0] = 42
+fmt.Print(s[0])    // "48"
+	</pre>
 <div>
 package main
 
 import "fmt"
 
-type Point struct {
-	Lat, Long float64
+func main() {
+	primes := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("primes ==", primes)
+
+	for i := 0; i < len(primes); i++ {
+		fmt.Printf("primes[%d] == %d\n",
+			i, primes[i])
+	}
 }
+</div>
+</div>
 
-var places = []Point{
-	Point{40.68433, -74.39967},
-	Point{37.42202, -122.08408},
-}
+<div class="slide">
+	<h2>Slices</h2>
+	<p>
+	Slices can be re-sliced, creating a new slice value that points to the
+	same array.
+	<pre>
+s[lo:hi] // == elements of slice s from [lo, hi)
+	</pre>
+<div>
+package main
 
-var empty []Point
-
-var five = make([]Point, 5)
+import "fmt"
 
 func main() {
-	fmt.Println("Empty: ", len(empty), empty)
-	fmt.Println("Five:  ", len(five), five)
-	fmt.Println("Places:", len(places), places)
-
 	primes := []int{2, 3, 5, 7, 11, 13}
-	fmt.Println("Primes:", primes)
+	fmt.Println("primes ==", primes)
+	fmt.Println("primes[1:4] ==", primes[1:4])
+
+	// missing low index implies 0
+	fmt.Println("primes[:3] ==", primes[:3])
+
+	// missing high index implies len(s)
+	fmt.Println("primes[4:] ==", primes[4:])
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Slices</h2>
+	<p>
+	The <code>make</code> function allocates an zeroed array and returns
+	a slice that refers to that array:
+	<pre>
+a := make([]int, 5)  // len(b) == 5
+	</pre>
+	Slices have length and capacity. A slice's capacity is the largest
+	portion its underlying array that it can refer to. Pass a third
+	argument to <code>make</code> to specify a capacity:
+	<p>
+	<pre>
+b := make([]int, 0, 5)  // len(b) == 0, cap(b) == 5
+	</pre>
+	Slices can grown by "re-slicing" (up to their capacity):
+	<p>
+	<pre>
+b = b[:cap(b)]  // len(b) == 5, cap(b) == 5
+b = b[1:]       // len(b) == 4, cap(b) == 4
+	</pre>
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	a := make([]int, 5)
+	printSlice("a", a)
+	b := make([]int, 0, 5)
+	printSlice("b", b)
+	c := b[:2]
+	printSlice("c", c)
+	d := c[2:5]
+	printSlice("d", d)
+}
+
+func printSlice(n string, s []int) {
+	fmt.Printf("%s = %v len = %d cap = %d\n",
+		n, s, len(s), cap(s))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Slices</h2>
+	<p>
+	The zero value of a slice is <code>nil</code>.
+	<p>
+	A nil slice has a length and capacity of 0.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	var empty []int
+	fmt.Println(empty, len(empty), cap(empty))
+	if empty == nil {
+		fmt.Println("nil!")
+	}
 }
 </div>
 </div>
@@ -945,26 +1056,6 @@ func main() {
 </div>
 </div>
 
-<div class="slide nocode">
-	<h2>Installing the tour</h2>
-	<p>
-	If you don't already have Go installed, follow the installation
-	instructions at
-	<p>
-	<pre>
-	http://golang.org/doc/install.html
-	</pre>
-	To install the interactive tour program, run
-	<p>
-	<pre>
-	goinstall go-tour.googlecode.com/hg/gotour
-	</pre>
-	This will install the tour to your <code>GOROOT</code>
-	(or <code>GOPATH</code>, if you have one set).
-	<p>
-	To start the tour, type "<code>gotour</code>" at the command line.
-</div>
-
 <div class="slide">
 	<h2>Exercise: Loops and Functions</h2>
 	<p>
@@ -1130,16 +1221,16 @@ import (
 	"math"
 )
 
-type Point struct {
+type Vertex struct {
 	X, Y float64
 }
 
-func (p *Point) Abs() float64 {
+func (p *Vertex) Abs() float64 {
 	return math.Sqrt(p.X*p.X + p.Y*p.Y)
 }
 
 func main() {
-	p := &Point{3, 4}
+	p := &Vertex{3, 4}
 	fmt.Println(p.Abs())
 }
 </div>
@@ -1198,12 +1289,12 @@ func main() {
 	var (
 		a Abser
 		f = MyFloat(-math.Sqrt2)
-		p = Point{3, 4}
+		p = Vertex{3, 4}
 	)
 
 	a = f     // f, a MyFloat, implements Abser
-	a = &p    // &p, a *Point, implements Abser
-	a = p     // p, a Point, does NOT implement Abser
+	a = &p    // &p, a *Vertex, implements Abser
+	a = p     // p, a Vertex, does NOT implement Abser
 
 	fmt.Println(a.Abs())
 }
@@ -1227,11 +1318,11 @@ func (f MyFloat) Abs() float64 {
 	return float64(f)
 }
 
-type Point struct {
+type Vertex struct {
 	X, Y float64
 }
 
-func (p *Point) Abs() float64 {
+func (p *Vertex) Abs() float64 {
 	return math.Sqrt(p.X*p.X + p.Y*p.Y)
 }
 </div>
