@@ -1320,15 +1320,14 @@ type Abser interface {
 }
 
 func main() {
-	var (
-		a Abser
-		f = MyFloat(-math.Sqrt2)
-		p = Vertex{3, 4}
-	)
+	var a Abser
+	f := MyFloat(-math.Sqrt2)
+	p := Vertex{3, 4}
 
-	a = f     // f, a MyFloat, implements Abser
-	a = &p    // &p, a *Vertex, implements Abser
-	a = p     // p, a Vertex, does NOT implement Abser
+	a = f  // a MyFloat, implements Abser
+	a = &p // a *Vertex, implements Abser
+	a = p  // a Vertex, does NOT
+	       // implement Abser
 
 	fmt.Println(a.Abs())
 }
@@ -1400,7 +1399,10 @@ type ReadWriter interface {
 
 func main() {
 	var w Writer
-	w = os.Stdout  // os.Stdout implements our interface
+
+	// os.Stdout implements Writer
+	w = os.Stdout
+
 	fmt.Fprintf(w, "hello, writer\n")
 }
 </div>
@@ -1411,11 +1413,11 @@ func main() {
 	<p>
 	An error is anything that can describe itself:
 	<pre>
-	package os
+package os
 
-	type Error interface {
-		String() string
-	}
+type Error interface {
+	String() string
+}
 	</pre>
 
 <div>
@@ -1433,11 +1435,15 @@ type MyError struct {
 }
 
 func (e *MyError) String() string {
-	return "at " + e.When.String() + ", " + e.What
+	return fmt.Sprintf("at %v, %s",
+		e.When, e.What)
 }
 
 func run() os.Error {
-	return &MyError{time.LocalTime(), "it didn't work"}
+	return &MyError{
+		time.LocalTime(),
+		"it didn't work",
+	}
 }
 
 func main() {
@@ -1457,7 +1463,8 @@ func main() {
 package http
 
 type Handler interface {
-	ServeHTTP(w ResponseWriter, req *Request)
+	ServeHTTP(w ResponseWriter,
+	          r *Request)
 }
 	</pre>
 	<p>
@@ -1470,22 +1477,18 @@ package main
 import (
 	"fmt"
 	"http"
-	"log"
 )
 
-type MyHandler struct{}
+type Hello struct{}
 
-func (h MyHandler) ServeHTTP(w http.ResponseWriter,
-                             r *http.Request) {
+func (h Hello) ServeHTTP(w http.ResponseWriter,
+                         r *http.Request) {
 	fmt.Fprint(w, "Hello!")
 }
 
 func main() {
-	var h MyHandler
-	err := http.ListenAndServe("localhost:4000", h)
-	if err != nil {
-		log.Fatal(err)
-	}
+	var h Hello
+	http.ListenAndServe("localhost:4000",h)
 }
 </div>
 </div>
@@ -1676,8 +1679,9 @@ func main() {
 	<p>
 	Channels are a typed conduit through which you can send and receive values with the channel operator, <code>&lt;-</code>.
 <pre>
-ch <- v    // send v to channel ch
-v := <-ch  // receive from ch, assign value to v
+ch <- v    // Send v to channel ch.
+v := <-ch  // Receive from ch, and
+           // assign value to v.
 </pre>
 	<p>
 	(The data flows in the direction of the "arrow".)
