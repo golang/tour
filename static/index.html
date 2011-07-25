@@ -429,7 +429,9 @@ const (
 )
 
 func needInt(x int) int { return x*10 + 1 }
-func needFloat(x float64) float64 { return x*0.1 }
+func needFloat(x float64) float64 {
+	return x*0.1
+}
 
 func main() {
 	fmt.Println(needInt(Small))
@@ -562,7 +564,7 @@ func main() {
 	statement to execute before the condition.
 	<p>
 	Variables declared by the statement are only in scope until the end of the <code>if</code>.
-	(Try adding <code>neg</code> to the <code>fmt.Sprint</code> call.)
+	(Try using <code>v</code> in the last <code>return</code> statement.)
 <div>
 package main
 
@@ -593,10 +595,14 @@ func main() {
 	Go's basic types are
 	<pre>
 bool
+
 string
-int       int8      int16     int32     int64
-uint      uint8     uint16    uint32    uint64
-float32   float64
+
+int  int8  int16  int32  int64
+uint uint8 uint16 uint32 uint64
+
+float32 float64
+
 complex64 complex128
 	</pre>
 <div>
@@ -614,11 +620,10 @@ var (
 )
 
 func main() {
-	fmt.Printf("%T(%v) %T(%v) %T(%v)\n",
-		ToBe, ToBe,
-		MaxInt, MaxInt,
-		z, z,
-	)
+	const f = "%T(%v)\n"
+	fmt.Printf(f, ToBe, ToBe)
+	fmt.Printf(f, MaxInt, MaxInt)
+	fmt.Printf(f, z, z)
 }
 </div>
 </div>
@@ -690,7 +695,7 @@ var (
 	p = Vertex{1, 2}   // has type Vertex
 	q = &Vertex{1, 2}  // has type *Vertex
 	r = Vertex{X: 1}   // Y:0 is implicit
-	s = Vertex{}       // X:0 and Y:0 are implicit
+	s = Vertex{}       // X:0 and Y:0
 )
 
 func main() {
@@ -720,7 +725,9 @@ var m map[string]Vertex
 
 func main() {
 	m = make(map[string]Vertex)
-	m["Bell Labs"] = Vertex{40.68433, 74.39967}
+	m["Bell Labs"] = Vertex{
+		40.68433, 74.39967,
+	}
 	fmt.Println(m["Bell Labs"])
 }
 </div>
@@ -740,8 +747,37 @@ type Vertex struct {
 }
 
 var m = map[string]Vertex{
-	"Bell Labs": Vertex{40.68433, -74.39967},
-	"Google":    Vertex{37.42202, -122.08408},
+	"Bell Labs": Vertex{
+		40.68433, -74.39967,
+	},
+	"Google": Vertex{
+		37.42202, -122.08408,
+	},
+}
+
+func main() {
+	fmt.Println(m)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Maps</h2>
+	<p>
+	In repetitive literals you can omit the top level type name from the
+	values.
+<div>
+package main
+
+import "fmt"
+
+type Vertex struct {
+	Lat, Long float64
+}
+
+var m = map[string]Vertex{
+	"Bell Labs": {40.68433, -74.39967},
+	"Google":    {37.42202, -122.08408},
 }
 
 func main() {
@@ -756,14 +792,6 @@ func main() {
 	A slice points at an array of values and also includes a length.
 	<p>
 	<code>[]T</code> is a slice with elements of type <code>T</code>.
-	<p>
-	Element values can be read and written by index:
-	<pre>
-s := []int{12, 24}
-fmt.Print(s[1])    // "24"
-s[0] = 42
-fmt.Print(s[0])    // "48"
-	</pre>
 <div>
 package main
 
@@ -786,8 +814,11 @@ func main() {
 	<p>
 	Slices can be re-sliced, creating a new slice value that points to the
 	same array.
+	<p>
+	This expression evaluates to a slice of the elements of <code>s</code>
+	from <code>[lo, hi)</code>.
 	<pre>
-s[lo:hi] // == elements of slice s from [lo, hi)
+s[lo:hi]
 	</pre>
 <div>
 package main
@@ -795,15 +826,15 @@ package main
 import "fmt"
 
 func main() {
-	primes := []int{2, 3, 5, 7, 11, 13}
-	fmt.Println("primes ==", primes)
-	fmt.Println("primes[1:4] ==", primes[1:4])
+	p := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("p ==", p)
+	fmt.Println("p[1:4] ==", p[1:4])
 
 	// missing low index implies 0
-	fmt.Println("primes[:3] ==", primes[:3])
+	fmt.Println("p[:3] ==", p[:3])
 
 	// missing high index implies len(s)
-	fmt.Println("primes[4:] ==", primes[4:])
+	fmt.Println("p[4:] ==", p[4:])
 }
 </div>
 </div>
@@ -814,20 +845,21 @@ func main() {
 	The <code>make</code> function allocates a zeroed array and returns
 	a slice that refers to that array:
 	<pre>
-a := make([]int, 5)  // len(b) == 5
+a := make([]int, 5)  // len(b) = 5
 	</pre>
 	Slices have length and capacity. A slice's capacity is the largest
 	portion its underlying array that it can refer to. Pass a third
 	argument to <code>make</code> to specify a capacity:
 	<p>
 	<pre>
-b := make([]int, 0, 5)  // len(b) == 0, cap(b) == 5
+b := make([]int, 0, 5)
+// len(b) = 0, cap(b) = 5
 	</pre>
 	Slices can grown by "re-slicing" (up to their capacity):
 	<p>
 	<pre>
-b = b[:cap(b)]  // len(b) == 5, cap(b) == 5
-b = b[1:]       // len(b) == 4, cap(b) == 4
+b = b[:cap(b)] // len(b) = 5, cap(b) = 5
+b = b[1:]      // len(b) = 4, cap(b) = 4
 	</pre>
 <div>
 package main
@@ -846,8 +878,8 @@ func main() {
 }
 
 func printSlice(n string, s []int) {
-	fmt.Printf("%s = %v len = %d cap = %d\n",
-		n, s, len(s), cap(s))
+	fmt.Printf("%s len = %d cap = %d %v\n",
+		n, len(s), cap(s), s)
 }
 </div>
 </div>
@@ -868,9 +900,9 @@ package main
 import "fmt"
 
 func main() {
-	var empty []int
-	fmt.Println(empty, len(empty), cap(empty))
-	if empty == nil {
+	var zero []int
+	fmt.Println(zero, len(zero), cap(zero))
+	if zero == nil {
 		fmt.Println("nil!")
 	}
 }
@@ -919,7 +951,7 @@ func adder() func(int) int {
 func main() {
 	pos, neg := adder(), adder()
 	for i := 0; i < 10; i++ {
-		fmt.Println(i, pos(i), neg(-2*i))
+		fmt.Println(pos(i), neg(-2*i))
 	}
 }
 </div>
@@ -992,8 +1024,6 @@ func main() {
 		fmt.Println("FreeBSD.")
 	case "linux":
 		fmt.Println("Linux.")
-	case "plan9":
-		fmt.Println("Plan 9.")
 	case "windows":
 		fmt.Println("Windows.")
 	default:
@@ -1025,7 +1055,7 @@ func main() {
 	case today+1:
 		fmt.Println("Tomorrow.")
 	case today+2:
-		fmt.Println("Two days from now.")
+		fmt.Println("In two days.")
 	default:
 		fmt.Println("Too far away.")
 	}
