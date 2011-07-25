@@ -289,6 +289,7 @@ function compile(el) {
 		$(output).html("<p>Running...</p>");
 		$("<button/>").text("KILL").click(function() {
 			$.ajax("/kill", {
+				type: 'POST',
 				success: function() {
 					$(output).empty();
 				}

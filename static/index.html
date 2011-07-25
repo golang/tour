@@ -1,12 +1,10 @@
 <!--
 TODO
 
-Expand examples as per existing slides
 Pointer examples
 Formatting screen width.
 better if short statement example
 <title> update for each page
-discuss iota
 detect #nn changes
 gofmt button
 highlight error line
@@ -32,6 +30,12 @@ highlight error line
 	<button id="tocbtn">INDEX</button>
 </div>
 
+<h1>A Tour of Go</h1>
+
+<ol id="toc"></ol>
+
+<div id="slides" class="slides codeleft">
+
 <div class="slide nocode">
 	<h2>Installing the tour</h2>
 	<p>
@@ -51,12 +55,6 @@ highlight error line
 	<p>
 	To start the tour, type "<code>gotour</code>" at the command line.
 </div>
-
-<h1>A Tour of Go</h1>
-
-<ol id="toc"></ol>
-
-<div id="slides" class="slides codeleft">
 
 <div class="toc">Welcome</div>
 
@@ -365,7 +363,7 @@ package main
 import "fmt"
 
 var x, y, z int = 1, 2, 3
-var c, python, java = true, false, "no way!"
+var c, python, java = true, false, "no!"
 
 func main() {
 	fmt.Println(x, y, z, c, python, java)
@@ -385,7 +383,7 @@ import "fmt"
 
 func main() {
 	var x, y, z int = 1, 2, 3
-	c, python, java := true, false, "no way!"
+	c, python, java := true, false, "no!"
 
 	fmt.Println(x, y, z, c, python, java)
 }
@@ -573,15 +571,18 @@ import (
 	"math"
 )
 
-func sqrt(x float64) string {
-	if neg := math.Signbit(x); neg {
-		return sqrt(-x) + "i"
+func pow(x, n, lim float64) float64 {
+	if v := math.Pow(x, n); v < lim {
+		return v
 	}
-	return fmt.Sprint(math.Sqrt(x))
+	return lim
 }
 
 func main() {
-	fmt.Println(sqrt(2), sqrt(-4))
+	fmt.Println(
+		pow(3, 2, 10),
+		pow(3, 3, 20),
+	)
 }
 </div>
 </div>
