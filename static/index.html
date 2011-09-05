@@ -1687,6 +1687,35 @@ func main() {
 </div>
 </div>
 
+<div class="slide">
+	<h2>Exercise: Rot13 Reader</h2>
+	<p>
+	Implement an <code>io.Reader</code> that wraps another
+	<code>io.Reader</code>.
+	<p>
+	The <code>rot13Reader</code> type has been declared for you.
+	You just need to implement its <code>Read</code> method.
+<div>
+package main
+
+import (
+	"io"
+	"os"
+	"strings"
+)
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func main() {
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, r)
+}
+</div>
+</div>
+
 <div class="toc">Concurrency</div>
 
 <div class="slide nocode">
