@@ -1,9 +1,9 @@
 <!--
 TODO
 
-Pointer examples
-Formatting screen width.
-better if short statement example
+addnl pointer slide
+replace big example with something else
+
 <title> update for each page
 detect #nn changes
 gofmt button
@@ -1300,6 +1300,61 @@ func main() {
 </div>
 
 <div class="slide">
+	<h2>Methods on pointer types</h2>
+	<p>
+	Methods can be associated with any named type, or a pointer
+	to a named type.
+	<p>
+	For example, the <code>Abs</code> method is associated with
+	the <code>*Vertex</code> pointer type and the <code>MyFloat</code>
+	value type.
+	<p>
+	The key reason to use a pointer receiver is to allow the method
+	to modify the receiver value.
+	<p>
+	Try changing the declarations of the <code>Abs</code> and
+	<code>Scale</code> methods to use <code>Vertex</code> as the
+	receiver, instead of <code>*Vertex</code>.
+	<p>
+	Notice how the <code>Scale</code> method has no effect when
+	<code>v</code> is a <code>Vertex</code>.
+	<code>Scale</code> mutates <code>v</code>. When <code>v</code> is a
+	value (non-pointer) type, the method sees a copy of the
+	<code>Vertex</code> and cannot mutate the original value.
+	<p>
+	<code>Abs</code> works either way. It only reads <code>v</code>.
+	It doesn't matter whether it is reading the original value (through a
+	pointer) or a copy of that value.
+<div>
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (p *Vertex) Scale(f float64) {
+	p.X = p.X * f
+	p.Y = p.Y * f
+}
+
+func (p *Vertex) Abs() float64 {
+	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+}
+
+func main() {
+	p := &Vertex{3, 4}
+	p.Scale(5)
+	fmt.Println(p, p.Abs())
+}
+</div>
+</div>
+
+<div class="slide">
 	<h2>Interfaces</h2>
 	<p>
 	An interface type is defined by a set of methods.
@@ -1623,8 +1678,10 @@ import (
 	"go-tour.googlecode.com/hg/pic"
 )
 
+type Image struct{}
+
 func main() {
-	m := ... my image
+	m := Image{}
 	pic.ShowImage(m)
 }
 </div>
