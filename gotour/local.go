@@ -66,8 +66,7 @@ func main() {
 	}
 	root := filepath.Join(t.SrcDir(), basePkg, "static")
 	log.Println("Serving content from", root)
-	//tip: http.Handle("/", http.FileServer(http.Dir(root)))
-	http.Handle("/", http.FileServer(root, "/"))
+	http.Handle("/", http.FileServer(http.Dir(root)))
 
 	// set include path for ld and gc
 	pkgDir = t.PkgDir()
