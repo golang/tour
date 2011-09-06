@@ -1690,11 +1690,24 @@ func main() {
 <div class="slide">
 	<h2>Exercise: Rot13 Reader</h2>
 	<p>
-	Implement an <code>io.Reader</code> that wraps another
-	<code>io.Reader</code>.
+	A common pattern is an
+	<a href="http://golang.org/pkg/io/#Reader">io.Reader</a> that wraps
+	another <code>io.Reader</code>, modifying the stream in some way.
 	<p>
-	The <code>rot13Reader</code> type has been declared for you.
-	You just need to implement its <code>Read</code> method.
+	For example, the
+	<a href="http://golang.org/pkg/compress/gzip/#Decompressor.NewReader">gzip.NewReader</a>
+	function takes an <code>io.Reader</code> (a stream of gzipped data)
+	and returns a <code>*gzip.Decompressor</code> that also implements
+	<code>io.Reader</code> (a stream of the decompressed data).
+	<p>
+	Implement a <code>rot13Reader</code> that implements
+	<code>io.Reader</code> and reads from an <code>io.Reader</code>,
+	modifying the stream by applying the
+	<a href="http://en.wikipedia.org/wiki/ROT13">ROT13</a>
+	substitution cipher to all alphabetical characters.
+	<p>
+	The <code>rot13Reader</code> type is provided for you.  Make it an
+	<code>io.Reader</code> by implementing its <code>Read</code> method.
 <div>
 package main
 
