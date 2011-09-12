@@ -1,4 +1,4 @@
-// Copyright 2010 The Go Authors.  All rights reserved.
+// Copyright 2011 The Go Authors.  All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -12,8 +12,8 @@ import (
 	"fmt"
 )
 
-func Show(f func(int, int)[][]uint8) {
-	const (	
+func Show(f func(int, int) [][]uint8) {
+	const (
 		dx = 256
 		dy = 256
 	)
@@ -22,7 +22,11 @@ func Show(f func(int, int)[][]uint8) {
 	for y := 0; y < dy; y++ {
 		for x := 0; x < dx; x++ {
 			v := data[y][x]
-			m.Pix[y*dy+x] = image.NRGBAColor{v, v, 255, 255}
+			i := y*m.Stride + x*4
+			m.Pix[i] = v
+			m.Pix[i+1] = v
+			m.Pix[i+2] = 255
+			m.Pix[i+3] = 255
 		}
 	}
 	ShowImage(m)
@@ -31,7 +35,6 @@ func Show(f func(int, int)[][]uint8) {
 func ShowImage(m image.Image) {
 	var buf bytes.Buffer
 	png.Encode(&buf, m)
-	enc := make([]byte, base64.StdEncoding.EncodedLen(buf.Len()))
-	base64.StdEncoding.Encode(enc, buf.Bytes())
-	fmt.Println("IMAGE:" + string(enc))
+	enc := base64.StdEncoding.EncodeToString(buf.Bytes())
+	fmt.Println("IMAGE:" + enc)
 }

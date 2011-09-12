@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"http"
-	"template"
+	"old/template"
 )
 
 func init() {
