@@ -5,9 +5,13 @@ body {
 	margin-top: 0px;
 	font-size: 120%;
 }
-
 #topnav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
 	padding: 8px;
+	height: 34px;
 }
 
 #toc {
@@ -20,23 +24,24 @@ body {
 #toc li:hover {
 	background: #ddd;
 }
-
-.slides {
-	margin-left: 1em;
-	margin-right: 1em;
-	margin-top: 0px;
+#topnav {
+	right: 50px;
 }
-.slidenum {
-	float: right;
+
+#slidenum {
+	display: inline;
 	color: white;
-	padding: 5px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
 	margin: 0;
-	cursor: pointer;
+	padding: 0;
 }
 
 pre {
 	margin-top: 0px;
 	margin-bottom: 0px;
+	white-space: pre-wrap;
 }
 
 pre span {
@@ -45,66 +50,87 @@ pre span {
 
 h1, h2, h3 {
 	font-family: 'Droid Sans', sans-serif;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 h1 {
 	color: #fff;
 	background-color: #444;
 	margin: 0px;
-	padding: 5px;
+	padding: 8px;
+	height: 40px;
 }
-
 code, pre, textarea {
 	font-family: 'Droid Sans Mono', monospace;
 	font-size: 100%;
 }
 
-div.code {
-	border: 1px solid black;
+.code {
+	border-right: 1px solid black;
+	position: absolute;
+	top: 56px;
+	left: 0;
+	bottom: 0;
+	right: 50%;
+	padding-top: 2px;
 }
-.codeleft div.code {
-	float: left;
-	width: 55%;
-	height: 80%;
-	margin: 0px 1em 0px 0px;
+.showoutput .code {
+	bottom: 20%;
 }
-.codeleft div.code textarea {
-	height: 93%;
-}
-.codetop div.code {
-	margin: 1em 0px 1em 0px;
-	height: 50%;
-}
-.codetop div.code textarea {
-	height: 90%;
-}
-.codetop .slide h2,
-.codetop .slide hr,
-.codetop .slide img,
-.codetop .slide > pre,
-.codetop .slide > .nav,
-.codetop .slide p {
-	display: none;
-}
-
-textarea {
-	border: 0px;
-	display: block;
-	padding: 5px;
-
-	width: 100%;
-	margin-top: 0px;
-}
-
-textarea:focus {
+.code textarea {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 0 4px;
+	height: 100%;
+	width: -moz-available;
 	border: 0px;
 	outline: 0px;
+}
+.code textarea:focus {
+	border: 0px;
+	outline: 0px;
+}
+
+.output {
+	position: absolute;
+	top: 80%;
+	bottom: 0;
+	left: 0;
+	right: 50%;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
+	overflow: auto;
+	padding: 0 4px;
+	display: none;
+}
+.showoutput .output {
+	display: block;
+}
+.output .wait {
+	color: #666;
+	margin-top: 1em;
+	text-align: center;
+}
+
+.content {
+	position: absolute;
+	padding-left: 8px;
+	padding-right: 4px;
+	left: 50%;
+	right: 0;
+	top: 56px;
+	bottom: 0;
+	overflow: auto;
+}
+.nocode .content {
+	left: 0;
 }
 
 .programoutput {
 	color: #0000cc;
 }
-
 .compileerrors {
 	color: #cc0000;
 }
@@ -125,21 +151,14 @@ button {
 	margin: 3px;
 }
 
-button.next {
-	margin-left: 1em;
-}
-
 button:hover {
 	background-color: #fff;
 }
-
-div.nav {
-	display: block;
-	text-align: right;
+.nav {
 	float: right;
+	text-align: right;
 }
-
-div.clear {
+.clear {
 	clear: right;
 }
 
@@ -148,10 +167,28 @@ h2.nocode {
 	font-size: 300%;
 	margin-bottom: 1em;
 }
-
-div.toc {
+.toc {
 	display: none;
 	visibility: hidden;
+}
+
+/* Slide-specific styles */
+
+/* Loading state */
+.loading #slides,
+.loading #topnav,
+.loading #slidenum {
+	display: none;
+}
+#loading {
+	margin-top: 20%;
+	font-size: 150%;
+	text-align: center;
+	color: #555;
+	display: none;
+}
+.loading #loading {
+	display: block;
 }
 
 table.matrix td {

@@ -64,9 +64,18 @@ func main() {
 	if err != nil {
 		log.Fatalf("Couldn't find tour files: %v", err)
 	}
-	root := filepath.Join(t.SrcDir(), basePkg, "static")
+	root := filepath.Join(t.SrcDir(), basePkg)
 	log.Println("Serving content from", root)
-	http.Handle("/", http.FileServer(http.Dir(root)))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/favicon.ico" || r.URL.Path == "/" {
+			fn := filepath.Join(root, "static", r.URL.Path[1:])
+			http.ServeFile(w, r, fn)
+			return
+		}
+		http.Error(w, "not found", 404)
+	})
+	http.Handle("/static/", http.FileServer(http.Dir(root)))
+	http.HandleFunc("/kill", kill)
 
 	// set include path for ld and gc
 	pkgDir = t.PkgDir()
@@ -76,8 +85,6 @@ func main() {
 		log.Print(localhostWarning)
 	}
 
-	http.HandleFunc("/kill", kill)
-		
 	log.Printf("Serving at http://%s/", *httpListen) 
 	log.Fatal(http.ListenAndServe(*httpListen, nil))
 }

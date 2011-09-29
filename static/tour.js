@@ -7,14 +7,13 @@ var codebox = null;
 var output = null;
 var errors = null;
 
-function findclass(el, name) {
-	var x = el.getElementsByClassName(name);
-	if (x.length == 0)
-		return null;
-	return x[0];
-}
-
 function initSlides() {
+	if (tourMode == 'local') {
+		$('.appengineMode').remove();
+	} else {
+		$('.localMode').remove();
+	}
+
 	var $toc = $("#toc").hide();
 	$("#tocbtn").click(function() {
 		if ($("#toc").is(":visible")) {
@@ -35,10 +34,15 @@ function initSlides() {
 			$code.remove();
 		}
 
-		var $h2 = $s.find("h2").first();
+		var $content = $('<div class="content"/>');
+		$content.html($s.html());
+		$s.empty().append($content);
+
+		var $h2 = $content.find("h2").first();
+		var $nav;
 		if ($h2.length > 0) {
 			$("<div/>").addClass("clear").insertAfter($h2);
-			var $nav = $("<div/>").addClass("nav")
+			$nav = $("<div/>").addClass("nav")
 			if (i > 0) {
 				$nav.append($("<button>").click(function() {
 					show(i-1);
@@ -63,19 +67,21 @@ function initSlides() {
 		if ($code == null)
 			return;
 
-		var $codebox = $("<textarea/>").html($code.html().trim());
-		var $codenav = $("<div/>").addClass("nav");
-		$codenav.append($("<button>").click(function() {
+		var $codebox = $("<textarea/>").html($code.text().trim());
+		$code.empty().addClass("code");
+		$code.append($codebox);
+
+		$nav.prepend($("<button>").click(function() {
 			compile($codebox[0]);
 		}).text("COMPILE").addClass("compile"));
-		$code.empty().addClass("code");
-		$code.append($codenav).append($codebox);
-		$s.prepend($code);
 
-		$s.append("<hr/>");
-		$s.append('<div class="compileerrors"/>')
-		$s.append('<div class="programoutput"/>')
+		$s.prepend('<div class="output">'+
+			'<div class="compileerrors"/>'+
+			'<div class="programoutput"/>'+
+			'</div>');
+		$s.prepend($code);
 	});
+
 	return $slides;
 }
 
@@ -104,7 +110,7 @@ function show(i) {
 	}
 	slidenum = i;
 
-	$("#num").text(i+1);
+	$("#slidenum").text(i+1);
 
 	var url = location.href;
 	var j = url.indexOf("#");
@@ -274,28 +280,38 @@ function compile(el) {
 	req.open("POST", "/compile", true);
 	req.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
 	req.send(prog);
+
 	if (!output) {
 		return;
 	}
-	if (errors)
-		errors.innerHTML = "";
-	output.innerHTML = "";
+
+	$(output).closest('.slide').addClass('showoutput');
+	var waitString;
+	if (tourMode == 'local') {
+		waitString = 'Running...';
+	} else {
+		waitString = 'Waiting for remote server...';
+	}
+	$(output).html('<div class="wait">'+waitString+'</div>');
+	$(errors).html('');
 
 	var seq = compileSeq;
-	setTimeout(function() {
-		if (seq != compileSeq) {
-			return;
-		}
-		$(output).html("<p>Running...</p>");
-		$("<button/>").text("KILL").click(function() {
-			$.ajax("/kill", {
-				type: 'POST',
-				success: function() {
-					$(output).empty();
-				}
-			});
-		}).appendTo(output);
-	}, 1000);
+	
+	if (tourMode == 'local') {
+		setTimeout(function() {
+			if (seq != compileSeq) {
+				return;
+			}
+			$("<button/>").text("KILL").click(function() {
+				$.ajax("/kill", {
+					type: 'POST',
+					success: function() {
+						$(output).empty();
+					}
+				});
+			}).appendTo(output);
+		}, 1000);
+	}
 }
 
 function compileUpdate(req, seq) {
@@ -307,26 +323,13 @@ function compileUpdate(req, seq) {
 		err = out;
 		out = "";
 	}
-	if (output)
-		output.innerHTML = out;
-	if (errors)
-		errors.innerHTML = err;
+	$(output).html(out);
+	$(errors).html(err);
 	compileSeq++;
-}
-
-function initViewToggle() {
-	$("#num").click(function() {
-		var $s = $("#slides")
-		if ($s.hasClass("codeleft")) {
-			$s.removeClass("codeleft").addClass("codetop");
-		} else {
-			$s.removeClass("codetop").addClass("codeleft");
-		}
-	});
 }
 
 function init() {
 	slides = initSlides();
+	$('body').removeClass('loading');
 	show(urlSlideNumber(location.href));
-	initViewToggle();
 }
