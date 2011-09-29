@@ -1,4 +1,4 @@
-// Copyright 2010 The Go Authors.  All rights reserved.
+// Copyright 2011 The Go Authors.  All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -7,12 +7,7 @@ package tree
 import (
 	"fmt"
 	"rand"
-	"time"
 )
-
-func init() {
-	rand.Seed(time.Nanoseconds())
-}
 
 // A Tree is a binary tree with integer values.
 type Tree struct {
@@ -36,9 +31,9 @@ func insert(t *Tree, v int) *Tree {
 	}
 	if v < t.Value {
 		t.Left = insert(t.Left, v)
-		return t
+	} else {
+		t.Right = insert(t.Right, v)
 	}
-	t.Right = insert(t.Right, v)
 	return t
 }
 
