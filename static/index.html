@@ -32,9 +32,13 @@
 <div class="slide">
 	<h2>Hello, 世界</h2>
 	<p>
-	Welcome to a tour of the Go programming language.
+	Welcome to a tour of the
+	<a target="_blank" href="http://golang.org/">Go programming language</a>.
 	<p>
-	When you click the Compile button (or type Shift-Enter) 
+	The tour is divided into three sections. At the end of each section
+	are a series of exercises for you to complete.
+	<p>
+	The tour is interactive. When you click the Compile button (or type Shift-Enter) 
 	<span class="appengineMode">a remote server</span>
 	<span class="localMode">your computer</span>
 	compiles and runs the program and the result is displayed below.
@@ -58,56 +62,30 @@ func main() {
 </div>
 </div>
 
-<div class="slide nocode">
-	<h2>Why Go?</h2>
+<div class="slide nocode appengineMode">
+	<h2>Go offline</h2>
 	<p>
-	Go was born out of frustration with existing languages.
+	This tour is also available as a stand-alone program that you can use
+	without access to the internet.
 	<p>
-	&ldquo;Speedy or easy: pick one.&rdquo;
+	The stand-alone tour is faster, as it builds and runs the code samples
+	on your own machine. It also includes additional exercises not
+	available in this sandboxed version.
 	<p>
-	<table class="matrix">
-	<tr>
-	<td>&ldquo;Systems&rdquo; languages<br>
-		<i>(C, C++, Java)</i>
-	<td>&ldquo;Scripting&rdquo; languages<br>
-		<i>(Python, JavaScript, Perl)</i>
-	<tr>
-	<td class="good">
-		Efficient
-	<td class="bad">
-		Inefficient<br>
-		(unless you're very careful)
-	<tr>
-	<td class="good">
-		Compile-time type checking
-	<td class="bad">
-		No type checking
-	<tr>
-	<td class="bad">
-		Verbose, fussy
-	<td class="good">
-		Lightweight, productive
-	<tr>
-	<td class="bad">
-		Slow compilation
-	<td class="good">
-		No (or JIT) compilation
-	</table>
-</div>
-
-<div class="slide nocode">
-	<h2>What is Go?</h2>
+	To run the tour locally first
+	<a target="_blank" href="http://golang.org/doc/install.html">install Go</a>,
+	then use
+	<a target="_blank" href="http://golang.org/cmd/goinstall/">goinstall</a>
+	to install
+	<a target="_blank" href="http://code.google.com/p/go-tour/">gotour</a>:
+	<pre>    goinstall go-tour.googlecode.com/hg/gotour</pre>
 	<p>
-	Go is a general-purpose programming language.
+	and run the resultant <code>gotour</code> executable.
 	<p>
-	Goals of Go
-	<ul>
-	<li>Feel lightweight on the page.</li>
-	<li>Feel flexible, adaptable.</li>
-	<li>Allow enough control to write efficient programs.</li>
-	<li>Compile fast.</li>
-	<li>Encourage interesting, productive tools.</li>
-	</ul>
+	Otherwise, click the "next" button or type PageDown to continue.
+	<p>
+	<i>(You may return to these instructions at any time by clicking the
+	"index" button.)</i>
 </div>
 
 <div class="toc">Introduction</div>
@@ -2220,10 +2198,20 @@ var fetcher = &fakeFetcher{
 
 <div class="slide nocode">
 	<h2>Where to Go from here...</h2>
+	<p class="appengineMode">
+	You can get started by
+	<a href="http://golang.org/doc/install.html">installing Go</a> or
+	downloading the
+	<a href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go">Go App Engine SDK</a>.
+	</p>
 	<p>
-	The <a target="_blank" href="http://golang.org/doc/docs.html">Go
-	Documentation</a> is a great place to start. It contains references,
-	tutorials, videos, and more.
+	<span class="appengineMode">Once you have Go on your machine, the</span>
+	<span class="localMode">The</span>
+	<a target="_blank" href="http://golang.org/doc/docs.html">Go Documentation</a>
+	is a great place to
+	<span class="appengineMode">continue</span>
+	<span class="localMode">start</span>.
+	It contains references, tutorials, videos, and more.
 	<p>
 	If you need help with the standard library,
 	see the <a target="_blank" href="http://golang.org/pkg/">package
