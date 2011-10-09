@@ -1159,13 +1159,14 @@ func main() {
 	In this case, Newton's method is to approximate <code>Sqrt(x)</code>
 	by picking a starting point <i>z</i> and then repeating:
 	<center>
-	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^2-x}{2x}">
+	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^2-x}{2z}">
 	</center>
 	<p>
 	To begin with, just repeat that calculation 10 times and see how close you
 	get to the answer for various values (1, 2, 3, ...).
 	<p>
-	Next, change the loop condition to stop once the value has stopped changing.
+	Next, change the loop condition to stop once the value has stopped
+	changing (or only changes by a very small delta).
 	See if that's more or fewer iterations.
 	How close are you to the <a target="_blank" href="http://golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
 	<p>
@@ -1282,7 +1283,7 @@ func main() {
 	<code>complex64</code> and <code>complex128</code> types.
 	For cube roots, Newton's method amounts to repeating:
 	<center>
-	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^3-x}{3x^2}">
+	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^3-x}{3z^2}">
 	</center>
 	<p>
 	Find the cube root of 2, just to make sure the algorithm works.
