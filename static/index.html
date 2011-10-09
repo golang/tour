@@ -900,7 +900,7 @@ a := make([]int, 5)  // len(a)=5
 b := make([]int, 0, 5)
 // len(b)=0, cap(b)=5
 	</pre>
-	Slices can grown by "re-slicing" (up to their capacity):
+	Slices can be grown by "re-slicing" (up to their capacity):
 	<p>
 	<pre>
 b = b[:cap(b)] // len(b)=5, cap(b)=5
