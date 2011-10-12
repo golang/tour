@@ -44,10 +44,6 @@ pre {
 	white-space: pre-wrap;
 }
 
-pre span {
-	font-family: 'Droid Serif', serif;
-}
-
 h1, h2, h3 {
 	font-family: 'Droid Sans', sans-serif;
 	margin-top: 10px;
@@ -59,59 +55,58 @@ h1 {
 	padding: 8px;
 	height: 40px;
 }
-code, pre, textarea {
-	font-family: 'Droid Sans Mono', monospace;
-	font-size: 100%;
-}
 
-.code {
+pre, code, .codemirror pre {
+	font-family: 'Droid Sans Mono', monospace;
+}
+code, pre {
+	color: #006;
+}
+.codemirror pre, #output pre {
+	color: inherit;
+}
+.codemirror {
+	line-height: 1.4em;
+}
+#code {
 	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	background: #FFD;
 	position: absolute;
 	top: 56px;
 	left: 0;
-	bottom: 0;
 	right: 50%;
+	bottom: 20%;
 	padding-top: 2px;
 }
-.showoutput .code {
-	bottom: 20%;
-}
-.code textarea {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	padding: 0 4px;
+#code .codemirror-scroll {
 	height: 100%;
-	width: -moz-available;
-	border: 0px;
-	outline: 0px;
 }
-.code textarea:focus {
-	border: 0px;
-	outline: 0px;
-}
-
-.output {
+#output {
+	border-right: 1px solid black;
 	position: absolute;
 	top: 80%;
 	bottom: 0;
 	left: 0;
 	right: 50%;
-	border-right: 1px solid black;
-	border-top: 1px solid black;
 	overflow: auto;
-	padding: 0 4px;
-	display: none;
+	padding: 4px;
 }
-.showoutput .output {
-	display: block;
-}
-.output .wait {
+#output .loading {
 	color: #666;
 	margin-top: 1em;
 	text-align: center;
+}
+#output.error {
+	color: #B00;
+}
+#code .errLine {
+	background: #FDD !important;
+}
+#run {
+	position: absolute;
+	z-index: 10;
+	right: 20px;
 }
 
 .content {
@@ -126,13 +121,6 @@ code, pre, textarea {
 }
 .nocode .content {
 	left: 0;
-}
-
-.programoutput {
-	color: #0000cc;
-}
-.compileerrors {
-	color: #cc0000;
 }
 
 hr {

@@ -1,13 +1,11 @@
-window.onload = init;
+(function() {
 
-var slides;
+var slides, editor, $editor, $output;
 var slide = null;
 var slidenum = 0;
 var codebox = null;
-var output = null;
-var errors = null;
 
-function initSlides() {
+function init() {
 	if (tourMode == 'local') {
 		$('.appengineMode').remove();
 	} else {
@@ -23,15 +21,15 @@ function initSlides() {
 		}
 	});
 
-	var $slides = $("div.slide");
-	$slides.each(function(i, slide) {
+	slides = $("div.slide");
+	slides.each(function(i, slide) {
 		var $s = $(slide).hide();
 
-		var $code = null;
 		var $sdiv = $s.find("div");
 		if (!$s.hasClass("nocode") && $sdiv.length > 0) {
-			$code = $sdiv.last();
-			$code.remove();
+			var $div = $sdiv.last();
+			$div.remove();
+			$s.data("code", $div.text().trim());
 		}
 
 		var $content = $('<div class="content"/>');
@@ -48,7 +46,7 @@ function initSlides() {
 					show(i-1);
 				}).text("PREV").addClass("prev"));
 			}
-			if (i+1 < $slides.length) {
+			if (i+1 < slides.length) {
 				$nav.append($("<button>").click(function() {
 					show(i+1);
 				}).text("NEXT").addClass("next"));
@@ -61,86 +59,66 @@ function initSlides() {
 			$toc.append($entry);
 
 		}
-		if ($s.hasClass("nocode"))
+		if ($s.hasClass("nocode")) {
 			$h2.addClass("nocode");
-
-		if ($code == null)
-			return;
-
-		var $codebox = $("<textarea/>").html($code.text().trim());
-		$code.empty().addClass("code");
-		$code.append($codebox);
-
-		$nav.prepend($("<button>").click(function() {
-			compile($codebox[0]);
-		}).text("COMPILE").addClass("compile"));
-
-		$s.prepend('<div class="output">'+
-			'<div class="compileerrors"/>'+
-			'<div class="programoutput"/>'+
-			'</div>');
-		$s.prepend($code);
+		}
 	});
 
-	return $slides;
+	// set up playground editor
+	$editor = $('<div id="code"><button id="run">RUN</button><textarea/></div>');
+	$editor.insertBefore("#slides");
+	$output = $('<div id="output"/>').insertBefore("#slides");
+	editor = playground("#code textarea", "#output", "#run", null, null);
 }
 
 function showToc() {
 	$("#toc").show();
-	$("#slides").hide();
+	$("#slides, #code, #output").hide();
 	$("#tocbtn").text("SLIDES");
 }
 
 function hideToc() {
 	$("#toc").hide();
-	$("#slides").show();
+	$("#slides, #code, #output").show();
 	$("#tocbtn").text("INDEX");
 }
 
 function show(i) {
 	if(i < 0 || i >= slides.length)
 		return;
+		
+	// if a slide is already onscreen, hide it and store its code
 	if(slide != null) {
-		$(slide).hide();
+		var $oldSlide = $(slide).hide();
+		if (!$oldSlide.hasClass("nocode")) {
+			$oldSlide.data("code", editor.getValue());
+		}
 	}
-	document.onkeydown = null;
-	if(codebox != null) {
-		codebox.onkeydown = null;
-		codebox.onkeyup = null;
-	}
+
+	// switch to new slide
 	slidenum = i;
-
 	$("#slidenum").text(i+1);
+	slide = slides[i];
+	var $s = $(slide).show();
 
+	// load stored code, or hide code box
+	if ($s.hasClass("nocode")) {
+		$editor.hide();
+		$output.hide();
+	} else {
+		$editor.show();
+		$output.show().empty();
+		editor.setValue($s.data("code"));
+		editor.focus();
+	}
+
+	// update url fragment
 	var url = location.href;
 	var j = url.indexOf("#");
 	if(j >= 0)
 		url = url.substr(0, j);
 	url += "#" + (slidenum+1).toString();
 	location.href = url;
-
-	slide = slides[i];
-	$(slide).show();
-	if ($(slide).hasClass("nocode")) {
-		setTimeout(function() {
-			document.onkeydown = pageUpDown;
-		}, 1);
-		return;
-	}
-	var $code = $("div.code", slide);
-	if ($code.length == 0)
-		return;
-	codebox = $code.find("textarea")[0];
-	if (codebox != null) {
-		codebox.spellcheck = false;
-		codebox.onkeydown = keyDown;
-		codebox.onkeyup = keyUp;
-		codebox.focus();
-		document.onclick = null;
-	}
-	output = $("div.programoutput", slide)[0];
-	errors = $("div.compileerrors", slide)[0];
-	document.onclick = function() { codebox.focus(); }
 }
 
 function urlSlideNumber(url) {
@@ -155,71 +133,6 @@ function urlSlideNumber(url) {
 		return i-1;
 	}
 	return 0;
-}
-
-function insertTabs(cont, n) {
-	// find the selection start and end
-	var start = cont.selectionStart;
-	var end   = cont.selectionEnd;
-	// split the textarea content into two, and insert n tabs
-	var v = cont.value;
-	var u = v.substr(0, start);
-	for (var i=0; i<n; i++) {
-		u += "\t";
-	}
-	u += v.substr(end);
-	// set revised content
-	cont.value = u;
-	// reset caret position after inserted tabs
-	cont.selectionStart = start+n;
-	cont.selectionEnd = start+n;
-}
-
-function autoindent(el) {
-	var curpos = el.selectionStart;
-	var tabs = 0;
-	while (curpos > 0) {
-		curpos--;
-		if (el.value[curpos] == "\t") {
-			tabs++;
-		} else if (tabs > 0 || el.value[curpos] == "\n") {
-			break;
-		}
-	}
-	setTimeout(function() {
-		insertTabs(el, tabs);
-	}, 1);
-}
-
-var keySeq = 0;
-var keyWaiting = false;
-
-function keyDown(event) {
-	var e = window.event || event;
-	if (e.keyCode == 9) {  // tab
-		insertTabs(e.target, 1);
-		e.preventDefault();
-		return false;
-	}
-	if (e.keyCode == 13) { // enter
-		if (e.shiftKey) {
-			compile(e.target);
-			e.preventDefault();
-			return false;
-		}
-		autoindent(e.target);
-	}
-	if (e.keyCode == 33) { // page up
-		e.preventDefault();
-		show(slidenum-1);
-		return false;
-	}
-	if (e.keyCode == 34) { // page down
-		e.preventDefault();
-		show(slidenum+1);
-		return false;
-	}
-	return true;
 }
 
 function pageUpDown(event) {
@@ -237,99 +150,11 @@ function pageUpDown(event) {
 	return true;
 }
 
-var autocompile = false;
-
-function keyUp(event) {
-	var e = window.event || event;
-	keySeq++;
-	if(!autocompile || codebox == null)
-		return;
-	if (!keyWaiting) {
-		var seq = keySeq;
-		keyWaiting = true;
-		setTimeout(function() { keyTimeout(seq, 50); }, 50)
-	}
-}
-
-var waitTime = 200;	// wait 200 ms before compiling
-
-function keyTimeout(seq, n) {
-	ks1 = seq;
-	ks2 = n;
-	if (keySeq != seq) {
-		seq = keySeq;
-		setTimeout(function() { keyTimeout(seq, 50); }, 50)
-		return;
-	}
-	if (n < waitTime) {
-		setTimeout(function() { keyTimeout(seq, n+50); }, 50)
-		return;
-	}
-	keyWaiting = false;
-	if (codebox != null)
-		compile(codebox);
-}
-
-var compileSeq = 0;
-
-function compile(el) {
-	var prog = $(el).val();
-	var req = new XMLHttpRequest();
-	var seq = compileSeq++;
-	req.onreadystatechange = function() { compileUpdate(req, seq); }
-	req.open("POST", "/compile", true);
-	req.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
-	req.send(prog);
-
-	if (!output) {
-		return;
-	}
-
-	$(output).closest('.slide').addClass('showoutput');
-	var waitString;
-	if (tourMode == 'local') {
-		waitString = 'Running...';
-	} else {
-		waitString = 'Waiting for remote server...';
-	}
-	$(output).html('<div class="wait">'+waitString+'</div>');
-	$(errors).html('');
-
-	var seq = compileSeq;
-	
-	if (tourMode == 'local') {
-		setTimeout(function() {
-			if (seq != compileSeq) {
-				return;
-			}
-			$("<button/>").text("KILL").click(function() {
-				$.ajax("/kill", {
-					type: 'POST',
-					success: function() {
-						$(output).empty();
-					}
-				});
-			}).appendTo(output);
-		}, 1000);
-	}
-}
-
-function compileUpdate(req, seq) {
-	if(!req || req.readyState != 4 || compileSeq != seq)
-		return;
-	var out = req.responseText;
-	var err = "";
-	if(req.status != 200) {
-		err = out;
-		out = "";
-	}
-	$(output).html(out);
-	$(errors).html(err);
-	compileSeq++;
-}
-
-function init() {
-	slides = initSlides();
+$(document).ready(function() {
+	init();
 	$('body').removeClass('loading');
 	show(urlSlideNumber(location.href));
-}
+	document.onkeydown = pageUpDown;
+});
+
+}());

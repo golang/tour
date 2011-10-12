@@ -2,30 +2,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 <title>A Tour of Go</title>
+
+<!-- jQuery -->
+<script src="static/jquery.js"></script>
+
+<!-- Fonts -->
 <link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
+
+<!-- Playground -->
+<link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
+<script src="/static/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/static/codemirror/theme/default.css">
+<script src="static/playground.js"></script>
+
+<!-- Tour -->
 <link rel="stylesheet" href="static/tour.css" charset="utf-8">
-<script src="static/jquery.js"></script>
 <script src="static/mode.js"></script>
 <script src="static/tour.js"></script>
+
 </head>
 <body class="loading">
 
+<!-- Top bar -->
 <h2 id="slidenum"></h2>
 <div id="topnav" class="nav">
 	<button id="tocbtn">INDEX</button>
 </div>
-
 <h1>A Tour of Go</h1>
 
-<ol id="toc"></ol>
-
+<!-- Loading message -->
 <div id="loading">
 	Loading slides...
 </div>
 
-<div id="slides" class="slides codeleft">
+<!-- Table of Contents -->
+<ol id="toc"></ol>
+
+<div id="slides" class="slides"><!-- begin slides -->
 
 <div class="toc">Welcome</div>
 
@@ -38,7 +53,7 @@
 	The tour is divided into three sections. At the end of each section
 	is a series of exercises for you to complete.
 	<p>
-	The tour is interactive. Click the Compile button now (or type
+	The tour is interactive. Click the Run button now (or type
 	Shift-Enter) to compile and run the program on
 	<span class="appengineMode">a remote server.</span>
 	<span class="localMode">your computer.</span>
