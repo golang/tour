@@ -1,0 +1,16 @@
+This is the App Engine version of the Go Playground.
+
+To deploy: (instructions relative to the appengine directory)
+
+1. Make a copy of the static directory.
+	
+	cp -r ../static .
+
+2. Edit static/mode.js to set the tourMode variable to "appengine".
+
+3. Edit app.yaml to set the application name to something you have access to.
+
+4. Use appcfg.py to deploy it.
+
+	/path/to/sdk/appcfg.py update .
+
