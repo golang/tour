@@ -1345,13 +1345,13 @@ type Vertex struct {
 	X, Y float64
 }
 
-func (p *Vertex) Abs() float64 {
-	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
 func main() {
-	p := &Vertex{3, 4}
-	fmt.Println(p.Abs())
+	v := &Vertex{3, 4}
+	fmt.Println(v.Abs())
 }
 </div>
 </div>
@@ -1428,19 +1428,19 @@ type Vertex struct {
 	X, Y float64
 }
 
-func (p *Vertex) Scale(f float64) {
-	p.X = p.X * f
-	p.Y = p.Y * f
+func (v *Vertex) Scale(f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
 }
 
-func (p *Vertex) Abs() float64 {
-	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
 func main() {
-	p := &Vertex{3, 4}
-	p.Scale(5)
-	fmt.Println(p, p.Abs())
+	v := &Vertex{3, 4}
+	v.Scale(5)
+	fmt.Println(v, v.Abs())
 }
 </div>
 </div>
@@ -1468,11 +1468,11 @@ type Abser interface {
 func main() {
 	var a Abser
 	f := MyFloat(-math.Sqrt2)
-	p := Vertex{3, 4}
+	v := Vertex{3, 4}
 
 	a = f  // a MyFloat implements Abser
-	a = &p // a *Vertex implements Abser
-	a = p  // a Vertex, does NOT
+	a = &v // a *Vertex implements Abser
+	a = v  // a Vertex, does NOT
 	       // implement Abser
 
 	fmt.Println(a.Abs())
@@ -1491,8 +1491,8 @@ type Vertex struct {
 	X, Y float64
 }
 
-func (p *Vertex) Abs() float64 {
-	return math.Sqrt(p.X*p.X + p.Y*p.Y)
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 </div>
 </div>
