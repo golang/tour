@@ -7,9 +7,9 @@ package pic
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"image"
 	"image/png"
-	"fmt"
 )
 
 func Show(f func(int, int) [][]uint8) {
@@ -18,7 +18,7 @@ func Show(f func(int, int) [][]uint8) {
 		dy = 256
 	)
 	data := f(dx, dy)
-	m := image.NewNRGBA(dx, dy)
+	m := image.NewNRGBA(image.Rect(0, 0, dx, dy))
 	for y := 0; y < dy; y++ {
 		for x := 0; x < dx; x++ {
 			v := data[y][x]

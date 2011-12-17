@@ -5,9 +5,9 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
-	"json"
-	"http"
+	"net/http"
 )
 
 func init() {
@@ -26,7 +26,7 @@ func Compile(w http.ResponseWriter, req *http.Request) {
 		if out != nil {
 			resp.Errors = string(out)
 		} else {
-			resp.Errors = err.String()
+			resp.Errors = err.Error()
 		}
 	} else {
 		resp.Output = string(out)

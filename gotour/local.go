@@ -6,14 +6,14 @@ package main
 
 import (
 	"bytes"
-	"exec"
 	"flag"
 	"fmt"
 	"go/build"
-	"http"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -21,12 +21,12 @@ import (
 	"sync"
 
 	// Imports so that goinstall automatically installs them.
-	_ "go-tour.googlecode.com/hg/pic"
-	_ "go-tour.googlecode.com/hg/tree"
-	_ "go-tour.googlecode.com/hg/wc"
+	_ "code.google.com/p/go-tour/pic"
+	_ "code.google.com/p/go-tour/tree"
+	_ "code.google.com/p/go-tour/wc"
 )
 
-const basePkg = "go-tour.googlecode.com/hg"
+const basePkg = "code.google.com/p/go-tour/"
 
 var (
 	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
@@ -53,7 +53,7 @@ func main() {
 	}()
 
 	// set archChar
-	var err os.Error
+	var err error
 	archChar, err = build.ArchChar(runtime.GOARCH)
 	if err != nil {
 		log.Fatal(err)
@@ -85,7 +85,7 @@ func main() {
 		log.Print(localhostWarning)
 	}
 
-	log.Printf("Serving at http://%s/", *httpListen) 
+	log.Printf("Serving at http://%s/", *httpListen)
 	log.Fatal(http.ListenAndServe(*httpListen, nil))
 }
 
@@ -119,7 +119,7 @@ func kill(w http.ResponseWriter, r *http.Request) {
 	stopRun()
 }
 
-func compile(req *http.Request) (out []byte, err os.Error) {
+func compile(req *http.Request) (out []byte, err error) {
 	stopRun()
 
 	// x is the base name for .go, .6, executable files
@@ -164,12 +164,12 @@ func compile(req *http.Request) (out []byte, err os.Error) {
 }
 
 // run executes the specified command and returns its output and an error.
-func run(args ...string) ([]byte, os.Error) {
+func run(args ...string) ([]byte, error) {
 	var buf bytes.Buffer
 	cmd := exec.Command(args[0], args[1:]...)
 	cmd.Stdout = &buf
 	cmd.Stderr = cmd.Stdout
-	
+
 	// Start command and leave in 'running'.
 	running.Lock()
 	if running.cmd != nil {
@@ -182,7 +182,7 @@ func run(args ...string) ([]byte, os.Error) {
 	}
 	running.cmd = cmd
 	running.Unlock()
-	
+
 	// Wait for the command.  Clean up,
 	err := cmd.Wait()
 	running.Lock()

@@ -6,7 +6,7 @@ package tree
 
 import (
 	"fmt"
-	"rand"
+	"math/rand"
 )
 
 // A Tree is a binary tree with integer values.
