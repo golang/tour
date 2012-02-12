@@ -15,6 +15,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strconv"
 	"strings"
@@ -119,13 +120,26 @@ func kill(w http.ResponseWriter, r *http.Request) {
 	stopRun()
 }
 
+var (
+	commentRe = regexp.MustCompile(`(?m)^#.*\n`)
+	tmpdir    string
+)
+
+func init() {
+	// find real temporary directory (for rewriting filename in output)
+	var err error
+	tmpdir, err = filepath.EvalSymlinks(os.TempDir())
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func compile(req *http.Request) (out []byte, err error) {
 	stopRun()
 
 	// x is the base name for .go, .6, executable files
-	x := os.TempDir() + "/compile" + strconv.Itoa(<-uniq)
+	x := filepath.Join(tmpdir, "compile"+strconv.Itoa(<-uniq))
 	src := x + ".go"
-	obj := x + "." + archChar
 	bin := x
 	if runtime.GOOS == "windows" {
 		bin += ".exe"
@@ -133,6 +147,10 @@ func compile(req *http.Request) (out []byte, err error) {
 
 	// rewrite filename in error output
 	defer func() {
+		if err != nil {
+			// drop messages from the go tool like '# _/compile0'
+			out = commentRe.ReplaceAll(out, nil)
+		}
 		out = bytes.Replace(out, []byte(src+":"), []byte("main.go:"), -1)
 	}()
 
@@ -141,32 +159,28 @@ func compile(req *http.Request) (out []byte, err error) {
 	if _, err = body.ReadFrom(req.Body); err != nil {
 		return
 	}
+	defer os.Remove(src)
 	if err = ioutil.WriteFile(src, body.Bytes(), 0666); err != nil {
 		return
 	}
 
-	// build x.go, creating x.6
-	out, err = run(archChar+"g", "-I", pkgDir, "-o", obj, src)
-	defer os.Remove(obj)
-	if err != nil {
-		return
-	}
-
-	// link x.6, creating x (the program binary)
-	out, err = run(archChar+"l", "-L", pkgDir, "-o", bin, obj)
+	// build x.go, creating x
+	dir, file := filepath.Split(src)
+	out, err = run(dir, "go", "build", "-o", bin, file)
 	defer os.Remove(bin)
 	if err != nil {
 		return
 	}
 
 	// run x
-	return run(bin)
+	return run("", bin)
 }
 
 // run executes the specified command and returns its output and an error.
-func run(args ...string) ([]byte, error) {
+func run(dir string, args ...string) ([]byte, error) {
 	var buf bytes.Buffer
 	cmd := exec.Command(args[0], args[1:]...)
+	cmd.Dir = dir
 	cmd.Stdout = &buf
 	cmd.Stderr = cmd.Stdout
 
