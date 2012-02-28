@@ -1303,7 +1303,7 @@ func main() {
 	</center>
 	<p>
 	Find the cube root of 2, just to make sure the algorithm works.
-	There is a <a target="_blank" href="http://weekly.golang.org/pkg/cmath/#Pow">cmath.Pow</a> function.
+	There is a <a target="_blank" href="http://weekly.golang.org/pkg/math/cmplx/#Pow">cmplx.Pow</a> function.
 
 <div>
 package main
@@ -1598,7 +1598,7 @@ func main() {
 <div class="slide">
 	<h2>Web servers</h2>
 	<p>
-	<a target="_blank" href="http://weekly.golang.org/pkg/http/">Package http</a> serves HTTP requests using any value
+	<a target="_blank" href="http://weekly.golang.org/pkg/net/http/">Package http</a> serves HTTP requests using any value
 	that implements <code>http.Handler</code>:
 	<pre>
 package http
@@ -1800,9 +1800,9 @@ func main() {
 	another <code>io.Reader</code>, modifying the stream in some way.
 	<p>
 	For example, the
-	<a target="_blank" href="http://weekly.golang.org/pkg/compress/gzip/#Decompressor.NewReader">gzip.NewReader</a>
+	<a target="_blank" href="http://weekly.golang.org/pkg/compress/gzip/#NewReader">gzip.NewReader</a>
 	function takes an <code>io.Reader</code> (a stream of gzipped data)
-	and returns a <code>*gzip.Decompressor</code> that also implements
+	and returns a <code>*gzip.Reader</code> that also implements
 	<code>io.Reader</code> (a stream of the decompressed data).
 	<p>
 	Implement a <code>rot13Reader</code> that implements
@@ -1870,7 +1870,7 @@ import (
 
 func say(s string) {
 	for i := 0; i < 5; i++ {
-		<span class="appengineMode">runtime.Gosched()</span><span class="localMode">time.Sleep(100e6)</span>
+		<span class="appengineMode">runtime.Gosched()</span><span class="localMode">time.Sleep(100 * time.Millisecond)</span>
 		fmt.Println(s)
 	}
 }
