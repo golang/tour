@@ -37,10 +37,6 @@ var (
 var (
 	// a source of numbers, for naming temporary files
 	uniq = make(chan int)
-	// the architecture-identifying character of the tool chain, 5, 6, or 8
-	archChar string
-	// where gc and ld should find the go-tour packages
-	pkgDir string
 )
 
 func main() {
@@ -53,19 +49,12 @@ func main() {
 		}
 	}()
 
-	// set archChar
-	var err error
-	archChar, err = build.ArchChar(runtime.GOARCH)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	// find and serve the go tour files
-	t, _, err := build.FindTree(basePkg)
+	p, err := build.Default.Import(basePkg, "", build.FindOnly)
 	if err != nil {
 		log.Fatalf("Couldn't find tour files: %v", err)
 	}
-	root := filepath.Join(t.SrcDir(), basePkg)
+	root := p.Dir
 	log.Println("Serving content from", root)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/favicon.ico" || r.URL.Path == "/" {
@@ -77,9 +66,6 @@ func main() {
 	})
 	http.Handle("/static/", http.FileServer(http.Dir(root)))
 	http.HandleFunc("/kill", kill)
-
-	// set include path for ld and gc
-	pkgDir = t.PkgDir()
 
 	if !strings.HasPrefix(*httpListen, "127.0.0.1") &&
 		!strings.HasPrefix(*httpListen, "localhost") {
