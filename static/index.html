@@ -89,9 +89,9 @@ func main() {
 	available in this sandboxed version.
 	<p>
 	To run the tour locally first
-	<a target="_blank" href="http://weekly.golang.org/install/">install Go</a>
-	(the latest weekly snapshot, as that is the version covered by this tour), then use
-	<a target="_blank" href="http://weekly.golang.org/cmd/go/">go get</a> to install
+	<a target="_blank" href="http://golang.org/install/">install Go</a>,
+	then use
+	<a target="_blank" href="http://golang.org/cmd/go/">go get</a> to install
 	<a target="_blank" href="http://code.google.com/p/go-tour/">gotour</a>:
 	<pre>    go get code.google.com/p/go-tour/gotour</pre>
 	<p>
@@ -191,7 +191,7 @@ func main() {
 	<p>
 	Notice that the type comes <i>after</i> the variable name.
 	<p>
-	(For more about why types look the way they do, see the <a target="_blank" href="http://weekly.golang.org/doc/articles/gos_declaration_syntax.html">article on Go's declaration syntax</a>.)
+	(For more about why types look the way they do, see the <a target="_blank" href="http://golang.org/doc/articles/gos_declaration_syntax.html">article on Go's declaration syntax</a>.)
 <div>
 package main
 
@@ -957,7 +957,7 @@ func printSlice(s string, x []int) {
 	A nil slice has a length and capacity of 0.
 	<p>
 	(To learn more about slices, read the 
-	"<a target="_blank" href="http://weekly.golang.org/doc/articles/slices_usage_and_internals.html">Slices: usage and internals</a>"
+	"<a target="_blank" href="http://golang.org/doc/articles/slices_usage_and_internals.html">Slices: usage and internals</a>"
 	article.)
 <div>
 package main
@@ -1189,7 +1189,7 @@ func main() {
 	Next, change the loop condition to stop once the value has stopped
 	changing (or only changes by a very small delta).
 	See if that's more or fewer iterations.
-	How close are you to the <a target="_blank" href="http://weekly.golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
+	How close are you to the <a target="_blank" href="http://golang.org/pkg/math/#Sqrt">math.Sqrt</a>?
 	<p>
 	Hint: to declare and initialize a floating point value, give it
 	floating point syntax or use a conversion:
@@ -1222,7 +1222,7 @@ func main() {
 	The <code>wc.Test</code> function runs a test suite against the
 	provided function and prints success or failure.
 	<p>
-	You might find <a target="_blank" href="http://weekly.golang.org/pkg/strings/#Fields">strings.Fields</a> helpful.
+	You might find <a target="_blank" href="http://golang.org/pkg/strings/#Fields">strings.Fields</a> helpful.
 
 <div>
 package main
@@ -1310,7 +1310,7 @@ func main() {
 	</center>
 	<p>
 	Find the cube root of 2, just to make sure the algorithm works.
-	There is a <a target="_blank" href="http://weekly.golang.org/pkg/math/cmplx/#Pow">cmplx.Pow</a> function.
+	There is a <a target="_blank" href="http://golang.org/pkg/math/cmplx/#Pow">cmplx.Pow</a> function.
 
 <div>
 package main
@@ -1519,7 +1519,7 @@ func (v *Vertex) Abs() float64 {
 	don't have to find every implementation and tag it with the new
 	interface name.
 	<p>
-	<a target="_blank" href="http://weekly.golang.org/pkg/io/">Package io</a> defines <code>Reader</code> and <code>Writer</code>; you don't have to.
+	<a target="_blank" href="http://golang.org/pkg/io/">Package io</a> defines <code>Reader</code> and <code>Writer</code>; you don't have to.
 <div>
 package main
 
@@ -1605,7 +1605,7 @@ func main() {
 <div class="slide">
 	<h2>Web servers</h2>
 	<p>
-	<a target="_blank" href="http://weekly.golang.org/pkg/net/http/">Package http</a> serves HTTP requests using any value
+	<a target="_blank" href="http://golang.org/pkg/net/http/">Package http</a> serves HTTP requests using any value
 	that implements <code>http.Handler</code>:
 	<pre>
 package http
@@ -1624,7 +1624,7 @@ type Handler interface {
 	<span class="appengineMode">
 	<b>Note:</b> This example won't run through the web-based tour user
 	interface. To try writing web servers you may want to
-	<a target="_blank" href="http://weekly.golang.org/install/">Install
+	<a target="_blank" href="http://golang.org/install/">Install
 	Go</a>.
 	</span>
 <div>
@@ -1653,7 +1653,7 @@ func main() {
 <div class="slide">
 	<h2>Images</h2>
 	<p>
-	<a target="_blank" href="http://weekly.golang.org/pkg/image/#Image">Package image</a> defines the <code>Image</code>
+	<a target="_blank" href="http://golang.org/pkg/image/#Image">Package image</a> defines the <code>Image</code>
 	interface:
 	<pre>
 package image
@@ -1664,7 +1664,7 @@ type Image interface {
 	At(x, y int) color.Color
 }</pre>
 	<p>
-	(See <a target="_blank" href="http://weekly.golang.org/pkg/image/#Image">the
+	(See <a target="_blank" href="http://golang.org/pkg/image/#Image">the
 	documentation</a> for all the details.)
 	<p>
 	Also, <code>color.Color</code> and <code>color.Model</code> are interfaces,
@@ -1770,7 +1770,7 @@ func main() {
 	an implementation of <code>image.Image</code> instead of a slice of data.
 	<p>
 	Define your own <code>Image</code> type, implement
-	<a target="_blank" href="http://weekly.golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
+	<a target="_blank" href="http://golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
 	and call <code>pic.ShowImage</code>.
 	<p>
 	<code>Bounds</code> should return a <code>image.Rectangle</code>, like
@@ -1803,11 +1803,11 @@ func main() {
 	<h2>Exercise: Rot13 Reader</h2>
 	<p>
 	A common pattern is an
-	<a target="_blank" href="http://weekly.golang.org/pkg/io/#Reader">io.Reader</a> that wraps
+	<a target="_blank" href="http://golang.org/pkg/io/#Reader">io.Reader</a> that wraps
 	another <code>io.Reader</code>, modifying the stream in some way.
 	<p>
 	For example, the
-	<a target="_blank" href="http://weekly.golang.org/pkg/compress/gzip/#NewReader">gzip.NewReader</a>
+	<a target="_blank" href="http://golang.org/pkg/compress/gzip/#NewReader">gzip.NewReader</a>
 	function takes an <code>io.Reader</code> (a stream of gzipped data)
 	and returns a <code>*gzip.Reader</code> that also implements
 	<code>io.Reader</code> (a stream of the decompressed data).
@@ -1863,7 +1863,7 @@ func main() {
 	happens in the new goroutine.
 	<p>
 	Goroutines run in the same address space, so access to shared memory
-	must be synchronized. The <code><a href="http://weekly.golang.org/pkg/sync/"
+	must be synchronized. The <code><a href="http://golang.org/pkg/sync/"
 	target="_blank">sync</a></code> package provides useful primitives,
 	although you won't need them much in Go as there are other primitives.
 	(See the next slide.)
@@ -2078,7 +2078,7 @@ default:
 	<span class="appengineMode">
 	<b>Note:</b> This example won't run through the web-based tour user
 	interface because the sandbox environment has no concept of time. You may want to
-	<a target="_blank" href="http://weekly.golang.org/install/">install Go</a>
+	<a target="_blank" href="http://golang.org/install/">install Go</a>
 	to see this example in action.
 	</span>
 <div>
@@ -2278,33 +2278,33 @@ var fetcher = &fakeFetcher{
 	<h2>Where to Go from here...</h2>
 	<p class="appengineMode">
 	You can get started by
-	<a href="http://weekly.golang.org/install/">installing Go</a> or downloading the
+	<a href="http://golang.org/install/">installing Go</a> or downloading the
 	<a href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go">Go App Engine SDK</a>.
 	</p>
 	<p>
 	<span class="appengineMode">Once you have Go on your machine, the</span>
 	<span class="localMode">The</span>
-	<a target="_blank" href="http://weekly.golang.org/doc/">Go Documentation</a> is a great place to
+	<a target="_blank" href="http://golang.org/doc/">Go Documentation</a> is a great place to
 	<span class="appengineMode">continue</span>
 	<span class="localMode">start</span>.
 	It contains references, tutorials, videos, and more.
 	<p>
 	If you need help with the standard library,
-	see the <a target="_blank" href="http://weekly.golang.org/pkg/">package reference</a>.
+	see the <a target="_blank" href="http://golang.org/pkg/">package reference</a>.
 	For help with the language itself, you might be surprised to find the
-	<a target="_blank" href="http://weekly.golang.org/doc/go_spec.html">Language Spec</a> is quite readable.
+	<a target="_blank" href="http://golang.org/doc/go_spec.html">Language Spec</a> is quite readable.
 	<p>
 	To further explore Go's concurrency model, see the
-	<a target="_blank" href="http://weekly.golang.org/doc/codewalk/sharemem/">Share Memory by Communicating</a>
+	<a target="_blank" href="http://golang.org/doc/codewalk/sharemem/">Share Memory by Communicating</a>
 	codewalk.
 	<p>
-	The <a target="_blank" href="http://weekly.golang.org/doc/codewalk/functions/">First Class Functions in Go</a>
+	The <a target="_blank" href="http://golang.org/doc/codewalk/functions/">First Class Functions in Go</a>
 	codewalk gives an interesting perspective on Go's function types.
 	<p>
 	The <a target="_blank" href="http://blog.golang.org/">Go Blog</a> has a
 	large archive of informative Go articles.
 	<p>
-	Visit <a target="_blank" href="http://weekly.golang.org">golang.org</a> for more.
+	Visit <a target="_blank" href="http://golang.org">golang.org</a> for more.
 </div>
 
 </div><!-- end slides -->
