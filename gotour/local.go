@@ -141,12 +141,9 @@ func compile(req *http.Request) (out []byte, err error) {
 	}()
 
 	// write body to x.go
-	body := new(bytes.Buffer)
-	if _, err = body.ReadFrom(req.Body); err != nil {
-		return
-	}
+	body := []byte(req.FormValue("body"))
 	defer os.Remove(src)
-	if err = ioutil.WriteFile(src, body.Bytes(), 0666); err != nil {
+	if err = ioutil.WriteFile(src, body, 0666); err != nil {
 		return
 	}
 

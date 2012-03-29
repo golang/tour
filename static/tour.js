@@ -68,7 +68,11 @@ function init() {
 	$editor = $('<div id="code"><button id="run">RUN</button><textarea/></div>');
 	$editor.insertBefore("#slides");
 	$output = $('<div id="output"/>').insertBefore("#slides");
-	editor = playground("#code textarea", "#output", "#run", null, null);
+	editor = playground({
+		codeEl: "#code textarea",
+		outputEl: "#output",
+		runEl: "#run"
+	});
 }
 
 function showToc() {
