@@ -5,12 +5,12 @@
 package goplay
 
 import (
+	"fmt"
+	"io"
+	"net/http"
+
 	"appengine"
 	"appengine/urlfetch"
-	"fmt"
-	"http"
-	"io"
-	"os"
 )
 
 const runUrl = "http://golang.org/compile?output=json"
@@ -26,10 +26,11 @@ func compile(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func passThru(w io.Writer, req *http.Request) os.Error {
+func passThru(w io.Writer, req *http.Request) error {
 	c := appengine.NewContext(req)
 	client := urlfetch.Client(c)
-	r, err := client.Post(runUrl, "text/plain", req.Body)
+	defer req.Body.Close()
+	r, err := client.Post(runUrl, req.Header.Get("Content-type"), req.Body)
 	if err != nil {
 		c.Errorf("making POST request:", err)
 		return err
