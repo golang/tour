@@ -7,9 +7,9 @@
 <script src="static/jquery.js"></script>
 
 <!-- Fonts -->
-<link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 
 <!-- Playground -->
 <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
@@ -89,7 +89,7 @@ func main() {
 	available in this sandboxed version.
 	<p>
 	To run the tour locally first
-	<a target="_blank" href="http://golang.org/install/">install Go</a>,
+	<a target="_blank" href="http://golang.org/doc/install/">install Go</a>,
 	then use
 	<a target="_blank" href="http://golang.org/cmd/go/">go get</a> to install
 	<a target="_blank" href="http://code.google.com/p/go-tour/">gotour</a>:
@@ -693,7 +693,7 @@ type Vertex struct {
 
 func main() {
 	p := Vertex{1, 2}
-	q := &p
+	q := &amp;p
 	q.X = 1e9
 	fmt.Println(p)
 }
@@ -709,7 +709,7 @@ func main() {
 	You can list just a subset of fields by using the <code>Name:</code>
 	syntax. (And the order of named fields is irrelevant.)
 	<p>
-	The special prefix <code>&</code> constructs a pointer to a struct
+	The special prefix <code>&amp;</code> constructs a pointer to a struct
 	literal.
 <div>
 package main
@@ -722,7 +722,7 @@ type Vertex struct {
 
 var (
 	p = Vertex{1, 2}  // has type Vertex
-	q = &Vertex{1, 2} // has type *Vertex
+	q = &amp;Vertex{1, 2} // has type *Vertex
 	r = Vertex{X: 1}  // Y:0 is implicit
 	s = Vertex{}      // X:0 and Y:0
 )
@@ -1180,7 +1180,7 @@ func main() {
 	In this case, Newton's method is to approximate <code>Sqrt(x)</code>
 	by picking a starting point <i>z</i> and then repeating:
 	<center>
-	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^2-x}{2z}">
+	<img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=z=z-\frac{z^2-x}{2z}">
 	</center>
 	<p>
 	To begin with, just repeat that calculation 10 times and see how close you
@@ -1306,7 +1306,7 @@ func main() {
 	<code>complex64</code> and <code>complex128</code> types.
 	For cube roots, Newton's method amounts to repeating:
 	<center>
-	<img src="https://chart.googleapis.com/chart?cht=tx&chl=z=z-\frac{z^3-x}{3z^2}">
+	<img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=z=z-\frac{z^3-x}{3z^2}">
 	</center>
 	<p>
 	Find the cube root of 2, just to make sure the algorithm works.
@@ -1358,7 +1358,7 @@ func (v *Vertex) Abs() float64 {
 }
 
 func main() {
-	v := &Vertex{3, 4}
+	v := &amp;Vertex{3, 4}
 	fmt.Println(v.Abs())
 }
 </div>
@@ -1410,7 +1410,6 @@ func main() {
 	First, to avoid copying the value on each method call (more efficient
 	if the value type is a large struct). Second, so that the method can
 	modify the value that its receiver points to.
-	</ol>
 	<p>
 	Try changing the declarations of the <code>Abs</code> and
 	<code>Scale</code> methods to use <code>Vertex</code> as the
@@ -1446,7 +1445,7 @@ func (v *Vertex) Abs() float64 {
 }
 
 func main() {
-	v := &Vertex{3, 4}
+	v := &amp;Vertex{3, 4}
 	v.Scale(5)
 	fmt.Println(v, v.Abs())
 }
@@ -1479,7 +1478,7 @@ func main() {
 	v := Vertex{3, 4}
 
 	a = f  // a MyFloat implements Abser
-	a = &v // a *Vertex implements Abser
+	a = &amp;v // a *Vertex implements Abser
 	a = v  // a Vertex, does NOT
 	       // implement Abser
 
@@ -1588,7 +1587,7 @@ func (e *MyError) Error() string {
 }
 
 func run() error {
-	return &MyError{
+	return &amp;MyError{
 		time.Now(),
 		"it didn't work",
 	}
@@ -1747,7 +1746,7 @@ type Struct struct {
 	<p>
 	For example, you should be able to register handlers using:
 <pre>http.Handle("/string", String("I'm a frayed knot."))
-http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})</pre>
+http.Handle("/struct", &amp;Struct{"Hello", ":", "Gophers!"})</pre>
 <div>
 package main
 
@@ -1770,7 +1769,7 @@ func main() {
 	an implementation of <code>image.Image</code> instead of a slice of data.
 	<p>
 	Define your own <code>Image</code> type, implement
-	<a target="_blank" href="http://golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
+	<a href="http://golang.org/pkg/image/#Image" target="_blank">the necessary methods</a>,
 	and call <code>pic.ShowImage</code>.
 	<p>
 	<code>Bounds</code> should return a <code>image.Rectangle</code>, like
@@ -1837,7 +1836,7 @@ func main() {
 	s := strings.NewReader(
 		"Lbh penpxrq gur pbqr!")
 	r := rot13Reader{s}
-	io.Copy(os.Stdout, &r)
+	io.Copy(os.Stdout, &amp;r)
 }
 </div>
 </div>
@@ -2069,7 +2068,7 @@ func main() {
 	blocking:
 	<pre>
 select {
-case i := <-c:
+case i := &lt;-c:
 	// use i
 default:
 	// receiving from c would block
@@ -2078,7 +2077,7 @@ default:
 	<span class="appengineMode">
 	<b>Note:</b> This example won't run through the web-based tour user
 	interface because the sandbox environment has no concept of time. You may want to
-	<a target="_blank" href="http://golang.org/install/">install Go</a>
+	<a target="_blank" href="http://golang.org/doc/install/">install Go</a>
 	to see this example in action.
 	</span>
 <div>
@@ -2239,15 +2238,15 @@ func (f *fakeFetcher) Fetch(url string) (string, []string, error) {
 }
 
 // fetcher is a populated fakeFetcher.
-var fetcher = &fakeFetcher{
-	"http://golang.org/": &fakeResult{
+var fetcher = &amp;fakeFetcher{
+	"http://golang.org/": &amp;fakeResult{
 		"The Go Programming Language",
 		[]string{
 			"http://golang.org/pkg/",
 			"http://golang.org/cmd/",
 		},
 	},
-	"http://golang.org/pkg/": &fakeResult{
+	"http://golang.org/pkg/": &amp;fakeResult{
 		"Packages",
 		[]string{
 			"http://golang.org/",
@@ -2256,14 +2255,14 @@ var fetcher = &fakeFetcher{
 			"http://golang.org/pkg/os/",
 		},
 	},
-	"http://golang.org/pkg/fmt/": &fakeResult{
+	"http://golang.org/pkg/fmt/": &amp;fakeResult{
 		"Package fmt",
 		[]string{
 			"http://golang.org/",
 			"http://golang.org/pkg/",
 		},
 	},
-	"http://golang.org/pkg/os/": &fakeResult{
+	"http://golang.org/pkg/os/": &amp;fakeResult{
 		"Package os",
 		[]string{
 			"http://golang.org/",
@@ -2278,7 +2277,7 @@ var fetcher = &fakeFetcher{
 	<h2>Where to Go from here...</h2>
 	<p class="appengineMode">
 	You can get started by
-	<a href="http://golang.org/install/">installing Go</a> or downloading the
+	<a href="http://golang.org/doc/install/">installing Go</a> or downloading the
 	<a href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go">Go App Engine SDK</a>.
 	</p>
 	<p>
@@ -2292,7 +2291,7 @@ var fetcher = &fakeFetcher{
 	If you need help with the standard library,
 	see the <a target="_blank" href="http://golang.org/pkg/">package reference</a>.
 	For help with the language itself, you might be surprised to find the
-	<a target="_blank" href="http://golang.org/doc/go_spec.html">Language Spec</a> is quite readable.
+	<a target="_blank" href="http://golang.org/ref/spec">Language Spec</a> is quite readable.
 	<p>
 	To further explore Go's concurrency model, see the
 	<a target="_blank" href="http://golang.org/doc/codewalk/sharemem/">Share Memory by Communicating</a>
