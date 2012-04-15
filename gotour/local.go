@@ -72,7 +72,7 @@ func main() {
 		log.Print(localhostWarning)
 	}
 
-	log.Printf("Serving at http://%s/", *httpListen)
+	log.Printf("Open your web browser and visit http://%s/", *httpListen)
 	log.Fatal(http.ListenAndServe(*httpListen, nil))
 }
 
