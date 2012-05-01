@@ -844,6 +844,51 @@ func main() {
 </div>
 
 <div class="slide">
+	<h2>Mutating Maps</h2>
+	<p>
+	Insert or update an element in map <code>m</code>:
+	<pre>m[key] = elem</pre>
+	<p>
+	Retrieve an element:
+	<pre>elem = m[key]</pre>
+	<p>
+	Delete an element:
+	<pre>delete(m, key)</pre>
+	<p>
+	Test that a key is present with a two-value assignment:
+	<pre>elem, ok = m[key]</pre>
+	<p>
+	If <code>key</code> is in <code>m</code>,
+	<code>ok</code> is <code>true</code>.
+	If not, <code>ok</code> is <code>false</code> and
+	<code>elem</code> is the zero value for the map's element type.
+	<p>
+	Similarly, when reading from a map if the key is not present
+	the result is the zero value for the map's element type.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	m := make(map[string]int)
+
+	m["Answer"] = 42
+	fmt.Println("The value:", m["Answer"])
+
+	m["Answer"] = 48
+	fmt.Println("The value:", m["Answer"])
+
+	delete(m, "Answer")
+	fmt.Println("The value:", m["Answer"])
+
+	v, ok := m["Answer"]
+	fmt.Println("The value:", v, "Present?", ok)
+}
+</div>
+</div>
+
+<div class="slide">
 	<h2>Slices</h2>
 	<p>
 	A slice points to an array of values and also includes a length.
