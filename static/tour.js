@@ -29,7 +29,9 @@ function init() {
 		if (!$s.hasClass("nocode") && $sdiv.length > 0) {
 			var $div = $sdiv.last();
 			$div.remove();
+			$s.data("index", i);
 			$s.data("code", $div.text().trim());
+			$s.data("original", $div.text().trim());
 		}
 
 		var $content = $('<div class="content"/>');
@@ -40,7 +42,7 @@ function init() {
 		var $nav;
 		if ($h2.length > 0) {
 			$("<div/>").addClass("clear").insertAfter($h2);
-			$nav = $("<div/>").addClass("nav")
+			$nav = $("<div/>").addClass("nav");
 			if (i > 0) {
 				$nav.append($("<button>").click(function() {
 					show(i-1);
@@ -65,7 +67,12 @@ function init() {
 	});
 
 	// set up playground editor
-	$editor = $('<div id="code"><button id="run">RUN</button><textarea/></div>');
+	var $controls = $('<div/>').addClass('controls');
+	$controls.append($('<button id="reset">RESET</button>').click(reset));
+	$controls.append('<button id="run">RUN</button>');
+	$editor = $('<div id="code"/>');
+	$editor.append($controls);
+	$editor.append('<textarea/>');
 	$editor.insertBefore("#slides");
 	$output = $('<div id="output"/>').insertBefore("#slides");
 	editor = playground({
@@ -95,7 +102,7 @@ function show(i) {
 	if(slide != null) {
 		var $oldSlide = $(slide).hide();
 		if (!$oldSlide.hasClass("nocode")) {
-			$oldSlide.data("code", editor.getValue());
+			save($oldSlide.data("index")) || $oldSlide.data("code", editor.getValue());
 		}
 	}
 
@@ -112,7 +119,7 @@ function show(i) {
 	} else {
 		$editor.show();
 		$output.show().empty();
-		editor.setValue($s.data("code"));
+		editor.setValue(load(i) || $s.data("code"));
 		editor.focus();
 	}
 
@@ -123,6 +130,46 @@ function show(i) {
 		url = url.substr(0, j);
 	url += "#" + (slidenum+1).toString();
 	location.href = url;
+}
+
+function reset() {
+	var $s = $(slide);
+	$s.data("code", $s.data("original"));
+	editor.setValue($s.data("code"));
+	save(slidenum);
+}
+	
+function save(page) {
+	if (!supports_html5_storage()) {
+		return false;
+	}
+
+	return localStorage['page'+page] = editor.getValue();
+}
+
+function savelast() {
+	if (!supports_html5_storage()) {
+		return;
+	}
+
+	localStorage['last'] = slidenum;
+}
+
+function showlast() {
+	if (!supports_html5_storage() || !('last' in localStorage)) {
+		show(0);
+		return;
+	}
+
+	show(parseInt(localStorage['last']));
+}
+
+function load(page) {
+	if (!supports_html5_storage()) {
+		return false;
+	}
+
+	return localStorage['page'+page];
 }
 
 function urlSlideNumber(url) {
@@ -157,8 +204,28 @@ function pageUpDown(event) {
 $(document).ready(function() {
 	init();
 	$('body').removeClass('loading');
-	show(urlSlideNumber(location.href));
+	if (location.href.indexOf('#') < 0) {
+		showlast();
+	} else {
+		show(urlSlideNumber(location.href));
+	}
 	document.onkeydown = pageUpDown;
 });
 
+$(window).unload(function() {
+	if (!supports_html5_storage()) {
+		return;
+	}
+	savelast(slidenum);
+	save(slidenum);
+});
+
 }());
+
+function supports_html5_storage() {
+	try {
+		return 'localStorage' in window && window['localStorage'] !== null;
+	} catch (e) {
+		return false;
+	}
+}

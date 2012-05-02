@@ -103,10 +103,18 @@ code, pre {
 #code .errLine {
 	background: #FDD !important;
 }
-#run {
+
+.controls {
 	position: absolute;
 	z-index: 10;
-	right: 20px;
+	top: 5px;
+	bottom: 5px;
+	right: 5px;
+}
+.controls #reset {
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 .content {
@@ -142,6 +150,11 @@ button {
 button:hover {
 	background-color: #fff;
 }
+
+button:active {
+	background-color: #ddd;
+}
+
 .nav {
 	float: right;
 	text-align: right;
