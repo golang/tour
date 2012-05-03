@@ -4,7 +4,7 @@ To deploy: (instructions relative to the appengine directory)
 
 1. Make a copy of the static directory.
 	
-	cp -r ../static .
+	cp -r ../static ../talks .
 
 2. Edit static/mode.js to set the tourMode variable to "appengine".
 
