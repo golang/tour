@@ -1,0 +1,1000 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>A Tour of Go</title>
+
+<!-- jQuery -->
+<script src="/static/jquery.js"></script>
+
+<!-- Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+
+<!-- Playground -->
+<link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
+<script src="/static/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/static/codemirror/theme/default.css">
+<script src="/static/playground.js"></script>
+
+<!-- Tour -->
+<link rel="stylesheet" href="/static/tour.css" charset="utf-8">
+<script src="/static/mode.js"></script>
+<script src="/static/tour.js"></script>
+
+</head>
+<body class="loading">
+
+<!-- Top bar -->
+<h2 id="slidenum"></h2>
+<div id="topnav" class="nav">
+	<button id="tocbtn">INDEX</button>
+</div>
+<h1>A Tour of Go</h1>
+
+<!-- Loading message -->
+<div id="loading">
+	Loading slides...
+</div>
+
+<!-- Table of Contents -->
+<ol id="toc"></ol>
+
+<div id="slides" class="slides"><!-- begin slides -->
+
+<div class="toc">Welcome</div>
+
+<div class="slide nocode">
+<h2>Let's Go</h2>
+<center>
+<p>Sameer Ajmani
+<p>Google NYC Tech Talk Meetup
+<p>April 25, 2012
+</center>
+</div>
+
+<div class="slide nocode">
+  <h2>Why Go?</h2>
+
+  <p>Statically typed languages are efficient, but typically bureaucratic and
+  overly complex.
+
+  <p>Dynamic languages can be easy to use, but are error-prone, inefficient, and
+  break down at scale.
+
+  <p>Concurrent programming is hard (threads, locks, headache).
+
+  <p>"Speed, reliability, simplicity: pick two." (sometimes just one)
+
+  <p>Can't we do better?
+</div>
+
+<div class="slide nocode">
+  <h2>Go 1</h2>
+
+  <p>Go began in September 2007.
+  <blockquote>"Consensus drove the design.  Nothing went into the language
+    until [Ken Thompson, Robert Griesemer, and myself] all agreed
+    that it was right.  Some features didn't get resolved until after
+    a year or more of discussion." -- Rob Pike</blockquote>
+  <p>The first release of Go was in November 2009.
+  <p>Go version 1 (Go 1) was released March 28, 2012.
+</div>
+
+<div class="slide nocode">
+  <h2>What is Go?</h2>
+
+  <p>Go is ...
+    <ul>
+      <li>a general-purpose, open source programming language
+      <li>concise, expressive, and readable
+      <li>statically-typed, with "duck typing" via implicit interfaces
+      <li>garbage-collected
+      <li>compiled to native machine code: compiles fast, runs fast
+      <li>especially good for concurrent programming
+    </ul>
+  <p>Start at <a href="http://golang.org">http://golang.org</a>
+</div>
+
+<div class="slide">
+	<h2>Hello, 世界</h2>
+	<p>Here's "Hello, world" in Go.
+	<p>I'm running a modified version of <a href="http://tour.golang.org">http://tour.golang.org</a>.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, 世界")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Hello, world 2.0</h2>
+	<p>Serving "Hello, world"
+	at <a href="http://localhost:8080/world">http://localhost:8080/world</a>
+
+        <p><code>import "net/http"</code> imports the named package as <code>http</code>;<br>
+        <code>http.HandleFunc</code> references <code>HandleFunc</code> from that package.
+
+        <p>In <code>handler</code>, what's the type of <code>name</code>?
+<div>
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func main() {
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
+}
+
+func handler(w http.ResponseWriter,
+             r *http.Request) {
+        name := r.URL.Path[1:]
+	fmt.Fprint(w, "Hello, "+ name)
+}
+</div>
+</div>
+
+<div class="slide">
+  <h2>Simple type system</h2>
+  <p>Go is statically typed, but type inference saves repitition.
+
+  <p>Java:<br>
+    <code>Date now = new Date();</code>
+
+  <p>C/C++:<br>
+    <code>time_t now = time(NULL);</code>
+
+  <p>Go:<br>
+    <code>now := time.Now()</code><br>
+    <code>i := 1</code><br>
+    <code>pi := math.Pi</code><br>
+    <code>greeting := "Hello!"</code><br>
+
+<div>
+package main
+
+import "fmt"
+
+var w int
+
+var (
+	x = 1
+        y, z = 2, 3
+)
+
+func main() {
+        var c = true
+	python, java := false, "no!"
+	fmt.Println(w, x, y, z, c, python, java)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Types and Functions</h2>
+	<p>Declare a type with <code>type</code>, and declare a function
+	with <code>func</code>.
+<div>
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X, Y float64
+}
+
+func VertexToString(v Vertex) string {
+	return fmt.Sprintf("(%f, %f)", v.X, v.Y)
+}
+
+func main() {
+	var v Vertex
+	v.X, v.Y = 3, 4
+	fmt.Println(VertexToString(v))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Composite Literals</h2>
+	<p>
+	Go provides excellent composite literals.  These makes it easy to
+	declare values for structs, maps, arrays, and slices, including nested
+	values.
+<div>
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X, Y float64
+}
+
+func VertexToString(v Vertex) string {
+	return fmt.Sprintf("(%f, %f)", v.X, v.Y)
+}
+
+func main() {
+	v := Vertex{3, 4}
+	fmt.Println(VertexToString(v))
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Methods</h2>
+	<p>
+	Go does not have classes. However, you can define methods on struct
+	types.
+	<p>
+	The <i>method receiver</i> appears as an argument between
+	the <code>func</code> keyword and the method name.
+<div>
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (v Vertex) String() string {
+	return fmt.Sprintf("(%f, %f)", v.X, v.Y)
+}
+
+func main() {
+	v := Vertex{3, 4}
+	fmt.Println(v.String())
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Methods</h2>
+	<p>
+	In fact, you can define a method on <i>any</i> type you define in your
+	package, not just structs.
+	<p>
+	You cannot define a method on a type from another package, or on a
+	basic type.
+<div>
+package main
+
+import "fmt"
+
+type Celsius float32
+type Fahrenheit float32
+
+func (c Celsius) String() string {
+	return fmt.Sprintf("%.2f&deg;C", c)
+}
+
+func (f Fahrenheit) String() string {
+	return fmt.Sprintf("%.2f&deg;F", f)
+}
+
+func (c Celsius) Fahrenheit() Fahrenheit {
+	return Fahrenheit(c*9/5 + 32)  // conversion
+}
+
+func main() {
+	c := Celsius(100)
+	fmt.Println(c, "==", c.Fahrenheit())
+
+
+        // Celsius, Fahrenheit, and float32
+        // are different types!
+        // tryMe := c + Fahrenheit(32)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Interfaces</h2>
+        <p>
+        Did you notice I forgot to type <code>c.String()</code> in
+        the <code>fmt</code> calls on the previous slide?  The <code>fmt</code>
+        package automatically calls <code>String</code> on anything  that
+        implements <code>fmt.Stringer</code>.
+        <p>
+        But I didn't have to say "implements Stringer" anywhere.
+	<p>
+	<i>There is no explicit declaration of intent.</i>
+	<p>
+	An interface type is defined by a set of methods.
+	<p>
+	A value of interface type can hold any value that
+	implements those methods.
+	<p>
+	This decouples implementation packages from the packages
+	that define the interfaces: neither depends on the other.
+<div>
+package main
+
+import "fmt"
+
+type Stringer interface {
+	String() string
+}
+
+func main() {
+	var s Stringer
+	v := Vertex{3, 4}
+	c := Celsius(100)
+
+	s = v  // Vertex implements Stringer
+	s = c  // Celsius implements Stringer
+	fmt.Println(v, c, s)
+}
+
+type Vertex struct { X, Y float64 }
+
+func (v Vertex) String() string {
+	return fmt.Sprintf("(%f, %f)", v.X, v.Y)
+}
+
+type Celsius float32
+
+func (c Celsius) String() string {
+	return fmt.Sprintf("%.2f&deg;C", c)
+}
+
+</div>
+</div>
+
+<div class="slide">
+	<h2>Hello, world 2.1</h2>
+	<p>Serving "Hello, world"
+	at <a href="http://localhost:8081/world">http://localhost:8081/world</a>
+	<p>
+	<a target="_blank" href="http://golang.org/pkg/net/http/">Package http</a> serves HTTP requests using any value
+	that implements <code>http.Handler</code>:
+	<pre>
+package http
+
+type Handler interface {
+	ServeHTTP(w ResponseWriter,
+	          r *Request)
+}
+	</pre>
+	<p>And <code>fmt.Fprint</code> can write to any value that implements <code>io.Writer</code>:
+	<pre>
+package io
+
+type Writer interface {
+	Write(b []byte) (n int, err error)
+}
+	</pre>
+	In this example, the type <code>Hello</code>
+	implements <code>http.Handler</code>, and the
+	type <code>http.ResponseWriter</code>
+	implements </code>io.Writer</code>.
+	<p>
+	<code>Hello</code> can contain state, but beware: calls to ServeHTTP may
+	run concurrently.
+<div>
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+type Hello struct {
+	greeting string
+}
+
+func (h Hello) ServeHTTP(w http.ResponseWriter,
+			 r *http.Request) {
+        name := r.URL.Path[1:]
+        fmt.Fprint(w, h.greeting, ", ", name)
+}
+
+func main() {
+	h := Hello{"Namaste"}
+	http.ListenAndServe("localhost:8081", h)
+}
+</div>
+</div>
+
+<div class="slide nocode">
+<h2>Concurrency</h2>
+
+<p>Based on Communicating Sequential Processes (CSP), first described in 1978 by
+  C.A.R. Hoare.
+
+<p>In UNIX we think about <b>processes</b> connected by <b>pipes</b>:
+<p><code>find ~/go/src/pkg | grep _test.go$ | xargs wc -l</code>
+<p>Each tool is designed to do one thing and to do it well.
+
+<p>In the real world, we assign tasks to <b>individuals</b> connected by <b>communication</b>:<br>
+factory assembly lines, phone trees, software projects.
+
+<p>The Go analogue: <b>goroutines</b> connected by <b>channels</b>.
+</div>
+
+<div class="slide nocode">
+<h2>Goroutines</h2>
+<p>
+  Goroutines are like threads:
+  <ul>
+    <li>They share memory.</li>
+  </ul>
+  But cheaper:
+  <ul>
+    <li>Smaller, segmented stacks.</li>
+    <li>Many goroutines per operating system thread.</li>
+    <li>Managed by the Go runtime.</li>
+  </ul>
+</div>
+
+<div class="slide">
+	<h2>Goroutines</h2>
+        <p>
+	Start a new goroutine with the <code>go</code> keyword:
+	<pre>go f(x, y, z)</pre>
+	<p>
+	starts a new goroutine running
+	<pre>f(x, y, z)</pre>
+	<p>
+	The evaluation
+        of <code>f</code>, <code>x</code>, <code>y</code>, and <code>z</code>
+        happens in the current goroutine and the execution of <code>f</code>
+	happens in the new goroutine.
+	<p>
+	Goroutines run in the same address space, so access to shared memory
+	must be synchronized. The <code><a href="http://golang.org/pkg/sync/"
+	target="_blank">sync</a></code> package provides useful primitives,
+	but you don't need them so much in Go thanks to channels.
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+func say(s string) {
+	for i := 0; i < 5; i++ {
+		time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+		fmt.Println(s)
+	}
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	go say("  world")
+	say("hello")
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Channels</h2>
+
+	<p>
+	A channel is a typed conduit through which you can send and receive
+	values with the channel operator, <code>&lt;-</code>.
+<pre>
+ch <- v    // Send v to channel ch.
+v := <-ch  // Receive from ch, and
+           // assign value to v.
+</pre>
+	<p>
+	(The data flows in the direction of the arrow.)
+
+	<p>
+	Channels must be created using <code>make</code>:
+<pre>
+ch := make(chan int)
+</pre>
+	<p>
+	By default, sends and receives block until the other side is ready.
+	This allows goroutines to synchronize without explicit locks or
+	condition variables.
+<div>
+package main
+
+import "fmt"
+
+func sum(a []int, c chan int) {
+	sum := 0
+	for i := 0; i < len(a); i++ {
+		sum += a[i]
+	}
+	c <- sum  // send sum to c
+}
+
+func main() {
+	a := []int{7, 2, 8, -9, 4, 0}
+
+        c := make(chan int)
+	go sum(a[:len(a)/2], c)
+	go sum(a[len(a)/2:], c)
+        x, y := <-c, <-c  // receive from c
+
+	fmt.Println(x, y, x + y)
+}
+</div>
+</div>
+
+
+<div class="slide">
+	<h2>Buffered Channels</h2>
+
+	<p>
+	Channels can be <i>buffered</i>.  Provide the buffer length as the
+	second argument to <code>make</code> to initialize a buffered channel:
+<pre>
+ch := make(chan int, 100)
+</pre>
+
+	<p>
+	Sends to a buffered channel block only when the buffer is full.
+	Receives block when the buffer is empty.
+<div>
+package main
+
+import "fmt"
+
+func main() {
+	c := make(chan int, 2)
+	c <- 1
+	c <- 2
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Range and Close</h2>
+	<p>
+	A sender can <code>close</code> a channel to indicate that no more
+	values will be sent. Receivers can test whether a channel has been
+	closed by assigning a second parameter to the receive expression: after
+	<pre>
+v, ok := &lt;-ch</pre>
+	<p>
+	<code>ok</code> is <code>false</code> if there are no more values to
+	receive and the channel is closed.
+	<p>
+	The loop <code>for i := range c</code> receives values from the
+	channel repeatedly until it is closed.
+	<p>
+
+<div>
+package main
+
+import "fmt"
+
+func fibonacci(n int, c chan int) {
+        x, y := 1, 1
+        for i := 0; i < n; i++ {
+                c <- x
+                x, y = y, x + y
+        }
+        close(c)
+}
+
+func main() {
+        c := make(chan int, 10)
+	go fibonacci(cap(c), c)
+        for i := range c {
+                fmt.Println(i)
+        }
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Select</h2>
+	<p>
+	The <code>select</code> statement lets a goroutine wait on multiple
+	communication operations.
+	<p>
+	A <code>select</code> blocks until one of its cases can run, then it
+	executes that case.  It chooses one at random if multiple are ready.
+	<p>
+	A <code>select</code> can have a <code>default</code> case that runs if
+	the others would block.  This lets you write non-blocking channel ops:
+<pre>
+select {
+case c1 <- x:
+  // sent x
+case y := <-c2:
+  // received y
+default:
+  // nothing ready
+}
+</pre>
+<div>
+package main
+
+import "fmt"
+
+func fibonacci(c, quit chan int) {
+        x, y := 1, 1
+        for {
+                select {
+                case c <- x:
+                          x, y = y, x + y
+                case <-quit:
+			fmt.Println("quit")
+                        return
+                }
+        }
+}
+
+func main() {
+        c := make(chan int)
+	quit := make(chan int)
+	go fibonacci(c, quit)
+	for i := 0; i < 10; i++ {
+		fmt.Println(<-c)
+	}
+	quit <- 0
+}
+</div>
+</div>
+
+<div class="slide nocode">
+	<h2>Example: Google Search</h2>
+	<p>Q: What does Google search do?
+
+        <p>A: Given a query, return a page of search results (and some ads).
+
+        <p>Q: How do we get the search results?
+
+        <p>A: Send the query to Web search, Image search, YouTube, Maps, News,
+        etc., then mix the results.
+
+        <p>How do we implement this?
+</div>
+
+
+<div class="slide">
+	<h2>Example: Google Search 1.0</h2>
+
+	<p>The <code>Google</code> function takes a query and returns a slice
+	of <code>Results</code>.
+
+        <p><code>Google</code>
+        invokes <code>Web</code>, <code>Image</code>,
+        and <code>Video</code> searches serially, appending them to
+        the <code>results</code> slice.
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+type Result string
+type Search func(query string) Result
+
+var (
+	Web = fakeSearch("web")
+	Image = fakeSearch("image")
+	Video = fakeSearch("video")
+)
+
+func Google(query string) (results []Result) {
+	results = append(results, Web(query))
+	results = append(results, Image(query))
+	results = append(results, Video(query))
+	return
+}
+
+func fakeSearch(kind string) Search {
+        return func(query string) Result {
+	          time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+	          return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+        }
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	results := Google("golang")
+	elapsed := time.Since(start)
+	fmt.Println(results)
+	fmt.Println(elapsed)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Example: Google Search 2.1</h2>
+
+        <p><code>Google</code> invokes <code>Web</code>, <code>Image</code>,
+        and <code>Video</code> searches concurrently, and waits for the expected
+        number of results.
+
+        <p>No locks.  No condition variables.  No callbacks.
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+type Result string
+type Search func(query string) Result
+
+var (
+	Web = fakeSearch("web")
+	Image = fakeSearch("image")
+	Video = fakeSearch("video")
+)
+
+func Google(query string) (results []Result) {
+	c := make(chan Result, 3)
+	go func() { c <- Web(query) } ()
+	go func() { c <- Image(query) } ()
+	go func() { c <- Video(query) } ()
+
+	for i := 0; i < cap(c); i++ {
+		result := <-c
+		results = append(results, result)
+	}
+	return
+}
+
+func fakeSearch(kind string) Search {
+        return func(query string) Result {
+	          time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+	          return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+        }
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	results := Google("golang")
+	elapsed := time.Since(start)
+	fmt.Println(results)
+	fmt.Println(elapsed)
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Example: Google Search 2.2</h2>
+
+        <p>Don't wait for slow backends.
+
+        <p>No locks.  No condition variables.  No callbacks.
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+type Result string
+type Search func(query string) Result
+
+var (
+	Web = fakeSearch("web")
+	Image = fakeSearch("image")
+	Video = fakeSearch("video")
+)
+
+func Google(query string) (results []Result) {
+	c := make(chan Result, 3)
+	go func() { c <- Web(query) } ()
+	go func() { c <- Image(query) } ()
+	go func() { c <- Video(query) } ()
+
+	timeout := time.After(80 * time.Millisecond)
+	for i := 0; i < cap(c); i++ {
+		select {
+		case result := <-c:
+			results = append(results, result)
+		case <-timeout:
+			fmt.Println("timed out")
+			return
+		}
+	}
+	return
+}
+
+func fakeSearch(kind string) Search {
+        return func(query string) Result {
+	          time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+	          return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+        }
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	results := Google("golang")
+	elapsed := time.Since(start)
+	fmt.Println(results)
+	fmt.Println(elapsed)
+}
+</div>
+</div>
+
+
+<div class="slide nocode">
+	<h2>Example: Query failover</h2>
+	<p>Q: How do we avoid timing out our requests to slow backends?
+
+        <p>A: Replicate the backends.  Send requests to multiple replicas, and
+          use the first response.
+</div>
+
+<div class="slide">
+	<h2>Example: Query failover</h2>
+
+        <p><code>First</code> runs searches on the replicas
+        concurrently and returns the first result.
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+type Result string
+type Search func(query string) Result
+
+func First(query string, replicas ...Search) Result {
+	c := make(chan Result, len(replicas))
+	searchReplica := func(i int) {
+		c <- replicas[i](query)
+	}
+	for i := range replicas {
+		go searchReplica(i)
+	}
+        return <-c
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	result := First("query",
+                        fakeSearch("replica 1"),
+                        fakeSearch("replica 2"))
+	elapsed := time.Since(start)
+	fmt.Println(result)
+	fmt.Println(elapsed)
+}
+
+func fakeSearch(kind string) Search {
+        return func(query string) Result {
+	          time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+	          return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+        }
+}
+</div>
+</div>
+
+<div class="slide">
+	<h2>Example: Google Search 3.0</h2>
+
+	<p>Reduces tail latency using replicated search backends.
+
+<div>
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+type Result string
+type Search func(query string) Result
+
+var (
+	Web1 = fakeSearch("web1")
+        Web2 = fakeSearch("web2")
+	Image1 = fakeSearch("image1")
+	Image2 = fakeSearch("image2")
+	Video1 = fakeSearch("video1")
+	Video2 = fakeSearch("video2")
+)
+
+func Google(query string) (results []Result) {
+	c := make(chan Result, 3)
+	go func() { c <- First(query, Web1, Web2) } ()
+	go func() { c <- First(query, Image1, Image2) } ()
+	go func() { c <- First(query, Video1, Video2) } ()
+
+	timeout := time.After(80 * time.Millisecond)
+	for i := 0; i < cap(c); i++ {
+		select {
+		case result := <-c:
+			results = append(results, result)
+		case <-timeout:
+			fmt.Println("timed out")
+			return
+		}
+	}
+	return
+}
+
+func First(query string, replicas ...Search) Result {
+	c := make(chan Result, len(replicas))
+	searchReplica := func(i int) {
+		c <- replicas[i](query)
+	}
+	for i := range replicas {
+		go searchReplica(i)
+	}
+        return <-c
+}
+
+func fakeSearch(kind string) Search {
+        return func(query string) Result {
+	          time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
+	          return Result(fmt.Sprintf("%s result for %q\n", kind, query))
+        }
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
+	results := Google("golang")
+	elapsed := time.Since(start)
+	fmt.Println(results)
+	fmt.Println(elapsed)
+}
+
+</div>
+</div>
+
+<div class="slide nocode">
+	<h2>There's a lot more to Go</h2>
+	<ul>
+	  <li>arrays, maps, slices</li>
+	  <li>struct and interface embedding</li>
+	  <li>defer, panic, recover</li>
+	  <li>type switches and reflection</li>
+	  <li>the go tool</li>
+	</ul>
+</div>
+
+
+<div class="slide nocode">
+	<h2>Where to Go from here...</h2>
+	<ul>
+	  <li><a href="http://golang.org">http://golang.org</a> - Go Home Page</li>
+	  <li><a href="http://golang.org/ref/spec">http://golang.org/ref/spec</a>
+	  - Language Spec</li>
+	  <li><a href="http://golang.org/pkg">http://golang.org/pkg</a> -
+	  Package Documentation</li>
+	  <li><a href="http://golang.org/doc/codewalk">http://golang.org/doc/codewalk</a> - Codewalks</li>
+	  <ul>
+            <li>Share Memory by Communicating - Go concurrency model</li>
+            <li>First Class Functions in Go - Go's function types</li>
+	  </ul>
+	  <li><a href="http://blog.golang.org">http://blog.golang.org</a> -
+	  especially "Defer, Panic, and Recover".</li>
+	</ul>
+</div>
+
+</div><!-- end slides -->
+
+</body>
+</html>

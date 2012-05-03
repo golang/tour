@@ -65,6 +65,7 @@ func main() {
 		http.Error(w, "not found", 404)
 	})
 	http.Handle("/static/", http.FileServer(http.Dir(root)))
+	http.Handle("/talks/", http.FileServer(http.Dir(root)))
 	http.HandleFunc("/kill", kill)
 
 	if !strings.HasPrefix(*httpListen, "127.0.0.1") &&
