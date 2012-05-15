@@ -23,8 +23,8 @@ func Compile(w http.ResponseWriter, req *http.Request) {
 	resp := new(Response)
 	out, err := compile(req)
 	if err != nil {
-		if out != nil {
-			resp.Errors = string(out)
+		if len(out) > 0 {
+			resp.Errors = string(out) + "\n" + err.Error()
 		} else {
 			resp.Errors = err.Error()
 		}
