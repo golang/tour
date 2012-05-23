@@ -147,23 +147,6 @@ function save(page) {
 	return localStorage['page'+page] = editor.getValue();
 }
 
-function savelast() {
-	if (!supports_html5_storage()) {
-		return;
-	}
-
-	localStorage['last'] = slidenum;
-}
-
-function showlast() {
-	if (!supports_html5_storage() || !('last' in localStorage)) {
-		show(0);
-		return;
-	}
-
-	show(parseInt(localStorage['last']));
-}
-
 function load(page) {
 	if (!supports_html5_storage()) {
 		return false;
@@ -205,7 +188,7 @@ $(document).ready(function() {
 	init();
 	$('body').removeClass('loading');
 	if (location.href.indexOf('#') < 0) {
-		showlast();
+		show(0);
 	} else {
 		show(urlSlideNumber(location.href));
 	}
@@ -216,7 +199,6 @@ $(window).unload(function() {
 	if (!supports_html5_storage()) {
 		return;
 	}
-	savelast(slidenum);
 	save(slidenum);
 });
 
