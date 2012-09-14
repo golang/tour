@@ -14,5 +14,5 @@ handlers:
   static_dir: static
 - url: /talks
   static_dir: talks
-- url: /compile
+- url: /(compile|fmt)
   script: _go_app
