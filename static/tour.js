@@ -134,11 +134,11 @@ function init() {
 		return false;
 	});
 
-	if (getcookie('lineno') === 'false') {
+	if (getcookie('lineno') != ""+editor.getOption('lineNumbers')) {
 		$('#togglelineno').trigger('click');
 	}
 
-	if (getcookie('theme') === 'plain') {
+	if (getcookie('theme') != ""+editor.getOption('theme')) {
 		$('#togglesyntax').trigger('click');
 	}
 }
