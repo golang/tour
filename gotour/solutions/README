@@ -1,0 +1,8 @@
+This directory contains the solutions to the exercises presented in the Go tour.
+
+IMPORTANT: The main point of the Go tour is to challenge you, so please try to
+solve all problems by yourself before reading these solutions!!!
+
+In any case, these are not the only valid solutions. But they have been reviewed
+by the Go team. Therefore you can use them as a guide on how to solve the
+most basic problems in Go.
