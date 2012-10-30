@@ -61,7 +61,7 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 	for i, u := range urls {
 		fmt.Printf("-> Crawling child %v/%v of %v : %v.\n", i, len(urls), url, u)
 		go func(url string) {
-			Crawl(url, depth, fetcher)
+			Crawl(url, depth-1, fetcher)
 			done <- true
 		}(u)
 	}
