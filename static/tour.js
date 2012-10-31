@@ -200,13 +200,18 @@ function reset() {
 	save(slidenum);
 }
 
+var pageData = {};
+
 function save(page) {
-	// TODO: store editor.getValue() using localStorage or something similar
-	return false;
+	pageData[page] = editor.getValue();
+	return true;
 }
 
 function load(page) {
-	// TODO: retrieve a previously stored code snippet from localStorage
+	var data = pageData[page];
+	if (data) {
+		return data;
+	}
 	return false;
 }
 
