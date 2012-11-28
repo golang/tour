@@ -12,8 +12,8 @@ func Pic(dx, dy int) [][]uint8 {
 		p[i] = make([]uint8, dx)
 	}
 
-	for y := range p {
-		for x, row := range p[y] {
+	for y, row := range p {
+		for x := range row {
 			row[x] = uint8(x * y)
 		}
 	}
