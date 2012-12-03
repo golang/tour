@@ -24,7 +24,7 @@ var fetched = struct {
 	sync.Mutex
 }{m: make(map[string]error)}
 
-var loading = errors.New("url load in progress") // sentinel value 
+var loading = errors.New("url load in progress") // sentinel value
 
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
