@@ -200,7 +200,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Functions continued</h2>
 	<p>
 	When two or more consecutive named function parameters share a type,
 	you can omit the type from all but the last.
@@ -224,7 +224,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Multiple results</h2>
 	<p>
 	A function can return any number of results.
 	<p>
@@ -244,11 +244,11 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Named results</h2>
 	<p>
 	Functions take parameters. In Go, functions can return multiple
-	"result parameters", not just a single value. They can be named and act
-	just like variables.
+	"result parameters", not just a single value.
+	They can be named and act just like variables.
 	<p>
 	If the result parameters are named, a <code>return</code> statement
 	without arguments returns the current values of the results.
@@ -286,7 +286,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Variables</h2>
+	<h2>Variables with initializers</h2>
 	<p>
 	A var declaration can include initializers, one per variable.
 	<p>
@@ -305,7 +305,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Variables</h2>
+	<h2>Short variable declarations</h2>
 	<p>
 	Inside a function, the <code>:=</code> short assignment statement can
 	be used in place of a <code>var</code> declaration with implicit type.
@@ -398,7 +398,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>For</h2>
+	<h2>For continued</h2>
 	<p>
 	As in C or Java, you can leave the pre and post statements empty.
 <pre class="source">package main
@@ -415,7 +415,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>For</h2>
+	<h2>For is Go's "while"</h2>
 	<p>
 	At that point you can drop the semicolons:
 	C's <code>while</code> is spelled <code>for</code> in Go.
@@ -433,21 +433,9 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>For</h2>
+	<h2>Forever</h2>
 	<p>
-	If you omit the loop condition, it loops forever.
-<pre class="source">package main
-
-func main() {
-	for ; ; {
-	}
-}</pre>
-</div>
-
-<div class="slide">
-	<h2>For</h2>
-	<p>
-	And with no clauses at all, the semicolons can be omitted,
+	If you omit the loop condition it loops forever,
 	so an infinite loop is compactly expressed.
 <pre class="source">package main
 
@@ -485,7 +473,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>If</h2>
+	<h2>If with a short statement</h2>
 	<p>
 	Like <code>for</code>, the <code>if</code> statement can start with a
 	short statement to execute before the condition.
@@ -517,7 +505,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>If</h2>
+	<h2>If and else</h2>
 	<p>
 	Variables declared inside an <code>if</code>'s short statement are also
 	available inside any of the <code>else</code> blocks.
@@ -735,7 +723,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Maps</h2>
+	<h2>Map literals</h2>
 	<p>
 	Map literals are like struct literals, but the keys are required.
 <pre class="source">package main
@@ -761,7 +749,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Maps</h2>
+	<h2>Map literals continued</h2>
 	<p>
 	If the top-level type is just a type name, you can omit it from the
 	elements of the literal.
@@ -848,7 +836,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Slices</h2>
+	<h2>Slicing slices</h2>
 	<p>
 	Slices can be re-sliced, creating a new slice value that points to the
 	same array.
@@ -882,7 +870,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Slices</h2>
+	<h2>Making slices</h2>
 	<p>
 	Slices are created with the <code>make</code> function. It works by
 	allocating a zeroed array and returning a slice that refers to that
@@ -920,7 +908,7 @@ func printSlice(s string, x []int) {
 </div>
 
 <div class="slide">
-	<h2>Slices</h2>
+	<h2>Nil slices</h2>
 	<p>
 	The zero value of a slice is <code>nil</code>.
 	<p>
@@ -943,7 +931,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Function values</h2>
 	<p>
 	Functions are values too.
 <pre class="source">package main
@@ -963,7 +951,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Functions</h2>
+	<h2>Function closures</h2>
 	<p>
 	And functions are full closures.
 	<p>
@@ -1011,7 +999,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Range</h2>
+	<h2>Range continued</h2>
 	<p>
 	You can skip the index or value by assigning to <code>_</code>.
 	<p>
@@ -1062,7 +1050,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Switch</h2>
+	<h2>Switch evaluation order</h2>
 	<p>
 	Switch cases evaluate cases from top to bottom, stopping when a
 	case succeeds.
@@ -1099,7 +1087,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Switch</h2>
+	<h2>Switch with no condition</h2>
 	<p>
 	Switch without a condition is the same as <code>switch true</code>.
 	<p>
@@ -1305,7 +1293,7 @@ func main() {
 </div>
 
 <div class="slide">
-	<h2>Methods</h2>
+	<h2>Methods continued</h2>
 	<p>
 	In fact, you can define a method on <i>any</i> type you define in your
 	package, not just structs.
@@ -1439,7 +1427,7 @@ func (v *Vertex) Abs() float64 {
 </div>
 
 <div class="slide">
-	<h2>Interfaces</h2>
+	<h2>Interfaces are satisfied implicitly</h2>
 	<p>
 	A type implements an interface by implementing the methods.
 	<p>
