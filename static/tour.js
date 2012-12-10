@@ -9,6 +9,16 @@ var slides, editor, $editor, $output;
 var slide = null;
 var slidenum = 0;
 
+// manage translations
+function L(k) {
+	if (tr[k]) {
+		return tr[k];
+	} else {
+		console.log("translation missing for: "+k);
+		return "(no translation for "+k+")";
+	}
+}
+
 function init() {
 	if (tourMode === 'local') {
 		$('.appengineMode').remove();
@@ -17,7 +27,7 @@ function init() {
 	}
 
 	var $tocdiv = $('<div id="toc" />').insertBefore('#slides').hide();
-	$tocdiv.append($('<h2>Table of Contents</h2>'));
+	$tocdiv.append($('<h2>'+L('toc')+'</h2>'));
 	var $toc = $('<ol />').appendTo($tocdiv);
 	$("#tocbtn").click(toggleToc);
 
@@ -34,7 +44,7 @@ function init() {
 				$nav.append($("<a>◀</a>").click(function() {
 					show(i-1);
 					return false;
-				}).attr("href", "#"+(i)).attr("title", "Previous"));
+				}).attr("href", "#"+(i)).attr("title", L('prev')));
 			} else {
 				$nav.append($("<span>◀</span>"));
 			}
@@ -42,7 +52,7 @@ function init() {
 				$nav.append($("<a>▶</a>").click(function() {
 					show(i+1);
 					return false;
-				}).attr("href", "#"+(i+2)).attr("title", "Next"));
+				}).attr("href", "#"+(i+2)).attr("title", L('next')));
 			} else {
 				$nav.append($("<span>▶</span>"));
 			}
@@ -111,10 +121,10 @@ function init() {
 	$('#togglesyntax').click(function() {
 		if (editor.getOption('theme') === 'default') {
 			editor.setOption('theme', 'plain');
-			$('#togglesyntax').text('Syntax-Highlighting: off');
+			$('#togglesyntax').text(L('syntax')+': '+L('off'));
 		} else {
 			editor.setOption('theme', 'default');
-			$('#togglesyntax').text('Syntax-Highlighting: on');
+			$('#togglesyntax').text(L('syntax')+': '+L('on'));
 		}
 		setcookie('theme', editor.getOption('theme'), 14);
 		$('.controls').removeClass('expanded');
@@ -124,10 +134,10 @@ function init() {
 	$('#togglelineno').click(function() {
 		if (editor.getOption('lineNumbers')) {
 			editor.setOption('lineNumbers', false);
-			$('#togglelineno').text('Line-Numbers: off');
+			$('#togglelineno').text(L('lineno')+': '+L('off'));
 		} else {
 			editor.setOption('lineNumbers', true);
-			$('#togglelineno').text('Line-Numbers: on');
+			$('#togglelineno').text(L('lineno')+': '+L('on'));
 		}
 		setcookie('lineno', editor.getOption('lineNumbers'), 14);
 		$('.controls').removeClass('expanded');
@@ -136,11 +146,22 @@ function init() {
 
 	if (getcookie('lineno') != ""+editor.getOption('lineNumbers')) {
 		$('#togglelineno').trigger('click');
+	} else {
+		$('#togglelineno').text(L('lineno')+': '+L('on'));
 	}
 
 	if (getcookie('theme') != ""+editor.getOption('theme')) {
 		$('#togglesyntax').trigger('click');
+	} else {
+		$('#togglesyntax').text(L('syntax')+': '+L('on'));
 	}
+
+	// set these according to lang.js
+	$('#run').text(L('run'));
+	$('#reset').text(L('reset'));
+	$('#format').text(L('format'));
+	$('#kill').text(L('kill'));
+	$('#tocbtn').attr('title', L('toc'));
 }
 
 function toggleToc() {
@@ -266,7 +287,7 @@ var seq = 0;
 function run() {
 	seq++;
 	var cur = seq;
-	$output.html('<div class="loading">Waiting for remote server...</div>');
+	$output.html('<div class="loading">'+L('waiting')+'</div>');
 	$.ajax("/compile", {
 		data: {"body": editor.getValue()},
 		type: "POST",
@@ -290,7 +311,7 @@ function run() {
 		},
 		error: function() {
 			$output.empty();
-			$('<pre class="error" />').text("Error communicating with remote server.").appendTo($output);
+			$('<pre class="error" />').text(L('errcomm')).appendTo($output);
 		}
 	});
 }
@@ -298,7 +319,7 @@ function run() {
 function format() {
 	seq++;
 	var cur = seq;
-	$output.html('<div class="loading">Waiting for remote server...</div>');
+	$output.html('<div class="loading">'+L('waiting')+'</div>');
 	$.ajax("/fmt", {
 		data: {"body": editor.getValue()},
 		type: "POST",
@@ -316,7 +337,7 @@ function format() {
 			}
 		},
 		error: function() {
-			$('<pre class="error" />').text("Error communicating with remote server.").appendTo($output);
+			$('<pre class="error" />').text(L('errcomm')).appendTo($output);
 		}
 	});
 }
