@@ -21,7 +21,7 @@ import (
 	"strings"
 	"sync"
 
-	// Imports so that goinstall automatically installs them.
+	// Imports so that go build/install automatically installs them.
 	_ "code.google.com/p/go-tour/pic"
 	_ "code.google.com/p/go-tour/tree"
 	_ "code.google.com/p/go-tour/wc"
