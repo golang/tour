@@ -11,6 +11,7 @@ import (
 	"go/build"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,8 +19,8 @@ import (
 	"regexp"
 	"runtime"
 	"strconv"
-	"strings"
 	"sync"
+	"time"
 
 	// Imports so that go build/install automatically installs them.
 	_ "code.google.com/p/go-tour/pic"
@@ -30,8 +31,9 @@ import (
 const basePkg = "code.google.com/p/go-tour/"
 
 var (
-	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
-	htmlOutput = flag.Bool("html", false, "render program output as HTML")
+	httpListen  = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
+	htmlOutput  = flag.Bool("html", false, "render program output as HTML")
+	openBrowser = flag.Bool("openbrowser", true, "open browser automatically")
 )
 
 var (
@@ -68,13 +70,27 @@ func main() {
 	http.Handle("/talks/", http.FileServer(http.Dir(root)))
 	http.HandleFunc("/kill", kill)
 
-	if !strings.HasPrefix(*httpListen, "127.0.0.1") &&
-		!strings.HasPrefix(*httpListen, "localhost") {
+	host, port, err := net.SplitHostPort(*httpListen)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if host == "" {
+		host = "localhost"
+	}
+	if host != "127.0.0.1" && host != "localhost" {
 		log.Print(localhostWarning)
 	}
 
-	log.Printf("Open your web browser and visit http://%s/", *httpListen)
-	log.Fatal(http.ListenAndServe(*httpListen, nil))
+	httpAddr := host + ":" + port
+	go func() {
+		url := "http://" + httpAddr
+		if waitServer(url) && *openBrowser && startBrowser(url) {
+			log.Printf("A browser window should open. If not, please visit %s", url)
+		} else {
+			log.Printf("Please open your web browser and visit %s", url)
+		}
+	}()
+	log.Fatal(http.ListenAndServe(httpAddr, nil))
 }
 
 const localhostWarning = `
@@ -189,4 +205,37 @@ func run(dir string, args ...string) ([]byte, error) {
 	}
 	running.Unlock()
 	return buf.Bytes(), err
+}
+
+// waitServer waits some time for the http Server to start
+// serving url and returns whether it starts
+func waitServer(url string) bool {
+	tries := 20
+	for tries > 0 {
+		resp, err := http.Get(url)
+		if err == nil {
+			resp.Body.Close()
+			return true
+		}
+		time.Sleep(100 * time.Millisecond)
+		tries--
+	}
+	return false
+}
+
+// startBrowser tries to open the URL in a browser, and returns
+// whether it succeed.
+func startBrowser(url string) bool {
+	// try to start the browser
+	var args []string
+	switch runtime.GOOS {
+	case "darwin":
+		args = []string{"open"}
+	case "windows":
+		args = []string{"cmd", "/c", "start"}
+	default:
+		args = []string{"xdg-open"}
+	}
+	cmd := exec.Command(args[0], append(args[1:], url)...)
+	return cmd.Start() == nil
 }
