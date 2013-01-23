@@ -2,9 +2,9 @@ This is the App Engine version of the Go Playground.
 
 To deploy: (instructions relative to the appengine directory)
 
-1. Make a copy of the static directory.
+1. Make a copy of the static and template directories.
 	
-	cp -r ../static ../talks .
+	cp -r ../{static,template} .
 
 2. Edit static/mode.js to set the tourMode variable to "appengine".
 

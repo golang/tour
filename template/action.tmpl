@@ -1,0 +1,42 @@
+{{/*{
+This is the action template.
+It determines how the formatting actions are rendered.
+*/}}
+
+{{define "section"}}
+  <h2>{{.Title}}</h2>
+  {{range .Elem}}{{elem $.Template .}}{{end}}
+{{end}}
+
+{{define "list"}}
+  <ul>
+  {{range .Bullet}}
+    <li>{{style .}}</li>
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "text"}}
+  {{if .Pre}}
+  <pre>{{range .Lines}}{{.}}{{end}}</pre>
+  {{else}}
+  <p>
+    {{range $i, $l := .Lines}}{{if $i}}{{template "newline"}}
+    {{end}}{{style $l}}{{end}}
+  </p>
+  {{end}}
+{{end}}
+
+{{define "code"}}
+  <div{{if .Play}} class="source"{{end}}>{{.Text}}</div>
+{{end}}
+
+{{define "image"}}
+  <div class="image"><img src="{{.URL}}" {{.Attributes}}></div>
+{{end}}
+      
+{{define "link"}}
+  <p class="link"><a href="{{.URL}}" target="_blank">{{style .Label}}</a></p>
+{{end}}
+
+{{define "html"}}{{.HTML}}{{end}}

@@ -59,9 +59,15 @@ func main() {
 	root := p.Dir
 	log.Println("Serving content from", root)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/favicon.ico" || r.URL.Path == "/" {
+		if r.URL.Path == "/favicon.ico" {
 			fn := filepath.Join(root, "static", r.URL.Path[1:])
 			http.ServeFile(w, r, fn)
+			return
+		} else if r.URL.Path == "/" {
+			err := renderTour(w, root)
+			if err != nil {
+				log.Println(err)
+			}
 			return
 		}
 		http.Error(w, "not found", 404)

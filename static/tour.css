@@ -189,7 +189,7 @@ pre, code {
 	font-size: 14px;
 }
 
-pre.source {
+div.source {
 	display: none;
 }
 

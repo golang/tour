@@ -1,0 +1,789 @@
+
+A Tour of Go
+
+The Go Authors
+http://golang.org
+
+* Hello, 世界
+
+Welcome to a tour of the [[http://golang.org/][Go programming language]].
+
+The tour is divided into three sections. At the end of each section is a series of exercises for you to complete.
+
+The tour is interactive. Click the Run button now (or type Shift-Enter) to compile and run the program on your computer. The result is displayed below the code.
+
+These example programs demonstrate different aspects of Go. The programs in the tour are meant to be starting points for your own experimentation.
+
+Edit the program and run it again.
+
+Whenever you're ready to move on, click the Next button or type the PageDown key.
+
+.play prog/hello.go
+
+* Go local
+
+The tour is available in other languages:
+
+- [[http://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
+- [[http://go-tour-he.appspot.com/][Hebrew — עִבְרִית]]
+- [[http://go-tour-zh.appspot.com/][Chinese — 普通话]]
+- [[http://go-tour-jp.appspot.com/][Japanese — 日本語]]
+
+Click the "next" button or type PageDown to continue.
+
+* Packages
+
+Every Go program is made up of packages.
+
+Programs start running in package `main`.
+
+This program is using the packages with import paths `"fmt"` and `"math"`.
+
+By convention, the package name is the same as the last element of the import path.
+
+.play prog/packages.go
+
+* Imports
+
+This code groups the imports into a parenthesized, "factored" import statement. You can also write multiple import statements, like:
+
+	import "fmt"
+	import "math"
+
+.play prog/imports.go
+
+* Exported names
+
+After importing a package, you can refer to the names it exports.
+
+In Go, a name is exported if it begins with a capital letter.
+
+`Foo` is an exported name, as is `FOO`. The name `foo` is not exported.
+
+Run the code. Then rename `math.pi` to `math.Pi` and try it again.
+
+.play prog/exported-names.go
+
+* Functions
+
+A function can take zero or more arguments.
+
+In this example, `add` takes two parameters of type `int`.
+
+Notice that the type comes _after_ the variable name.
+
+(For more about why types look the way they do, see the [[http://golang.org/doc/articles/gos_declaration_syntax.html][article on Go's declaration syntax]].)
+
+.play prog/functions.go
+
+* Functions continued
+
+When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
+
+In this example, we shortened
+
+	x int, y int
+
+to
+
+	x, y int
+
+.play prog/functions-continued.go
+
+* Multiple results
+
+A function can return any number of results.
+
+This function returns two strings.
+
+.play prog/multiple-results.go
+
+* Named results
+
+Functions take parameters. In Go, functions can return multiple "result parameters", not just a single value. They can be named and act just like variables.
+
+If the result parameters are named, a `return` statement without arguments returns the current values of the results.
+
+.play prog/named-results.go
+
+* Variables
+
+The `var` statement declares a list of variables; as in function argument lists, the type is last.
+
+.play prog/variables.go
+
+* Variables with initializers
+
+A var declaration can include initializers, one per variable.
+
+If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+
+.play prog/variables-with-initializers.go
+
+* Short variable declarations
+
+Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
+
+(Outside a function, every construct begins with a keyword and the `:=` construct is not available.)
+
+.play prog/short-variable-declarations.go
+
+* Constants
+
+Constants are declared like variables, but with the `const` keyword.
+
+Constants can be character, string, boolean, or numeric values.
+
+.play prog/constants.go
+
+* Numeric Constants
+
+Numeric constants are high-precision _values_.
+
+An untyped constant takes the type needed by its context.
+
+Try printing `needInt(Big)` too.
+
+.play prog/numeric-constants.go
+
+* For
+
+Go has only one looping construct, the `for` loop.
+
+The basic `for` loop looks as it does in C or Java, except that the `(`)` are gone (they are not even optional) and the `{`}` are required.
+
+.play prog/for.go
+
+* For continued
+
+As in C or Java, you can leave the pre and post statements empty.
+
+.play prog/for-continued.go
+
+* For is Go's "while"
+
+At that point you can drop the semicolons: C's `while` is spelled `for` in Go.
+
+.play prog/for-is-gos-while.go
+
+* Forever
+
+If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
+
+.play prog/forever.go
+
+* If
+
+The `if` statement looks as it does in C or Java, except that the `(`)` are gone (they are not even optional) and the `{`}` are required.
+
+(Sound familiar?)
+
+.play prog/if.go
+
+* If with a short statement
+
+Like `for`, the `if` statement can start with a short statement to execute before the condition.
+
+Variables declared by the statement are only in scope until the end of the `if`.
+
+(Try using `v` in the last `return` statement.)
+
+.play prog/if-with-a-short-statement.go
+
+* If and else
+
+Variables declared inside an `if`'s short statement are also available inside any of the `else` blocks.
+
+.play prog/if-and-else.go
+
+* Basic types
+
+Go's basic types are
+
+	bool
+	
+	string
+	
+	int  int8  int16  int32  int64
+	uint uint8 uint16 uint32 uint64 uintptr
+	
+	byte // alias for uint8
+	
+	rune // alias for int32
+	     // represents a Unicode code point
+	
+	float32 float64
+	
+	complex64 complex128
+
+.play prog/basic-types.go
+
+* Structs
+
+A `struct` is a collection of fields.
+
+(And a `type` declaration does what you'd expect.)
+
+.play prog/structs.go
+
+* Struct Fields
+
+Struct fields are accessed using a dot.
+
+.play prog/struct-fields.go
+
+* Pointers
+
+Go has pointers, but no pointer arithmetic.
+
+Struct fields can be accessed through a struct pointer. The indirection through the pointer is transparent.
+
+.play prog/pointers.go
+
+* Struct Literals
+
+A struct literal denotes a newly allocated struct value by listing the values of its fields.
+
+You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
+
+The special prefix `&` constructs a pointer to a struct literal.
+
+.play prog/struct-literals.go
+
+* The new function
+
+The expression `new(T)` allocates a zeroed `T` value and returns a pointer to it.
+
+	var t *T = new(T)
+
+or
+
+	t := new(T)
+
+.play prog/the-new-function.go
+
+* Maps
+
+A map maps keys to values.
+
+Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
+
+.play prog/maps.go
+
+* Map literals
+
+Map literals are like struct literals, but the keys are required.
+
+.play prog/map-literals.go
+
+* Map literals continued
+
+If the top-level type is just a type name, you can omit it from the elements of the literal.
+
+.play prog/map-literals-continued.go
+
+* Mutating Maps
+
+Insert or update an element in map `m`:
+
+	m[key] = elem
+
+Retrieve an element:
+
+	elem = m[key]
+
+Delete an element:
+
+	delete(m, key)
+
+Test that a key is present with a two-value assignment:
+
+	elem, ok = m[key]
+
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the zero value for the map's element type.
+
+Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
+
+.play prog/mutating-maps.go
+
+* Slices
+
+A slice points to an array of values and also includes a length.
+
+`[]T` is a slice with elements of type `T`.
+
+.play prog/slices.go
+
+* Slicing slices
+
+Slices can be re-sliced, creating a new slice value that points to the same array.
+
+The expression
+
+	s[lo:hi]
+
+evaluates to a slice of the elements from `lo` through `hi-1`, inclusive. Thus
+
+	s[lo:lo]
+
+is empty and
+
+	s[lo:lo+1]
+
+has one element.
+
+.play prog/slicing-slices.go
+
+* Making slices
+
+Slices are created with the `make` function. It works by allocating a zeroed array and returning a slice that refers to that array:
+
+	a := make([]int, 5)  // len(a)=5
+
+To specify a capacity, pass a third argument to `make`:
+
+	b := make([]int, 0, 5) // len(b)=0, cap(b)=5
+
+	b = b[:cap(b)] // len(b)=5, cap(b)=5
+	b = b[1:]      // len(b)=4, cap(b)=4
+
+.play prog/making-slices.go
+
+* Nil slices
+
+The zero value of a slice is `nil`.
+
+A nil slice has a length and capacity of 0.
+
+(To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
+
+.play prog/nil-slices.go
+
+* Function values
+
+Functions are values too.
+
+.play prog/function-values.go
+
+* Function closures
+
+And functions are full closures.
+
+The `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+
+.play prog/function-closures.go
+
+* Range
+
+The `range` form of the `for` loop iterates over a slice or map.
+
+.play prog/range.go
+
+* Range continued
+
+You can skip the index or value by assigning to `_`.
+
+If you only want the index, drop the “`,`value`” entirely.
+
+.play prog/range-continued.go
+
+* Switch
+
+You probably knew what `switch` was going to look like.
+
+A case body breaks automatically, unless it ends with a `fallthrough` statement.
+
+.play prog/switch.go
+
+* Switch evaluation order
+
+Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+
+(For example,
+
+	switch i {
+	case 0:
+	case f():
+	}
+
+does not call `f` if `i==0`.)
+
+.play prog/switch-evaluation-order.go
+
+* Switch with no condition
+
+Switch without a condition is the same as `switch`true`.
+
+This construct can be a clean way to write long if-then-else chains.
+
+.play prog/switch-with-no-condition.go
+
+* Exercise: Loops and Functions
+
+As a simple way to play with functions and loops, implement the square root function using Newton's method.
+
+In this case, Newton's method is to approximate `Sqrt(x)` by picking a starting point _z_ and then repeating:
+
+To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
+
+Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[http://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
+
+Hint: to declare and initialize a floating point value, give it floating point syntax or use a conversion:
+
+	z := float64(1)
+	z := 1.0
+
+.play prog/exercise-loops-and-functions.go
+
+* Exercise: Maps
+
+Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+
+You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+
+.play prog/exercise-maps.go
+
+* Exercise: Slices
+
+Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+
+The choice of image is up to you. Interesting functions include `x^y`, `(x+y)/2`, and `x*y`.
+
+(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+
+(Use `uint8(intValue)` to convert between types.)
+
+.play prog/exercise-slices.go
+
+* Exercise: Fibonacci closure
+
+Let's have some fun with functions.
+
+Implement a `fibonacci` function that returns a function (a closure) that returns successive fibonacci numbers.
+
+.play prog/exercise-fibonacci-closure.go
+
+* Advanced Exercise: Complex cube roots
+
+Let's explore Go's built-in support for complex numbers via the `complex64` and `complex128` types. For cube roots, Newton's method amounts to repeating:
+
+Find the cube root of 2, just to make sure the algorithm works. There is a [[http://golang.org/pkg/math/cmplx/#Pow][Pow]] function in the `math/cmplx` package.
+
+.play prog/advanced-exercise-complex-cube-roots.go
+
+* Methods and Interfaces
+
+* Methods
+
+Go does not have classes. However, you can define methods on struct types.
+
+The _method_receiver_ appears in its own argument list between the `func` keyword and the method name.
+
+.play prog/methods.go
+
+* Methods continued
+
+In fact, you can define a method on _any_ type you define in your package, not just structs.
+
+You cannot define a method on a type from another package, or on a basic type.
+
+.play prog/methods-continued.go
+
+* Methods with pointer receivers
+
+Methods can be associated with a named type or a pointer to a named type.
+
+We just saw two `Abs` methods. One on the `*Vertex` pointer type and the other on the `MyFloat` value type.
+
+There are two reasons to use a pointer receiver. First, to avoid copying the value on each method call (more efficient if the value type is a large struct). Second, so that the method can modify the value that its receiver points to.
+
+Try changing the declarations of the `Abs` and `Scale` methods to use `Vertex` as the receiver, instead of `*Vertex`.
+
+The `Scale` method has no effect when `v` is a `Vertex`. `Scale` mutates `v`. When `v` is a value (non-pointer) type, the method sees a copy of the `Vertex` and cannot mutate the original value.
+
+`Abs` works either way. It only reads `v`. It doesn't matter whether it is reading the original value (through a pointer) or a copy of that value.
+
+.play prog/methods-with-pointer-receivers.go
+
+* Interfaces
+
+An interface type is defined by a set of methods.
+
+A value of interface type can hold any value that implements those methods.
+
+.play prog/interfaces.go
+
+* Interfaces are satisfied implicitly
+
+A type implements an interface by implementing the methods.
+
+_There_is_no_explicit_declaration_of_intent._
+
+Implicit interfaces decouple implementation packages from the packages that define the interfaces: neither depends on the other.
+
+It also encourages the definition of precise interfaces, because you don't have to find every implementation and tag it with the new interface name.
+
+[[http://golang.org/pkg/io/][Package io]] defines `Reader` and `Writer`; you don't have to.
+
+.play prog/interfaces-are-satisfied-implicitly.go
+
+* Errors
+
+An error is anything that can describe itself as an error string. The idea is captured by the predefined, built-in interface type, `error`, with its single method, `Error`, returning a string:
+
+	type error interface {
+		Error() string
+	}
+
+The `fmt` package's various print routines automatically know to call the method when asked to print an `error`.
+
+.play prog/errors.go
+
+* Web servers
+
+[[http://golang.org/pkg/net/http/][Package http]] serves HTTP requests using any value that implements `http.Handler`:
+
+	package http
+	
+	type Handler interface {
+		ServeHTTP(w ResponseWriter, r *Request)
+	}
+
+In this example, the type `Hello` implements `http.Handler`.
+
+Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
+
+.play prog/web-servers.go
+
+* Images
+
+[[http://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
+
+	package image
+	
+	type Image interface {
+		ColorModel() color.Model
+		Bounds() Rectangle
+		At(x, y int) color.Color
+	}
+
+(See [[http://golang.org/pkg/image/#Image][the documentation]] for all the details.)
+
+Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`.
+
+.play prog/images.go
+
+* Exercise: Errors
+
+Copy your `Sqrt` function from the earlier exercises and modify it to return an `error` value.
+
+`Sqrt` should return a non-nil error value when given a negative number, as it doesn't support complex numbers.
+
+Create a new type
+
+	type ErrNegativeSqrt float64
+
+and make it an `error` by giving it a
+
+	func (e ErrNegativeSqrt) Error() string
+
+method such that `ErrNegativeSqrt(-2).Error()` returns `"cannot`Sqrt`negative`number:`-2"`.
+
+*Note:* a call to `fmt.Print(e)` inside the `Error` method will send the program into an infinite loop. You can avoid this by converting `e` first: `fmt.Print(float64(e))`. Why?
+
+Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a negative number.
+
+.play prog/exercise-errors.go
+
+* Exercise: HTTP Handlers
+
+Implement the following types and define ServeHTTP methods on them. Register them to handle specific paths in your web server.
+
+	type String string
+	
+	type Struct struct {
+		Greeting string
+		Punct    string
+		Who      string
+	}
+
+For example, you should be able to register handlers using:
+
+	http.Handle("/string", String("I'm a frayed knot."))
+	http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})
+
+.play prog/exercise-http-handlers.go
+
+* Exercise: Images
+
+Remember the picture generator you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+
+Define your own `Image` type, implement [[http://golang.org/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+
+`Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
+
+`ColorModel` should return `color.RGBAModel`.
+
+`At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
+
+.play prog/exercise-images.go
+
+* Exercise: Rot13 Reader
+
+A common pattern is an [[http://golang.org/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+
+For example, the [[http://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of gzipped data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+
+Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[http://en.wikipedia.org/wiki/ROT13][ROT13]] substitution cipher to all alphabetical characters.
+
+The `rot13Reader` type is provided for you.  Make it an `io.Reader` by implementing its `Read` method.
+
+.play prog/exercise-rot-reader.go
+
+* Concurrency
+
+* Goroutines
+
+A _goroutine_ is a lightweight thread managed by the Go runtime.
+
+	go f(x, y, z)
+
+starts a new goroutine running
+
+	f(x, y, z)
+
+The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
+
+Goroutines run in the same address space, so access to shared memory must be synchronized. The `[[http://golang.org/pkg/sync/][sync]]` package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+
+.play prog/goroutines.go
+
+* Channels
+
+Channels are a typed conduit through which you can send and receive values with the channel operator, `<-`.
+
+	ch <- v    // Send v to channel ch.
+	v := <-ch  // Receive from ch, and
+	           // assign value to v.
+
+(The data flows in the direction of the arrow.)
+
+Like maps and slices, channels must be created before use:
+
+	ch := make(chan int)
+
+By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
+
+.play prog/channels.go
+
+* Buffered Channels
+
+Channels can be _buffered_.  Provide the buffer length as the second argument to `make` to initialize a buffered channel:
+
+	ch := make(chan int, 100)
+
+Sends to a buffered channel block only when the buffer is full. Receives block when the buffer is empty.
+
+Modify the example to overfill the buffer and see what happens.
+
+.play prog/buffered-channels.go
+
+* Range and Close
+
+A sender can `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+
+	v, ok := <-ch
+
+`ok` is `false` if there are no more values to receive and the channel is closed.
+
+The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
+
+*Note:* Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+
+*Another*note*: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+
+.play prog/range-and-close.go
+
+* Select
+
+The `select` statement lets a goroutine wait on multiple communication operations.
+
+A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
+
+.play prog/select.go
+
+* Default Selection
+
+The `default` case in a `select` is run if no other case is ready.
+
+Use a `default` case to try a send or receive without blocking:
+
+	select {
+	case i := <-c:
+		// use i
+	default:
+		// receiving from c would block
+	}
+
+.play prog/default-selection.go
+
+* Exercise: Equivalent Binary Trees
+
+There can be many different binary trees with the same sequence of values stored at the leaves. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+
+A function to check whether two binary trees store the same sequence is quite complex in most languages. We'll use Go's concurrency and channels to write a simple solution.
+
+This example uses the `tree` package, which defines the type:
+
+	type Tree struct {
+		Left  *Tree
+		Value int
+		Right *Tree
+	}
+
+* Exercise: Equivalent Binary Trees
+
+*1.* Implement the `Walk` function.
+
+*2.* Test the `Walk` function.
+
+The function `tree.New(k)` constructs a randomly-structured binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
+
+Create a new channel `ch` and kick off the walker:
+
+	go Walk(tree.New(1), ch)
+
+Then read and print 10 values from the channel. It should be the numbers 1, 2, 3, ..., 10.
+
+*3.* Implement the `Same` function using `Walk` to determine whether `t1` and `t2` store the same values.
+
+*4.* Test the `Same` function.
+
+`Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
+
+.play prog/exercise-equivalent-binary-trees.go
+
+* Exercise: Web Crawler
+
+In this exercise you'll use Go's concurrency features to parallelize a web crawler.
+
+Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+
+.play prog/exercise-web-crawler.go
+
+* Where to Go from here...
+
+The [[http://golang.org/doc/][Go Documentation]] is a great place to start. It contains references, tutorials, videos, and more.
+
+To learn how to organize and work with Go code, watch [[http://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[http://golang.org/doc/code.html][How to Write Go Code]].
+
+If you need help with the standard library, see the [[http://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[http://golang.org/ref/spec][Language Spec]] is quite readable.
+
+To further explore Go's concurrency model, see the [[http://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]] codewalk.
+
+The [[http://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+
+The [[http://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+
+Visit [[http://golang.org][golang.org]] for more.
+

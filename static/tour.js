@@ -20,12 +20,6 @@ function L(k) {
 }
 
 function init() {
-	if (tourMode === 'local') {
-		$('.appengineMode').remove();
-	} else {
-		$('.localMode').remove();
-	}
-
 	var $tocdiv = $('<div id="toc" />').insertBefore('#slides').hide();
 	$tocdiv.append($('<h2>'+L('toc')+'</h2>'));
 	var $toc = $('<ol />').appendTo($tocdiv);
@@ -72,9 +66,9 @@ function init() {
 	editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 		theme: "plain",
 		matchBrackets: true,
-		indentUnit: 8,
-		tabSize: 8,
-		indentWithTabs: true,
+		indentUnit: 4,
+		tabSize: 4,
+		indentWithTabs: false,
 		mode: "text/x-go",
 		lineNumbers: true,
 		extraKeys: {
@@ -202,7 +196,7 @@ function show(i) {
 	} else {
 		$('#workspace').show();
 		$output.empty();
-		editor.setValue(load(i) || $s.find('pre.source').text());
+		editor.setValue(load(i) || $s.find('div.source').text());
 		editor.focus();
 	}
 
@@ -217,7 +211,7 @@ function show(i) {
 }
 
 function reset() {
-	editor.setValue($(slide).find('pre.source').text());
+	editor.setValue($(slide).find('div.source').text());
 	save(slidenum);
 }
 
