@@ -4,9 +4,6 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /
-  static_files: static/index.html
-  upload: static/index.html
 - url: /favicon.ico
   static_files: static/favicon.ico
   upload: static/favicon.ico
@@ -14,5 +11,7 @@ handlers:
   static_dir: static
 - url: /talks
   static_dir: talks
-- url: /(compile|fmt)
+- url: /(|compile|fmt)
   script: _go_app
+
+nobuild_files: (solutions|prog)/.*

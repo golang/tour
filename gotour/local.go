@@ -2,13 +2,17 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !appengine
+
 package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"go/build"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
@@ -41,7 +45,7 @@ var (
 	// a source of numbers, for naming temporary files
 	uniq = make(chan int)
 
-	// GOPATH containing the tour packages 
+	// GOPATH containing the tour packages
 	gopath = os.Getenv("GOPATH")
 )
 
@@ -83,23 +87,23 @@ func main() {
 	}
 
 	log.Println("Serving content from", root)
+
+	fs := http.FileServer(http.Dir(root))
+	http.Handle("/favicon.ico", fs)
+	http.Handle("/static/", fs)
+	http.Handle("/talks/", fs)
+
+	http.HandleFunc("/compile", compileHandler)
+	http.HandleFunc("/kill", killHandler)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/favicon.ico" {
-			fn := filepath.Join(root, "static", r.URL.Path[1:])
-			http.ServeFile(w, r, fn)
-			return
-		} else if r.URL.Path == "/" {
-			err := renderTour(w, root)
-			if err != nil {
+		if r.URL.Path == "/" {
+			if err := renderTour(w, root); err != nil {
 				log.Println(err)
 			}
 			return
 		}
 		http.Error(w, "not found", 404)
 	})
-	http.Handle("/static/", http.FileServer(http.Dir(root)))
-	http.Handle("/talks/", http.FileServer(http.Dir(root)))
-	http.HandleFunc("/kill", kill)
 
 	host, port, err := net.SplitHostPort(*httpListen)
 	if err != nil {
@@ -136,6 +140,28 @@ If you don't understand this message, hit Control-C to terminate this process.
 WARNING!  WARNING!  WARNING!
 `
 
+type response struct {
+	Output string `json:"output"`
+	Errors string `json:"compile_errors"`
+}
+
+func compileHandler(w http.ResponseWriter, req *http.Request) {
+	resp := new(response)
+	out, err := compile(req)
+	if err != nil {
+		if len(out) > 0 {
+			resp.Errors = string(out) + "\n" + err.Error()
+		} else {
+			resp.Errors = err.Error()
+		}
+	} else {
+		resp.Output = string(out)
+	}
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		log.Println(err)
+	}
+}
+
 var running struct {
 	sync.Mutex
 	cmd *exec.Cmd
@@ -150,7 +176,7 @@ func stopRun() {
 	running.Unlock()
 }
 
-func kill(w http.ResponseWriter, r *http.Request) {
+func killHandler(w http.ResponseWriter, r *http.Request) {
 	stopRun()
 }
 
@@ -286,3 +312,6 @@ func startBrowser(url string) bool {
 	cmd := exec.Command(args[0], append(args[1:], url)...)
 	return cmd.Start() == nil
 }
+
+// prepContent for the local tour simply returns the content as-is.
+func prepContent(r io.Reader) io.Reader { return r }

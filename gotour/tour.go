@@ -27,7 +27,7 @@ func renderTour(w io.Writer, root string) error {
 		return err
 	}
 	defer f.Close()
-	doc, err := present.Parse(f, source, 0)
+	doc, err := present.Parse(prepContent(f), source, 0)
 	if err != nil {
 		return err
 	}

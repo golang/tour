@@ -1,8 +1,21 @@
-
 A Tour of Go
 
 The Go Authors
 http://golang.org
+
+# Throughout this file are a series of lines that begin with
+# the string "#appengine: ". These lines are included in
+# the tour content when deployed as an App Engine app.
+# Furthermore, a single non-blank line that immediately follows
+# a run of "#appengine: " lines will be hidden. This is so that
+# App Engine-specific content may replace existing content.
+# For example, this paragraph
+# 	We are running
+# 	#appengine: on App Engine.
+# 	locally.
+# 	Yay!
+# reads as "We are running on App Engine. Yay!" on App Engine,
+# and "We are running locally. Yay!" otherwise.
 
 * Hello, 世界
 
@@ -10,7 +23,10 @@ Welcome to a tour of the [[http://golang.org/][Go programming language]].
 
 The tour is divided into three sections. At the end of each section is a series of exercises for you to complete.
 
-The tour is interactive. Click the Run button now (or type Shift-Enter) to compile and run the program on your computer. The result is displayed below the code.
+The tour is interactive. Click the Run button now (or type Shift-Enter) to compile and run the program on
+#appengine: a remote server.
+your computer.
+The result is displayed below the code.
 
 These example programs demonstrate different aspects of Go. The programs in the tour are meant to be starting points for your own experimentation.
 
@@ -408,6 +424,10 @@ Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
 
 does not call `f` if `i==0`.)
 
+#appengine: *Note:* Time in the Go playground always appears to start at
+#appengine: 2009-11-10 23:00:00 UTC, a value whose significance is left as an
+#appengine: exercise for the reader.
+
 .play prog/switch-evaluation-order.go
 
 * Switch with no condition
@@ -552,6 +572,10 @@ The `fmt` package's various print routines automatically know to call the method
 In this example, the type `Hello` implements `http.Handler`.
 
 Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
+
+#appengine: *Note:* This example won't run through the web-based tour user
+#appengine: interface. To try writing web servers you may want to
+#appengine: [[http://golang.org/doc/install/][Install Go]].
 
 .play prog/web-servers.go
 
@@ -773,7 +797,16 @@ Modify the `Crawl` function to fetch URLs in parallel without fetching the same 
 
 * Where to Go from here...
 
-The [[http://golang.org/doc/][Go Documentation]] is a great place to start. It contains references, tutorials, videos, and more.
+#appengine: You can get started by
+#appengine: [[http://golang.org/doc/install/][installing Go]] or downloading the
+#appengine: [[http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go][Go App Engine SDK]].
+
+#appengine: Once you have Go installed, the
+The
+[[http://golang.org/doc/][Go Documentation]] is a great place to
+#appengine: continue.
+start.
+It contains references, tutorials, videos, and more.
 
 To learn how to organize and work with Go code, watch [[http://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[http://golang.org/doc/code.html][How to Write Go Code]].
 
