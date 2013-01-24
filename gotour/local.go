@@ -19,6 +19,7 @@ import (
 	"regexp"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -39,7 +40,31 @@ var (
 var (
 	// a source of numbers, for naming temporary files
 	uniq = make(chan int)
+
+	// GOPATH containing the tour packages 
+	gopath = os.Getenv("GOPATH")
 )
+
+func isRoot(path string) bool {
+	_, err := os.Stat(filepath.Join(path, "tour.article"))
+	return err == nil
+}
+
+func findRoot() (string, error) {
+	ctx := build.Default
+	p, err := ctx.Import(basePkg, "", build.FindOnly)
+	if err == nil && isRoot(p.Dir) {
+		return p.Dir, nil
+	}
+	tourRoot := filepath.Join(runtime.GOROOT(), "misc", "tour")
+	ctx.GOPATH = tourRoot
+	p, err = ctx.Import(basePkg, "", build.FindOnly)
+	if err == nil && isRoot(tourRoot) {
+		gopath = tourRoot
+		return tourRoot, nil
+	}
+	return "", fmt.Errorf("could not find go-tour content; check $GOROOT and $GOPATH")
+}
 
 func main() {
 	flag.Parse()
@@ -52,11 +77,11 @@ func main() {
 	}()
 
 	// find and serve the go tour files
-	p, err := build.Default.Import(basePkg, "", build.FindOnly)
+	root, err := findRoot()
 	if err != nil {
 		log.Fatalf("Couldn't find tour files: %v", err)
 	}
-	root := p.Dir
+
 	log.Println("Serving content from", root)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/favicon.ico" {
@@ -189,6 +214,7 @@ func run(dir string, args ...string) ([]byte, error) {
 	cmd.Dir = dir
 	cmd.Stdout = &buf
 	cmd.Stderr = cmd.Stdout
+	cmd.Env = environ()
 
 	// Start command and leave in 'running'.
 	running.Lock()
@@ -211,6 +237,21 @@ func run(dir string, args ...string) ([]byte, error) {
 	}
 	running.Unlock()
 	return buf.Bytes(), err
+}
+
+// environ returns an execution environment containing only GO* variables
+// and replacing GOPATH with the value of the global var gopath.
+func environ() (env []string) {
+	for _, v := range os.Environ() {
+		if !strings.HasPrefix(v, "GO") {
+			continue
+		}
+		if strings.HasPrefix(v, "GOPATH=") {
+			v = "GOPATH=" + gopath
+		}
+		env = append(env, v)
+	}
+	return
 }
 
 // waitServer waits some time for the http Server to start
