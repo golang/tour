@@ -144,6 +144,28 @@ Inside a function, the `:=` short assignment statement can be used in place of a
 
 .play prog/short-variable-declarations.go
 
+* Basic types
+
+Go's basic types are
+
+	bool
+	
+	string
+	
+	int  int8  int16  int32  int64
+	uint uint8 uint16 uint32 uint64 uintptr
+	
+	byte // alias for uint8
+	
+	rune // alias for int32
+	     // represents a Unicode code point
+	
+	float32 float64
+	
+	complex64 complex128
+
+.play prog/basic-types.go
+
 * Constants
 
 Constants are declared like variables, but with the `const` keyword.
@@ -212,27 +234,22 @@ Variables declared inside an `if`'s short statement are also available inside an
 
 .play prog/if-and-else.go
 
-* Basic types
+* Exercise: Loops and Functions
 
-Go's basic types are
+As a simple way to play with functions and loops, implement the square root function using Newton's method.
 
-	bool
-	
-	string
-	
-	int  int8  int16  int32  int64
-	uint uint8 uint16 uint32 uint64 uintptr
-	
-	byte // alias for uint8
-	
-	rune // alias for int32
-	     // represents a Unicode code point
-	
-	float32 float64
-	
-	complex64 complex128
+In this case, Newton's method is to approximate `Sqrt(x)` by picking a starting point _z_ and then repeating:
 
-.play prog/basic-types.go
+To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
+
+Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[http://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
+
+Hint: to declare and initialize a floating point value, give it floating point syntax or use a conversion:
+
+	z := float64(1)
+	z := 1.0
+
+.play prog/exercise-loops-and-functions.go
 
 * Structs
 
@@ -278,49 +295,7 @@ or
 
 .play prog/the-new-function.go
 
-* Maps
-
-A map maps keys to values.
-
-Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
-
-.play prog/maps.go
-
-* Map literals
-
-Map literals are like struct literals, but the keys are required.
-
-.play prog/map-literals.go
-
-* Map literals continued
-
-If the top-level type is just a type name, you can omit it from the elements of the literal.
-
-.play prog/map-literals-continued.go
-
-* Mutating Maps
-
-Insert or update an element in map `m`:
-
-	m[key] = elem
-
-Retrieve an element:
-
-	elem = m[key]
-
-Delete an element:
-
-	delete(m, key)
-
-Test that a key is present with a two-value assignment:
-
-	elem, ok = m[key]
-
-If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the zero value for the map's element type.
-
-Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
-
-.play prog/mutating-maps.go
+# TODO(campoy): Arrays section
 
 * Slices
 
@@ -375,19 +350,7 @@ A nil slice has a length and capacity of 0.
 
 .play prog/nil-slices.go
 
-* Function values
-
-Functions are values too.
-
-.play prog/function-values.go
-
-* Function closures
-
-And functions are full closures.
-
-The `adder` function returns a closure. Each closure is bound to its own `sum` variable.
-
-.play prog/function-closures.go
+# TODO(campoy): Appending to slices section
 
 * Range
 
@@ -402,6 +365,94 @@ You can skip the index or value by assigning to `_`.
 If you only want the index, drop the “`,`value`” entirely.
 
 .play prog/range-continued.go
+
+* Exercise: Slices
+
+Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+
+The choice of image is up to you. Interesting functions include `x^y`, `(x+y)/2`, and `x*y`.
+
+(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+
+(Use `uint8(intValue)` to convert between types.)
+
+.play prog/exercise-slices.go
+
+* Maps
+
+A map maps keys to values.
+
+Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
+
+.play prog/maps.go
+
+* Map literals
+
+Map literals are like struct literals, but the keys are required.
+
+.play prog/map-literals.go
+
+* Map literals continued
+
+If the top-level type is just a type name, you can omit it from the elements of the literal.
+
+.play prog/map-literals-continued.go
+
+* Mutating Maps
+
+Insert or update an element in map `m`:
+
+	m[key] = elem
+
+Retrieve an element:
+
+	elem = m[key]
+
+Delete an element:
+
+	delete(m, key)
+
+Test that a key is present with a two-value assignment:
+
+	elem, ok = m[key]
+
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the zero value for the map's element type.
+
+Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
+
+.play prog/mutating-maps.go
+
+# TODO(campoy): Range on maps section
+
+* Exercise: Maps
+
+Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+
+You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+
+.play prog/exercise-maps.go
+
+* Function values
+
+Functions are values too.
+
+.play prog/function-values.go
+
+* Function closures
+
+And functions are full closures.
+
+The `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+
+.play prog/function-closures.go
+
+* Exercise: Fibonacci closure
+
+Let's have some fun with functions.
+
+Implement a `fibonacci` function that returns a function (a closure) that returns successive fibonacci numbers.
+
+.play prog/exercise-fibonacci-closure.go
 
 * Switch
 
@@ -437,51 +488,6 @@ Switch without a condition is the same as `switch`true`.
 This construct can be a clean way to write long if-then-else chains.
 
 .play prog/switch-with-no-condition.go
-
-* Exercise: Loops and Functions
-
-As a simple way to play with functions and loops, implement the square root function using Newton's method.
-
-In this case, Newton's method is to approximate `Sqrt(x)` by picking a starting point _z_ and then repeating:
-
-To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
-
-Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[http://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
-
-Hint: to declare and initialize a floating point value, give it floating point syntax or use a conversion:
-
-	z := float64(1)
-	z := 1.0
-
-.play prog/exercise-loops-and-functions.go
-
-* Exercise: Maps
-
-Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
-
-You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
-
-.play prog/exercise-maps.go
-
-* Exercise: Slices
-
-Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
-
-The choice of image is up to you. Interesting functions include `x^y`, `(x+y)/2`, and `x*y`.
-
-(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
-
-(Use `uint8(intValue)` to convert between types.)
-
-.play prog/exercise-slices.go
-
-* Exercise: Fibonacci closure
-
-Let's have some fun with functions.
-
-Implement a `fibonacci` function that returns a function (a closure) that returns successive fibonacci numbers.
-
-.play prog/exercise-fibonacci-closure.go
 
 * Advanced Exercise: Complex cube roots
 
@@ -559,44 +565,6 @@ The `fmt` package's various print routines automatically know to call the method
 
 .play prog/errors.go
 
-* Web servers
-
-[[http://golang.org/pkg/net/http/][Package http]] serves HTTP requests using any value that implements `http.Handler`:
-
-	package http
-	
-	type Handler interface {
-		ServeHTTP(w ResponseWriter, r *Request)
-	}
-
-In this example, the type `Hello` implements `http.Handler`.
-
-Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
-
-#appengine: *Note:* This example won't run through the web-based tour user
-#appengine: interface. To try writing web servers you may want to
-#appengine: [[http://golang.org/doc/install/][Install Go]].
-
-.play prog/web-servers.go
-
-* Images
-
-[[http://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
-
-	package image
-	
-	type Image interface {
-		ColorModel() color.Model
-		Bounds() Rectangle
-		At(x, y int) color.Color
-	}
-
-(See [[http://golang.org/pkg/image/#Image][the documentation]] for all the details.)
-
-Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`.
-
-.play prog/images.go
-
 * Exercise: Errors
 
 Copy your `Sqrt` function from the earlier exercises and modify it to return an `error` value.
@@ -619,6 +587,26 @@ Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a ne
 
 .play prog/exercise-errors.go
 
+* Web servers
+
+[[http://golang.org/pkg/net/http/][Package http]] serves HTTP requests using any value that implements `http.Handler`:
+
+	package http
+	
+	type Handler interface {
+		ServeHTTP(w ResponseWriter, r *Request)
+	}
+
+In this example, the type `Hello` implements `http.Handler`.
+
+Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
+
+#appengine: *Note:* This example won't run through the web-based tour user
+#appengine: interface. To try writing web servers you may want to
+#appengine: [[http://golang.org/doc/install/][Install Go]].
+
+.play prog/web-servers.go
+
 * Exercise: HTTP Handlers
 
 Implement the following types and define ServeHTTP methods on them. Register them to handle specific paths in your web server.
@@ -637,6 +625,24 @@ For example, you should be able to register handlers using:
 	http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})
 
 .play prog/exercise-http-handlers.go
+
+* Images
+
+[[http://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
+
+	package image
+	
+	type Image interface {
+		ColorModel() color.Model
+		Bounds() Rectangle
+		At(x, y int) color.Color
+	}
+
+(See [[http://golang.org/pkg/image/#Image][the documentation]] for all the details.)
+
+Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`.
+
+.play prog/images.go
 
 * Exercise: Images
 
