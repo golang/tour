@@ -165,10 +165,7 @@ ol li {
 	background: none;
 	font-size: 16px;
 }
-#output div.loading {
-	margin: 5px;
-	padding: 0;
-	font-style: italic;
+#output .loading {
 	color: #999;
 }
 #output .stdout, #output pre {

@@ -281,12 +281,11 @@ function body() {
 	return editor.getValue();
 }
 function loading() {
-	$output.html('<div class="loading">'+L('waiting')+'</div>');
+	$output.html('<pre><span class="loading">'+L('waiting')+'</span></pre>');
 }
 function run() {
-	$output.empty();
-	var $pre = $('<pre/>').appendTo($output);
-	stopFunc = runFunc(body(), $pre[0]);
+	loading();
+	stopFunc = runFunc(body(), $output.find("pre")[0]);
 }
 
 function kill() {

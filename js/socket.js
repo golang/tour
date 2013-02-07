@@ -24,6 +24,7 @@
     if (o === null) {
       return;
     }
+    if (!$(o).data("cleared")) $(o).empty().data("cleared", true); // HACK
     if (m.Kind === "stdout" || m.Kind === "stderr") {
       showMessage(o, m.Body, m.Kind);
     }

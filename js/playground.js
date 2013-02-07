@@ -16,6 +16,7 @@
     var playbackTimeout;
 
     function playback(pre, events) {
+      if (!pre.data("cleared")) pre.empty().data("cleared", true); // HACK
       function show(msg) {
         // ^L clears the screen.
         var msgs = msg.split("\x0c");
