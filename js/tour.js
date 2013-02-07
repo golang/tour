@@ -64,7 +64,7 @@ function init() {
 
 	// set up playground editor
 	editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-		theme: "plain",
+		theme: "default",
 		matchBrackets: true,
 		indentUnit: 4,
 		tabSize: 4,
