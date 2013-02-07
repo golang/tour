@@ -13,4 +13,4 @@ var tr = {
 	"next": "Next",
 	"waiting": "Waiting for remote server...",
 	"errcomm": "Error communicating with remote server.",
-}
+};

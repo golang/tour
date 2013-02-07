@@ -275,47 +275,32 @@ $(window).unload(function() {
 	save(slidenum);
 });
 
+var runFunc, stopFunc;
+
+function body() {
+	return editor.getValue();
+}
+function loading() {
+	$output.html('<div class="loading">'+L('waiting')+'</div>');
+}
+function run() {
+	$output.empty();
+	var $pre = $('<pre/>').appendTo($output);
+	stopFunc = runFunc(body(), $pre[0]);
+}
+
+function kill() {
+	if (stopFunc) stopFunc();
+}
 
 var seq = 0;
-
-function run() {
-	seq++;
-	var cur = seq;
-	$output.html('<div class="loading">'+L('waiting')+'</div>');
-	$.ajax("/compile", {
-		data: {"body": editor.getValue()},
-		type: "POST",
-		dataType: "json",
-		success: function(data) {
-			if (seq !== cur) {
-				return;
-			}
-			$output.empty();
-			if (data.compile_errors) {
-				$('<pre class="error" />').text(data.compile_errors).appendTo($output);
-				highlightErrors(data.compile_errors);
-			}
-			if (/^IMAGE:/.exec(data.output)) {
-				var img = $('<img />').attr('src',
-					'data:image/png;base64,' + data.output.substr(6));
-				$output.empty().append(img);
-				return;
-			}
-			$('<pre />').text(data.output).appendTo($output);
-		},
-		error: function() {
-			$output.empty();
-			$('<pre class="error" />').text(L('errcomm')).appendTo($output);
-		}
-	});
-}
 
 function format() {
 	seq++;
 	var cur = seq;
-	$output.html('<div class="loading">'+L('waiting')+'</div>');
+	loading();
 	$.ajax("/fmt", {
-		data: {"body": editor.getValue()},
+		data: {"body": body()},
 		type: "POST",
 		dataType: "json",
 		success: function(data) {
@@ -336,10 +321,6 @@ function format() {
 	});
 }
 
-function kill() {
-	$.ajax("/kill");
-}
-
 function highlightErrors(text) {
 	if (!editor || !text) {
 		return;
@@ -357,6 +338,9 @@ function highlightErrors(text) {
 		editor.setOption('onChange', null);
 	});
 }
+
+// Nasty hack to make this function available to playground.js and socket.js.
+window.highlightErrors = highlightErrors;
 
 function getcookie(name) {
 	if (document.cookie.length > 0) {
@@ -378,6 +362,14 @@ function setcookie(name, value, expire) {
 	expdate.setDate(expdate.getDate() + expire);
 	document.cookie = name + '=' + encodeURIComponent(value) +
 		((expire === undefined) ? '' : ';expires=' + expdate.toGMTString());
+}
+
+if (window.connectPlayground) {
+	runFunc = window.connectPlayground("ws://localhost:3999/socket");
+} else {
+	// If this message is logged,
+	// we have neglected to include socket.js or playground.js.
+	console.log("No playground transport available.");
 }
 
 }());

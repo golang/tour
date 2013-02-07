@@ -5,10 +5,15 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	"code.google.com/p/go.talks/pkg/present"
 )
@@ -54,4 +59,37 @@ func nocode(s present.Section) bool {
 		}
 	}
 	return true
+}
+
+// TODO(adg): move these scripts out of static and into a dedicated js folder.
+
+var commonScripts = []string{
+	"jquery.js",
+	"codemirror/lib/codemirror.js",
+	"codemirror/lib/go.js",
+	"lang.js",
+}
+
+// serveScripts registers an HTTP handler at /script.js that serves a
+// concatenated set of all the scripts specified by path relative to root.
+func serveScripts(root string, path ...string) error {
+	modTime := time.Now()
+	var buf bytes.Buffer
+	scripts := append(commonScripts, path...)
+	scripts = append(scripts, "tour.js")
+	for _, p := range scripts {
+		fn := filepath.Join(root, p)
+		b, err := ioutil.ReadFile(fn)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintf(&buf, "\n\n// **** %s ****\n\n", filepath.Base(fn))
+		buf.Write(b)
+	}
+	b := buf.Bytes()
+	http.HandleFunc("/script.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-type", "application/javascript")
+		http.ServeContent(w, r, "", modTime, bytes.NewReader(b))
+	})
+	return nil
 }

@@ -159,23 +159,26 @@ ol li {
 	border-bottom-right-radius: 5px;
 	overflow: auto;
 }
-
 #output pre {
 	margin: 5px;
 	padding: 0;
 	background: none;
 	font-size: 16px;
 }
-
 #output div.loading {
 	margin: 5px;
 	padding: 0;
 	font-style: italic;
 	color: #999;
 }
-#output pre.error {
-	margin: 5px;
-	color: #B00;
+#output .stdout, #output pre {
+  color: black;
+}
+#output .stderr, #output .error {
+  color: #a11;
+}
+#output .system, #output .exit {
+  color: #375EAB;
 }
 
 #output img {

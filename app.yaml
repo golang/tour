@@ -11,7 +11,7 @@ handlers:
   static_dir: static
 - url: /talks
   static_dir: talks
-- url: /(|compile|fmt)
+- url: /(|compile|fmt|script\.js)
   script: _go_app
 
 nobuild_files: (solutions|prog)/.*

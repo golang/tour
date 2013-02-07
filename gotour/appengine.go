@@ -22,6 +22,10 @@ const runUrl = "http://golang.org/compile"
 func init() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/compile", compileHandler)
+	err := serveScripts("static", "playground.js")
+	if err != nil {
+		panic(err)
+	}
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {

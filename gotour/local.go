@@ -7,25 +7,21 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"go/build"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"runtime"
-	"strconv"
 	"strings"
-	"sync"
 	"time"
+
+	"code.google.com/p/go.talks/pkg/socket"
 
 	// Imports so that go build/install automatically installs them.
 	_ "code.google.com/p/go-tour/pic"
@@ -93,8 +89,6 @@ func main() {
 	http.Handle("/static/", fs)
 	http.Handle("/talks/", fs)
 
-	http.HandleFunc("/compile", compileHandler)
-	http.HandleFunc("/kill", killHandler)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			if err := renderTour(w, root); err != nil {
@@ -104,6 +98,13 @@ func main() {
 		}
 		http.Error(w, "not found", 404)
 	})
+
+	http.Handle("/socket", socket.Handler)
+
+	err = serveScripts(filepath.Join(root, "static"), "socket.js")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	host, port, err := net.SplitHostPort(*httpListen)
 	if err != nil {
@@ -143,126 +144,6 @@ WARNING!  WARNING!  WARNING!
 type response struct {
 	Output string `json:"output"`
 	Errors string `json:"compile_errors"`
-}
-
-func compileHandler(w http.ResponseWriter, req *http.Request) {
-	resp := new(response)
-	out, err := compile(req)
-	if err != nil {
-		if len(out) > 0 {
-			resp.Errors = string(out) + "\n" + err.Error()
-		} else {
-			resp.Errors = err.Error()
-		}
-	} else {
-		resp.Output = string(out)
-	}
-	if err := json.NewEncoder(w).Encode(resp); err != nil {
-		log.Println(err)
-	}
-}
-
-var running struct {
-	sync.Mutex
-	cmd *exec.Cmd
-}
-
-func stopRun() {
-	running.Lock()
-	if running.cmd != nil {
-		running.cmd.Process.Kill()
-		running.cmd = nil
-	}
-	running.Unlock()
-}
-
-func killHandler(w http.ResponseWriter, r *http.Request) {
-	stopRun()
-}
-
-var (
-	commentRe = regexp.MustCompile(`(?m)^#.*\n`)
-	tmpdir    string
-)
-
-func init() {
-	// find real temporary directory (for rewriting filename in output)
-	var err error
-	tmpdir, err = filepath.EvalSymlinks(os.TempDir())
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func compile(req *http.Request) (out []byte, err error) {
-	stopRun()
-
-	// x is the base name for .go, .6, executable files
-	x := filepath.Join(tmpdir, "compile"+strconv.Itoa(<-uniq))
-	src := x + ".go"
-	bin := x
-	if runtime.GOOS == "windows" {
-		bin += ".exe"
-	}
-
-	// rewrite filename in error output
-	defer func() {
-		if err != nil {
-			// drop messages from the go tool like '# _/compile0'
-			out = commentRe.ReplaceAll(out, nil)
-		}
-		out = bytes.Replace(out, []byte(src+":"), []byte("main.go:"), -1)
-	}()
-
-	// write body to x.go
-	body := []byte(req.FormValue("body"))
-	defer os.Remove(src)
-	if err = ioutil.WriteFile(src, body, 0666); err != nil {
-		return
-	}
-
-	// build x.go, creating x
-	dir, file := filepath.Split(src)
-	out, err = run(dir, "go", "build", "-o", bin, file)
-	defer os.Remove(bin)
-	if err != nil {
-		return
-	}
-
-	// run x
-	return run("", bin)
-}
-
-// run executes the specified command and returns its output and an error.
-func run(dir string, args ...string) ([]byte, error) {
-	var buf bytes.Buffer
-	cmd := exec.Command(args[0], args[1:]...)
-	cmd.Dir = dir
-	cmd.Stdout = &buf
-	cmd.Stderr = cmd.Stdout
-	cmd.Env = environ()
-
-	// Start command and leave in 'running'.
-	running.Lock()
-	if running.cmd != nil {
-		defer running.Unlock()
-		return nil, fmt.Errorf("already running %s", running.cmd.Path)
-	}
-	if err := cmd.Start(); err != nil {
-		running.Unlock()
-		return nil, err
-	}
-	running.cmd = cmd
-	running.Unlock()
-
-	// Wait for the command.  Clean up,
-	err := cmd.Wait()
-	running.Lock()
-	if running.cmd == cmd {
-		running.cmd = nil
-	}
-	running.Unlock()
-	return buf.Bytes(), err
 }
 
 // environ returns an execution environment containing only GO* variables
