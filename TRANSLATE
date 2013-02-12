@@ -1,0 +1,35 @@
+Translating the Tour
+
+A Tour of Go is a Go program that runs as a stand-alone web server or
+an App Engine app. The version available at tour.golang.org is run from
+App Engine. There are several localized versions of the tour, such as
+this Chinese translation, also running on App Engine:
+
+	http://go-tour-zh.appspot.com
+
+The Tour contains a slide named "Go local", which lists several of
+these translations. If you are a native speaker of a language not on
+that list and have some experience with Go, please consider providing
+a translation of the Tour in your own language.
+
+To translate the tour:
+
+1. Translate the contents of tour.article
+2. Provide localized verison fo the UI strings in js/lang.js
+3. Sign up to App Engine and create an app named go-tour-LL,
+   where LL is the two-letter country code that applies best
+   to your chosen language. (This shouldn't cost you anything;
+   the Tour App usually runs inside App Engine's free quota.)
+4. Deploy your version of the Tour to that app.
+5. Announce to golang-nuts@googlegroups.com
+
+The Tour content changes occasionally, and you should keep your
+translation up to date. To follow the development of the tour,
+subscribe to the go-tour-commits mailing list:
+
+	https://groups.google.com/group/go-tour-commits
+
+All new commits to the go-tour repository are mailed there.
+
+Finally, if you have any questions about the Tour or Go,
+please mail golang-nuts@googlegroups.com.
