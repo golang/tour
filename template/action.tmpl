@@ -32,7 +32,7 @@ It determines how the formatting actions are rendered.
 {{end}}
 
 {{define "image"}}
-  <div class="image"><img src="{{.URL}}" {{.Attributes}}></div>
+  <img src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}>
 {{end}}
       
 {{define "link"}}
