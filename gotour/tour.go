@@ -22,9 +22,11 @@ func init() {
 	present.PlayEnabled = true
 }
 
-// renderTour loads tour.article and the relevant HTML templates from the given
-// tour root, and renders the template to the provided writer.
-func renderTour(w io.Writer, root string) error {
+var tourContent []byte
+
+// initTour loads tour.article and the relevant HTML templates from the given
+// tour root, and renders the template to the tourContent global variable.
+func initTour(root string) error {
 	// Open and parse source file.
 	source := filepath.Join(root, "tour.article")
 	f, err := os.Open(source)
@@ -47,7 +49,21 @@ func renderTour(w io.Writer, root string) error {
 	}
 
 	// Render.
-	return doc.Render(w, t)
+	buf := new(bytes.Buffer)
+	if err := doc.Render(buf, t); err != nil {
+		return err
+	}
+	tourContent = buf.Bytes()
+	return nil
+}
+
+// renderTour writes the tour content to the provided Writer.
+func renderTour(w io.Writer) error {
+	if tourContent == nil {
+		panic("renderTour called before successful initTour")
+	}
+	_, err := w.Write(tourContent)
+	return err
 }
 
 // nocode returns true if the provided Section contains

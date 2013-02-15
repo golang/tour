@@ -26,11 +26,14 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	if err := initTour("."); err != nil {
+		panic(err)
+	}
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
-	if err := renderTour(w, "."); err != nil {
+	if err := renderTour(w); err != nil {
 		c.Criticalf("template render: %v", err)
 	}
 }

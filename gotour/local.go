@@ -89,6 +89,22 @@ func main() {
 
 	log.Println("Serving content from", root)
 
+	host, port, err := net.SplitHostPort(*httpListen)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if host == "" {
+		host = "localhost"
+	}
+	if host != "127.0.0.1" && host != "localhost" {
+		log.Print(localhostWarning)
+	}
+	httpAddr = host + ":" + port
+
+	if err := initTour(root); err != nil {
+		log.Fatal(err)
+	}
+
 	fs := http.FileServer(http.Dir(root))
 	http.Handle("/favicon.ico", fs)
 	http.Handle("/static/", fs)
@@ -96,7 +112,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
-			if err := renderTour(w, root); err != nil {
+			if err := renderTour(w); err != nil {
 				log.Println(err)
 			}
 			return
@@ -111,18 +127,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	host, port, err := net.SplitHostPort(*httpListen)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if host == "" {
-		host = "localhost"
-	}
-	if host != "127.0.0.1" && host != "localhost" {
-		log.Print(localhostWarning)
-	}
-
-	httpAddr = host + ":" + port
 	go func() {
 		url := "http://" + httpAddr
 		if waitServer(url) && *openBrowser && startBrowser(url) {
