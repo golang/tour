@@ -364,7 +364,7 @@ function setcookie(name, value, expire) {
 }
 
 if (window.connectPlayground) {
-	runFunc = window.connectPlayground("ws://localhost:3999/socket");
+	runFunc = window.connectPlayground(window.socketAddr);
 } else {
 	// If this message is logged,
 	// we have neglected to include socket.js or playground.js.

@@ -29,7 +29,10 @@ import (
 	_ "code.google.com/p/go-tour/wc"
 )
 
-const basePkg = "code.google.com/p/go-tour/"
+const (
+	basePkg    = "code.google.com/p/go-tour/"
+	socketPath = "/socket"
+)
 
 var (
 	httpListen  = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
@@ -43,6 +46,8 @@ var (
 
 	// GOPATH containing the tour packages
 	gopath = os.Getenv("GOPATH")
+
+	httpAddr string
 )
 
 func isRoot(path string) bool {
@@ -99,7 +104,7 @@ func main() {
 		http.Error(w, "not found", 404)
 	})
 
-	http.Handle("/socket", socket.Handler)
+	http.Handle(socketPath, socket.Handler)
 
 	err = serveScripts(filepath.Join(root, "js"), "socket.js")
 	if err != nil {
@@ -117,7 +122,7 @@ func main() {
 		log.Print(localhostWarning)
 	}
 
-	httpAddr := host + ":" + port
+	httpAddr = host + ":" + port
 	go func() {
 		url := "http://" + httpAddr
 		if waitServer(url) && *openBrowser && startBrowser(url) {
@@ -196,3 +201,6 @@ func startBrowser(url string) bool {
 
 // prepContent for the local tour simply returns the content as-is.
 func prepContent(r io.Reader) io.Reader { return r }
+
+// socketAddr returns the WebSocket handler address.
+func socketAddr() string { return "ws://" + httpAddr + socketPath }

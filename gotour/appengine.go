@@ -94,3 +94,7 @@ func prepContent(in io.Reader) io.Reader {
 	}()
 	return out
 }
+
+// socketAddr returns the WebSocket handler address.
+// The App Engine version does not provide a WebSocket handler.
+func socketAddr() string { return "" }

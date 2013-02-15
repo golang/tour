@@ -40,7 +40,7 @@ func renderTour(w io.Writer, root string) error {
 	// Set up templates.
 	action := filepath.Join(root, "template", "action.tmpl")
 	tour := filepath.Join(root, "template", "tour.tmpl")
-	t := present.Template().Funcs(template.FuncMap{"nocode": nocode})
+	t := present.Template().Funcs(template.FuncMap{"nocode": nocode, "socketAddr": socketAddr})
 	_, err = t.ParseFiles(action, tour)
 	if err != nil {
 		return err
@@ -60,8 +60,6 @@ func nocode(s present.Section) bool {
 	}
 	return true
 }
-
-// TODO(adg): move these scripts out of static and into a dedicated js folder.
 
 var commonScripts = []string{
 	"jquery.js",
