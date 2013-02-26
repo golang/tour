@@ -18,15 +18,14 @@ import (
 	"code.google.com/p/go.talks/pkg/present"
 )
 
-func init() {
-	present.PlayEnabled = true
-}
-
 var tourContent []byte
 
 // initTour loads tour.article and the relevant HTML templates from the given
 // tour root, and renders the template to the tourContent global variable.
 func initTour(root string) error {
+	// Make sure playground is enabled before rendering.
+	present.PlayEnabled = true
+
 	// Open and parse source file.
 	source := filepath.Join(root, "tour.article")
 	f, err := os.Open(source)
