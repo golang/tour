@@ -21,7 +21,9 @@ http://golang.org
 
 Welcome to a tour of the [[http://golang.org/][Go programming language]].
 
-The tour is divided into three sections. At the end of each section is a series of exercises for you to complete.
+The tour is divided into three sections: basic concepts, methods and interfaces, and concurrency.
+
+Throughout the tour you will find a series of exercises for you to complete.
 
 The tour is interactive. Click the Run button now (or type Shift-Enter) to compile and run the program on
 #appengine: a remote server.
@@ -366,7 +368,7 @@ The `range` form of the `for` loop iterates over a slice or map.
 
 You can skip the index or value by assigning to `_`.
 
-If you only want the index, drop the “`,`value`” entirely.
+If you only want the index, drop the ", value" entirely.
 
 .play prog/range-continued.go
 
