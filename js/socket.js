@@ -46,11 +46,18 @@
       window.highlightErrors(m); // HACK
     } // HACK
     var span = document.createElement("span");
-    var needScroll = (o.scrollTop + o.offsetHeight) == o.scrollHeight;
-    m = m.replace(/&/g, "&amp;");
-    m = m.replace(/</g, "&lt;");
-    span.innerHTML = m;
     span.className = className;
+    if (m.indexOf("IMAGE:") === 0) {
+      var url = "data:image/png;base64," + m.substr(6);
+      var img = document.createElement("img");
+      img.src = url;
+      span.appendChild(img);
+    } else {
+      m = m.replace(/&/g, "&amp;");
+      m = m.replace(/</g, "&lt;");
+      span.innerHTML = m;
+    }
+    var needScroll = (o.scrollTop + o.offsetHeight) == o.scrollHeight;
     o.appendChild(span);
     if (needScroll)
         o.scrollTop = o.scrollHeight - o.offsetHeight;

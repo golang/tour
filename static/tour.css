@@ -179,9 +179,10 @@ ol li {
 }
 
 #output img {
-	margin: 5px;
+	margin: 0;
 	padding: 0;
 	border: none;
+	display: block;
 }
 
 pre, code {
