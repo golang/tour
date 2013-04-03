@@ -156,6 +156,8 @@ function init() {
 	$('#format').text(L('format'));
 	$('#kill').text(L('kill'));
 	$('#tocbtn').attr('title', L('toc'));
+	$('#run').attr('title', L('compile'));
+	$('#more').attr('title', L('more'));
 }
 
 function toggleToc() {

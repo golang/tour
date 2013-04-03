@@ -8,6 +8,8 @@ var tr = {
 	"format": "Format Source Code",
 	"kill": "Kill Program",
 	"run": "Run",
+	"compile": "Compile and Run",
+	"more": "Options",
 	"toc": "Table of Contents",
 	"prev": "Previous",
 	"next": "Next",
