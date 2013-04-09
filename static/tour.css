@@ -375,6 +375,9 @@ div.nav a:hover {
 	color: #375EAB;
 }
 
+.full-width {
+  width: 100% !important;
+}
 
 @media screen and (max-width : 1100px) {
 	#wrap {

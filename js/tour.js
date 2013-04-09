@@ -195,7 +195,9 @@ function show(i) {
 	// load stored code, or hide code box
 	if ($s.hasClass("nocode")) {
 		$('#workspace').hide();
+		$('#wrap').addClass('full-width');
 	} else {
+		$('#wrap').removeClass('full-width');
 		$('#workspace').show();
 		$output.empty();
 		editor.setValue(load(i) || $s.find('div.source').text());
