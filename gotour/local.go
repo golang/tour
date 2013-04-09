@@ -155,6 +155,10 @@ type response struct {
 	Errors string `json:"compile_errors"`
 }
 
+func init() {
+	socket.Environ = environ
+}
+
 // environ returns an execution environment containing only GO* variables
 // and replacing GOPATH with the value of the global var gopath.
 func environ() (env []string) {
