@@ -9,19 +9,18 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"io"
 	"net/http"
 
 	"appengine"
-	"appengine/urlfetch"
+
+	_ "code.google.com/p/go.talks/pkg/playground"
 )
 
 const runUrl = "http://golang.org/compile"
 
 func init() {
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/compile", compileHandler)
 	err := serveScripts("js", "playground.js")
 	if err != nil {
 		panic(err)
@@ -36,30 +35,6 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	if err := renderTour(w); err != nil {
 		c.Criticalf("template render: %v", err)
 	}
-}
-
-func compileHandler(w http.ResponseWriter, r *http.Request) {
-	if err := passThru(w, r); err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, "Compile server error.")
-	}
-}
-
-func passThru(w io.Writer, req *http.Request) error {
-	c := appengine.NewContext(req)
-	client := urlfetch.Client(c)
-	defer req.Body.Close()
-	r, err := client.Post(runUrl, req.Header.Get("Content-type"), req.Body)
-	if err != nil {
-		c.Errorf("making POST request:", err)
-		return err
-	}
-	defer r.Body.Close()
-	if _, err := io.Copy(w, r.Body); err != nil {
-		c.Errorf("copying response Body:", err)
-		return err
-	}
-	return nil
 }
 
 // prepContent returns a Reader that produces the content from the given
