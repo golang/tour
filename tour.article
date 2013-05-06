@@ -286,7 +286,7 @@ A struct literal denotes a newly allocated struct value by listing the values of
 
 You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
 
-The special prefix `&` constructs a pointer to a struct literal.
+The special prefix `&` constructs a pointer to a newly allocated struct.
 
 .play prog/struct-literals.go
 
