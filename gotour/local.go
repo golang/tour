@@ -163,13 +163,14 @@ func init() {
 // and replacing GOPATH with the value of the global var gopath.
 func environ() (env []string) {
 	for _, v := range os.Environ() {
-		if !strings.HasPrefix(v, "GO") {
-			continue
+		if strings.HasPrefix(v, "GO") ||
+			strings.HasPrefix(v, "TMPDIR=") ||
+			strings.HasPrefix(v, "TEMP=") {
+			if strings.HasPrefix(v, "GOPATH=") {
+				v = "GOPATH=" + gopath
+			}
+			env = append(env, v)
 		}
-		if strings.HasPrefix(v, "GOPATH=") {
-			v = "GOPATH=" + gopath
-		}
-		env = append(env, v)
 	}
 	return
 }
