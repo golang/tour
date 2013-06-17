@@ -50,7 +50,7 @@ h1 {
 	display: block;
 	position: absolute;
 	top: 0;
-	left: 60%;
+	right: 80px;
 	z-index: 10;
 }
 
