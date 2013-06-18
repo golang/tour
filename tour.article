@@ -694,7 +694,7 @@ starts a new goroutine running
 
 The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The `[[http://golang.org/pkg/sync/][sync]]` package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+Goroutines run in the same address space, so access to shared memory must be synchronized. The [[http://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
 
 .play prog/goroutines.go
 
