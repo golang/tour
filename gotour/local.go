@@ -159,19 +159,15 @@ func init() {
 	socket.Environ = environ
 }
 
-// environ returns an execution environment containing only GO* variables
-// and replacing GOPATH with the value of the global var gopath.
+// environ returns the original execution environment with GOPATH
+// replaced (or added) with the value of the global var gopath.
 func environ() (env []string) {
 	for _, v := range os.Environ() {
-		if strings.HasPrefix(v, "GO") ||
-			strings.HasPrefix(v, "TMPDIR=") ||
-			strings.HasPrefix(v, "TEMP=") {
-			if strings.HasPrefix(v, "GOPATH=") {
-				v = "GOPATH=" + gopath
-			}
+		if !strings.HasPrefix(v, "GOPATH=") {
 			env = append(env, v)
 		}
 	}
+	env = append(env, "GOPATH="+gopath)
 	return
 }
 
