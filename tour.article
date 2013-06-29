@@ -830,7 +830,21 @@ To learn how to organize and work with Go code, watch [[http://www.youtube.com/w
 
 If you need help with the standard library, see the [[http://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[http://golang.org/ref/spec][Language Spec]] is quite readable.
 
-To further explore Go's concurrency model, see the [[http://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]] codewalk.
+To further explore Go's concurrency model, watch
+[[http://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
+([[http://talks.golang.org/2012/concurrency.slide][slides]])
+and
+[[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
+([[http://talks.golang.org/2013/advconc.slide][slides]])
+and read the
+[[http://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
+codewalk.
+
+To get started writing web applications, watch
+[[http://vimeo.com/53221558][A simple programming environment]]
+([[http://talks.golang.org/2012/simple.slide][slides]])
+and read the
+[[http://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
 
 The [[http://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
 
