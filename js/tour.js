@@ -200,7 +200,7 @@ function show(i) {
 		$('#wrap').removeClass('full-width');
 		$('#workspace').show();
 		$output.empty();
-		editor.setValue(load(i) || $s.find('div.source').text());
+		editor.setValue(load(i) || $s.find('div.source').text().trim());
 		editor.focus();
 	}
 
@@ -215,7 +215,7 @@ function show(i) {
 }
 
 function reset() {
-	editor.setValue($(slide).find('div.source').text());
+	editor.setValue($(slide).find('div.source').text().trim());
 	save(slidenum);
 }
 
