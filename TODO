@@ -1,0 +1,96 @@
+This file lists topics that already exist (prefixed by -) and topics that
+should be added (prefixed by +). It should be kept up-to-date with tour.article.
+
+- Hello, 世界
+- Go local
+- Packages
+- Imports
+- Exported names
+- Functions
+- Functions continued
+- Multiple results
+- Named results
+- Variables
+- Variables with initializers
+- Short variable declarations
+- Basic types
++ The zero value
+- Constants
+- Numeric Constants
+- For
+- For continued
+- For is Go's "while"
+- Forever
+- If
+- If with a short statement
+- If and else
+- Exercise: Loops and Functions
+- Structs
+- Struct Fields
+- Pointers
+- Struct Literals
+- The new function
+- Slices
+- Slicing slices
+- Making slices
++ Append
++ Copy
+- Nil slices
+- Range
+- Range continued
++ The blank identifier
+- Exercise: Slices
+- Maps
+- Map literals
+- Map literals continued
+- Mutating Maps
+- Exercise: Maps
+- Function values
+- Function closures
+- Exercise: Fibonacci closure
+- Switch
+- Switch evaluation order
+- Switch with no condition
++ Complex numbers
+- Advanced Exercise: Complex cube roots
+- Methods and Interfaces
+- Methods
+- Methods continued
+- Methods with pointer receivers
+- Interfaces
+- Interfaces are satisfied implicitly
++ Interface assignment
++ Empty interface
+- Errors
+- Exercise: Errors
+- Web servers
+- Exercise: HTTP Handlers
+- Images
+- Exercise: Images
+- Exercise: Rot13 Reader
++ Sort (see sort package examples)
++ Exercise: Sort
++ Embedding
++ Exercise: Embedding (sort by different fields)
++ Type assertion
++ Type switch
++ Exercise: Visitor (walk a tree?)
+- Concurrency
+- Goroutines
+- Channels
+- Buffered Channels
+- Range and Close
+- Select
+- Default Selection
+- Exercise: Equivalent Binary Trees
+- Exercise: Equivalent Binary Trees
+- Exercise: Web Crawler
++ More language features
++ Defer
++ Panic and recover
++ init functions
++ Tools
++ Godoc
++ Gofmt
+- Where to Go from here...
+
