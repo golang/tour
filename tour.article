@@ -218,7 +218,7 @@ If you omit the loop condition it loops forever, so an infinite loop is compactl
 
 * If
 
-The `if` statement looks as it does in C or Java, except that the `(`)` are gone (they are not even optional) and the `{`}` are required.
+The `if` statement looks as it does in C or Java, except that the `(`)` are gone and the `{`}` are required.
 
 (Sound familiar?)
 
