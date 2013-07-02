@@ -34,7 +34,10 @@ func Show(f func(int, int) [][]uint8) {
 
 func ShowImage(m image.Image) {
 	var buf bytes.Buffer
-	png.Encode(&buf, m)
+	err := png.Encode(&buf, m)
+	if err != nil {
+		panic(err)
+	}
 	enc := base64.StdEncoding.EncodeToString(buf.Bytes())
 	fmt.Println("IMAGE:" + enc)
 }
