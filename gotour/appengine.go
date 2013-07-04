@@ -21,7 +21,7 @@ const runUrl = "http://golang.org/compile"
 
 func init() {
 	http.HandleFunc("/", rootHandler)
-	err := serveScripts("js", "playground.js")
+	err := serveScripts("js", "HTTPTransport")
 	if err != nil {
 		panic(err)
 	}

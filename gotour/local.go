@@ -122,7 +122,7 @@ func main() {
 
 	http.Handle(socketPath, socket.Handler)
 
-	err = serveScripts(filepath.Join(root, "js"), "socket.js")
+	err = serveScripts(filepath.Join(root, "js"), "SocketTransport")
 	if err != nil {
 		log.Fatal(err)
 	}

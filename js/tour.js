@@ -275,25 +275,33 @@ $(document).ready(function() {
 	document.onkeydown = pageUpDown;
 });
 
-$(window).unload(function() {
-	save(slidenum);
-});
-
-var runFunc, stopFunc;
+var transport; // set by initTour
+var running;
 
 function body() {
 	return editor.getValue();
 }
+
 function loading() {
 	$output.html('<pre><span class="loading">'+L('waiting')+'</span></pre>');
 }
+
 function run() {
+	kill();
 	loading();
-	stopFunc = runFunc(body(), $output.find("pre")[0]);
+	var output = highlightOutput(PlaygroundOutput($output.find("pre")[0]));
+	running = transport.Run(body(), output);
+}
+
+function highlightOutput(wrappedOutput) {
+	return function(write) {
+		if (write.Body) highlightErrors(write.Body);
+		wrappedOutput(write);
+	}
 }
 
 function kill() {
-	if (stopFunc) stopFunc();
+	if (running) running.Kill();
 }
 
 var seq = 0;
@@ -342,9 +350,6 @@ function highlightErrors(text) {
 	});
 }
 
-// Nasty hack to make this function available to playground.js and socket.js.
-window.highlightErrors = highlightErrors;
-
 function getcookie(name) {
 	if (document.cookie.length > 0) {
 		var start = document.cookie.indexOf(name + '=');
@@ -367,12 +372,8 @@ function setcookie(name, value, expire) {
 		((expire === undefined) ? '' : ';expires=' + expdate.toGMTString());
 }
 
-if (window.connectPlayground) {
-	runFunc = window.connectPlayground(window.socketAddr);
-} else {
-	// If this message is logged,
-	// we have neglected to include socket.js or playground.js.
-	console.log("No playground transport available.");
+window.initTour = function(t) {
+	transport = t
 }
 
 }());
