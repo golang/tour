@@ -236,7 +236,7 @@ Variables declared by the statement are only in scope until the end of the `if`.
 
 * If and else
 
-Variables declared inside an `if`'s short statement are also available inside any of the `else` blocks.
+Variables declared inside an `if` short statement are also available inside any of the `else` blocks.
 
 .play prog/if-and-else.go
 
