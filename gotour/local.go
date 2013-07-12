@@ -41,9 +41,6 @@ var (
 )
 
 var (
-	// a source of numbers, for naming temporary files
-	uniq = make(chan int)
-
 	// GOPATH containing the tour packages
 	gopath = os.Getenv("GOPATH")
 
@@ -73,13 +70,6 @@ func findRoot() (string, error) {
 
 func main() {
 	flag.Parse()
-
-	// source of unique numbers
-	go func() {
-		for i := 0; ; i++ {
-			uniq <- i
-		}
-	}()
 
 	// find and serve the go tour files
 	root, err := findRoot()
