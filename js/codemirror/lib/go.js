@@ -7,9 +7,9 @@ CodeMirror.defineMode("go", function(config, parserConfig) {
     "func":true, "go":true, "goto":true, "if":true, "import":true,
     "interface":true, "map":true, "package":true, "range":true, "return":true,
     "select":true, "struct":true, "switch":true, "type":true, "var":true,
-    "bool":true, "byte":true, "complex64":true, "complex128":true,
+    "bool":true, "byte":true, "complex64":true, "complex128":true, "error":true,
     "float32":true, "float64":true, "int8":true, "int16":true, "int32":true,
-    "int64":true, "string":true, "uint8":true, "uint16":true, "uint32":true,
+    "int64":true, "rune":true, "string":true, "uint8":true, "uint16":true, "uint32":true,
     "uint64":true, "int":true, "uint":true, "uintptr":true
   };
 
