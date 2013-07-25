@@ -59,9 +59,9 @@ Every Go program is made up of packages.
 
 Programs start running in package `main`.
 
-This program is using the packages with import paths `"fmt"` and `"math"`.
+This program is using the packages with import paths `"fmt"` and `"math/rand"`.
 
-By convention, the package name is the same as the last element of the import path.
+By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
 
 .play prog/packages.go
 
@@ -146,7 +146,7 @@ If an initializer is present, the type can be omitted; the variable will take th
 
 Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
 
-(Outside a function, every construct begins with a keyword and the `:=` construct is not available.)
+Outside a function, every construct begins with a keyword (`var`, `func`, and so on) and the `:=` construct is not available.
 
 .play prog/short-variable-declarations.go
 
@@ -177,6 +177,8 @@ Go's basic types are
 Constants are declared like variables, but with the `const` keyword.
 
 Constants can be character, string, boolean, or numeric values.
+
+Constants cannot be declared using the `:=` syntax.
 
 .play prog/constants.go
 
@@ -448,9 +450,9 @@ Functions are values too.
 
 * Function closures
 
-And functions are full closures.
+Go functions may be closures. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
 
-The `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
 
 .play prog/function-closures.go
 
@@ -508,6 +510,9 @@ Find the cube root of 2, just to make sure the algorithm works. There is a [[htt
 .play prog/advanced-exercise-complex-cube-roots.go
 
 * Methods and Interfaces
+
+The next group of slides covers methods and interfaces, the constructs that
+define objects and their behavior.
 
 * Methods
 
@@ -681,6 +686,8 @@ The `rot13Reader` type is provided for you.  Make it an `io.Reader` by implement
 .play prog/exercise-rot-reader.go
 
 * Concurrency
+
+The next section covers Go's concurrency primitives.
 
 * Goroutines
 
