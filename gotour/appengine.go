@@ -14,7 +14,7 @@ import (
 
 	"appengine"
 
-	_ "code.google.com/p/go.talks/pkg/playground"
+	_ "code.google.com/p/go.tools/godoc/playground"
 )
 
 const runUrl = "http://golang.org/compile"
