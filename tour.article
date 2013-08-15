@@ -53,6 +53,24 @@ The tour is available in other languages:
 
 Click the "next" button or type PageDown to continue.
 
+#appengine: * The Go Playground
+#appengine: 
+#appengine: This tour is built atop the [[http://play.golang.org/][Go Playground]], a
+#appengine: web service that runs on [[http://golang.org/][golang.org]]'s servers.
+#appengine: 
+#appengine: The service receives a Go program, compiles, links, and runs the program inside
+#appengine: a sandbox, then returns the output.
+#appengine: 
+#appengine: There are limitations to the programs that can be run in the playground:
+#appengine: 
+#appengine: - The playground can use most of the standard library, with some exceptions; notably absent are network and file system access. Therefore, the only communication a playground program has to the outside world is by writing to standard output and standard error.
+#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the sigificance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
+#appengine: - There are also limits on execution time and on CPU and memory usage, and the program is restricted to running in a single thread (but may use many goroutines).
+#appengine: 
+#appengine: The playground uses the latest stable release of Go.
+
+.play prog/sandbox.go
+
 * Packages
 
 Every Go program is made up of packages.
@@ -62,6 +80,11 @@ Programs start running in package `main`.
 This program is using the packages with import paths `"fmt"` and `"math/rand"`.
 
 By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
+
+#appengine: *Note:* the environment in which these programs are executed is
+#appengine: deterministic, so `rand.Intn` will always return the same number.
+#appengine: 
+#appengine: (To see a different number, seed the number generator; see [[http://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
 
 .play prog/packages.go
 
