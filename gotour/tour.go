@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"html/template"
 	"io"
@@ -18,7 +19,10 @@ import (
 	"code.google.com/p/go.talks/pkg/present"
 )
 
-var tourContent []byte
+var (
+	content     = flag.String("content", "", "article to load for the tour")
+	tourContent []byte
+)
 
 // initTour loads tour.article and the relevant HTML templates from the given
 // tour root, and renders the template to the tourContent global variable.
@@ -28,6 +32,9 @@ func initTour(root string) error {
 
 	// Open and parse source file.
 	source := filepath.Join(root, "tour.article")
+	if *content != "" {
+		source = *content
+	}
 	f, err := os.Open(source)
 	if err != nil {
 		return err
