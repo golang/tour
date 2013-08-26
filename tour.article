@@ -328,8 +328,6 @@ or
 
 .play prog/the-new-function.go
 
-# TODO(campoy): Arrays section
-
 * Slices
 
 A slice points to an array of values and also includes a length.
@@ -382,8 +380,6 @@ A nil slice has a length and capacity of 0.
 (To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
 
 .play prog/nil-slices.go
-
-# TODO(campoy): Appending to slices section
 
 * Range
 
@@ -454,8 +450,6 @@ If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the ze
 Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
 
 .play prog/mutating-maps.go
-
-# TODO(campoy): Range on maps section
 
 * Exercise: Maps
 

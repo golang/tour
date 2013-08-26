@@ -30,6 +30,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Pointers
 * Struct Literals
 * The new function
+- Arrays
 * Slices
 * Slicing slices
 * Making slices
@@ -44,6 +45,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Map literals
 * Map literals continued
 * Mutating Maps
+- Maps and range
 * Exercise: Maps
 * Function values
 * Function closures
