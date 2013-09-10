@@ -161,7 +161,7 @@ func environ() (env []string) {
 }
 
 // waitServer waits some time for the http Server to start
-// serving url and returns whether it starts
+// serving url. The return value reports whether it starts.
 func waitServer(url string) bool {
 	tries := 20
 	for tries > 0 {

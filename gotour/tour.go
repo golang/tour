@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	content     = flag.String("content", "", "article to load for the tour")
+	article     = flag.String("article", "tour.article", "article to load for the tour")
 	tourContent []byte
 )
 
@@ -31,13 +31,15 @@ func initTour(root string) error {
 	present.PlayEnabled = true
 
 	// Open and parse source file.
-	source := filepath.Join(root, "tour.article")
-	if *content != "" {
-		source = *content
-	}
+	source := *article
 	f, err := os.Open(source)
 	if err != nil {
-		return err
+		// See if it exists in the root.
+		source = filepath.Join(root, "tour.article")
+		f, err = os.Open(source)
+		if err != nil {
+			return err
+		}
 	}
 	defer f.Close()
 	doc, err := present.Parse(prepContent(f), source, 0)
