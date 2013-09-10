@@ -46,8 +46,13 @@ var (
 	httpAddr string
 )
 
+// isRoot reports whether path is the root directory of the tour tree.
+// To be the root, it must have content and template subdirectories.
 func isRoot(path string) bool {
-	_, err := os.Stat(filepath.Join(path, "tour.article"))
+	_, err := os.Stat(filepath.Join(path, "content", "tour.article"))
+	if err == nil {
+		_, err = os.Stat(filepath.Join(path, "template", "tour.tmpl"))
+	}
 	return err == nil
 }
 

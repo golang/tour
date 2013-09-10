@@ -34,8 +34,8 @@ func initTour(root string) error {
 	source := *article
 	f, err := os.Open(source)
 	if err != nil {
-		// See if it exists in the root.
-		source = filepath.Join(root, "tour.article")
+		// See if it exists in the content directory in the root.
+		source = filepath.Join(root, "content", "tour.article")
 		f, err = os.Open(source)
 		if err != nil {
 			return err
