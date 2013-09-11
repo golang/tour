@@ -14,4 +14,4 @@ handlers:
 - url: /(|compile|fmt|script\.js)
   script: _go_app
 
-nobuild_files: (solutions|prog)/.*
+nobuild_files: (solutions|content)/.*

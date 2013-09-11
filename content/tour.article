@@ -69,7 +69,7 @@ Click the "next" button or type PageDown to continue.
 #appengine:
 #appengine: The playground uses the latest stable release of Go.
 #appengine: 
-#appengine: .play prog/sandbox.go
+#appengine: .play prog/tour/sandbox.go
 
 * Packages
 
