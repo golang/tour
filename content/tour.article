@@ -34,7 +34,8 @@ These example programs demonstrate different aspects of Go. The programs in the 
 
 Edit the program and run it again.
 
-Whenever you're ready to move on, click the Next button or type the PageDown key.
+When you're ready to move on, click the right arrow down below or type the PageDown key.
+You can also navigate using the menu under the "Go" flag at the top of the page.
 
 .play prog/tour/hello.go
 
