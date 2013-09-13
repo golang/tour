@@ -43,15 +43,15 @@ type fakeResult struct {
 	urls []string
 }
 
-func (f *fakeFetcher) Fetch(url string) (string, []string, error) {
-	if res, ok := (*f)[url]; ok {
+func (f fakeFetcher) Fetch(url string) (string, []string, error) {
+	if res, ok := f[url]; ok {
 		return res.body, res.urls, nil
 	}
 	return "", nil, fmt.Errorf("not found: %s", url)
 }
 
 // fetcher is a populated fakeFetcher.
-var fetcher = &fakeFetcher{
+var fetcher = fakeFetcher{
 	"http://golang.org/": &fakeResult{
 		"The Go Programming Language",
 		[]string{
