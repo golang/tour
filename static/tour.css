@@ -229,6 +229,9 @@ div.source {
 .CodeMirror .errLine {
 	background: #FDD !important;
 }
+.CodeMirror .highlightLine {
+	background: #E0EBF5 !important;
+}
 
 #slides pre {
 	background: #E9E9E9;

@@ -200,7 +200,23 @@ function show(i) {
 		$('#wrap').removeClass('full-width');
 		$('#workspace').show();
 		$output.empty();
-		editor.setValue(load(i) || $s.find('div.source').text().trim());
+
+		// Load stored code from HTML source or from the pageData cache.
+		// Highlight "HL" lines if the cached data hasn't been changed.
+		var $src = $s.find('div.source');
+		var orig = $src.text().trim();
+		var loaded = load(i);
+		if (loaded && loaded != orig) {
+			editor.setValue(loaded); 
+		} else {
+			editor.setValue(orig); 
+			$src.find('b').closest('span').each(function() {
+				var n = $(this).attr('num')*1 - 1;
+				editor.setLineClass(n, null, 'highlightLine');
+			});
+			clearHighlightOnChange();
+		}
+
 		editor.focus();
 	}
 
@@ -342,6 +358,10 @@ function highlightErrors(text) {
 		var line = result[1]*1-1;
 		editor.setLineClass(line, null, 'errLine');
 	}
+	clearHighlightOnChange();
+}
+
+function clearHighlightOnChange() {
 	editor.setOption('onChange', function() {
 		for (var i = 0; i < editor.lineCount(); i++) {
 			editor.setLineClass(i, null, null);
