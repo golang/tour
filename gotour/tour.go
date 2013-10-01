@@ -16,6 +16,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"code.google.com/p/go.tools/godoc/static"
 	"code.google.com/p/go.tools/present"
 )
 
@@ -101,12 +102,16 @@ func serveScripts(root, transport string) error {
 	modTime := time.Now()
 	var buf bytes.Buffer
 	for _, p := range scripts {
+		fmt.Fprintf(&buf, "\n\n// **** %s ****\n\n", p)
+		if s, ok := static.Files[p]; ok {
+			buf.WriteString(s)
+			continue
+		}
 		fn := filepath.Join(root, p)
 		b, err := ioutil.ReadFile(fn)
 		if err != nil {
 			return err
 		}
-		fmt.Fprintf(&buf, "\n\n// **** %s ****\n\n", filepath.Base(fn))
 		buf.Write(b)
 	}
 	fmt.Fprintf(&buf, "\ninitTour(new %v());\n", transport)
