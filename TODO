@@ -10,10 +10,12 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Functions continued
 * Multiple results
 * Named results
+- Variables (single declaration first)
 * Variables
 * Variables with initializers
 * Short variable declarations
 * Basic types
+* Type conversions
 - The zero value
 * Constants
 * Numeric Constants
@@ -30,7 +32,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Pointers
 * Struct Literals
 * The new function
-- Arrays
+* Arrays
 * Slices
 * Slicing slices
 * Making slices

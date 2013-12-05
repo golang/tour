@@ -67,7 +67,7 @@ Click the "next" button or type PageDown to continue.
 #appengine: There are limitations to the programs that can be run in the playground:
 #appengine: 
 #appengine: - The playground can use most of the standard library, with some exceptions; notably absent are network and file system access. Therefore, the only communication a playground program has to the outside world is by writing to standard output and standard error.
-#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the sigificance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
+#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
 #appengine: - There are also limits on execution time and on CPU and memory usage, and the program is restricted to running in a single thread (but may use many goroutines).
 #appengine:
 #appengine: The playground uses the latest stable release of Go.
@@ -197,6 +197,28 @@ Go's basic types are
 	complex64 complex128
 
 .play prog/tour/basic-types.go
+
+* Type conversions
+
+The expression `T(v)` converts the value `v` to the type `T`.
+
+Some numeric conversions:
+
+	var i int = 42
+	var f float64 = float64(i)
+	var u uint = uint(f)
+
+Or, put more simply:
+
+	i := 42
+	f := float64(i)
+	u := uint(f)
+
+Unlike in C, in Go assignment between items of different type requires an
+explicit conversion.
+Try removing the `float64` or `int` conversions in the example and see what happens.
+
+.play prog/tour/type-conversions.go
 
 * Constants
 
@@ -330,6 +352,22 @@ or
 	t := new(T)
 
 .play prog/tour/the-new-function.go
+
+* Arrays
+
+The type `[n]T` is an array of `n` values of type `T`.
+
+The expression
+
+	var a [10]int
+
+declares a variable `a` as an array of ten integers.
+
+An array's length is part of its type, so arrays cannot be resized.
+This seems limiting, but don't worry;
+Go provides a convenient way of working with arrays.
+
+.play prog/tour/array.go
 
 * Slices
 
@@ -675,7 +713,7 @@ For example, you should be able to register handlers using:
 
 (See [[http://golang.org/pkg/image/#Image][the documentation]] for all the details.)
 
-Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`.
+Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[http://golang.org/pkg/image/color/][image/color package]]
 
 .play prog/tour/images.go
 
