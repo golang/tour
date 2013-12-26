@@ -610,6 +610,11 @@ An interface type is defined by a set of methods.
 
 A value of interface type can hold any value that implements those methods.
 
+*Note:* The code on the left fails to compile.
+
+`Vertex` doesn't satisfy `Abser` because
+the `Abs` method is defined only on `*Vertex`, not `Vertex`.
+
 .play prog/tour/interfaces.go
 
 * Interfaces are satisfied implicitly
