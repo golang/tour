@@ -66,11 +66,13 @@ Click the "next" button or type PageDown to continue.
 #appengine: 
 #appengine: There are limitations to the programs that can be run in the playground:
 #appengine: 
-#appengine: - The playground can use most of the standard library, with some exceptions; notably absent are network and file system access. Therefore, the only communication a playground program has to the outside world is by writing to standard output and standard error.
+#appengine: - The only communication a playground program has to the outside world is by writing to standard output and standard error.
 #appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
 #appengine: - There are also limits on execution time and on CPU and memory usage, and the program is restricted to running in a single thread (but may use many goroutines).
 #appengine:
 #appengine: The playground uses the latest stable release of Go.
+#appengine: 
+#appengine: Read "[[http://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
 #appengine: 
 #appengine: .play prog/tour/sandbox.go
 
