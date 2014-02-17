@@ -2,9 +2,11 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build ignore
+
 package main
 
-import "tour/pic"
+import "code.google.com/p/go-tour/pic"
 
 func Pic(dx, dy int) [][]uint8 {
 	p := make([][]uint8, dy)
