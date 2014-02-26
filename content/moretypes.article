@@ -1,0 +1,235 @@
+More types: structs, slices, and maps.
+Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
+
+The Go Authors
+http://golang.org
+
+* Structs
+
+A `struct` is a collection of fields.
+
+(And a `type` declaration does what you'd expect.)
+
+.play prog/tour/structs.go
+
+* Struct Fields
+
+Struct fields are accessed using a dot.
+
+.play prog/tour/struct-fields.go
+
+* Pointers
+
+Go has pointers, but no pointer arithmetic.
+
+Struct fields can be accessed through a struct pointer. The indirection through the pointer is transparent.
+
+.play prog/tour/pointers.go
+
+* Struct Literals
+
+A struct literal denotes a newly allocated struct value by listing the values of its fields.
+
+You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
+
+The special prefix `&` constructs a pointer to a newly allocated struct.
+
+.play prog/tour/struct-literals.go
+
+* The new function
+
+The expression `new(T)` allocates a zeroed `T` value and returns a pointer to it.
+
+	var t *T = new(T)
+
+or
+
+	t := new(T)
+
+.play prog/tour/the-new-function.go
+
+* Arrays
+
+The type `[n]T` is an array of `n` values of type `T`.
+
+The expression
+
+	var a [10]int
+
+declares a variable `a` as an array of ten integers.
+
+An array's length is part of its type, so arrays cannot be resized.
+This seems limiting, but don't worry;
+Go provides a convenient way of working with arrays.
+
+.play prog/tour/array.go
+
+* Slices
+
+A slice points to an array of values and also includes a length.
+
+`[]T` is a slice with elements of type `T`.
+
+.play prog/tour/slices.go
+
+* Slicing slices
+
+Slices can be re-sliced, creating a new slice value that points to the same array.
+
+The expression
+
+	s[lo:hi]
+
+evaluates to a slice of the elements from `lo` through `hi-1`, inclusive. Thus
+
+	s[lo:lo]
+
+is empty and
+
+	s[lo:lo+1]
+
+has one element.
+
+.play prog/tour/slicing-slices.go
+
+* Making slices
+
+Slices are created with the `make` function. It works by allocating a zeroed array and returning a slice that refers to that array:
+
+	a := make([]int, 5)  // len(a)=5
+
+To specify a capacity, pass a third argument to `make`:
+
+	b := make([]int, 0, 5) // len(b)=0, cap(b)=5
+
+	b = b[:cap(b)] // len(b)=5, cap(b)=5
+	b = b[1:]      // len(b)=4, cap(b)=4
+
+.play prog/tour/making-slices.go
+
+* Nil slices
+
+The zero value of a slice is `nil`.
+
+A nil slice has a length and capacity of 0.
+
+(To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
+
+.play prog/tour/nil-slices.go
+
+* Range
+
+The `range` form of the `for` loop iterates over a slice or map.
+
+.play prog/tour/range.go
+
+* Range continued
+
+You can skip the index or value by assigning to `_`.
+
+If you only want the index, drop the ", value" entirely.
+
+.play prog/tour/range-continued.go
+
+* Exercise: Slices
+
+Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+
+The choice of image is up to you. Interesting functions include `x^y`, `(x+y)/2`, and `x*y`.
+
+(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+
+(Use `uint8(intValue)` to convert between types.)
+
+.play prog/tour/exercise-slices.go
+
+* Maps
+
+A map maps keys to values.
+
+Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
+
+.play prog/tour/maps.go
+
+* Map literals
+
+Map literals are like struct literals, but the keys are required.
+
+.play prog/tour/map-literals.go
+
+* Map literals continued
+
+If the top-level type is just a type name, you can omit it from the elements of the literal.
+
+.play prog/tour/map-literals-continued.go
+
+* Mutating Maps
+
+Insert or update an element in map `m`:
+
+	m[key] = elem
+
+Retrieve an element:
+
+	elem = m[key]
+
+Delete an element:
+
+	delete(m, key)
+
+Test that a key is present with a two-value assignment:
+
+	elem, ok = m[key]
+
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the zero value for the map's element type.
+
+Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
+
+.play prog/tour/mutating-maps.go
+
+* Exercise: Maps
+
+Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+
+You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+
+.play prog/tour/exercise-maps.go
+
+* Function values
+
+Functions are values too.
+
+.play prog/tour/function-values.go
+
+* Function closures
+
+Go functions may be closures. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+
+For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+
+.play prog/tour/function-closures.go
+
+* Exercise: Fibonacci closure
+
+Let's have some fun with functions.
+
+Implement a `fibonacci` function that returns a function (a closure) that returns successive fibonacci numbers.
+
+.play prog/tour/exercise-fibonacci-closure.go
+
+
+* Advanced Exercise: Complex cube roots
+
+Let's explore Go's built-in support for complex numbers via the `complex64` and `complex128` types. For cube roots, Newton's method amounts to repeating:
+
+.image /content/img/newton3.png
+
+Find the cube root of 2, just to make sure the algorithm works. There is a [[http://golang.org/pkg/math/cmplx/#Pow][Pow]] function in the `math/cmplx` package.
+
+.play prog/tour/advanced-exercise-complex-cube-roots.go
+
+* Congratulations!
+
+You finished this lesson!
+
+You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

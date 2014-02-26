@@ -1,0 +1,87 @@
+Welcome!
+Learn how to use this tour: including how to navigate the different lessons and how to run code.
+
+The Go Authors
+http://golang.org
+
+* Hello, 世界
+
+Welcome to a tour of the [[http://golang.org/][Go programming language]].
+
+The tour is divided into a list of modules that you can
+access by clicking on
+[[javascript:highlight(".logo")][A Tour of Go]] on the top left of the page.
+
+You can also a table of contents at any time clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
+
+Throughout the tour you will find a series of slides and exercises for you
+to complete.
+
+You can navigate through them using
+
+- [[javascript:highlight(".prev-page")]["previous"]] or `PageUp` to go to the previous page,
+
+- [[javascript:highlight(".next-page")]["next"]] or `PageDown` to go to the next page.
+
+The tour is interactive. Click the
+[[javascript:highlightAndClick("#run")][Run]] button now 
+(or type `shift-enter`) to compile and run the program on
+#appengine: a remote server.
+your computer.
+The result is displayed below the code.
+
+These example programs demonstrate different aspects of Go. The programs in the tour are meant to be starting points for your own experimentation.
+
+Edit the program and run it again.
+
+Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `shift-space`
+the text in the editor is formatted using the
+[[http://golang.org/cmd/gofmt/][gofmt]] tool. You can switch on and off syntax highlighting
+the clicking on [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
+
+When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
+
+.play prog/tour/hello.go
+
+* Go local
+
+The tour is available in other languages:
+
+- [[http://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
+- [[http://go-tour-ca.appspot.com/][Catalan — Català]]
+- [[http://go-tour-es.appspot.com/][Spanish — Español]]
+- [[http://go-tour-fr.appspot.com/][French - Français]]
+- [[http://go-tour-he.appspot.com/][Hebrew — עִבְרִית]]
+- [[http://go-tour-jp.appspot.com/][Japanese — 日本語]]
+- [[http://go-tour-kr.appspot.com/][Korean — 한국어]]
+- [[http://go-tour-ro.appspot.com/][Romanian - Română]]
+- [[http://go-tour-zh.appspot.com/][Chinese — 普通话]]
+
+Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
+
+#appengine: * The Go Playground
+#appengine: 
+#appengine: This tour is built atop the [[http://play.golang.org/][Go Playground]], a
+#appengine: web service that runs on [[http://golang.org/][golang.org]]'s servers.
+#appengine: 
+#appengine: The service receives a Go program, compiles, links, and runs the program inside
+#appengine: a sandbox, then returns the output.
+#appengine: 
+#appengine: There are limitations to the programs that can be run in the playground: 
+#appengine: 
+#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the sigificance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
+#appengine: 
+#appengine: - There are also limits on execution time and on CPU and memory usage, and the program is restricted to running in a single thread (but may use many goroutines).
+#appengine: 
+#appengine: The playground uses the latest stable release of Go.
+#appengine: 
+#appengine: Read "[[http://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
+#appengine: 
+#appengine: .play prog/tour/sandbox.go
+
+* Congratulations
+
+You've finished the first module of the tour!
+
+Now click on [[javascript:highlightAndClick(".logo")][A Tour of Go]] to find out what else
+you can learn about Go, or go directly to the [[javascript:click('.next-page')][next lesson]].

@@ -49,9 +49,9 @@ var (
 // isRoot reports whether path is the root directory of the tour tree.
 // To be the root, it must have content and template subdirectories.
 func isRoot(path string) bool {
-	_, err := os.Stat(filepath.Join(path, "content", "tour.article"))
+	_, err := os.Stat(filepath.Join(path, "content", "welcome.article"))
 	if err == nil {
-		_, err = os.Stat(filepath.Join(path, "template", "tour.tmpl"))
+		_, err = os.Stat(filepath.Join(path, "template", "index.tmpl"))
 	}
 	return err == nil
 }
@@ -95,31 +95,14 @@ func main() {
 	}
 	httpAddr = host + ":" + port
 
-	if err := initTour(root); err != nil {
+	if err := initTour(root, "SocketTransport"); err != nil {
 		log.Fatal(err)
 	}
 
-	fs := http.FileServer(http.Dir(root))
-	http.Handle("/favicon.ico", fs)
-	http.Handle("/static/", fs)
-	http.Handle("/talks/", fs)
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" {
-			if err := renderTour(w); err != nil {
-				log.Println(err)
-			}
-			return
-		}
-		http.Error(w, "not found", 404)
-	})
-
+	http.HandleFunc("/", rootHandler)
+	http.Handle("/static/", http.FileServer(http.Dir(root)))
+	http.HandleFunc("/lesson/", lessonHandler)
 	http.Handle(socketPath, socket.Handler)
-
-	err = serveScripts(filepath.Join(root, "js"), "SocketTransport")
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	go func() {
 		url := "http://" + httpAddr
@@ -130,6 +113,25 @@ func main() {
 		}
 	}()
 	log.Fatal(http.ListenAndServe(httpAddr, nil))
+}
+
+// rootHandler returns a handler for all the requests except the ones for lessons.
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	if err := renderUI(w); err != nil {
+		log.Println(err)
+	}
+}
+
+// lessonHandler handler the HTTP requests for lessons.
+func lessonHandler(w http.ResponseWriter, r *http.Request) {
+	lesson := strings.TrimPrefix(r.URL.Path, "/lesson/")
+	if err := writeLesson(lesson, w); err != nil {
+		if err == lessonNotFound {
+			http.NotFound(w, r)
+		} else {
+			log.Println(err)
+		}
+	}
 }
 
 const localhostWarning = `

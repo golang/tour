@@ -1,0 +1,50 @@
+<div id="editor-container" onpageup="prevPage()" onpagedown="nextPage()">
+    <div class="relative-content" ng->
+        <div vertical-slide left="#left-side" right="#right-side"></div>
+        <div id="right-side">
+            <div class="relative-content" autofocus="TOC.lessons[lessonId].Pages[curPage-1].Files.length==0">
+                <div class="slide-content" ng-bind-html-unsafe="TOC.lessons[lessonId].Pages[curPage-1].Content"></div>
+
+                <div class="bar module-bar">
+                    <a href="" class="prev-page" ng-click="prevPage()">&lt;</a>
+                    <span>{{curPage}}/{{TOC.lessons[lessonId].Pages.length}}</span>
+                    <a href="" class="next-page" ng-click="nextPage()">&gt;</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="left-side" class="relative-content">
+            <div id="explorer" ng-class="{hidden: TOC.lessons[lessonId].Pages[curPage-1].Files.length==0}">
+                <a class="menu-button" ng-repeat="f in TOC.lessons[lessonId].Pages[curPage-1].Files" ng-click="curFile = $index" ng-class="{active: $index==curFile}">{{f.Name}}</a>
+            </div>
+
+            <div class="relative-content" ng-class="{hidden: TOC.lessons[lessonId].Pages[curPage-1].Files.length==0}">
+
+                <div id="top-part">
+                    <div class="relative-content">
+                        <div id="file-editor">
+                            <textarea ui-codemirror ng-model="TOC.lessons[lessonId].Pages[curPage-1].Files[curFile].Content"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div horizontal-slide top="#top-part" bottom="#bottom-part"></div>
+
+                <div id="bottom-part">
+                    <div class="relative-content">
+                        <!--div id="file-menu" ng-controller="OutputCtrl"-->
+                        <div id="file-menu">
+                            <a class="menu-button" id="run" ng-click="run()">Run</a>
+                            <a class="menu-button" id="format" ng-click="format()">Format</a>
+                            <a syntax-checkbox ng-class="{active: editor.syntax}" class="menu-button syntax-checkbox">Syntax</a>
+                        </div>
+
+                        <div class="output" ng-repeat="f in TOC.lessons[lessonId].Pages[curPage-1].Files" ng-class="{active: $index==curFile}" ng-bind-html-unsafe="f.Output">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

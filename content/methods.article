@@ -1,0 +1,187 @@
+Methods and interfaces
+This lesson covers methods and interfaces, the constructs that define objects and their behavior.
+
+The Go Authors
+http://golang.org
+
+* Methods
+
+Go does not have classes. However, you can define methods on struct types.
+
+The _method_receiver_ appears in its own argument list between the `func` keyword and the method name.
+
+.play prog/tour/methods.go
+
+* Methods continued
+
+In fact, you can define a method on _any_ type you define in your package, not just structs.
+
+You cannot define a method on a type from another package, or on a basic type.
+
+.play prog/tour/methods-continued.go
+
+* Methods with pointer receivers
+
+Methods can be associated with a named type or a pointer to a named type.
+
+We just saw two `Abs` methods. One on the `*Vertex` pointer type and the other on the `MyFloat` value type.
+
+There are two reasons to use a pointer receiver. First, to avoid copying the value on each method call (more efficient if the value type is a large struct). Second, so that the method can modify the value that its receiver points to.
+
+Try changing the declarations of the `Abs` and `Scale` methods to use `Vertex` as the receiver, instead of `*Vertex`.
+
+The `Scale` method has no effect when `v` is a `Vertex`. `Scale` mutates `v`. When `v` is a value (non-pointer) type, the method sees a copy of the `Vertex` and cannot mutate the original value.
+
+`Abs` works either way. It only reads `v`. It doesn't matter whether it is reading the original value (through a pointer) or a copy of that value.
+
+.play prog/tour/methods-with-pointer-receivers.go
+
+* Interfaces
+
+An interface type is defined by a set of methods.
+
+A value of interface type can hold any value that implements those methods.
+
+*Note:* The code on the left fails to compile.	
+
+`Vertex` doesn't satisfy `Abser` because	
+the `Abs` method is defined only on `*Vertex`, not `Vertex`.
+
+.play prog/tour/interfaces.go
+
+* Interfaces are satisfied implicitly
+
+A type implements an interface by implementing the methods.
+
+_There_is_no_explicit_declaration_of_intent._
+
+Implicit interfaces decouple implementation packages from the packages that define the interfaces: neither depends on the other.
+
+It also encourages the definition of precise interfaces, because you don't have to find every implementation and tag it with the new interface name.
+
+[[http://golang.org/pkg/io/][Package io]] defines `Reader` and `Writer`; you don't have to.
+
+.play prog/tour/interfaces-are-satisfied-implicitly.go
+
+* Errors
+
+An error is anything that can describe itself as an error string. The idea is captured by the predefined, built-in interface type, `error`, with its single method, `Error`, returning a string:
+
+	type error interface {
+		Error() string
+	}
+
+The `fmt` package's various print routines automatically know to call the method when asked to print an `error`.
+
+.play prog/tour/errors.go
+
+* Exercise: Errors
+
+Copy your `Sqrt` function from the earlier exercises and modify it to return an `error` value.
+
+`Sqrt` should return a non-nil error value when given a negative number, as it doesn't support complex numbers.
+
+Create a new type
+
+	type ErrNegativeSqrt float64
+
+and make it an `error` by giving it a
+
+	func (e ErrNegativeSqrt) Error() string
+
+method such that `ErrNegativeSqrt(-2).Error()` returns `"cannot`Sqrt`negative`number:`-2"`.
+
+*Note:* a call to `fmt.Print(e)` inside the `Error` method will send the program into an infinite loop. You can avoid this by converting `e` first: `fmt.Print(float64(e))`. Why?
+
+Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a negative number.
+
+.play prog/tour/exercise-errors.go
+
+* Web servers
+
+[[http://golang.org/pkg/net/http/][Package http]] serves HTTP requests using any value that implements `http.Handler`:
+
+	package http
+
+	type Handler interface {
+		ServeHTTP(w ResponseWriter, r *Request)
+	}
+
+In this example, the type `Hello` implements `http.Handler`.
+
+Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
+
+#appengine: *Note:* This example won't run through the web-based tour user
+#appengine: interface. To try writing web servers you may want to
+#appengine: [[http://golang.org/doc/install/][Install Go]].
+
+.play prog/tour/web-servers.go
+
+* Exercise: HTTP Handlers
+
+Implement the following types and define ServeHTTP methods on them. Register them to handle specific paths in your web server.
+
+	type String string
+
+	type Struct struct {
+		Greeting string
+		Punct    string
+		Who      string
+	}
+
+For example, you should be able to register handlers using:
+
+	http.Handle("/string", String("I'm a frayed knot."))
+	http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})
+
+.play prog/tour/exercise-http-handlers.go
+
+* Images
+
+[[http://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
+
+	package image
+
+	type Image interface {
+		ColorModel() color.Model
+		Bounds() Rectangle
+		At(x, y int) color.Color
+	}
+
+(See [[http://golang.org/pkg/image/#Image][the documentation]] for all the details.)
+
+Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[http://golang.org/pkg/image/color/][image/color package]]
+
+.play prog/tour/images.go
+
+* Exercise: Images
+
+Remember the picture generator you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+
+Define your own `Image` type, implement [[http://golang.org/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+
+`Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
+
+`ColorModel` should return `color.RGBAModel`.
+
+`At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
+
+.play prog/tour/exercise-images.go
+
+* Exercise: Rot13 Reader
+
+A common pattern is an [[http://golang.org/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+
+For example, the [[http://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of gzipped data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+
+Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[http://en.wikipedia.org/wiki/ROT13][ROT13]] substitution cipher to all alphabetical characters.
+
+The `rot13Reader` type is provided for you.  Make it an `io.Reader` by implementing its `Read` method.
+
+.play prog/tour/exercise-rot-reader.go
+
+* Congratulations!
+
+You finished this lesson!
+
+You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

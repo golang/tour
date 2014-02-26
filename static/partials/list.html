@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Welcome to a tour of Go</h1>
+        </div>
+
+        <div class="module" ng-repeat="m in toc.modules">
+            <p id="{{m.id}}" class="module-title">{{m.title}}</p>
+            <div ng-bind-html-unsafe="m.description"></div>
+
+            <div class="lesson" ng-repeat="l in m.lessons">
+                <a href="/{{l}}" class="lesson-title">{{m.lesson[l].Title}}</a>
+                <p>{{m.lesson[l].Description}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

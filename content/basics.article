@@ -1,0 +1,177 @@
+Packages, variables, and functions.
+Learn the basic components of any Go program.
+
+The Go Authors
+http://golang.org
+
+* Packages
+
+Every Go program is made up of packages.
+
+Programs start running in package `main`.
+
+This program is using the packages with import paths `"fmt"` and `"math/rand"`.
+
+By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
+
+#appengine: *Note:* the environment in which these programs are executed is
+#appengine: deterministic, so `rand.Intn` will always return the same number.
+#appengine:
+#appengine: (To see a different number, seed the number generator; see [[http://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
+
+.play prog/tour/packages.go
+
+* Imports
+
+This code groups the imports into a parenthesized, "factored" import statement. You can also write multiple import statements, like:
+
+	import "fmt"
+	import "math"
+
+.play prog/tour/imports.go
+
+* Exported names
+
+After importing a package, you can refer to the names it exports.
+
+In Go, a name is exported if it begins with a capital letter.
+
+`Foo` is an exported name, as is `FOO`. The name `foo` is not exported.
+
+Run the code. Then rename `math.pi` to `math.Pi` and try it again.
+
+.play prog/tour/exported-names.go
+
+* Functions
+
+A function can take zero or more arguments.
+
+In this example, `add` takes two parameters of type `int`.
+
+Notice that the type comes _after_ the variable name.
+
+(For more about why types look the way they do, see the [[http://golang.org/doc/articles/gos_declaration_syntax.html][article on Go's declaration syntax]].)
+
+.play prog/tour/functions.go
+
+* Functions continued
+
+When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
+
+In this example, we shortened
+
+	x int, y int
+
+to
+
+	x, y int
+
+.play prog/tour/functions-continued.go
+
+* Multiple results
+
+A function can return any number of results.
+
+This function returns two strings.
+
+.play prog/tour/multiple-results.go
+
+* Named results
+
+Functions take parameters. In Go, functions can return multiple "result parameters", not just a single value. They can be named and act just like variables.
+
+If the result parameters are named, a `return` statement without arguments returns the current values of the results.
+
+.play prog/tour/named-results.go
+
+* Variables
+
+The `var` statement declares a list of variables; as in function argument lists, the type is last.
+
+.play prog/tour/variables.go
+
+* Variables with initializers
+
+A var declaration can include initializers, one per variable.
+
+If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+
+.play prog/tour/variables-with-initializers.go
+
+* Short variable declarations
+
+Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
+
+Outside a function, every construct begins with a keyword (`var`, `func`, and so on) and the `:=` construct is not available.
+
+.play prog/tour/short-variable-declarations.go
+
+* Basic types
+
+Go's basic types are
+
+	bool
+
+	string
+
+	int  int8  int16  int32  int64
+	uint uint8 uint16 uint32 uint64 uintptr
+
+	byte // alias for uint8
+
+	rune // alias for int32
+	     // represents a Unicode code point
+
+	float32 float64
+
+	complex64 complex128
+
+.play prog/tour/basic-types.go
+
+* Type conversions
+
+The expression `T(v)` converts the value `v` to the type `T`.
+
+Some numeric conversions:
+
+	var i int = 42
+	var f float64 = float64(i)
+	var u uint = uint(f)
+
+Or, put more simply:
+
+	i := 42
+	f := float64(i)
+	u := uint(f)
+
+Unlike in C, in Go assignment between items of different type requires an
+explicit conversion.
+Try removing the `float64` or `int` conversions in the example and see what happens.
+
+.play prog/tour/type-conversions.go
+
+* Constants
+
+Constants are declared like variables, but with the `const` keyword.
+
+Constants can be character, string, boolean, or numeric values.
+
+Constants cannot be declared using the `:=` syntax.
+
+.play prog/tour/constants.go
+
+* Numeric Constants
+
+Numeric constants are high-precision _values_.
+
+An untyped constant takes the type needed by its context.
+
+Try printing `needInt(Big)` too.
+
+.play prog/tour/numeric-constants.go
+
+* Congratulations!
+
+You finished this lesson!
+
+You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

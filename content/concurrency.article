@@ -1,0 +1,176 @@
+Concurrency
+Go provides concurrency constructions as part of the core language. This lessons presents them and gives some examples on how to use it.
+
+The Go Authors
+http://golang.org
+
+* Goroutines
+
+A _goroutine_ is a lightweight thread managed by the Go runtime.
+
+	go f(x, y, z)
+
+starts a new goroutine running
+
+	f(x, y, z)
+
+The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
+
+Goroutines run in the same address space, so access to shared memory must be synchronized. The [[http://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+
+.play prog/tour/goroutines.go
+
+* Channels
+
+Channels are a typed conduit through which you can send and receive values with the channel operator, `<-`.
+
+	ch <- v    // Send v to channel ch.
+	v := <-ch  // Receive from ch, and
+	           // assign value to v.
+
+(The data flows in the direction of the arrow.)
+
+Like maps and slices, channels must be created before use:
+
+	ch := make(chan int)
+
+By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
+
+.play prog/tour/channels.go
+
+* Buffered Channels
+
+Channels can be _buffered_.  Provide the buffer length as the second argument to `make` to initialize a buffered channel:
+
+	ch := make(chan int, 100)
+
+Sends to a buffered channel block only when the buffer is full. Receives block when the buffer is empty.
+
+Modify the example to overfill the buffer and see what happens.
+
+.play prog/tour/buffered-channels.go
+
+* Range and Close
+
+A sender can `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+
+	v, ok := <-ch
+
+`ok` is `false` if there are no more values to receive and the channel is closed.
+
+The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
+
+*Note:* Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+
+*Another*note*: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+
+.play prog/tour/range-and-close.go
+
+* Select
+
+The `select` statement lets a goroutine wait on multiple communication operations.
+
+A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
+
+.play prog/tour/select.go
+
+* Default Selection
+
+The `default` case in a `select` is run if no other case is ready.
+
+Use a `default` case to try a send or receive without blocking:
+
+	select {
+	case i := <-c:
+		// use i
+	default:
+		// receiving from c would block
+	}
+
+.play prog/tour/default-selection.go
+
+* Exercise: Equivalent Binary Trees
+
+There can be many different binary trees with the same sequence of values stored at the leaves. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+
+.image /content/img/tree.png
+
+A function to check whether two binary trees store the same sequence is quite complex in most languages. We'll use Go's concurrency and channels to write a simple solution.
+
+This example uses the `tree` package, which defines the type:
+
+	type Tree struct {
+		Left  *Tree
+		Value int
+		Right *Tree
+	}
+
+* Exercise: Equivalent Binary Trees
+
+*1.* Implement the `Walk` function.
+
+*2.* Test the `Walk` function.
+
+The function `tree.New(k)` constructs a randomly-structured binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
+
+Create a new channel `ch` and kick off the walker:
+
+	go Walk(tree.New(1), ch)
+
+Then read and print 10 values from the channel. It should be the numbers 1, 2, 3, ..., 10.
+
+*3.* Implement the `Same` function using `Walk` to determine whether `t1` and `t2` store the same values.
+
+*4.* Test the `Same` function.
+
+`Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
+
+.play prog/tour/exercise-equivalent-binary-trees.go
+
+* Exercise: Web Crawler
+
+In this exercise you'll use Go's concurrency features to parallelize a web crawler.
+
+Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+
+.play prog/tour/exercise-web-crawler.go
+
+* Where to Go from here...
+
+#appengine: You can get started by
+#appengine: [[http://golang.org/doc/install/][installing Go]] or downloading the
+#appengine: [[http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go][Go App Engine SDK]].
+
+#appengine: Once you have Go installed, the
+The
+[[http://golang.org/doc/][Go Documentation]] is a great place to
+#appengine: continue.
+start.
+It contains references, tutorials, videos, and more.
+
+To learn how to organize and work with Go code, watch [[http://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[http://golang.org/doc/code.html][How to Write Go Code]].
+
+If you need help with the standard library, see the [[http://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[http://golang.org/ref/spec][Language Spec]] is quite readable.
+
+To further explore Go's concurrency model, watch
+[[http://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
+([[http://talks.golang.org/2012/concurrency.slide][slides]])
+and
+[[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
+([[http://talks.golang.org/2013/advconc.slide][slides]])
+and read the
+[[http://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
+codewalk.
+
+To get started writing web applications, watch
+[[http://vimeo.com/53221558][A simple programming environment]]
+([[http://talks.golang.org/2012/simple.slide][slides]])
+and read the
+[[http://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
+
+The [[http://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+
+The [[http://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+
+Visit [[http://golang.org][golang.org]] for more.
+

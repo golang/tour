@@ -28,15 +28,23 @@ It determines how the formatting actions are rendered.
 {{end}}
 
 {{define "code"}}
-  <div{{if .Play}} class="source"{{end}}>{{.Text}}</div>
+	{{if .Play}}
+		{{/* playable code is not displayed in the slides */}}
+	{{else}}
+		<div>{{.Text}}</div>
+	{{end}}
 {{end}}
 
 {{define "image"}}
   <img src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}>
 {{end}}
-      
+
 {{define "link"}}
   <p class="link"><a href="{{.URL}}" target="_blank">{{style .Label}}</a></p>
 {{end}}
 
 {{define "html"}}{{.HTML}}{{end}}
+
+{{define "newline"}}
+{{/* No automatic line break. Paragraphs are free-form. */}}
+{{end}}
