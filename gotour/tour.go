@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -63,7 +64,7 @@ func initTour(root, transport string) error {
 	}
 	uiContent = buf.Bytes()
 
-	return nil
+	return initScript(root)
 }
 
 // initLessonss finds all the lessons in the passed directory, renders them,
@@ -227,16 +228,51 @@ func nocode(s present.Section) bool {
 	return true
 }
 
-func init() {
+// initScript concatenates all the javascript files needed to render
+// the tour UI and serves the result on /script.js.
+func initScript(root string) error {
 	modTime := time.Now()
+	b := new(bytes.Buffer)
+
 	content, ok := static.Files["playground.js"]
 	if !ok {
-		panic("playground.js not found in static files")
+		return fmt.Errorf("playground.js not found in static files")
 	}
+	b.WriteString(content)
+
+	// Keep this list in dependency order
+	files := []string{
+		"static/lib/jquery/jquery.min.js",
+		"static/lib/jquery-ui/js/jquery-ui-1.10.3.min.js",
+		"static/lib/angular/angular.min.js",
+		"static/lib/codemirror/lib/codemirror.js",
+		"static/lib/codemirror/addon/edit/matchbrackets.js",
+		"static/lib/codemirror/mode/go/go.js",
+		"static/lib/angular-ui/angular-ui.js",
+		"static/js/app.js",
+		"static/js/controllers.js",
+		"static/js/directives.js",
+		"static/js/services.js",
+		"static/js/values.js",
+	}
+
+	for _, file := range files {
+		f, err := ioutil.ReadFile(filepath.Join(root, file))
+		if err != nil {
+			return fmt.Errorf("couldn't open %v", file, err)
+		}
+		_, err = b.Write(f)
+		if err != nil {
+			return fmt.Errorf("error concatenating %v", file, err)
+		}
+	}
+
 	http.HandleFunc("/script.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/javascript")
 		// Set expiration time in one week.
 		w.Header().Set("Cache-control", "max-age=604800")
-		http.ServeContent(w, r, "", modTime, strings.NewReader(content))
+		http.ServeContent(w, r, "", modTime, bytes.NewReader(b.Bytes()))
 	})
+
+	return nil
 }

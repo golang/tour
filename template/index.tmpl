@@ -11,12 +11,9 @@
     <link rel="stylesheet" href="/static/css/app.css" />
     <link rel="stylesheet" href="/static/lib/codemirror/lib/codemirror.css">
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-    <script src="/static/lib/jquery/jquery.min.js"></script>
-    <script src="/static/lib/jquery-ui/js/jquery-ui-1.10.3.min.js"></script>
 </head>
 
 <body>
-
     <div class="bar top-bar">
         <a class="left logo" href="/list">A Tour of Go</a>
         <div table-of-contents-button=".toc"></div>
@@ -26,24 +23,10 @@
 
     <div ng-view ng-cloak class="ng-cloak"></div>
 
-    <script src="/static/lib/angular/angular.min.js"></script>
-
-    <script src="/static/lib/codemirror/lib/codemirror.js"></script>
-    <script src="/static/lib/codemirror/addon/edit/matchbrackets.js"></script>
-    <script src="/static/lib/codemirror/mode/go/go.js"></script>
-    <script src="/static/lib/angular-ui/angular-ui.js"></script>
-
-    <script src="/static/js/app.js"></script>
-    <script src="/static/js/services.js"></script>
-    <script src="/static/js/controllers.js"></script>
-    <script src="/static/js/directives.js"></script>
-    <script src="/static/js/values.js"></script>
-
     <script src="/script.js"></script>
     <script>
     window.transport = {{.Transport}}();
     window.socketAddr = "{{.SocketAddr}}";
-
 
     function highlight(selector) {
         var speed = 50;
@@ -66,7 +49,6 @@
         $(selector)[0].click();
     }
     </script>
-
 </body>
 
 </html>
