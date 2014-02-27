@@ -15,7 +15,7 @@
 
         <div id="left-side" class="relative-content">
             <div id="explorer" ng-class="{hidden: TOC.lessons[lessonId].Pages[curPage-1].Files.length==0}">
-                <a class="menu-button" ng-repeat="f in TOC.lessons[lessonId].Pages[curPage-1].Files" ng-click="curFile = $index" ng-class="{active: $index==curFile}">{{f.Name}}</a>
+                <a class="menu-button" ng-repeat="f in TOC.lessons[lessonId].Pages[curPage-1].Files" ng-click="openFile($index)" ng-class="{active: $index==curFile}">{{f.Name}}</a>
             </div>
 
             <div class="relative-content" ng-class="{hidden: TOC.lessons[lessonId].Pages[curPage-1].Files.length==0}">

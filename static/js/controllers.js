@@ -42,6 +42,9 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 
             }
             $location.path('/' + l + '/' + page);
         }
+        $scope.openFile = function(file) {
+            $scope.curFile = file;
+        }
 
         function log(mode, text) {
             $(".output.active").html('<pre class="' + mode + '">' + text + '</pre>');
