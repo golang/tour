@@ -242,13 +242,13 @@ func initScript(root string) error {
 
 	// Keep this list in dependency order
 	files := []string{
-		"static/lib/jquery/jquery.min.js",
-		"static/lib/jquery-ui/js/jquery-ui-1.10.3.min.js",
-		"static/lib/angular/angular.min.js",
+		"static/lib/jquery.min.js",
+		"static/lib/jquery-ui.min.js",
+		"static/lib/angular.min.js",
 		"static/lib/codemirror/lib/codemirror.js",
 		"static/lib/codemirror/addon/edit/matchbrackets.js",
 		"static/lib/codemirror/mode/go/go.js",
-		"static/lib/angular-ui/angular-ui.js",
+		"static/lib/angular-ui.min.js",
 		"static/js/app.js",
 		"static/js/controllers.js",
 		"static/js/directives.js",
