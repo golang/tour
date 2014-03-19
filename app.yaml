@@ -11,8 +11,6 @@ handlers:
   upload: static/img/favicon.ico
 - url: /content/img
   static_dir: content/img
-- url: /talks
-  static_dir: talks
 - url: /static/
   static_dir: static
   application_readable: true
