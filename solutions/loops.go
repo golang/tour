@@ -11,16 +11,13 @@ import (
 	"math"
 )
 
-const delta = 1e-10
+const delta = 1e-6
 
 func Sqrt(x float64) float64 {
 	z := x
-	for {
-		n := z - (z*z-x)/(2*z)
-		if math.Abs(n-z) < delta {
-			break
-		}
-		z = n
+	n := 0.0
+	for math.Abs(n-z) > delta {
+		n, z = z, z-(z*z-x)/(2*z)
 	}
 	return z
 }
