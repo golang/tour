@@ -259,11 +259,11 @@ func initScript(root string) error {
 	for _, file := range files {
 		f, err := ioutil.ReadFile(filepath.Join(root, file))
 		if err != nil {
-			return fmt.Errorf("couldn't open %v", file, err)
+			return fmt.Errorf("couldn't open %v: %v", file, err)
 		}
 		_, err = b.Write(f)
 		if err != nil {
-			return fmt.Errorf("error concatenating %v", file, err)
+			return fmt.Errorf("error concatenating %v: %v", file, err)
 		}
 	}
 
