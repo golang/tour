@@ -273,7 +273,7 @@ ul {
         left: 0;
         width: 50%;
         overflow: hidden;
-        background-image: url(/img/gopher.png);
+        background-image: url(/static/img/gopher.png);
         background-repeat: no-repeat;
         background-position: bottom;
         background-color: #fafafa;
