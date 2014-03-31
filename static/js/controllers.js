@@ -60,7 +60,8 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 
 
         $scope.run = function() {
             log('info', I18n.L('waiting'));
-            Run(file().Content, $(".output.active > pre")[0]);
+            var f = file();
+            Run(f.Content, $(".output.active > pre")[0], {path: f.Name});
         };
 
         $scope.format = function() {

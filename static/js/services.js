@@ -24,8 +24,8 @@ factory('I18n', ['Translation',
 
 // Running code
 factory('Run', function() {
-    return function(code, output) {
-        window.transport.Run(code, PlaygroundOutput(output));
+    return function(code, output, options) {
+        window.transport.Run(code, PlaygroundOutput(output), options);
     }
 }).
 
