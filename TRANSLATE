@@ -15,7 +15,7 @@ a translation of the Tour in your own language.
 To translate the tour:
 
 1. Translate the files in content/
-2. Provide localized verison fo the UI strings in static/js/values.js
+2. Provide localized version for the UI strings in static/js/values.js
 3. Sign up to App Engine and create an app named go-tour-LL,
    where LL is the two-letter country code that applies best
    to your chosen language. (This shouldn't cost you anything;
