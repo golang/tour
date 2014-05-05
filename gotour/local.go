@@ -14,6 +14,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -101,7 +102,9 @@ func main() {
 
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/lesson/", lessonHandler)
-	http.Handle(socketPath, socket.Handler)
+
+	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
+	http.Handle(socketPath, socket.NewHandler(origin))
 
 	// Keep these static file handlers in sync with ../app.yaml.
 	static := http.FileServer(http.Dir(root))
