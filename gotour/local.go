@@ -14,6 +14,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -104,6 +105,9 @@ func main() {
 	http.Handle("/static/", fs)
 	http.Handle("/talks/", fs)
 
+	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
+	http.Handle(socketPath, socket.NewHandler(origin))
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/" {
 			if err := renderTour(w); err != nil {
@@ -113,8 +117,6 @@ func main() {
 		}
 		http.Error(w, "not found", 404)
 	})
-
-	http.Handle(socketPath, socket.Handler)
 
 	err = serveScripts(filepath.Join(root, "js"), "SocketTransport")
 	if err != nil {
