@@ -10,11 +10,12 @@
 angular.module('tour.controllers', []).
 
 // Navigation controller
-controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 'Run', 'Fmt',
-    function($scope, $routeParams, $location, TOC, I18n, Run, Fmt) {
+controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 'Run', 'Fmt', 'editor',
+    function($scope, $routeParams, $location, TOC, I18n, Run, Fmt, editor) {
         var lessons = [];
         TOC.lessons.then(function(v) {
             lessons = v;
+            $scope.gotoPage($scope.curPage);
         })
 
         $scope.TOC = TOC;
@@ -41,9 +42,11 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 
                 page = (page < 1) ? lessons[l].Pages.length : 1;
             }
             $location.path('/' + l + '/' + page);
+            $scope.openFile($scope.curFile);
         }
         $scope.openFile = function(file) {
             $scope.curFile = file;
+            editor.paint();
         }
 
         function log(mode, text) {

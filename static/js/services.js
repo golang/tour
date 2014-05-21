@@ -55,11 +55,20 @@ factory('editor', function() {
             ctx.paint();
         },
         paint: function() {
-            ctx.cm.setOption('mode', ctx.syntax && 'text/x-go' || 'text/x-go-comment');
-        },
-        setCodeMirror: function(cm) {
-            ctx.cm = cm;
-            ctx.paint();
+            var mode = ctx.syntax && 'text/x-go' || 'text/x-go-comment';
+            // Wait for codemirror to start.
+            var set = function() {
+                if ($('.CodeMirror').length > 0) {
+                    cm = $('.CodeMirror')[0].CodeMirror;
+                    if (cm.getOption('mode') == mode) {
+                        cm.refresh();
+                        return;
+                    }
+                    cm.setOption('mode', mode);
+                }
+                window.setTimeout(set, 10);
+            };
+            set();
         },
     };
     return ctx;

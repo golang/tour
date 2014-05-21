@@ -240,15 +240,18 @@ ul {
     cursor: default;
 }
 /* CodeMirror */
-#file-editor {
+
+ #file-editor {
     background: #FFFFD8;
     overflow: auto;
 }
- #file-editor .CodeMirror {
+#file-editor > textarea {
+    display: none;
+}
+#file-editor .CodeMirror {
     height: auto;
 }
-#file-editor .CodeMirror-lines,
-#file-editor .CodeMirror-gutters {
+#file-editor .CodeMirror-lines, #file-editor .CodeMirror-gutters {
     background: #FFFFD8;
     font-family:'Inconsolata', monospace;
     line-height: 1.2em;
