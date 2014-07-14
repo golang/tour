@@ -37,24 +37,22 @@ directive('onpagedown', function() {
 }).
 
 // autofocus sets the focus on the given element when the condition is true.
-directive('autofocus', ['TOC',
-    function(TOC) {
-        return function(scope, elm, attrs) {
-            elm.attr('tabindex', 0);
-            scope.$watch(function() {
-                return scope.$eval(attrs.autofocus)
-            }, function(val) {
-                if (val == true) $(elm).focus();
-            });
-        }
-    }
-]).
+directive('autofocus', function() {
+    return function(scope, elm, attrs) {
+        elm.attr('tabindex', 0);
+        scope.$watch(function() {
+            return scope.$eval(attrs.autofocus);
+        }, function(val) {
+            if (val === true) $(elm).focus();
+        });
+    };
+}).
 
 // syntax-checkbox activates and deactivates
 directive('syntaxCheckbox', ['editor',
     function(editor) {
-        return function(scope, elm, attrs) {
-            elm.click(function(evt) {
+        return function(scope, elm) {
+            elm.click(function() {
                 editor.toggleSyntax();
                 scope.$digest();
             });
@@ -84,21 +82,21 @@ directive('verticalSlide', ['editor',
                     left: x
                 });
                 editor.x = x;
-            }
+            };
 
             elm.draggable({
-                axis: "x",
-                drag: function(event, ui) {
+                axis: 'x',
+                drag: function(event) {
                     moveTo(event.clientX);
                     return true;
                 },
-                containment: "parent",
+                containment: 'parent',
             });
 
             if (editor.x !== undefined) {
-                moveTo(editor.x)
+                moveTo(editor.x);
             }
-        }
+        };
     }
 ]).
 
@@ -121,20 +119,20 @@ directive('horizontalSlide', ['editor',
                     height: 0
                 });
                 editor.y = y;
-            }
+            };
             elm.draggable({
-                axis: "y",
-                drag: function(event, ui) {
+                axis: 'y',
+                drag: function(event) {
                     moveTo(event.clientY);
                     return true;
                 },
-                containment: "parent",
+                containment: 'parent',
             });
 
             if (editor.y !== undefined) {
                 moveTo(editor.y);
             }
-        }
+        };
     }
 ]).
 
@@ -149,41 +147,41 @@ directive('tableOfContentsButton', function() {
                 // hide all non active lessons before displaying the toc.
                 var visible = toc.css('display') != 'none';
                 if (!visible) {
-                    toc.find(".toc-lesson:not(.active) .toc-page").hide();
-                    toc.find(".toc-lesson.active .toc-page").show();
+                    toc.find('.toc-lesson:not(.active) .toc-page').hide();
+                    toc.find('.toc-lesson.active .toc-page').show();
                 }
-                toc.toggle("slide", {
-                    direction: "right"
+                toc.toggle('slide', {
+                    direction: 'right'
                 }, speed);
 
                 // if fullscreen hide the rest of the content when showing the atoc.
                 var fullScreen = toc.width() == $(window).width();
-                if (fullScreen) $('#editor-container')[visible ? 'show' : 'hide']()
+                if (fullScreen) $('#editor-container')[visible ? 'show' : 'hide']();
             });
         }
-    }
+    };
 }).
 
 // side bar with dynamic table of contents
-directive('tableOfContents', ['TOC', '$routeParams',
-    function(TOC, $routeParams) {
+directive('tableOfContents', ['$routeParams', 'toc',
+    function($routeParams, toc) {
         var speed = 250;
         return {
             restrict: 'A',
             templateUrl: '/static/partials/toc.html',
-            link: function(scope, elm, attrs) {
-                scope.toc = TOC;
+            link: function(scope, elm) {
+                scope.toc = toc;
                 scope.params = $routeParams;
 
                 scope.toggleLesson = function(id) {
-                    var l = $("#toc-l-" + id + " .toc-page");
+                    var l = $('#toc-l-' + id + ' .toc-page');
                     l[l.css('display') == 'none' ? 'slideDown' : 'slideUp']();
-                }
+                };
 
                 scope.$watch(function() {
                     return scope.params.lessonId + scope.params.lessonId;
-                }, function(lesson) {
-                    $(".toc-lesson:not(#toc-l-" + scope.params.lessonId + ") .toc-page").slideUp(speed);
+                }, function() {
+                    $('.toc-lesson:not(#toc-l-' + scope.params.lessonId + ') .toc-page').slideUp(speed);
                 });
 
                 scope.hideTOC = function(fullScreenOnly) {
@@ -191,10 +189,10 @@ directive('tableOfContents', ['TOC', '$routeParams',
                     if (fullScreenOnly && !fullScreen) {
                         return;
                     }
-                    $(".toc").toggle("slide", {
-                        direction: "right"
+                    $('.toc').toggle('slide', {
+                        direction: 'right'
                     }, speed);
-                }
+                };
             }
         };
     }

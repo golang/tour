@@ -9,28 +9,32 @@
 angular.module('tour.services', []).
 
 // Internationalization
-factory('I18n', ['Translation',
-    function(Translation) {
+factory('i18n', ['translation',
+    function(translation) {
         return {
-            L: function(key) {
-                if (Translation[key]) {
-                    return Translation[key]
-                }
-                return "(no translation for " + key + ")";
+            l: function(key) {
+                if (translation[key]) return translation[key];
+                return '(no translation for ' + key + ')';
             }
-        }
+        };
     }
 ]).
 
 // Running code
-factory('Run', function() {
-    return function(code, output, options) {
-        window.transport.Run(code, PlaygroundOutput(output), options);
+factory('run', ['$window',
+    function(win) {
+        return function(code, output, options) {
+            // PlaygroundOutput is defined in playground.js which is prepended
+            // to the generated script.js in gotour/tour.go.
+            // The next line removes the jshint warning.
+            // global PlaygroundOutput
+            win.transport.Run(code, PlaygroundOutput(output), options);
+        };
     }
-}).
+]).
 
 // Formatting code
-factory('Fmt', ['$http',
+factory('fmt', ['$http',
     function($http) {
         return function(body) {
             var params = $.param({
@@ -41,46 +45,47 @@ factory('Fmt', ['$http',
             };
             return $http.post('/fmt', params, {
                 headers: headers
-            })
-        }
+            });
+        };
     }
 ]).
 
 // Editor context service, kept through the whole app.
-factory('editor', function() {
-    var ctx = {
-        syntax: false,
-        toggleSyntax: function() {
-            ctx.syntax = !ctx.syntax
-            ctx.paint();
-        },
-        paint: function() {
-            var mode = ctx.syntax && 'text/x-go' || 'text/x-go-comment';
-            // Wait for codemirror to start.
-            var set = function() {
-                if ($('.CodeMirror').length > 0) {
-                    cm = $('.CodeMirror')[0].CodeMirror;
-                    if (cm.getOption('mode') == mode) {
-                        cm.refresh();
-                        return;
+factory('editor', ['$window',
+    function(win) {
+        var ctx = {
+            syntax: false,
+            toggleSyntax: function() {
+                ctx.syntax = !ctx.syntax;
+                ctx.paint();
+            },
+            paint: function() {
+                var mode = ctx.syntax && 'text/x-go' || 'text/x-go-comment';
+                // Wait for codemirror to start.
+                var set = function() {
+                    if ($('.CodeMirror').length > 0) {
+                        var cm = $('.CodeMirror')[0].CodeMirror;
+                        if (cm.getOption('mode') == mode) {
+                            cm.refresh();
+                            return;
+                        }
+                        cm.setOption('mode', mode);
                     }
-                    cm.setOption('mode', mode);
-                }
-                window.setTimeout(set, 10);
-            };
-            set();
-        },
-    };
-    return ctx;
-}).
+                    win.setTimeout(set, 10);
+                };
+                set();
+            },
+        };
+        return ctx;
+    }
+]).
 
 // Table of contents management and navigation
-factory('TOC', ['$http', '$q', 'TableOfContents',
-    function($http, $q, TableOfContents) {
-        var modules = TableOfContents;
+factory('toc', ['$http', '$q', '$log', 'tableOfContents',
+    function($http, $q, $log, tableOfContents) {
+        var modules = tableOfContents;
 
         var lessons = {};
-        var waitingFor = 0;
 
         var prevLesson = function(id) {
             var mod = lessons[id].module;
@@ -122,7 +127,7 @@ factory('TOC', ['$http', '$q', 'TableOfContents',
                 moduleQ.resolve(modules);
                 lessonQ.resolve(lessons);
             }, function(error) {
-                console.error('error loading lesson ', lesson, ': ', error);
+                $log.error('error loading lessons : ', error);
                 moduleQ.reject(error);
                 lessonQ.reject(error);
             }
@@ -136,6 +141,6 @@ factory('TOC', ['$http', '$q', 'TableOfContents',
             lessons: lessonQ.promise,
             prevLesson: prevLesson,
             nextLesson: nextLesson
-        }
+        };
     }
 ]);

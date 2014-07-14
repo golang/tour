@@ -10,32 +10,32 @@
 angular.module('tour.controllers', []).
 
 // Navigation controller
-controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 'Run', 'Fmt', 'editor',
-    function($scope, $routeParams, $location, TOC, I18n, Run, Fmt, editor) {
+controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 'run', 'fmt', 'editor',
+    function($scope, $routeParams, $location, toc, i18n, run, fmt, editor) {
         var lessons = [];
-        TOC.lessons.then(function(v) {
+        toc.lessons.then(function(v) {
             lessons = v;
             $scope.gotoPage($scope.curPage);
-        })
+        });
 
-        $scope.TOC = TOC;
+        $scope.toc = toc;
         $scope.lessonId = $routeParams.lessonId;
         $scope.curPage = parseInt($routeParams.pageNumber);
         $scope.curFile = 0;
 
         $scope.nextPage = function() {
             $scope.gotoPage($scope.curPage + 1);
-        }
+        };
         $scope.prevPage = function() {
             $scope.gotoPage($scope.curPage - 1);
-        }
+        };
         $scope.gotoPage = function(page) {
             var l = $routeParams.lessonId;
             if (page >= 1 && page <= lessons[$scope.lessonId].Pages.length) {
                 $scope.curPage = page;
             } else {
-                l = (page < 1) ? TOC.prevLesson(l) : TOC.nextLesson(l);
-                if (l == '') { // If there's not previous or next
+                l = (page < 1) ? toc.prevLesson(l) : toc.nextLesson(l);
+                if (l === '') { // If there's not previous or next
                     $location.path('/list');
                     return;
                 }
@@ -43,18 +43,18 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 
             }
             $location.path('/' + l + '/' + page);
             $scope.openFile($scope.curFile);
-        }
+        };
         $scope.openFile = function(file) {
             $scope.curFile = file;
             editor.paint();
-        }
+        };
 
         function log(mode, text) {
-            $(".output.active").html('<pre class="' + mode + '">' + text + '</pre>');
+            $('.output.active').html('<pre class="' + mode + '">' + text + '</pre>');
         }
 
         function clearOutput() {
-            $(".output.active").html('');
+            $('.output.active').html('');
         }
 
         function file() {
@@ -62,18 +62,20 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'TOC', 'I18n', 
         }
 
         $scope.run = function() {
-            log('info', I18n.L('waiting'));
+            log('info', i18n.l('waiting'));
             var f = file();
-            Run(f.Content, $(".output.active > pre")[0], {path: f.Name});
+            run(f.Content, $('.output.active > pre')[0], {
+                path: f.Name
+            });
         };
 
         $scope.format = function() {
-            log('info', I18n.L('waiting'));
-            Fmt(file().Content).then(
+            log('info', i18n.l('waiting'));
+            fmt(file().Content).then(
                 function(data) {
-                    if (data.data.Error != '') {
+                    if (data.data.Error !== '') {
                         log('stderr', data.data.Error);
-                        return
+                        return;
                     }
                     clearOutput();
                     file().Content = data.data.Body;

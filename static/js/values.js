@@ -7,7 +7,7 @@
 angular.module('tour.values', []).
 
 // List of modules with description and lessons in it.
-value('TableOfContents', [{
+value('tableOfContents', [{
     'id': 'mechanics',
     'title': 'Using the tour',
     'description': '<p>Welcome to a tour of the <a href="http://golang.org">Go programming language</a>. The tour covers the most important features of the language, mainly:</p>',
@@ -29,23 +29,23 @@ value('TableOfContents', [{
     'lessons': ['concurrency']
 }]).
 
-// Translation
-value('Translation', {
-    "off": "off",
-    "on": "on",
-    "syntax": "Syntax-Highlighting",
-    "lineno": "Line-Numbers",
-    "reset": "Reset Slide",
-    "format": "Format Source Code",
-    "kill": "Kill Program",
-    "run": "Run",
-    "compile": "Compile and Run",
-    "more": "Options",
-    "toc": "Table of Contents",
-    "prev": "Previous",
-    "next": "Next",
-    "waiting": "Waiting for remote server...",
-    "errcomm": "Error communicating with remote server.",
+// translation
+value('translation', {
+    'off': 'off',
+    'on': 'on',
+    'syntax': 'Syntax-Highlighting',
+    'lineno': 'Line-Numbers',
+    'reset': 'Reset Slide',
+    'format': 'Format Source Code',
+    'kill': 'Kill Program',
+    'run': 'Run',
+    'compile': 'Compile and Run',
+    'more': 'Options',
+    'toc': 'Table of Contents',
+    'prev': 'Previous',
+    'next': 'Next',
+    'waiting': 'Waiting for remote server...',
+    'errcomm': 'Error communicating with remote server.',
 }).
 
 // Config for codemirror plugin
@@ -58,16 +58,16 @@ value('ui.config', {
         indentWithTabs: true,
         lineWrapping: true,
         extraKeys: {
-            "Shift-Enter": function() {
+            'Shift-Enter': function() {
                 $('#run').click();
             },
-            "PageDown": function() {
+            'PageDown': function() {
                 return false;
             },
-            "PageUp": function() {
+            'PageUp': function() {
                 return false;
             },
-            "Shift-Space": function() {
+            'Shift-Space': function() {
                 $('#format').click();
             },
         }
