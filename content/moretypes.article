@@ -113,9 +113,29 @@ The zero value of a slice is `nil`.
 
 A nil slice has a length and capacity of 0.
 
+.play prog/tour/nil-slices.go
+
+* Adding elements to a slice
+
+It is common to append new elements to a slice, and so Go provides a built-in
+`append` function. The [[http://golang.org/pkg/builtin/#append][documentation]]
+of the built-in package describes `append`.
+
+	func append(s []T, vs ...T) []T
+
+The first parameter `s` of `append` is a slice of type `T`, and the rest are
+`T` values to append to the slice.
+
+The resulting value of `append` is a slice containing all the elements of the
+original slice plus the provided values.
+
+If the backing array of `s` is too small to fit all the given values a bigger
+array will be allocated. The returned slice will point to the newly allocated
+array.
+
 (To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
 
-.play prog/tour/nil-slices.go
+.play prog/tour/append.go
 
 * Range
 
