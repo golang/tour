@@ -4,6 +4,31 @@ Learn how to define types based on existing ones: this lesson covers structs, ar
 The Go Authors
 http://golang.org
 
+* Pointers
+
+Go has pointers.
+A pointer holds the memory address of a variable.
+
+The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
+
+	var p *int
+
+The `&` operator generates a pointer to its operand.
+
+	i := 42
+	p = &i
+
+The `*` operator denotes the pointer's underlying value.
+
+	fmt.Println(*p) // read i through the pointer p
+	*p = 21         // set i through the pointer p
+
+This is known as "dereferencing" or "indirecting".
+
+Unlike C, Go has no pointer arithmetic.
+
+.play prog/tour/pointers.go
+
 * Structs
 
 A `struct` is a collection of fields.
@@ -18,13 +43,13 @@ Struct fields are accessed using a dot.
 
 .play prog/tour/struct-fields.go
 
-* Pointers
+* Pointers to structs
 
-Go has pointers, but no pointer arithmetic.
+Struct fields can be accessed through a struct pointer.
 
-Struct fields can be accessed through a struct pointer. The indirection through the pointer is transparent.
+The indirection through the pointer is transparent.
 
-.play prog/tour/pointers.go
+.play prog/tour/struct-pointers.go
 
 * Struct Literals
 
@@ -32,21 +57,9 @@ A struct literal denotes a newly allocated struct value by listing the values of
 
 You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
 
-The special prefix `&` constructs a pointer to a newly allocated struct.
+The special prefix `&` returns a pointer to the struct value.
 
 .play prog/tour/struct-literals.go
-
-* The new function
-
-The expression `new(T)` allocates a zeroed `T` value and returns a pointer to it.
-
-	var t *T = new(T)
-
-or
-
-	t := new(T)
-
-.play prog/tour/the-new-function.go
 
 * Arrays
 
@@ -135,7 +148,7 @@ If you only want the index, drop the ", value" entirely.
 
 Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
 
-The choice of image is up to you. Interesting functions include `x^y`, `(x+y)/2`, and `x*y`.
+The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`, and `x^y` (to compute the latter function, use [[http://golang.org/pkg/math/#Pow][`math.Pow`]]).
 
 (You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
 
@@ -224,7 +237,7 @@ Let's explore Go's built-in support for complex numbers via the `complex64` and 
 
 .image /content/img/newton3.png
 
-Find the cube root of 2, just to make sure the algorithm works. There is a [[http://golang.org/pkg/math/cmplx/#Pow][Pow]] function in the `math/cmplx` package.
+Find the cube root of 8, just to make sure the algorithm works. (There is a [[http://golang.org/pkg/math/cmplx/#Pow][Pow]] function in the `math/cmplx` package to check your results.)
 
 .play prog/tour/advanced-exercise-complex-cube-roots.go
 

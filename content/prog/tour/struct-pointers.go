@@ -5,12 +5,13 @@ package main
 import "fmt"
 
 type Vertex struct {
-	X, Y int
+	X int
+	Y int
 }
 
 func main() {
-	v := new(Vertex)
-	fmt.Println(v)
-	v.X, v.Y = 11, 9
+	v := Vertex{1, 2}
+	p := &v
+	p.X = 1e9
 	fmt.Println(v)
 }
