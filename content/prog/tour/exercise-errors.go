@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func Sqrt(f float64) (float64, error) {
+func Sqrt(x float64) (float64, error) {
 	return 0, nil
 }
 
