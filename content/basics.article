@@ -23,10 +23,14 @@ By convention, the package name is the same as the last element of the import pa
 
 * Imports
 
-This code groups the imports into a parenthesized, "factored" import statement. You can also write multiple import statements, like:
+This code groups the imports into a parenthesized, "factored" import statement. 
+
+You can also write multiple import statements, like:
 
 	import "fmt"
 	import "math"
+
+But it is good style to use the factored import statement.
 
 .play prog/tour/imports.go
 
@@ -72,21 +76,27 @@ to
 
 A function can return any number of results.
 
-This function returns two strings.
+The `swap` function returns two strings.
 
 .play prog/tour/multiple-results.go
 
-* Named results
+* Named return values
 
-Functions take parameters. In Go, functions can return multiple "result parameters", not just a single value. They can be named and act just like variables.
+Go's return values may be named and act just like variables.
 
-If the result parameters are named, a `return` statement without arguments returns the current values of the results.
+These names should be used to document the meaning of the return values.
+
+A `return` statement without arguments returns the current values of the results. This is known as a "naked" return.
+
+Naked return statements should be used only in short function, as with the example shown here. They can harm readability in longer functions.
 
 .play prog/tour/named-results.go
 
 * Variables
 
 The `var` statement declares a list of variables; as in function argument lists, the type is last.
+
+A `var` statement can be at package or function level. We see both in this example.
 
 .play prog/tour/variables.go
 
@@ -102,7 +112,7 @@ If an initializer is present, the type can be omitted; the variable will take th
 
 Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
 
-Outside a function, every construct begins with a keyword (`var`, `func`, and so on) and the `:=` construct is not available.
+Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available.
 
 .play prog/tour/short-variable-declarations.go
 
@@ -125,6 +135,10 @@ Go's basic types are
 	float32 float64
 
 	complex64 complex128
+
+The example shows variables of several types,
+and also that variable declarations may be "factored" into blocks,
+as with import statements.
 
 .play prog/tour/basic-types.go
 
