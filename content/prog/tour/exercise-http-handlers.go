@@ -3,10 +3,11 @@
 package main
 
 import (
+	"log"
 	"net/http"
 )
 
 func main() {
 	// your http.Handle calls here
-	http.ListenAndServe("localhost:4000", nil)
+	log.Fatal(http.ListenAndServe("localhost:4000", nil))
 }
