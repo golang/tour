@@ -67,8 +67,8 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 			done <- true
 		}(u)
 	}
-	for i := range urls {
-		fmt.Printf("<- [%v] %v/%v Waiting for child %v.\n", url, i, len(urls))
+	for i, u := range urls {
+		fmt.Printf("<- [%v] %v/%v Waiting for child %v.\n", url, i, len(urls), u)
 		<-done
 	}
 	fmt.Printf("<- Done with %v\n", url)
