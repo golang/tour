@@ -250,17 +250,6 @@ Implement a `fibonacci` function that returns a function (a closure) that return
 
 .play prog/tour/exercise-fibonacci-closure.go
 
-
-* Advanced Exercise: Complex cube roots
-
-Let's explore Go's built-in support for complex numbers via the `complex64` and `complex128` types. For cube roots, Newton's method amounts to repeating:
-
-.image /content/img/newton3.png
-
-Find the cube root of 8, just to make sure the algorithm works. (There is a [[http://golang.org/pkg/math/cmplx/#Pow][Pow]] function in the `math/cmplx` package to check your results.)
-
-.play prog/tour/advanced-exercise-complex-cube-roots.go
-
 * Congratulations!
 
 You finished this lesson!
