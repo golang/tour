@@ -10,25 +10,25 @@ Go has only one looping construct, the `for` loop.
 
 The basic `for` loop looks as it does in C or Java, except that the `(`)` are gone (they are not even optional) and the `{`}` are required.
 
-.play prog/tour/for.go
+.play flowcontrol/for.go
 
 * For continued
 
 As in C or Java, you can leave the pre and post statements empty.
 
-.play prog/tour/for-continued.go
+.play flowcontrol/for-continued.go
 
 * For is Go's "while"
 
 At that point you can drop the semicolons: C's `while` is spelled `for` in Go.
 
-.play prog/tour/for-is-gos-while.go
+.play flowcontrol/for-is-gos-while.go
 
 * Forever
 
 If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
 
-.play prog/tour/forever.go
+.play flowcontrol/forever.go
 
 * If
 
@@ -36,7 +36,7 @@ The `if` statement looks as it does in C or Java, except that the `(`)` are gone
 
 (Sound familiar?)
 
-.play prog/tour/if.go
+.play flowcontrol/if.go
 
 * If with a short statement
 
@@ -46,13 +46,13 @@ Variables declared by the statement are only in scope until the end of the `if`.
 
 (Try using `v` in the last `return` statement.)
 
-.play prog/tour/if-with-a-short-statement.go
+.play flowcontrol/if-with-a-short-statement.go
 
 * If and else
 
 Variables declared inside an `if` short statement are also available inside any of the `else` blocks.
 
-.play prog/tour/if-and-else.go
+.play flowcontrol/if-and-else.go
 
 * Exercise: Loops and Functions
 
@@ -71,7 +71,7 @@ Hint: to declare and initialize a floating point value, give it floating point s
 	z := float64(1)
 	z := 1.0
 
-.play prog/tour/exercise-loops-and-functions.go
+.play flowcontrol/exercise-loops-and-functions.go
 
 * Switch
 
@@ -79,7 +79,7 @@ You probably knew what `switch` was going to look like.
 
 A case body breaks automatically, unless it ends with a `fallthrough` statement.
 
-.play prog/tour/switch.go
+.play flowcontrol/switch.go
 
 * Switch evaluation order
 
@@ -98,7 +98,7 @@ does not call `f` if `i==0`.)
 #appengine: 2009-11-10 23:00:00 UTC, a value whose significance is left as an
 #appengine: exercise for the reader.
 
-.play prog/tour/switch-evaluation-order.go
+.play flowcontrol/switch-evaluation-order.go
 
 * Switch with no condition
 
@@ -106,7 +106,7 @@ Switch without a condition is the same as `switch`true`.
 
 This construct can be a clean way to write long if-then-else chains.
 
-.play prog/tour/switch-with-no-condition.go
+.play flowcontrol/switch-with-no-condition.go
 
 * Defer
 
@@ -116,7 +116,7 @@ function returns.
 The deferred call's arguments are evaluated immediately, but the function call
 is not executed until the surrounding function returns.
 
-.play prog/tour/defer.go
+.play flowcontrol/defer.go
 
 * Stacking defers
 
@@ -126,7 +126,7 @@ deferred calls are executed in last-in-first-out order.
 To learn more about defer statements read this
 [[http://blog.golang.org/defer-panic-and-recover][blog post]].
 
-.play prog/tour/defer-multi.go
+.play flowcontrol/defer-multi.go
 
 * Congratulations!
 

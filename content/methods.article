@@ -10,7 +10,7 @@ Go does not have classes. However, you can define methods on struct types.
 
 The _method_receiver_ appears in its own argument list between the `func` keyword and the method name.
 
-.play prog/tour/methods.go
+.play methods/methods.go
 
 * Methods continued
 
@@ -18,7 +18,7 @@ In fact, you can define a method on _any_ type you define in your package, not j
 
 You cannot define a method on a type from another package, or on a basic type.
 
-.play prog/tour/methods-continued.go
+.play methods/methods-continued.go
 
 * Methods with pointer receivers
 
@@ -34,7 +34,7 @@ The `Scale` method has no effect when `v` is a `Vertex`. `Scale` mutates `v`. Wh
 
 `Abs` works either way. It only reads `v`. It doesn't matter whether it is reading the original value (through a pointer) or a copy of that value.
 
-.play prog/tour/methods-with-pointer-receivers.go
+.play methods/methods-with-pointer-receivers.go
 
 * Interfaces
 
@@ -47,7 +47,7 @@ A value of interface type can hold any value that implements those methods.
 `Vertex` doesn't satisfy `Abser` because	
 the `Abs` method is defined only on `*Vertex`, not `Vertex`.
 
-.play prog/tour/interfaces.go
+.play methods/interfaces.go
 
 * Interfaces are satisfied implicitly
 
@@ -61,7 +61,7 @@ It also encourages the definition of precise interfaces, because you don't have 
 
 [[http://golang.org/pkg/io/][Package io]] defines `Reader` and `Writer`; you don't have to.
 
-.play prog/tour/interfaces-are-satisfied-implicitly.go
+.play methods/interfaces-are-satisfied-implicitly.go
 
 * Errors
 
@@ -73,7 +73,7 @@ An error is anything that can describe itself as an error string. The idea is ca
 
 The `fmt` package's various print routines automatically know to call the method when asked to print an `error`.
 
-.play prog/tour/errors.go
+.play methods/errors.go
 
 * Exercise: Errors
 
@@ -95,7 +95,7 @@ method such that `ErrNegativeSqrt(-2).Error()` returns `"cannot`Sqrt`negative`nu
 
 Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a negative number.
 
-.play prog/tour/exercise-errors.go
+.play methods/exercise-errors.go
 
 * Web servers
 
@@ -115,7 +115,7 @@ Visit [[http://localhost:4000/][http://localhost:4000/]] to see the greeting.
 #appengine: interface. To try writing web servers you may want to
 #appengine: [[http://golang.org/doc/install/][Install Go]].
 
-.play prog/tour/web-servers.go
+.play methods/web-servers.go
 
 * Exercise: HTTP Handlers
 
@@ -134,7 +134,7 @@ For example, you should be able to register handlers using:
 	http.Handle("/string", String("I'm a frayed knot."))
 	http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})
 
-.play prog/tour/exercise-http-handlers.go
+.play methods/exercise-http-handlers.go
 
 * Images
 
@@ -152,7 +152,7 @@ For example, you should be able to register handlers using:
 
 Also, `color.Color` and `color.Model` are interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[http://golang.org/pkg/image/color/][image/color package]]
 
-.play prog/tour/images.go
+.play methods/images.go
 
 * Exercise: Images
 
@@ -166,7 +166,7 @@ Define your own `Image` type, implement [[http://golang.org/pkg/image/#Image][th
 
 `At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
 
-.play prog/tour/exercise-images.go
+.play methods/exercise-images.go
 
 * Exercise: Rot13 Reader
 
@@ -178,7 +178,7 @@ Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Read
 
 The `rot13Reader` type is provided for you.  Make it an `io.Reader` by implementing its `Read` method.
 
-.play prog/tour/exercise-rot-reader.go
+.play methods/exercise-rot-reader.go
 
 * Congratulations!
 

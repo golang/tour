@@ -19,7 +19,7 @@ By convention, the package name is the same as the last element of the import pa
 #appengine:
 #appengine: (To see a different number, seed the number generator; see [[http://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
 
-.play prog/tour/packages.go
+.play basics/packages.go
 
 * Imports
 
@@ -32,7 +32,7 @@ You can also write multiple import statements, like:
 
 But it is good style to use the factored import statement.
 
-.play prog/tour/imports.go
+.play basics/imports.go
 
 * Exported names
 
@@ -44,7 +44,7 @@ In Go, a name is exported if it begins with a capital letter.
 
 Run the code. Then rename `math.pi` to `math.Pi` and try it again.
 
-.play prog/tour/exported-names.go
+.play basics/exported-names.go
 
 * Functions
 
@@ -56,7 +56,7 @@ Notice that the type comes _after_ the variable name.
 
 (For more about why types look the way they do, see the [[http://golang.org/doc/articles/gos_declaration_syntax.html][article on Go's declaration syntax]].)
 
-.play prog/tour/functions.go
+.play basics/functions.go
 
 * Functions continued
 
@@ -70,7 +70,7 @@ to
 
 	x, y int
 
-.play prog/tour/functions-continued.go
+.play basics/functions-continued.go
 
 * Multiple results
 
@@ -78,7 +78,7 @@ A function can return any number of results.
 
 The `swap` function returns two strings.
 
-.play prog/tour/multiple-results.go
+.play basics/multiple-results.go
 
 * Named return values
 
@@ -90,7 +90,7 @@ A `return` statement without arguments returns the current values of the results
 
 Naked return statements should be used only in short function, as with the example shown here. They can harm readability in longer functions.
 
-.play prog/tour/named-results.go
+.play basics/named-results.go
 
 * Variables
 
@@ -98,7 +98,7 @@ The `var` statement declares a list of variables; as in function argument lists,
 
 A `var` statement can be at package or function level. We see both in this example.
 
-.play prog/tour/variables.go
+.play basics/variables.go
 
 * Variables with initializers
 
@@ -106,7 +106,7 @@ A var declaration can include initializers, one per variable.
 
 If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
 
-.play prog/tour/variables-with-initializers.go
+.play basics/variables-with-initializers.go
 
 * Short variable declarations
 
@@ -114,7 +114,7 @@ Inside a function, the `:=` short assignment statement can be used in place of a
 
 Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available.
 
-.play prog/tour/short-variable-declarations.go
+.play basics/short-variable-declarations.go
 
 * Basic types
 
@@ -140,7 +140,7 @@ The example shows variables of several types,
 and also that variable declarations may be "factored" into blocks,
 as with import statements.
 
-.play prog/tour/basic-types.go
+.play basics/basic-types.go
 
 * Type conversions
 
@@ -162,7 +162,7 @@ Unlike in C, in Go assignment between items of different type requires an
 explicit conversion.
 Try removing the `float64` or `int` conversions in the example and see what happens.
 
-.play prog/tour/type-conversions.go
+.play basics/type-conversions.go
 
 * Constants
 
@@ -172,7 +172,7 @@ Constants can be character, string, boolean, or numeric values.
 
 Constants cannot be declared using the `:=` syntax.
 
-.play prog/tour/constants.go
+.play basics/constants.go
 
 * Numeric Constants
 
@@ -182,7 +182,7 @@ An untyped constant takes the type needed by its context.
 
 Try printing `needInt(Big)` too.
 
-.play prog/tour/numeric-constants.go
+.play basics/numeric-constants.go
 
 * Congratulations!
 

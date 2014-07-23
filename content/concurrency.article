@@ -18,7 +18,7 @@ The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and th
 
 Goroutines run in the same address space, so access to shared memory must be synchronized. The [[http://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
 
-.play prog/tour/goroutines.go
+.play concurrency/goroutines.go
 
 * Channels
 
@@ -36,7 +36,7 @@ Like maps and slices, channels must be created before use:
 
 By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
 
-.play prog/tour/channels.go
+.play concurrency/channels.go
 
 * Buffered Channels
 
@@ -48,7 +48,7 @@ Sends to a buffered channel block only when the buffer is full. Receives block w
 
 Modify the example to overfill the buffer and see what happens.
 
-.play prog/tour/buffered-channels.go
+.play concurrency/buffered-channels.go
 
 * Range and Close
 
@@ -64,7 +64,7 @@ The loop `for`i`:=`range`c` receives values from the channel repeatedly until it
 
 *Another*note*: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
 
-.play prog/tour/range-and-close.go
+.play concurrency/range-and-close.go
 
 * Select
 
@@ -72,7 +72,7 @@ The `select` statement lets a goroutine wait on multiple communication operation
 
 A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
 
-.play prog/tour/select.go
+.play concurrency/select.go
 
 * Default Selection
 
@@ -87,7 +87,7 @@ Use a `default` case to try a send or receive without blocking:
 		// receiving from c would block
 	}
 
-.play prog/tour/default-selection.go
+.play concurrency/default-selection.go
 
 * Exercise: Equivalent Binary Trees
 
@@ -125,7 +125,7 @@ Then read and print 10 values from the channel. It should be the numbers 1, 2, 3
 
 `Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
 
-.play prog/tour/exercise-equivalent-binary-trees.go
+.play concurrency/exercise-equivalent-binary-trees.go
 
 * Exercise: Web Crawler
 
@@ -133,7 +133,7 @@ In this exercise you'll use Go's concurrency features to parallelize a web crawl
 
 Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
 
-.play prog/tour/exercise-web-crawler.go
+.play concurrency/exercise-web-crawler.go
 
 * Where to Go from here...
 

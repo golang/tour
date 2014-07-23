@@ -41,7 +41,7 @@ the clicking on [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] but
 
 When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
 
-.play prog/tour/hello.go
+.play welcome/hello.go
 
 * Go local
 
@@ -78,7 +78,7 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: 
 #appengine: Read "[[http://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
 #appengine: 
-#appengine: .play prog/tour/sandbox.go
+#appengine: .play welcome/sandbox.go
 
 * Congratulations
 

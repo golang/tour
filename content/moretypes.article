@@ -27,7 +27,7 @@ This is known as "dereferencing" or "indirecting".
 
 Unlike C, Go has no pointer arithmetic.
 
-.play prog/tour/pointers.go
+.play moretypes/pointers.go
 
 * Structs
 
@@ -35,13 +35,13 @@ A `struct` is a collection of fields.
 
 (And a `type` declaration does what you'd expect.)
 
-.play prog/tour/structs.go
+.play moretypes/structs.go
 
 * Struct Fields
 
 Struct fields are accessed using a dot.
 
-.play prog/tour/struct-fields.go
+.play moretypes/struct-fields.go
 
 * Pointers to structs
 
@@ -49,7 +49,7 @@ Struct fields can be accessed through a struct pointer.
 
 The indirection through the pointer is transparent.
 
-.play prog/tour/struct-pointers.go
+.play moretypes/struct-pointers.go
 
 * Struct Literals
 
@@ -59,7 +59,7 @@ You can list just a subset of fields by using the `Name:` syntax. (And the order
 
 The special prefix `&` returns a pointer to the struct value.
 
-.play prog/tour/struct-literals.go
+.play moretypes/struct-literals.go
 
 * Arrays
 
@@ -75,7 +75,7 @@ An array's length is part of its type, so arrays cannot be resized.
 This seems limiting, but don't worry;
 Go provides a convenient way of working with arrays.
 
-.play prog/tour/array.go
+.play moretypes/array.go
 
 * Slices
 
@@ -83,7 +83,7 @@ A slice points to an array of values and also includes a length.
 
 `[]T` is a slice with elements of type `T`.
 
-.play prog/tour/slices.go
+.play moretypes/slices.go
 
 * Slicing slices
 
@@ -103,7 +103,7 @@ is empty and
 
 has one element.
 
-.play prog/tour/slicing-slices.go
+.play moretypes/slicing-slices.go
 
 * Making slices
 
@@ -118,7 +118,7 @@ To specify a capacity, pass a third argument to `make`:
 	b = b[:cap(b)] // len(b)=5, cap(b)=5
 	b = b[1:]      // len(b)=4, cap(b)=4
 
-.play prog/tour/making-slices.go
+.play moretypes/making-slices.go
 
 * Nil slices
 
@@ -126,7 +126,7 @@ The zero value of a slice is `nil`.
 
 A nil slice has a length and capacity of 0.
 
-.play prog/tour/nil-slices.go
+.play moretypes/nil-slices.go
 
 * Adding elements to a slice
 
@@ -148,13 +148,13 @@ array.
 
 (To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
 
-.play prog/tour/append.go
+.play moretypes/append.go
 
 * Range
 
 The `range` form of the `for` loop iterates over a slice or map.
 
-.play prog/tour/range.go
+.play moretypes/range.go
 
 * Range continued
 
@@ -162,7 +162,7 @@ You can skip the index or value by assigning to `_`.
 
 If you only want the index, drop the ", value" entirely.
 
-.play prog/tour/range-continued.go
+.play moretypes/range-continued.go
 
 * Exercise: Slices
 
@@ -174,7 +174,7 @@ The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`
 
 (Use `uint8(intValue)` to convert between types.)
 
-.play prog/tour/exercise-slices.go
+.play moretypes/exercise-slices.go
 
 * Maps
 
@@ -182,19 +182,19 @@ A map maps keys to values.
 
 Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
 
-.play prog/tour/maps.go
+.play moretypes/maps.go
 
 * Map literals
 
 Map literals are like struct literals, but the keys are required.
 
-.play prog/tour/map-literals.go
+.play moretypes/map-literals.go
 
 * Map literals continued
 
 If the top-level type is just a type name, you can omit it from the elements of the literal.
 
-.play prog/tour/map-literals-continued.go
+.play moretypes/map-literals-continued.go
 
 * Mutating Maps
 
@@ -218,7 +218,7 @@ If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the ze
 
 Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
 
-.play prog/tour/mutating-maps.go
+.play moretypes/mutating-maps.go
 
 * Exercise: Maps
 
@@ -226,13 +226,13 @@ Implement `WordCount`.  It should return a map of the counts of each “word” 
 
 You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
 
-.play prog/tour/exercise-maps.go
+.play moretypes/exercise-maps.go
 
 * Function values
 
 Functions are values too.
 
-.play prog/tour/function-values.go
+.play moretypes/function-values.go
 
 * Function closures
 
@@ -240,7 +240,7 @@ Go functions may be closures. A closure is a function value that references vari
 
 For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
 
-.play prog/tour/function-closures.go
+.play moretypes/function-closures.go
 
 * Exercise: Fibonacci closure
 
@@ -248,7 +248,7 @@ Let's have some fun with functions.
 
 Implement a `fibonacci` function that returns a function (a closure) that returns successive fibonacci numbers.
 
-.play prog/tour/exercise-fibonacci-closure.go
+.play moretypes/exercise-fibonacci-closure.go
 
 * Congratulations!
 
