@@ -12,7 +12,7 @@ The tour is divided into a list of modules that you can
 access by clicking on
 [[javascript:highlight(".logo")][A Tour of Go]] on the top left of the page.
 
-You can also a table of contents at any time clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
+You can also view the table of contents at any time by clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
 
 Throughout the tour you will find a series of slides and exercises for you
 to complete.
