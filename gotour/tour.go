@@ -246,7 +246,6 @@ func initScript(root string) error {
 		"static/lib/jquery-ui.min.js",
 		"static/lib/angular.min.js",
 		"static/lib/codemirror/lib/codemirror.js",
-		"static/lib/codemirror/addon/edit/matchbrackets.js",
 		"static/lib/codemirror/mode/go/go.js",
 		"static/lib/angular-ui.min.js",
 		"static/js/app.js",
