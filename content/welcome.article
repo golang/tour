@@ -34,7 +34,7 @@ These example programs demonstrate different aspects of Go. The programs in the 
 
 Edit the program and run it again.
 
-Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `shift-space`
+Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `ctrl-enter`
 the text in the editor is formatted using the
 [[http://golang.org/cmd/gofmt/][gofmt]] tool. You can switch on and off syntax highlighting
 the clicking on [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.

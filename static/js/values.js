@@ -61,14 +61,14 @@ value('ui.config', {
             'Shift-Enter': function() {
                 $('#run').click();
             },
+            'Ctrl-Enter': function() {
+                $('#format').click();
+            },
             'PageDown': function() {
                 return false;
             },
             'PageUp': function() {
                 return false;
-            },
-            'Shift-Space': function() {
-                $('#format').click();
             },
         }
     }
