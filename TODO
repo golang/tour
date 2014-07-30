@@ -15,8 +15,9 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Variables with initializers
 * Short variable declarations
 * Basic types
+* Type inference
 * Type conversions
-- The zero value
+* Zero values
 * Constants
 * Numeric Constants
 * For
@@ -36,7 +37,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Slices
 * Slicing slices
 * Making slices
-- Append
+* Append
 - Copy
 * Nil slices
 * Range
@@ -90,7 +91,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Exercise: Equivalent Binary Trees
 * Exercise: Web Crawler
 - More language features
-- Defer
+* Defer
 - Panic and recover
 - init functions
 - Tools

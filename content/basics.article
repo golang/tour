@@ -142,6 +142,18 @@ as with import statements.
 
 .play basics/basic-types.go
 
+* Zero values
+
+Variables declared without an explicit initial value are given their
+_zero_value_.
+
+The zero value is:
+- `0` for numeric types,
+- `false` the boolean type, and
+- `""` (the empty string) for strings.
+
+.play basics/zero.go
+
 * Type conversions
 
 The expression `T(v)` converts the value `v` to the type `T`.
@@ -163,6 +175,25 @@ explicit conversion.
 Try removing the `float64` or `int` conversions in the example and see what happens.
 
 .play basics/type-conversions.go
+
+* Type inference
+
+When declaring a variable without specifying its type (using `var` without a type or the `:=` syntax), the variable's type is _inferred_ from the value on the right hand side.
+
+When the right hand side of the declaration is typed, the new variable is of that same type:
+
+	var i int
+	j := i // j is an int
+
+But when the right hand side contains an untyped numeric constant, the new variable may be an `int`, `float64`, or `complex128` depending on the precision of the constant:
+
+	i := 42           // int
+	f := 3.142        // float64
+	g := 0.867 + 0.5i // complex128
+
+Try changing the initial value of `v` in the example code and observe how its type is affected.
+
+.play basics/type-inference.go
 
 * Constants
 
