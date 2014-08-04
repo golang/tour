@@ -4,6 +4,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -17,5 +18,8 @@ func (h Hello) ServeHTTP(
 
 func main() {
 	var h Hello
-	http.ListenAndServe("localhost:4000", h)
+	err := http.ListenAndServe("localhost:4000", h)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
