@@ -8,6 +8,16 @@
 
 angular.module('tour.services', []).
 
+// Google Analytics
+factory('analytics', ['$window',
+    function(win) {
+        var track = win.trackPageview || (function() {});
+        return {
+            trackView: track
+        };
+    }
+]).
+
 // Internationalization
 factory('i18n', ['translation',
     function(translation) {
