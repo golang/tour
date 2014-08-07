@@ -44,6 +44,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Range
 * Range continued
 - The blank identifier
+- Slices of slices.
 * Exercise: Slices
 * Maps
 * Map literals
@@ -59,6 +60,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Switch with no condition
 - Complex numbers
 * Advanced Exercise: Complex cube roots
+- the type keyword
 * Methods and Interfaces
 * Methods
 * Methods continued
