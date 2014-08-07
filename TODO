@@ -5,6 +5,7 @@ should be added (prefixed by -). It should be kept up-to-date with tour.article.
 * Go local
 * Packages
 * Imports
+- "Imported but not used" errors (later perhaps)
 * Exported names
 * Functions
 * Functions continued
