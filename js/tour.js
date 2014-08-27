@@ -192,6 +192,9 @@ function show(i) {
 	slide = slides[i];
 	var $s = $(slide).show();
 
+	// notify the change of slides if analytics is available.
+	if (window.trackPageview) window.trackPageview();
+
 	// load stored code, or hide code box
 	if ($s.hasClass("nocode")) {
 		$('#workspace').hide();
