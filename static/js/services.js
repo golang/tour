@@ -60,13 +60,35 @@ factory('fmt', ['$http',
     }
 ]).
 
-// Editor context service, kept through the whole app.
-factory('editor', ['$window',
+factory('storage', ['$window',
     function(win) {
+        if (win.localStorage) {
+            return {
+                get: function(key) {
+                    return win.localStorage.getItem(key);
+                },
+                set: function(key, val) {
+                    win.localStorage.setItem(key, val);
+                }
+            };
+        }
+        return {
+            get: function(key, def) {
+                return def;
+            },
+            set: function() {}
+        };
+    }
+]).
+
+// Editor context service, kept through the whole app.
+factory('editor', ['$window', 'storage',
+    function(win, storage) {
         var ctx = {
-            syntax: false,
+            syntax: storage.get('syntax') === 'true',
             toggleSyntax: function() {
                 ctx.syntax = !ctx.syntax;
+                storage.set('syntax', ctx.syntax);
                 ctx.paint();
             },
             paint: function() {
