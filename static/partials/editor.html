@@ -16,6 +16,7 @@
         <div id="left-side" class="relative-content">
             <div id="explorer" ng-class="{hidden: toc.lessons[lessonId].Pages[curPage-1].Files.length==0}">
                 <a class="menu-button" ng-repeat="f in toc.lessons[lessonId].Pages[curPage-1].Files" ng-click="openFile($index)" ng-class="{active: $index==curFile}">{{f.Name}}</a>
+                <a syntax-checkbox ng-class="{active: editor.syntax}" class="menu-button syntax-checkbox">Syntax</a> 
             </div>
 
             <div class="relative-content" ng-class="{hidden: toc.lessons[lessonId].Pages[curPage-1].Files.length==0}">
@@ -36,7 +37,7 @@
                         <div id="file-menu">
                             <a class="menu-button" id="run" ng-click="run()">Run</a>
                             <a class="menu-button" id="format" ng-click="format()">Format</a>
-                            <a syntax-checkbox ng-class="{active: editor.syntax}" class="menu-button syntax-checkbox">Syntax</a>
+                            <a class="menu-button" id="reset" ng-click="reset()">Reset</a>
                         </div>
 
                         <div class="output" ng-repeat="f in toc.lessons[lessonId].Pages[curPage-1].Files" ng-class="{active: $index==curFile}" ng-bind-html-unsafe="f.Output">

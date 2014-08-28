@@ -114,8 +114,8 @@ factory('editor', ['$window', 'storage',
 ]).
 
 // Table of contents management and navigation
-factory('toc', ['$http', '$q', '$log', 'tableOfContents',
-    function($http, $q, $log, tableOfContents) {
+factory('toc', ['$http', '$q', '$log', 'tableOfContents', 'storage',
+    function($http, $q, $log, tableOfContents, storage) {
         var modules = tableOfContents;
 
         var lessons = {};
@@ -155,6 +155,18 @@ factory('toc', ['$http', '$q', '$log', 'tableOfContents',
                         var lesson = lessons[lessonName];
                         lesson.module = module;
                         module.lesson[lessonName] = lesson;
+
+                        // replace file contents with locally stored copies.
+                        for (var p = 0; p < lesson.Pages.length; p++) {
+                            var page = lesson.Pages[p];
+                            for (var f = 0; f < page.Files.length; f++) {
+                                page.Files[f].OrigContent = page.Files[f].Content;
+                                var val = storage.get(lessonName + '.' + p + '.' + f);
+                                if (val !== null) {
+                                    page.Files[f].Content = val;
+                                }
+                            }
+                        }
                     }
                 }
                 moduleQ.resolve(modules);

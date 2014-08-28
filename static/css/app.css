@@ -239,6 +239,9 @@ ul {
 #explorer .menu-button.active {
     cursor: default;
 }
+#explorer .syntax-checkbox {
+    float: right;
+}
 /* CodeMirror */
 
  #file-editor {
