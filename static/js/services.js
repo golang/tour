@@ -60,6 +60,7 @@ factory('fmt', ['$http',
     }
 ]).
 
+// Local storage, persistent to page refreshing.
 factory('storage', ['$window',
     function(win) {
         if (win.localStorage) {
@@ -73,8 +74,8 @@ factory('storage', ['$window',
             };
         }
         return {
-            get: function(key, def) {
-                return def;
+            get: function() {
+                return null;
             },
             set: function() {}
         };
