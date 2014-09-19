@@ -56,6 +56,8 @@ value('ui.config', {
         lineNumbers: true,
         autofocus: true,
         indentWithTabs: true,
+        indentUnit: 4,
+        tabSize: 4,
         lineWrapping: true,
         extraKeys: {
             'Shift-Enter': function() {
