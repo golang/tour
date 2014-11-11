@@ -259,6 +259,13 @@ ul {
     font-family:'Inconsolata', monospace;
     line-height: 1.2em;
 }
+.CodeMirror-code > .line-error {
+    background: #FF8080;
+}
+.CodeMirror-code > .line-error .CodeMirror-linenumber {
+    color: #FF5555;
+    font-weight: bolder;
+}
 #file-editor .CodeMirror-gutters {
     width: 32px;
 }

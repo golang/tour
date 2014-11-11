@@ -31,14 +31,28 @@ factory('i18n', ['translation',
 ]).
 
 // Running code
-factory('run', ['$window',
-    function(win) {
+factory('run', ['$window', 'editor',
+    function(win, editor) {
+        var writeInterceptor = function(writer) {
+            return function(write) {
+                if (write.Kind == 'stderr') {
+                    var lines = write.Body.split('\n');
+                    for (var i in lines) {
+                        var match = lines[i].match(/prog\.go:([0-9]+): ([^\n]*)/);
+                        if (match !== null) {
+                            editor.highlight(match[1], match[2]);
+                        }
+                    }
+                }
+                writer(write);
+            };
+        };
         return function(code, output, options) {
             // PlaygroundOutput is defined in playground.js which is prepended
             // to the generated script.js in gotour/tour.go.
             // The next line removes the jshint warning.
             // global PlaygroundOutput
-            win.transport.Run(code, PlaygroundOutput(output), options);
+            win.transport.Run(code, writeInterceptor(PlaygroundOutput(output)), options);
         };
     }
 ]).
@@ -108,7 +122,17 @@ factory('editor', ['$window', 'storage',
                 };
                 set();
             },
+            highlight: function(line, message) {
+                $('.CodeMirror-code > div:nth-child(' + line + ')')
+                    .addClass('line-error').attr('title', message);
+            },
+            onChange: function() {
+                $('.line-error').removeClass('line-error').attr('title', null);
+            }
         };
+        // Set in the window so the onChange function in the codemirror config
+        // can call it.
+        win.codeChanged = ctx.onChange;
         return ctx;
     }
 ]).
@@ -171,7 +195,8 @@ factory('toc', ['$http', '$q', '$log', 'tableOfContents', 'storage',
                 }
                 moduleQ.resolve(modules);
                 lessonQ.resolve(lessons);
-            }, function(error) {
+            },
+            function(error) {
                 $log.error('error loading lessons : ', error);
                 moduleQ.reject(error);
                 lessonQ.reject(error);

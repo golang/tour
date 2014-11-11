@@ -72,6 +72,11 @@ value('ui.config', {
             'PageUp': function() {
                 return false;
             },
+        },
+        // TODO: is there a better way to do this?
+        // AngularJS values can't depend on factories.
+        onChange: function() {
+            if (window.codeChanged !== null) window.codeChanged();
         }
     }
 });
