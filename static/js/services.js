@@ -38,7 +38,7 @@ factory('run', ['$window', 'editor',
                 if (write.Kind == 'stderr') {
                     var lines = write.Body.split('\n');
                     for (var i in lines) {
-                        var match = lines[i].match(/prog\.go:([0-9]+): ([^\n]*)/);
+                        var match = lines[i].match(/.*\.go:([0-9]+): ([^\n]*)/);
                         if (match !== null) {
                             editor.highlight(match[1], match[2]);
                         }
