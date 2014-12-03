@@ -72,7 +72,7 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: 
 #appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the sigificance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
 #appengine: 
-#appengine: - There are also limits on execution time and on CPU and memory usage, and the program is restricted to running in a single thread (but may use many goroutines).
+#appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts. 
 #appengine: 
 #appengine: The playground uses the latest stable release of Go.
 #appengine: 
