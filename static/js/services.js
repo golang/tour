@@ -77,7 +77,9 @@ factory('fmt', ['$http',
 // Local storage, persistent to page refreshing.
 factory('storage', ['$window',
     function(win) {
-        if (win.localStorage) {
+        try {
+            // This will raise an exception if cookies are disabled.
+            win.localStorage = win.localStorage;
             return {
                 get: function(key) {
                     return win.localStorage.getItem(key);
@@ -86,13 +88,14 @@ factory('storage', ['$window',
                     win.localStorage.setItem(key, val);
                 }
             };
+        } catch (e) {
+            return {
+                get: function() {
+                    return null;
+                },
+                set: function() {}
+            };
         }
-        return {
-            get: function() {
-                return null;
-            },
-            set: function() {}
-        };
     }
 ]).
 
