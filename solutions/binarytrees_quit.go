@@ -1,4 +1,4 @@
-// Copyright 2012 The Go Authors.  All rights reserved.
+// Copyright 2015 The Go Authors.  All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -12,32 +12,36 @@ import (
 	"code.google.com/p/go-tour/tree"
 )
 
-func walkImpl(t *tree.Tree, ch chan int) {
+func walkImpl(t *tree.Tree, ch, quit chan int) {
 	if t == nil {
 		return
 	}
-	walkImpl(t.Left, ch)
-	ch <- t.Value
-	walkImpl(t.Right, ch)
+	walkImpl(t.Left, ch, quit)
+	select {
+	case ch <- t.Value:
+		// Value successfully sent.
+	case <-quit:
+		return
+	}
+	walkImpl(t.Right, ch, quit)
 }
 
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
-func Walk(t *tree.Tree, ch chan int) {
-	walkImpl(t, ch)
-	// Need to close the channel here
+func Walk(t *tree.Tree, ch, quit chan int) {
+	walkImpl(t, ch, quit)
 	close(ch)
 }
 
 // Same determines whether the trees
 // t1 and t2 contain the same values.
-// NOTE: The implementation leaks goroutines when trees are different.
-// See binarytrees_quit.go for a better solution.
 func Same(t1, t2 *tree.Tree) bool {
 	w1, w2 := make(chan int), make(chan int)
+	quit := make(chan int)
+	defer close(quit)
 
-	go Walk(t1, w1)
-	go Walk(t2, w2)
+	go Walk(t1, w1, quit)
+	go Walk(t2, w2, quit)
 
 	for {
 		v1, ok1 := <-w1
