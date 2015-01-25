@@ -55,7 +55,7 @@ The tour is available in other languages:
 - [[http://go-tour-jp.appspot.com/][Japanese — 日本語]]
 - [[http://go-tour-kr.appspot.com/][Korean — 한국어]]
 - [[http://go-tour-ro.appspot.com/][Romanian - Română]]
-- [[http://go-tour-zh.appspot.com/][Simplified Chinese — 中文（简体）]]
+- [[http://tour.go-zh.org/][Simplified Chinese — 中文（简体）]]
 - [[http://go-tour-zh-tw.appspot.com/][Traditional Chinese — 中文（繁體）]]
 
 Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
