@@ -2,7 +2,7 @@
 
 package main
 
-import "code.google.com/p/go-tour/tree"
+import "golang.org/x/tour/tree"
 
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
