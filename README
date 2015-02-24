@@ -1,5 +1,9 @@
 This is Go Tour, an introduction to the Go programming language.
 
+To install the tour locally, first install Go, then run:
+
+	$ go get golang.org/x/tour/gotour
+
 Unless otherwise noted, the go-tour source files are distributed
 under the BSD-style license found in the LICENSE file.
 
