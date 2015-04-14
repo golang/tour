@@ -136,12 +136,13 @@ directive('horizontalSlide', ['editor',
     }
 ]).
 
-directive('tableOfContentsButton', function() {
+directive('tableOfContentsButton', ['i18n', function(i18n) {
     var speed = 250;
     return {
         restrict: 'A',
         templateUrl: '/static/partials/toc-button.html',
         link: function(scope, elm, attrs) {
+            scope.tocMessage = i18n.l('toc');
             elm.on('click', function() {
                 var toc = $(attrs.tableOfContentsButton);
                 // hide all non active lessons before displaying the toc.
@@ -160,7 +161,7 @@ directive('tableOfContentsButton', function() {
             });
         }
     };
-}).
+}]).
 
 // side bar with dynamic table of contents
 directive('tableOfContents', ['$routeParams', 'toc',
@@ -196,4 +197,26 @@ directive('tableOfContents', ['$routeParams', 'toc',
             }
         };
     }
-]);
+]).
+
+directive('feedbackButton', ['i18n', function(i18n) {
+    return {
+        restrict: 'A',
+        templateUrl: '/static/partials/feedback-button.html',
+        link: function(scope, elm, attrs) {
+            scope.feedbackMessage = i18n.l('submit-feedback');
+
+            elm.on('click', function() {
+                var context = window.location.pathname === '/list'
+                    ? '/list'
+                    : '/' + scope.params.lessonId + '/' + scope.params.pageNumber;
+                var title = i18n.l('issue-title');
+                var body = i18n.l('context') + ': '+ context + '\n\n'+ i18n.l('issue-message');
+                var url = 'https://' + i18n.l('github-repo') + '/issues/new'
+                    + '?title=' + encodeURIComponent(title)
+                    + '&body=' + encodeURIComponent(body);
+                window.open(url);
+            });
+        }
+    };
+}]);

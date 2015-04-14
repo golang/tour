@@ -1,5 +1,5 @@
 /* Generic elements */
- html, body {
+html, body {
     margin: 0;
     padding: 0;
     font-size: 16px;
@@ -10,7 +10,7 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     /* Prevent font scaling in landscape */
     -webkit-text-size-adjust: none;
-    -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing: antialiased;
 }
 * {
     outline: none;
@@ -25,7 +25,7 @@ h1, h2, h3, h4 {
     margin: 0;
 }
 pre, code {
-    font-family:'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
     border-radius: 4px;
     color: #333;
     background-color: #fafafa;
@@ -96,7 +96,7 @@ ul {
     padding-left: 32px;
 }
 /* Navigation bars */
- .top-bar {
+.top-bar {
     position: fixed;
     left: 0;
     right: 0;
@@ -110,13 +110,18 @@ ul {
 }
 .nav {
     float: right;
-    padding: 5px;
-    height: 20px;
-    width: 20px;
+    padding: 2px;
+    height: 25px;
+    width: 25px;
+    margin-left: 10px;
     cursor: pointer;
+    fill: #375eab;
+}
+.nav:hover {
+    fill: #ffffff;
 }
 /* Module list */
- .page-header {
+.page-header {
     font-size: 1.2em;
     line-height: 32px;
     margin: 32px 0;
@@ -149,7 +154,7 @@ ul {
     padding-right: 48px;
 }
 /* Lesson viewer */
- .slide-content {
+.slide-content {
     padding: 16px;
 }
 .module-bar {
@@ -191,10 +196,10 @@ ul {
     background: #fff;
 }
 .menu-button[syntax-checkbox]:after {
-    content:' off';
+    content: ' off';
 }
 .menu-button[syntax-checkbox].active:after {
-    content:' on';
+    content: ' on';
 }
 #right-side a {
     color: #375eab;
@@ -215,7 +220,7 @@ ul {
     display: none;
 }
 .output > pre {
-    font-family:'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
     background: #fafafa;
     margin: 0;
 }
@@ -243,8 +248,7 @@ ul {
     float: right;
 }
 /* CodeMirror */
-
- #file-editor {
+#file-editor {
     background: #FFFFD8;
     overflow: auto;
 }
@@ -256,7 +260,7 @@ ul {
 }
 #file-editor .CodeMirror-lines, #file-editor .CodeMirror-gutters {
     background: #FFFFD8;
-    font-family:'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
     line-height: 1.2em;
 }
 .CodeMirror-code > .line-error {
@@ -371,7 +375,7 @@ ul {
     }
     #file-menu {
         position: absolute;
-        top:0;
+        top: 0;
         right: 0;
         left: 0;
         background: #fafafa;
@@ -431,7 +435,7 @@ ul {
     }
 }
 /* Table of contents */
- .toc {
+.toc {
     display: none;
     position: fixed;
     z-index: 200;
@@ -455,10 +459,10 @@ ul {
 .click-catcher {
     position: fixed;
     z-index: -100;
-    top:0;
+    top: 0;
     bottom: 0;
-    left:0;
-    right: 10;  /* avoid covering the TOC scroller */
+    left: 0;
+    right: 10; /* avoid covering the TOC scroller */
     background: rgba(0, 0, 0, 0);
 }
 .toc * {

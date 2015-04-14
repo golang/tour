@@ -46,6 +46,13 @@ value('translation', {
     'next': 'Next',
     'waiting': 'Waiting for remote server...',
     'errcomm': 'Error communicating with remote server.',
+    'submit-feedback': 'Send feedback about this page',
+
+    // GitHub issue template: update repo and messaging when translating.
+    'github-repo': 'github.com/golang/go',
+    'issue-title': 'tour: [short description of the issue]',
+    'issue-message': 'Describe your feedback here, including code if necessary',
+    'context': 'Context',
 }).
 
 // Config for codemirror plugin
