@@ -87,7 +87,7 @@ For instance, `IPAddr{1,`2,`3,`4}` should print as `"1.2.3.4"`.
 
 Go programs express error state with `error` values. 
 
-The `error` type is a built-in interface simliar to `fmt.Stringer`:
+The `error` type is a built-in interface similar to `fmt.Stringer`:
 
 	type error interface {
 		Error() string
