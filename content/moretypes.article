@@ -146,7 +146,7 @@ If the backing array of `s` is too small to fit all the given values a bigger
 array will be allocated. The returned slice will point to the newly allocated
 array.
 
-(To learn more about slices, read the [[http://golang.org/doc/articles/slices_usage_and_internals.html][Slices: usage and internals]] article.)
+(To learn more about slices, read the [[http://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
 
 .play moretypes/append.go
 
