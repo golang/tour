@@ -50,8 +50,8 @@ value('translation', {
 
     // GitHub issue template: update repo and messaging when translating.
     'github-repo': 'github.com/golang/go',
-    'issue-title': 'tour: [short description of the issue]',
-    'issue-message': 'Describe your feedback here, including code if necessary',
+    'issue-title': 'tour: [REPLACE WITH SHORT DESCRIPTION]',
+    'issue-message': 'Change the title above to describe your issue and add your feedback here, including code if necessary',
     'context': 'Context',
 }).
 
