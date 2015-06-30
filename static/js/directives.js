@@ -210,6 +210,7 @@ directive('feedbackButton', ['i18n', function(i18n) {
                 var context = window.location.pathname === '/list'
                     ? '/list'
                     : '/' + scope.params.lessonId + '/' + scope.params.pageNumber;
+	        context = window.location.protocol + '//' + window.location.host + context;
                 var title = i18n.l('issue-title');
                 var body = i18n.l('context') + ': '+ context + '\n\n'+ i18n.l('issue-message');
                 var url = 'https://' + i18n.l('github-repo') + '/issues/new'
