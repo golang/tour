@@ -105,6 +105,9 @@ This example uses the `tree` package, which defines the type:
 		Right *Tree
 	}
 
+
+Continue description on [[javascript:click('.next-page')][next page]].
+
 * Exercise: Equivalent Binary Trees
 
 *1.* Implement the `Walk` function.
