@@ -33,7 +33,7 @@ factory('i18n', ['translation',
 // Running code
 factory('run', ['$window', 'editor',
     function(win, editor) {
-        var writeInterceptor = function(writer) {
+        var writeInterceptor = function(writer, done) {
             return function(write) {
                 if (write.Kind == 'stderr') {
                     var lines = write.Body.split('\n');
@@ -45,14 +45,15 @@ factory('run', ['$window', 'editor',
                     }
                 }
                 writer(write);
+                if (write.Kind == 'end') done();
             };
         };
-        return function(code, output, options) {
+        return function(code, output, options, done) {
             // PlaygroundOutput is defined in playground.js which is prepended
             // to the generated script.js in gotour/tour.go.
             // The next line removes the jshint warning.
             // global PlaygroundOutput
-            win.transport.Run(code, writeInterceptor(PlaygroundOutput(output)), options);
+            return win.transport.Run(code, writeInterceptor(PlaygroundOutput(output), done), options);
         };
     }
 ]).

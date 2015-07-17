@@ -31,6 +31,7 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
         $scope.lessonId = $routeParams.lessonId;
         $scope.curPage = parseInt($routeParams.pageNumber);
         $scope.curFile = 0;
+        $scope.job = null;
 
         $scope.nextPage = function() {
             $scope.gotoPage($scope.curPage + 1);
@@ -74,9 +75,16 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
         $scope.run = function() {
             log('info', i18n.l('waiting'));
             var f = file();
-            run(f.Content, $('.output.active > pre')[0], {
+            $scope.job = run(f.Content, $('.output.active > pre')[0], {
                 path: f.Name
+            }, function() {
+                $scope.job = null;
+                $scope.$apply();
             });
+        };
+
+        $scope.kill = function() {
+            if ($scope.job !== null) $scope.job.Kill();
         };
 
         $scope.format = function() {

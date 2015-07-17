@@ -208,11 +208,13 @@ ul {
 #file-menu .menu-button {
     float: right;
 }
-#run {
+#run, #kill {
     background-color: #375eab;
     color: #fff;
+    width: 40px;
+    text-align: center;
 }
-#run:hover:not(:active) {
+#run:hover:not(:active), #kill:hover:not(:active) {
     background-color: #fff;
     color: #375eab;
 }
