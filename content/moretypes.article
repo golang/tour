@@ -218,6 +218,10 @@ If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the ze
 
 Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
 
+_Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
+
+	elem, ok := m[key]
+
 .play moretypes/mutating-maps.go
 
 * Exercise: Maps
