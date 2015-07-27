@@ -111,7 +111,7 @@ A nil `error` denotes success; a non-nil `error` denotes failure.
 
 * Exercise: Errors
 
-Copy your `Sqrt` function from the earlier exercises and modify it to return an `error` value.
+Copy your `Sqrt` function from the [[/flowcontrol/8][earlier exercise]] and modify it to return an `error` value.
 
 `Sqrt` should return a non-nil error value when given a negative number, as it doesn't support complex numbers.
 
