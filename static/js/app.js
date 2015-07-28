@@ -26,6 +26,25 @@ config(['$routeProvider', '$locationProvider',
             redirectTo: '/'
         });
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true).hashPrefix('!');
     }
-]);
+]).
+
+// handle mapping from old paths (#42) to the new organization.
+run(function($rootScope, $location, mapping) {
+    $rootScope.$on( "$locationChangeStart", function(event, next) {
+        var url = document.createElement('a');
+        url.href = next; 
+        if (url.pathname != '/' || url.hash == '') {
+            return;
+        }
+        $location.hash('');
+        var m = mapping[url.hash];
+        if (m === undefined) {
+            console.log('unknown url, redirecting home');
+            $location.path('/welcome/1');
+            return;
+        }
+        $location.path(m);
+    });         
+});
