@@ -14,7 +14,7 @@ directive('onpageup', function() {
         elm.attr('tabindex', 0);
         elm.keyup(function(evt) {
             var key = evt.key || evt.keyCode;
-            if (key == 33) {
+            if (key == 33 && !evt.ctrlKey) {
                 scope.$apply(attrs.onpageup);
                 evt.preventDefault();
             }
@@ -28,7 +28,7 @@ directive('onpagedown', function() {
         elm.attr('tabindex', 0);
         elm.keyup(function(evt) {
             var key = evt.key || evt.keyCode;
-            if (key == 34) {
+            if (key == 34 && !evt.ctrlKey) {
                 scope.$apply(attrs.onpagedown);
                 evt.preventDefault();
             }
