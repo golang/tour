@@ -182,7 +182,7 @@ Try removing the `float64` or `int` conversions in the example and see what happ
 
 * Type inference
 
-When declaring a variable without specifying its type (using `var` without a type or the `:=` syntax), the variable's type is _inferred_ from the value on the right hand side.
+When declaring a variable without specifying an explicit type (either by using the `:=` syntax or `var`=` expression syntax), the variable's type is inferred from the value on the right hand side.
 
 When the right hand side of the declaration is typed, the new variable is of that same type:
 
