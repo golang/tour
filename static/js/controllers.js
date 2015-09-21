@@ -33,12 +33,10 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
         $scope.curFile = 0;
         $scope.job = null;
 
-        $scope.nextPage = function(event) {
-            event.preventDefault();
+        $scope.nextPage = function() {
             $scope.gotoPage($scope.curPage + 1);
         };
-        $scope.prevPage = function(event) {
-            event.preventDefault();
+        $scope.prevPage = function() {
             $scope.gotoPage($scope.curPage - 1);
         };
         $scope.gotoPage = function(page) {
