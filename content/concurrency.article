@@ -2,7 +2,7 @@ Concurrency
 Go provides concurrency constructions as part of the core language. This lessons presents them and gives some examples on how to use it.
 
 The Go Authors
-http://golang.org
+https://golang.org
 
 * Goroutines
 
@@ -16,7 +16,7 @@ starts a new goroutine running
 
 The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The [[http://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+Goroutines run in the same address space, so access to shared memory must be synchronized. The [[https://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
 
 .play concurrency/goroutines.go
 
@@ -141,39 +141,38 @@ Modify the `Crawl` function to fetch URLs in parallel without fetching the same 
 * Where to Go from here...
 
 #appengine: You can get started by
-#appengine: [[http://golang.org/doc/install/][installing Go]] or downloading the
-#appengine: [[http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go][Go App Engine SDK]].
+#appengine: [[https://golang.org/dl/][installing Go]].
 
 #appengine: Once you have Go installed, the
 The
-[[http://golang.org/doc/][Go Documentation]] is a great place to
+[[https://golang.org/doc/][Go Documentation]] is a great place to
 #appengine: continue.
 start.
 It contains references, tutorials, videos, and more.
 
-To learn how to organize and work with Go code, watch [[http://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[http://golang.org/doc/code.html][How to Write Go Code]].
+To learn how to organize and work with Go code, watch [[https://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[https://golang.org/doc/code.html][How to Write Go Code]].
 
-If you need help with the standard library, see the [[http://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[http://golang.org/ref/spec][Language Spec]] is quite readable.
+If you need help with the standard library, see the [[https://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[https://golang.org/ref/spec][Language Spec]] is quite readable.
 
 To further explore Go's concurrency model, watch
-[[http://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
-([[http://talks.golang.org/2012/concurrency.slide][slides]])
+[[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
+([[https://talks.golang.org/2012/concurrency.slide][slides]])
 and
 [[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
-([[http://talks.golang.org/2013/advconc.slide][slides]])
+([[https://talks.golang.org/2013/advconc.slide][slides]])
 and read the
-[[http://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
+[[https://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
 codewalk.
 
 To get started writing web applications, watch
-[[http://vimeo.com/53221558][A simple programming environment]]
-([[http://talks.golang.org/2012/simple.slide][slides]])
+[[https://vimeo.com/53221558][A simple programming environment]]
+([[https://talks.golang.org/2012/simple.slide][slides]])
 and read the
-[[http://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
+[[https://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
 
-The [[http://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+The [[https://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
 
-The [[http://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+The [[https://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
 
-Visit [[http://golang.org][golang.org]] for more.
+Visit [[https://golang.org][golang.org]] for more.
 

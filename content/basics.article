@@ -2,7 +2,7 @@ Packages, variables, and functions.
 Learn the basic components of any Go program.
 
 The Go Authors
-http://golang.org
+https://golang.org
 
 * Packages
 
@@ -18,7 +18,7 @@ By convention, the package name is the same as the last element of the import pa
 #appengine: deterministic, so each time you run the example program
 #appengine: `rand.Intn` will return the same number.
 #appengine:
-#appengine: (To see a different number, seed the number generator; see [[http://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
+#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
 
 .play basics/packages.go
 
@@ -58,7 +58,7 @@ In this example, `add` takes two parameters of type `int`.
 
 Notice that the type comes _after_ the variable name.
 
-(For more about why types look the way they do, see the [[http://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
+(For more about why types look the way they do, see the [[https://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
 
 .play basics/functions.go
 

@@ -2,7 +2,7 @@ Flow control statements: for, if, else, switch and defer
 Learn how to control the flow of your code with conditionals, loops, switches and defers.
 
 The Go Authors
-http://golang.org
+https://golang.org
 
 * For
 
@@ -66,7 +66,7 @@ In this case, Newton's method is to approximate `Sqrt(x)` by picking a starting 
 
 To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
 
-Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[http://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
+Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
 
 Hint: to declare and initialize a floating point value, give it floating point syntax or use a conversion:
 
@@ -126,7 +126,7 @@ Deferred function calls are pushed onto a stack. When a function returns, its
 deferred calls are executed in last-in-first-out order.
 
 To learn more about defer statements read this
-[[http://blog.golang.org/defer-panic-and-recover][blog post]].
+[[https://blog.golang.org/defer-panic-and-recover][blog post]].
 
 .play flowcontrol/defer-multi.go
 

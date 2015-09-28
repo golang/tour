@@ -2,7 +2,7 @@ More types: structs, slices, and maps.
 Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
 
 The Go Authors
-http://golang.org
+https://golang.org
 
 * Pointers
 
@@ -133,7 +133,7 @@ A nil slice has a length and capacity of 0.
 * Adding elements to a slice
 
 It is common to append new elements to a slice, and so Go provides a built-in
-`append` function. The [[http://golang.org/pkg/builtin/#append][documentation]]
+`append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
 of the built-in package describes `append`.
 
 	func append(s []T, vs ...T) []T
@@ -148,7 +148,7 @@ If the backing array of `s` is too small to fit all the given values a bigger
 array will be allocated. The returned slice will point to the newly allocated
 array.
 
-(To learn more about slices, read the [[http://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
+(To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
 
 .play moretypes/append.go
 
@@ -233,7 +233,7 @@ _Note_: if `elem` or `ok` have not yet been declared you could use a short decla
 
 Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
 
-You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+You might find [[https://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
 
 .play moretypes/exercise-maps.go
 

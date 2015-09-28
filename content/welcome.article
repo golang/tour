@@ -2,11 +2,11 @@ Welcome!
 Learn how to use this tour: including how to navigate the different lessons and how to run code.
 
 The Go Authors
-http://golang.org
+https://golang.org
 
 * Hello, 世界
 
-Welcome to a tour of the [[http://golang.org/][Go programming language]].
+Welcome to a tour of the [[https://golang.org/][Go programming language]].
 
 The tour is divided into a list of modules that you can
 access by clicking on
@@ -36,7 +36,7 @@ Edit the program and run it again.
 
 Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `ctrl-enter`
 the text in the editor is formatted using the
-[[http://golang.org/cmd/gofmt/][gofmt]] tool. You can switch on and off syntax highlighting
+[[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch on and off syntax highlighting
 the clicking on [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
 When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
@@ -47,21 +47,21 @@ When you're ready to move on, click the [[javascript:highlightAndClick(".next-pa
 
 The tour is available in other languages:
 
-- [[http://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
-- [[http://go-tour-ca.appspot.com/][Catalan — Català]]
-- [[http://go-tour-de.appspot.com/][German — Deutsch]]
-- [[http://go-tour-es.appspot.com/][Spanish — Español]]
-- [[http://go-tour-fr.appspot.com/][French — Français]]
-- [[http://go-tour-id2.appspot.com/][Indonesia — Bahasa]]
-- [[http://go-tour-ita.appspot.com/][Italian — Italiano]]
-- [[http://go-tour-he.appspot.com/][Hebrew — עִבְרִית]]
-- [[http://go-tour-jp.appspot.com/][Japanese — 日本語]]
-- [[http://go-tour-kr.appspot.com/][Korean — 한국어]]
-- [[http://go-tour-ro.appspot.com/][Romanian — Română]]
-- [[http://tour.go-zh.org/][Simplified Chinese — 中文（简体）]]
-- [[http://go-tour-zh-tw.appspot.com/][Traditional Chinese — 中文（繁體）]]
-- [[http://go-tour-ua.appspot.com/][Ukrainian — Українська]]
-- [[http://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
+- [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
+- [[https://go-tour-ca.appspot.com/][Catalan — Català]]
+- [[https://go-tour-de.appspot.com/][German — Deutsch]]
+- [[https://go-tour-es.appspot.com/][Spanish — Español]]
+- [[https://go-tour-fr.appspot.com/][French — Français]]
+- [[https://go-tour-id2.appspot.com/][Indonesia — Bahasa]]
+- [[https://go-tour-ita.appspot.com/][Italian — Italiano]]
+- [[https://go-tour-he.appspot.com/][Hebrew — עִבְרִית]]
+- [[https://go-tour-jp.appspot.com/][Japanese — 日本語]]
+- [[https://go-tour-kr.appspot.com/][Korean — 한국어]]
+- [[https://go-tour-ro.appspot.com/][Romanian — Română]]
+- [[https://tour.go-zh.org/][Simplified Chinese — 中文（简体）]]
+- [[https://go-tour-zh-tw.appspot.com/][Traditional Chinese — 中文（繁體）]]
+- [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
+- [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
 - [[http://tur.a.golang.org.tr/][Turkish - Türkçe]]
 
 Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
@@ -87,8 +87,8 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 
 #appengine: * The Go Playground
 #appengine: 
-#appengine: This tour is built atop the [[http://play.golang.org/][Go Playground]], a
-#appengine: web service that runs on [[http://golang.org/][golang.org]]'s servers.
+#appengine: This tour is built atop the [[https://play.golang.org/][Go Playground]], a
+#appengine: web service that runs on [[https://golang.org/][golang.org]]'s servers.
 #appengine: 
 #appengine: The service receives a Go program, compiles, links, and runs the program inside
 #appengine: a sandbox, then returns the output.
@@ -101,7 +101,7 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: 
 #appengine: The playground uses the latest stable release of Go.
 #appengine: 
-#appengine: Read "[[http://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
+#appengine: Read "[[https://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
 #appengine: 
 #appengine: .play welcome/sandbox.go
 
