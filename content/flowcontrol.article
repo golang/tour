@@ -52,6 +52,8 @@ Variables declared by the statement are only in scope until the end of the `if`.
 
 Variables declared inside an `if` short statement are also available inside any of the `else` blocks.
 
+(Both calls to `pow` are executed and return before `main`'s call to `fmt.Println` begins.)
+
 .play flowcontrol/if-and-else.go
 
 * Exercise: Loops and Functions
