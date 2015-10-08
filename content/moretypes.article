@@ -216,9 +216,9 @@ Test that a key is present with a two-value assignment:
 
 	elem, ok = m[key]
 
-If `key` is in `m`, `ok` is `true`. If not, `ok` is `false` and `elem` is the zero value for the map's element type.
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
 
-Similarly, when reading from a map if the key is not present the result is the zero value for the map's element type.
+If `key` is not in the map, then `elem` is the zero value for the map's element type.
 
 _Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
 
