@@ -37,9 +37,10 @@ But it is good style to use the factored import statement.
 
 * Exported names
 
-After importing a package, you can refer to the names it exports.
-
 In Go, a name is exported if it begins with a capital letter.
+
+When importing a package, you can refer only to its exported names.
+Any "unexported" names are not accessible from outside the package.
 
 `Foo` is an exported name, as is `FOO`. The name `foo` is not exported.
 
