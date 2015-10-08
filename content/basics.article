@@ -42,7 +42,9 @@ In Go, a name is exported if it begins with a capital letter.
 
 `Foo` is an exported name, as is `FOO`. The name `foo` is not exported.
 
-Run the code. Then rename `math.pi` to `math.Pi` and try it again.
+Run the code. Notice the error message.
+
+To fix the error, rename `math.pi` to `math.Pi` and try it again.
 
 .play basics/exported-names.go
 
