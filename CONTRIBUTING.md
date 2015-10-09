@@ -18,6 +18,14 @@ When [filing an issue](https://golang.org/issue/new), make sure to answer these 
 General questions should go to the [golang-nuts mailing list](https://groups.google.com/group/golang-nuts) instead of the issue tracker.
 The gophers there will answer or ask you to file an issue if you've tripped over a bug.
 
+## Running the App Engine version locally
+
+To view your changes while developing locally, install the
+[Go App Engine SDK](https://cloud.google.com/appengine/downloads?hl=en) and then:
+
+	$ cd $GOPATH/src/golang.org/x/tour
+	$ $SDK_PATH/dev_appserver.py .
+
 ## Contributing code
 
 Please read the [Contribution Guidelines](https://golang.org/doc/contribute.html)
