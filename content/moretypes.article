@@ -185,7 +185,7 @@ The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`
 
 A map maps keys to values.
 
-Maps must be created with `make` (not `new`) before use; the `nil` map is empty and cannot be assigned to.
+Maps must be created with `make` before use; the `nil` map is empty and cannot be assigned to.
 
 .play moretypes/maps.go
 
