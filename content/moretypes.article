@@ -239,7 +239,9 @@ You might find [[http://golang.org/pkg/strings/#Fields][strings.Fields]] helpful
 
 * Function values
 
-Functions are values too.
+Functions are values too. They can be passed around just like other values.
+
+Functions values may be used as function arguments and return values.
 
 .play moretypes/function-values.go
 
