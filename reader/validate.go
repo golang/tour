@@ -11,7 +11,7 @@ import (
 )
 
 func Validate(r io.Reader) {
-	b := make([]byte, 1024)
+	b := make([]byte, 1024, 2048)
 	i, o := 0, 0
 	for ; i < 1<<20 && o < 1<<20; i++ { // test 1mb
 		n, err := r.Read(b)
