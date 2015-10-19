@@ -87,6 +87,12 @@ A slice points to an array of values and also includes a length.
 
 .play moretypes/slices.go
 
+* Slices of Slices
+
+Slices can contain any type, including other slices.
+
+.play moretypes/slices-of-slice.go
+
 * Slicing slices
 
 Slices can be re-sliced, creating a new slice value that points to the same array.
