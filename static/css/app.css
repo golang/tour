@@ -165,7 +165,7 @@ ul {
     line-height: 24px;
     font-size: 24px;
 }
-#right-side .module-bar a {
+.module-bar a {
     color: #375eab;
     position: relative;
     font-weight: bold;
@@ -319,7 +319,7 @@ a#run, a#kill {
         left: 50%;
         background: #fff;
     }
-    #right-side .slide-content {
+    .slide-content {
         position: absolute;
         left: 0;
         right: 0;
