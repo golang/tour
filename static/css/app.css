@@ -156,6 +156,7 @@ ul {
 /* Lesson viewer */
 .slide-content {
     padding: 16px;
+    background: #fff;
 }
 .module-bar {
     font-size: 1.5em;
@@ -208,7 +209,7 @@ ul {
 #file-menu .menu-button {
     float: right;
 }
-#run, #kill {
+a#run, a#kill {
     background-color: #375eab;
     color: #fff;
     width: 40px;
@@ -283,7 +284,7 @@ ul {
         right: 0px;
         bottom: 0px;
         overflow: hidden;
-        background: #fafafa;
+        background: #fff;
     }
     #left-side {
         position: absolute;
@@ -292,10 +293,12 @@ ul {
         left: 0;
         width: 50%;
         overflow: hidden;
+    }
+    .output {
         background-image: url(/static/img/gopher.png);
         background-repeat: no-repeat;
         background-position: bottom;
-        background-color: #fafafa;
+        background-color: #fff;
     }
     div[vertical-slide] {
         position: absolute;
