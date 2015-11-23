@@ -211,8 +211,8 @@ For example, you should be able to register handlers using:
 	http.Handle("/struct", &Struct{"Hello", ":", "Gophers!"})
 
 After starting your server, you will be able to visit
-[[http://localhost:4000/strings][http://localhost:4000/string]] and
-[[http://localhost:4000/strings][http://localhost:4000/struct]].
+[[http://localhost:4000/string][http://localhost:4000/string]] and
+[[http://localhost:4000/struct][http://localhost:4000/struct]].
 
 For more details about the `http.Handle` function, see
 [[https://golang.org/pkg/net/http/#Handle][the documentation]].
