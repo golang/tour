@@ -130,11 +130,36 @@ Then read and print 10 values from the channel. It should be the numbers 1, 2, 3
 
 .play concurrency/exercise-equivalent-binary-trees.go
 
+* sync.Mutex
+
+We've seen how channels are great for communication among goroutines.
+
+But what if we don't need communication? What if we just want to make sure only
+one goroutine can access a variable at a time to avoid conflicts?
+
+This concept is called _mutual_exclusion_, and the conventional name for the data structure that provides it is _mutex_.
+
+Go's standard library provides mutual exclusion with
+[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
+
+- `Lock`
+- `Unlock`
+
+We can define a block of code to be executed in mutual exclusion by surrounding it
+with a call to `Lock` and `Unlock` as shown on the `Inc` method.
+
+We can also use `defer` to ensure the mutex will be unlocked as in the `Value` method.
+
+.play concurrency/mutex-counter.go
+
 * Exercise: Web Crawler
 
 In this exercise you'll use Go's concurrency features to parallelize a web crawler.
 
 Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+
+_Hint_: you can keep a cache of the URLs that have been fetched on a map, but maps alone are not
+safe for concurrent use!
 
 .play concurrency/exercise-web-crawler.go
 
