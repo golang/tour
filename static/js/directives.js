@@ -193,6 +193,7 @@ directive('tableOfContents', ['$routeParams', 'toc',
                     $('.toc').toggle('slide', {
                         direction: 'right'
                     }, speed);
+                    $('#editor-container').show();
                 };
             }
         };
