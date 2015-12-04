@@ -189,7 +189,7 @@ factory('toc', ['$http', '$q', '$log', 'tableOfContents', 'storage',
                             var page = lesson.Pages[p];
                             for (var f = 0; f < page.Files.length; f++) {
                                 page.Files[f].OrigContent = page.Files[f].Content;
-                                var val = storage.get(lessonName + '.' + p + '.' + f);
+                                var val = storage.get(page.Files[f].Hash);
                                 if (val !== null) {
                                     page.Files[f].Content = val;
                                 }
