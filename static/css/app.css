@@ -16,8 +16,11 @@ html, body {
     outline: none;
 }
 a {
-    color: inherit;
+    color: #375eab;
     text-decoration: none;
+}
+a.logo, .toc a {
+    color: inherit;
 }
 h1, h2, h3, h4 {
     color: #333;
@@ -201,10 +204,6 @@ ul {
 }
 .menu-button[syntax-checkbox].active:after {
     content: ' on';
-}
-#right-side a {
-    color: #375eab;
-    text-decoration: none;
 }
 #file-menu .menu-button {
     float: right;
