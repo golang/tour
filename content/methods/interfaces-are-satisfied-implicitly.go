@@ -2,29 +2,23 @@
 
 package main
 
-import (
-	"fmt"
-	"os"
-)
+import "fmt"
 
-type Reader interface {
-	Read(b []byte) (n int, err error)
+type I interface {
+	M()
 }
 
-type Writer interface {
-	Write(b []byte) (n int, err error)
+type T struct {
+	S string
 }
 
-type ReadWriter interface {
-	Reader
-	Writer
+// This method means type T implements the interface I,
+// but we don't need to explicitly declare that it does so.
+func (t T) M() {
+	fmt.Println(t.S)
 }
 
 func main() {
-	var w Writer
-
-	// os.Stdout implements Writer
-	w = os.Stdout
-
-	fmt.Fprintf(w, "hello, writer\n")
+	var i I = &T{"hello"}
+	i.M()
 }
