@@ -74,16 +74,16 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: The stand-alone tour is faster, as it builds and runs the code samples
 #appengine: on your own machine.
 #appengine: 
-#appengine: To run the tour locally first [[http://golang.org/doc/install/][install Go]]
-#appengine: then use [[http://golang.org/cmd/go/][go get]] to install
-#appengine: [[http://golang.org/x/tour/][gotour]]:
+#appengine: To run the tour locally first
+#appengine: [[http://golang.org/dl/][download and install Go]]
+#appengine: then start the tour from the command line:
 #appengine: 
-#appengine: 	go get golang.org/x/tour/gotour
+#appengine: 	go tool tour
 #appengine: 
-#appengine: and run the resultant `gotour` executable.
+#appengine: The tour program will open a web browser displaying
+#appengine: your local version of the tour.
 #appengine: 
-#appengine: 	cd $GOPATH/bin
-#appengine: 	./gotour
+#appengine: Or, of course, you can continue to take the tour through this web site.
 
 #appengine: * The Go Playground
 #appengine: 
