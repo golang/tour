@@ -1,4 +1,4 @@
-// +build OMIT
+// +build no-build OMIT
 
 package main
 
