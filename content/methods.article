@@ -134,7 +134,7 @@ This can be more efficient if the receiver is a large struct, for example.
 In this example, both `Scale` and `Abs` are with receiver type `*Vertex`,
 even though the `Abs` method needn't modify its receiver.
 
-In general, all methods on a given type to should have either value or pointer
+In general, all methods on a given type should have either value or pointer
 receivers, but not a mixture of both.
 (We'll see why over the next few pages.)
 
