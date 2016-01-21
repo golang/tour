@@ -354,7 +354,7 @@ populated and an error value. It returns an `io.EOF` error when the stream
 ends.
 
 The example code creates a 
-[[//golang.org/pkg/strings/#Reader][`strings.Reader`]].
+[[//golang.org/pkg/strings/#Reader][`strings.Reader`]]
 and consumes its output 8 bytes at a time.
 
 .play methods/reader.go
