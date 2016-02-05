@@ -36,6 +36,9 @@ Like maps and slices, channels must be created before use:
 
 By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
 
+The example code sums the numbers in a slice, distributing the work between two goroutines.
+Once both goroutines have completed their computation, it calculates the final result.
+
 .play concurrency/channels.go
 
 * Buffered Channels
