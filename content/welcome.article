@@ -36,8 +36,8 @@ Edit the program and run it again.
 
 Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `ctrl-enter`
 the text in the editor is formatted using the
-[[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch on and off syntax highlighting
-the clicking on [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
+[[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
+by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
 When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
 
