@@ -83,7 +83,7 @@ A slice points to an array of values and also includes a length.
 
 `[]T` is a slice with elements of type `T`.
 
-`len(s)` returns the length of slice `s`.
+`len(primes)` returns the length of slice `primes`.
 
 .play moretypes/slices.go
 
