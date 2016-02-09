@@ -9,24 +9,20 @@ import (
 
 func main() {
 	// Create a tic-tac-toe board.
-	game := [][]string{
+	board := [][]string{
 		[]string{"_", "_", "_"},
 		[]string{"_", "_", "_"},
 		[]string{"_", "_", "_"},
 	}
 
 	// The players take turns.
-	game[0][0] = "X"
-	game[2][2] = "O"
-	game[2][0] = "X"
-	game[1][0] = "O"
-	game[0][2] = "X"
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[2][0] = "X"
+	board[1][0] = "O"
+	board[0][2] = "X"
 
-	printBoard(game)
-}
-
-func printBoard(s [][]string) {
-	for i := 0; i < len(s); i++ {
-		fmt.Printf("%s\n", strings.Join(s[i], " "))
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
 	}
 }
