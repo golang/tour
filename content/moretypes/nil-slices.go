@@ -5,9 +5,9 @@ package main
 import "fmt"
 
 func main() {
-	var z []int
-	fmt.Println(z, len(z), cap(z))
-	if z == nil {
+	var s []int
+	fmt.Println(s, len(s), cap(s))
+	if s == nil {
 		fmt.Println("nil!")
 	}
 }
