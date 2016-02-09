@@ -5,23 +5,22 @@ package main
 import "fmt"
 
 func main() {
-	var a []int
-	printSlice("a", a)
+	var s []int
+	printSlice(s)
 
 	// append works on nil slices.
-	a = append(a, 0)
-	printSlice("a", a)
+	s = append(s, 0)
+	printSlice(s)
 
-	// the slice grows as needed.
-	a = append(a, 1)
-	printSlice("a", a)
+	// The slice grows as needed.
+	s = append(s, 1)
+	printSlice(s)
 
-	// we can add more than one element at a time.
-	a = append(a, 2, 3, 4)
-	printSlice("a", a)
+	// We can add more than one element at a time.
+	s = append(s, 2, 3, 4)
+	printSlice(s)
 }
 
-func printSlice(s string, x []int) {
-	fmt.Printf("%s len=%d cap=%d %v\n",
-		s, len(x), cap(x), x)
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
