@@ -157,7 +157,7 @@ _zero_value_.
 The zero value is:
 
 - `0` for numeric types,
-- `false` the boolean type, and
+- `false` for the boolean type, and
 - `""` (the empty string) for strings.
 
 .play basics/zero.go
