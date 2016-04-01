@@ -64,6 +64,7 @@ The special prefix `&` returns a pointer to the struct value.
 
 .play moretypes/struct-literals.go
 
+
 * Arrays
 
 The type `[n]T` is an array of `n` values of type `T`.
@@ -80,45 +81,110 @@ Go provides a convenient way of working with arrays.
 
 .play moretypes/array.go
 
+
 * Slices
 
-A slice points to an array of values and also includes a length.
+An array has a fixed size.
+A slice, on the other hand, is a dynamically-sized,
+flexible view into the elements of an array.
+In practice, slices are much more common than arrays.
 
-`[]T` is a slice with elements of type `T`.
+The type `[]T` is a slice with elements of type `T`.
 
-`len(primes)` returns the length of slice `primes`.
+This expression creates a slice of the first five elements of the array `a`:
+
+	a[0:5]
+
 
 .play moretypes/slices.go
 
-* Slices of Slices
 
-Slices can contain any type, including other slices.
+* Slices are like references to arrays
 
-.play moretypes/slices-of-slice.go
+A slice does not store any data,
+it just describes a section of an underlying array.
 
-* Slicing slices
+Changing the elements of a slice modifies the
+corresponding elements of its underlying array.
 
-Slices can be re-sliced, creating a new slice value that points to the same array.
+Other slices that share the same underlying array will see those changes.
 
-The expression
+.play moretypes/slices-pointers.go
 
-	s[lo:hi]
 
-evaluates to a slice of the elements from `lo` through `hi-1`, inclusive. Thus
+* Slice literals
 
-	s[lo:lo]
+A slice literal is like an array literal without the length.
 
-is empty and
+This is an array literal:
 
-	s[lo:lo+1]
+	[3]bool{true, true, false}
 
-has one element.
+And this creates the same array as above,
+then builds a slice that references it:
 
-.play moretypes/slicing-slices.go
+	[]bool{true, true, false}
 
-* Making slices
+.play moretypes/slice-literals.go
 
-Slices are created with the `make` function. It works by allocating a zeroed array and returning a slice that refers to that array:
+
+* Slice defaults
+
+When slicing, you may omit the high or low bounds to use their defaults instead.
+
+The default is zero for the low bound and the length of the slice for the high bound.
+
+For the array
+
+	var a [10]int
+
+these slice expressions are equivalent:
+
+	a[0:10]
+	a[:10]
+	a[0:]
+	a[:]
+
+.play moretypes/slice-bounds.go
+
+
+* Slice length and capacity
+
+A slice has both a _length_ and a _capacity_.
+
+The length of a slice is the number of elements it contains.
+
+The capacity of a slice is the number of elements in the underlying array,
+counting from the first element in the slice.
+
+The length and capacity of a slice `s` can be obtained using the expressions
+`len(s)` and `cap(s)`.
+
+You can extend a slice's length by re-slicing it,
+provided it has sufficient capacity.
+Try changing one of the slice operations in the example program to extend it
+beyond its capacity and see what happens.
+
+.play moretypes/slice-len-cap.go
+
+
+* Nil slices
+
+The zero value of a slice is `nil`.
+
+A nil slice has a length and capacity of 0
+and has no underlying array.
+
+.play moretypes/nil-slices.go
+
+
+* Creating a slice with make
+
+Slices can be created with the built-in `make` function;
+this is how you create dynamically-sized arrays.
+
+The `make` function allocates a zeroed array
+and returns a slice that refers to that array:
 
 	a := make([]int, 5)  // len(a)=5
 
@@ -131,15 +197,15 @@ To specify a capacity, pass a third argument to `make`:
 
 .play moretypes/making-slices.go
 
-* Nil slices
 
-The zero value of a slice is `nil`.
+* Slices of slices
 
-A nil slice has a length and capacity of 0.
+Slices can contain any type, including other slices.
 
-.play moretypes/nil-slices.go
+.play moretypes/slices-of-slice.go
 
-* Adding elements to a slice
+
+* Appending to a slice
 
 It is common to append new elements to a slice, and so Go provides a built-in
 `append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
@@ -160,6 +226,7 @@ array.
 (To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
 
 .play moretypes/append.go
+
 
 * Range
 
