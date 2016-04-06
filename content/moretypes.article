@@ -195,7 +195,7 @@ The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`
 A map maps keys to values.
 
 The zero value of a map is `nil`.
-A `nil` map has no keys, nor can they be added.
+A `nil` map has no keys, nor can keys be added.
 
 The `make` function returns a map of the given type,
 initialized and ready for use.
