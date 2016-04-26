@@ -11,13 +11,17 @@ handlers:
 - url: /favicon.ico
   static_files: static/img/favicon.ico
   upload: static/img/favicon.ico
+  secure: always
 - url: /content/img
   static_dir: content/img
+  secure: always
 - url: /static
   static_dir: static
   application_readable: true
+  secure: always
 
 - url: /(.*|list|lesson/.*|compile|fmt|script\.js)
   script: _go_app
+  secure: always
 
 nobuild_files: (solutions|content)/.*
