@@ -21,8 +21,8 @@ import (
 const runUrl = "http://golang.org/compile"
 
 func init() {
-	http.HandleFunc("/lesson/", lessonHandler)
-	http.HandleFunc("/", rootHandler)
+	http.Handle("/lesson/", hstsHandler(lessonHandler))
+	http.Handle("/", hstsHandler(rootHandler))
 
 	if err := initTour(".", "HTTPTransport"); err != nil {
 		panic(err)
@@ -87,3 +87,11 @@ func prepContent(in io.Reader) io.Reader {
 // socketAddr returns the WebSocket handler address.
 // The App Engine version does not provide a WebSocket handler.
 func socketAddr() string { return "" }
+
+// hstsHandler wraps an http.HandlerFunc such that it sets the HSTS header.
+func hstsHandler(fn http.HandlerFunc) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Strict-Transport-Security", "max-age=31536000; preload")
+		fn(w, r)
+	})
+}
