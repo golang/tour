@@ -14,8 +14,7 @@ var (
 )
 
 func main() {
-	const f = "%T(%v)\n"
-	fmt.Printf(f, ToBe, ToBe)
-	fmt.Printf(f, MaxInt, MaxInt)
-	fmt.Printf(f, z, z)
+	fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)
+	fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt)
+	fmt.Printf("Type: %T Value: %v\n", z, z)
 }
