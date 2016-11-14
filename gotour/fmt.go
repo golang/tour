@@ -12,6 +12,8 @@ import (
 	"go/printer"
 	"go/token"
 	"net/http"
+
+	"golang.org/x/tools/imports"
 )
 
 func init() {
@@ -25,7 +27,15 @@ type fmtResponse struct {
 
 func fmtHandler(w http.ResponseWriter, r *http.Request) {
 	resp := new(fmtResponse)
-	body, err := gofmt(r.FormValue("body"))
+	var body string
+	var err error
+	if r.FormValue("imports") == "true" {
+		var b []byte
+		b, err = imports.Process("prog.go", []byte(r.FormValue("body")), nil)
+		body = string(b)
+	} else {
+		body, err = gofmt(r.FormValue("body"))
+	}
 	if err != nil {
 		resp.Error = err.Error()
 	} else {

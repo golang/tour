@@ -96,7 +96,7 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
 
         $scope.format = function() {
             log('info', i18n.l('waiting'));
-            fmt(file().Content).then(
+            fmt(file().Content, editor.imports).then(
                 function(data) {
                     if (data.data.Error !== '') {
                         log('stderr', data.data.Error);

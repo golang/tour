@@ -17,6 +17,7 @@
             <div id="explorer" ng-class="{hidden: toc.lessons[lessonId].Pages[curPage-1].Files.length==0}">
                 <a class="menu-button" ng-repeat="f in toc.lessons[lessonId].Pages[curPage-1].Files" ng-click="openFile($index)" ng-class="{active: $index==curFile}">{{f.Name}}</a>
                 <a syntax-checkbox ng-class="{active: editor.syntax}" class="menu-button syntax-checkbox">Syntax</a>
+                <a imports-checkbox ng-class="{active: editor.imports}" class="menu-button imports-checkbox">Imports</a>
             </div>
 
             <div class="relative-content" ng-class="{hidden: toc.lessons[lessonId].Pages[curPage-1].Files.length==0}">

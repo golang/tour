@@ -61,9 +61,10 @@ factory('run', ['$window', 'editor',
 // Formatting code
 factory('fmt', ['$http',
     function($http) {
-        return function(body) {
+        return function(body, imports) {
             var params = $.param({
-                'body': body
+                'body': body,
+                'imports': imports,
             });
             var headers = {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -104,6 +105,11 @@ factory('storage', ['$window',
 factory('editor', ['$window', 'storage',
     function(win, storage) {
         var ctx = {
+            imports: storage.get('imports') === 'true',
+            toggleImports: function() {
+                ctx.imports = !ctx.imports;
+                storage.set('imports', ctx.imports);
+            },
             syntax: storage.get('syntax') === 'true',
             toggleSyntax: function() {
                 ctx.syntax = !ctx.syntax;

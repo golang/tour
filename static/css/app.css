@@ -199,6 +199,12 @@ ul {
 .menu-button.active {
     background: #fff;
 }
+.menu-button[imports-checkbox]:after {
+    content: ' off';
+}
+.menu-button[imports-checkbox].active:after {
+    content: ' on';
+}
 .menu-button[syntax-checkbox]:after {
     content: ' off';
 }
@@ -242,6 +248,9 @@ a#run, a#kill {
     height: 32px;
     padding-left: 30px;
     background: #fafafa;
+}
+#explorer .imports-checkbox {
+    float: right;
 }
 #explorer .menu-button.active {
     cursor: default;

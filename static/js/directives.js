@@ -48,6 +48,19 @@ directive('autofocus', function() {
     };
 }).
 
+// imports-checkbox activates and deactivates
+directive('importsCheckbox', ['editor',
+    function(editor) {
+        return function(scope, elm) {
+            elm.click(function() {
+                editor.toggleImports();
+                scope.$digest();
+            });
+            scope.editor = editor;
+        };
+    }
+]).
+
 // syntax-checkbox activates and deactivates
 directive('syntaxCheckbox', ['editor',
     function(editor) {
