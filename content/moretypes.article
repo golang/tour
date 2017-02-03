@@ -33,8 +33,6 @@ Unlike C, Go has no pointer arithmetic.
 
 A `struct` is a collection of fields.
 
-(And a `type` declaration does what you'd expect.)
-
 .play moretypes/structs.go
 
 * Struct Fields
