@@ -1,95 +1,95 @@
-More types: structs, slices, and maps.
-Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
+Еще типы: структуры, срезы и карты (словари).
+Узнайте как определять новые типы основанные на существующих: в этом уроке рассматриваются структуры, массивы, срезы и карты (словари).
 
-The Go Authors
+Авторы Go
 https://golang.org
 
-* Pointers
+* Указатели
 
-Go has pointers.
-A pointer holds the memory address of a value.
+В Go есть указатели.
+Указатель содержит адрес переменной в памяти.
 
-The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
+Тип `*T` is это указатель на значение `T`. Его нулевое значение `nil`.
 
 	var p *int
 
-The `&` operator generates a pointer to its operand.
+Оператор `&` возвращает указатель на его операнд.
 
 	i := 42
 	p = &i
 
-The `*` operator denotes the pointer's underlying value.
+Оператор `*` дает доступ к нижележащему значению указателя.
 
-	fmt.Println(*p) // read i through the pointer p
-	*p = 21         // set i through the pointer p
+	fmt.Println(*p) // прочитать i через указатель p
+	*p = 21         // установить i через указатель p
 
-This is known as "dereferencing" or "indirecting".
+Это известно как "разыменования" и "присваивание".
 
-Unlike C, Go has no pointer arithmetic.
+В отличие от C, в Go нет адресной арифметики.
 
 .play moretypes/pointers.go
 
-* Structs
+* Структуры
 
-A `struct` is a collection of fields.
+`struct` это коллекция полей.
 
 .play moretypes/structs.go
 
-* Struct Fields
+* Поля структуры
 
-Struct fields are accessed using a dot.
+Доступ к полям структуры производится с помощью точки.
 
 .play moretypes/struct-fields.go
 
-* Pointers to structs
+* Указатели на структуры
 
-Struct fields can be accessed through a struct pointer.
+Доступ к полям структуры может быть получен через указатель на структуру.
 
-To access the field `X` of a struct when we have the struct pointer `p` we could
-write `(*p).X`.
-However, that notation is cumbersome, so the language permits us instead to
-write just `p.X`, without the explicit dereference.
+Чтобы получить поле `X` структуры, когда у нас есть указатель на структуру `p`, мы можем
+написать `(*p).X`.
+Однако такая запись громоздка, поэтому язык позволяет нам просто
+писать `p.X`, без явного разыменования.
 
 .play moretypes/struct-pointers.go
 
-* Struct Literals
+* Литералы структур
 
-A struct literal denotes a newly allocated struct value by listing the values of its fields.
+Литерал структуры определяет новую структуру путем перечисления значений ее полей.
 
-You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
+Вы можете перечислить не все поля, а лишь некоторое подмножество с помощью синтаксиса `Name:`. (Тогда порядок именованных полей не имеет значения.)
 
-The special prefix `&` returns a pointer to the struct value.
+Специальный префикс `&` возвращает указатель на структуру.
 
 .play moretypes/struct-literals.go
 
 
-* Arrays
+* Массивы
 
-The type `[n]T` is an array of `n` values of type `T`.
+Тип `[n]T` обозначает массив из `n` значений типа `T`.
 
-The expression
+Выражение
 
 	var a [10]int
 
-declares a variable `a` as an array of ten integers.
+объявляет переменную `a` как массив из десяти целых чисел.
 
-An array's length is part of its type, so arrays cannot be resized.
-This seems limiting, but don't worry;
-Go provides a convenient way of working with arrays.
+Размер (длина) массива является частью типа, поэтому размер массива не может быть изменен.
+Это может показаться ограничением, но не беспокойтесь;
+Go предоставляет удобный способ работы с массивами.
 
 .play moretypes/array.go
 
 
-* Slices
+* Срезы
 
-An array has a fixed size.
-A slice, on the other hand, is a dynamically-sized,
-flexible view into the elements of an array.
-In practice, slices are much more common than arrays.
+Массивы имеют фиксированный размер.
+Срез - это гибкое отображение элементов массива
+с возможностью динамического изменения размера.
+На практике срезы более распространены, чем массивы.
 
-The type `[]T` is a slice with elements of type `T`.
+Тип `[]T` обозначает срез в элементами типа `T`.
 
-This expression creates a slice of the first five elements of the array `a`:
+Это выражение создает срез из пяти первых элементов массива `a`:
 
 	a[0:5]
 
@@ -97,46 +97,47 @@ This expression creates a slice of the first five elements of the array `a`:
 .play moretypes/slices.go
 
 
-* Slices are like references to arrays
+* Срезы это как указатели на массивы
 
-A slice does not store any data,
-it just describes a section of an underlying array.
+Срез не хранит никаких данных,
+он всего лишь обозначает секцию нижележащего массива.
 
-Changing the elements of a slice modifies the
-corresponding elements of its underlying array.
+Изменения элементов среза приводят к модификации
+соответствующих элементов его нижележащего массива.
 
-Other slices that share the same underlying array will see those changes.
+Другие срезы, имеющие общий нижележащий массив, также увидят эти изменения.
 
 .play moretypes/slices-pointers.go
 
 
-* Slice literals
+* Литералы срезов
 
-A slice literal is like an array literal without the length.
+Литерал среза такой же как и для массива, но без размера.
 
-This is an array literal:
+Вот пример создания массива:
 
 	[3]bool{true, true, false}
 
-And this creates the same array as above,
-then builds a slice that references it:
+
+Здесь будет создан такой же массив, как и выше,
+а затем построен срез, ссылающийся на него:
 
 	[]bool{true, true, false}
 
 .play moretypes/slice-literals.go
 
 
-* Slice defaults
+* Значения по умолчанию в срезах
 
-When slicing, you may omit the high or low bounds to use their defaults instead.
+Когда вы хотите создать срез, то можете опустить верхнюю или нижнюю границы, чтобы использовать значения по умолчанию.
 
-The default is zero for the low bound and the length of the slice for the high bound.
+Значением по умолчанию для нижней границы является нуль, а для верхней - размер среза.
 
-For the array
+Для массива
 
 	var a [10]int
 
-these slice expressions are equivalent:
+следующие выражения создания среза эквивалентны:
 
 	a[0:10]
 	a[:10]
@@ -146,47 +147,46 @@ these slice expressions are equivalent:
 .play moretypes/slice-bounds.go
 
 
-* Slice length and capacity
+* Размер и вместимость среза
 
-A slice has both a _length_ and a _capacity_.
+Срез имеет _размер_ (_длину_) и _вместимость_.
 
-The length of a slice is the number of elements it contains.
+Размер среза - это количество элементов, которые он содержит.
 
-The capacity of a slice is the number of elements in the underlying array,
-counting from the first element in the slice.
+Вместимость среза - это количество элементов в его нижележащем массиве,
+начиная с первого элемента в срезе.
 
-The length and capacity of a slice `s` can be obtained using the expressions
-`len(s)` and `cap(s)`.
+Размер и вместимость среза `s` могут быть получены с помощью
+`len(s)` и `cap(s)`.
 
-You can extend a slice's length by re-slicing it,
-provided it has sufficient capacity.
-Try changing one of the slice operations in the example program to extend it
-beyond its capacity and see what happens.
+Размер среза может быть увеличен путем повторной операции "срезания",
+при условии, что он обладает достаточной вместимостью.
+Попробуйте изменить одну из операций над срезом в данной программе, чтобы расширить его за пределы вместимости и посмотрите, что будет.
 
 .play moretypes/slice-len-cap.go
 
 
-* Nil slices
+* Нулевые срезы
 
-The zero value of a slice is `nil`.
+Нулевым значением среза является `nil`.
 
-A nil slice has a length and capacity of 0
-and has no underlying array.
+Длина и вместимость нулевого среза равны 0,
+и у него нет нижележащего массива.
 
 .play moretypes/nil-slices.go
 
 
-* Creating a slice with make
+* Создание среза с помощью make
 
-Slices can be created with the built-in `make` function;
-this is how you create dynamically-sized arrays.
+Срезы могут быть созданы с помощью встроенной функции `make`;
+вот как вы создаете массивы с динамическим размером.
 
-The `make` function allocates a zeroed array
-and returns a slice that refers to that array:
+Функция `make` создает обнуленный массив
+и возвращает срез, который ссылается на этот массив.
 
 	a := make([]int, 5)  // len(a)=5
 
-To specify a capacity, pass a third argument to `make`:
+Чтобы указать вместимость, укажите третий аргумент к `make`:
 
 	b := make([]int, 0, 5) // len(b)=0, cap(b)=5
 
@@ -196,153 +196,153 @@ To specify a capacity, pass a third argument to `make`:
 .play moretypes/making-slices.go
 
 
-* Slices of slices
+* Срезы срезов
 
-Slices can contain any type, including other slices.
+Срезы могут содержать данные любого типа, в том числе и другие срезы.
 
 .play moretypes/slices-of-slice.go
 
 
-* Appending to a slice
+* Добавление к срезу
 
-It is common to append new elements to a slice, and so Go provides a built-in
-`append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
-of the built-in package describes `append`.
+Необходимость добавления новых элементов к срезу возникает часто, и Go предоставляет встроенную
+функцию `append`. [[https://golang.org/pkg/builtin/#append][Документация]]
+по встроенному пакету описывает `append`.
 
 	func append(s []T, vs ...T) []T
 
-The first parameter `s` of `append` is a slice of type `T`, and the rest are
-`T` values to append to the slice.
+Первый параметр `s` для `append` это срез элементов типа `T`, а остальные - значения
+типа `T` для добавления к срезу.
 
-The resulting value of `append` is a slice containing all the elements of the
-original slice plus the provided values.
+Результатом `append` является слез, который содержит все элементы
+оригинального среза, а также новые значения.
 
-If the backing array of `s` is too small to fit all the given values a bigger
-array will be allocated. The returned slice will point to the newly allocated
-array.
+Если нижележащий массив среза `s` слишком мал, чтобы вместить все значения, то
+ будет создан новый массив большего размера. Результирующий срез будет ссылаться на этот
+ новый массив.
 
-(To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
+(Чтобы узнать больше о срезах, прочтите статью [[https://blog.golang.org/go-slices-usage-and-internals][Срезы: использование и внутреннее устройство]].)
 
 .play moretypes/append.go
 
 
 * Range
 
-The `range` form of the `for` loop iterates over a slice or map.
+Итерация по срезу или карте производится с помощью формы цикла `for` с ключевым словом `range`.
 
-When ranging over a slice, two values are returned for each iteration.
-The first is the index, and the second is a copy of the element at that index.
+На каждой итерации по срезу возвращаются два значения.
+Первое - это индекс, а второе - копия элемента по этому индексу.
 
 .play moretypes/range.go
 
-* Range continued
+* Range, продолжение
 
-You can skip the index or value by assigning to `_`.
+Вы можете опустить индекс или значение путем его присвоения к `_`.
 
-If you only want the index, drop the ", value" entirely.
+Если вам нужен только индекс, опустите ", value" полностью.
 
 .play moretypes/range-continued.go
 
-* Exercise: Slices
+* Упражнение: срезы
 
-Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+Реализуйте `Pic`. Она должна возвращать срез размером `dy`, каждый элемент которого это срез из `dx` 8-битных беззнаковых целых чисел. Когда вы запустите программу, она покажет изображение, интерпретируя целые числа как оттенки серого  (вообще-то, синего).
 
-The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`, and `x^y`.
+Выбор изображения за вами. Среди интересных функций `(x+y)/2`, `x*y` и `x^y`.
 
-(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+(Необходимо использовать цикл, чтобы создать каждый `[]uint8` внутри `[][]uint8`.)
 
-(Use `uint8(intValue)` to convert between types.)
+(Используйте `uint8(intValue)` для приведения типов.)
 
 .play moretypes/exercise-slices.go
 
-* Maps
+* Карты (словари)
 
-A map maps keys to values.
+Карта ассоциирует ключ и значение.
 
-The zero value of a map is `nil`.
-A `nil` map has no keys, nor can keys be added.
+Нулевое значение карты это `nil`.
+Нулевая карта не содержит ключи, и ключи не могут быть добавлены.
 
-The `make` function returns a map of the given type,
-initialized and ready for use.
+Функция `make` возвращает карту заданного типа,
+инициализированную и готовую к использованию.
 
 .play moretypes/maps.go
 
-* Map literals
+* Литералы карт
 
-Map literals are like struct literals, but the keys are required.
+Литералы карт похожи на литералы структур, но ключи обязательны.
 
 .play moretypes/map-literals.go
 
-* Map literals continued
+* Литералы карт, продолжение
 
-If the top-level type is just a type name, you can omit it from the elements of the literal.
+Если тип верхнего уровня всего лишь имя типа, то вы можете не указывать его для элементов литерала.
 
 .play moretypes/map-literals-continued.go
 
-* Mutating Maps
+* Изменения карт
 
-Insert or update an element in map `m`:
+Добавление или изменение элемента карты `m`:
 
 	m[key] = elem
 
-Retrieve an element:
+Получить элемент:
 
 	elem = m[key]
 
-Delete an element:
+Удалить элемент:
 
 	delete(m, key)
 
-Test that a key is present with a two-value assignment:
+Проверить, что ключ присутствует с помощью присвоения двух значений:
 
 	elem, ok = m[key]
 
-If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
+Если `key` присутствует в `m`, `ok` будет `true`. Если нет, `ok` - `false`.
 
-If `key` is not in the map, then `elem` is the zero value for the map's element type.
+Если `key` не присутствует в карте, то `elem` будет нулевым значением типа элементов карты.
 
-_Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
+_Примечание_: если `elem` или `ok` не были объявлены, то вы можете использовать краткую форму:
 
 	elem, ok := m[key]
 
 .play moretypes/mutating-maps.go
 
-* Exercise: Maps
+* Упражнение: карты
 
-Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+Реализуйте `WordCount`. Она должна вернуть карту с количеством повторений каждого "слова" в строке `s`. Функция `wc.Test` запускает набор тестов для предоставленной функции и выводит сообщение об успехе или неудаче.
 
-You might find [[https://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+Возможно, вам пригодится [[https://golang.org/pkg/strings/#Fields][strings.Fields]].
 
 .play moretypes/exercise-maps.go
 
-* Function values
+* Функция как значение
 
-Functions are values too. They can be passed around just like other values.
+Функции тоже являются значениями. Их можно передавать так же как и остальные значения.
 
-Function values may be used as function arguments and return values.
+Функции могут быть использованы как аргументы других функций и как возвращаемые значения.
 
 .play moretypes/function-values.go
 
-* Function closures
+* Замыкания
 
-Go functions may be closures. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+В Go функции могут быть замыканиями. Замыкание - это функция, которая ссылается к переменным вне ее тела. Функция имеет доступ к связанным переменным, а также может присваивать им значения; в этом смысле функция "связана" с этими переменными.
 
-For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+Например, функция `adder` возвращает замыкание. Каждое замыкание связано со своей собственной переменной `sum`.
 
 .play moretypes/function-closures.go
 
-* Exercise: Fibonacci closure
+* Упражнение: замыкание Фибоначчи
 
-Let's have some fun with functions.
+Давайте повеселимся с функциями.
 
-Implement a `fibonacci` function that returns a function (a closure) that
-returns successive [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonacci numbers]]
+Реализуйте функцию `fibonacci`, которая возвращает функцию (замыкание), которая возвращает
+последовательные [[https://en.wikipedia.org/wiki/Fibonacci_number][числа Фибоначчи]]
 (0, 1, 1, 2, 3, 5, ...).
 
 .play moretypes/exercise-fibonacci-closure.go
 
-* Congratulations!
+* Поздравляем!
 
-You finished this lesson!
+Вы закончили этот урок!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Вы можете вернуться к списку [[/list][модулей]], чтобы найти, что изучить дальше, или перейдите к [[javascript:click('.next-page')][следующему уроку]].

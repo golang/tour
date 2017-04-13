@@ -9,44 +9,44 @@ angular.module('tour.values', []).
 // List of modules with description and lessons in it.
 value('tableOfContents', [{
     'id': 'mechanics',
-    'title': 'Using the tour',
-    'description': '<p>Welcome to a tour of the <a href="http://golang.org">Go programming language</a>. The tour covers the most important features of the language, mainly:</p>',
+    'title': 'Использование тура',
+    'description': '<p>Добро пожаловать в тур по <a href="http://golang.org">языку программирования Go</a>. Тур охватывает наиболее важные аспекты языка, а именно:</p>',
     'lessons': ['welcome']
 }, {
     'id': 'basics',
-    'title': 'Basics',
-    'description': '<p>The starting point, learn all the basics of the language.</p><p>Declaring variables, calling functions, and all the things you need to know before moving to the next lessons.</p>',
+    'title': 'Основы',
+    'description': '<p>Отправная точка, изучите все основы языка.</p><p>Объявление переменных, вызов функций и все, что необходимо знать перед тем, как переходить к следующим урокам.</p>',
     'lessons': ['basics', 'flowcontrol', 'moretypes']
 }, {
     'id': 'methods',
-    'title': 'Methods and interfaces',
-    'description': '<p>Learn how to define methods on types, how to declare interfaces, and how to put everything together.</p>',
+    'title': 'Методы и интерфейсы',
+    'description': '<p>Узнайте как объявлять методы для типов, как объявлять интерфейсы, и как все это соединить вместе.</p>',
     'lessons': ['methods']
 }, {
     'id': 'concurrency',
-    'title': 'Concurrency',
-    'description': '<p>Go provides concurrency features as part of the core language.</p><p>This module goes over goroutines and channels, and how they are used to implement different concurrency patterns.</p>',
+    'title': 'Многопоточность',
+    'description': '<p>В Go возможности для реализации многопоточности явлются неотъемлемой частью языка.</p><p>Этот раздел описывает go-процедуры и каналы, а также как они используются для реализации различных шаблонов многопоточности.</p>',
     'lessons': ['concurrency']
 }]).
 
 // translation
 value('translation', {
-    'off': 'off',
-    'on': 'on',
-    'syntax': 'Syntax-Highlighting',
-    'lineno': 'Line-Numbers',
-    'reset': 'Reset Slide',
-    'format': 'Format Source Code',
-    'kill': 'Kill Program',
-    'run': 'Run',
-    'compile': 'Compile and Run',
-    'more': 'Options',
-    'toc': 'Table of Contents',
-    'prev': 'Previous',
-    'next': 'Next',
-    'waiting': 'Waiting for remote server...',
-    'errcomm': 'Error communicating with remote server.',
-    'submit-feedback': 'Send feedback about this page',
+    'off': 'выкл',
+    'on': 'вкл',
+    'syntax': 'Подсветка синтаксиса',
+    'lineno': 'Нумерация строк',
+    'reset': 'Сбросить слайд',
+    'format': 'Отформатировать код',
+    'kill': 'Остановить программу',
+    'run': 'Запустить',
+    'compile': 'Скомпилировать и запустить',
+    'more': 'Опции',
+    'toc': 'Содержание',
+    'prev': 'Назад',
+    'next': 'Вперед',
+    'waiting': 'Ожидание удаленного сервера...',
+    'errcomm': 'Ошибка связи с удаленным сервером.',
+    'submit-feedback': 'Отправить отзыв об этой странице',
 
     // GitHub issue template: update repo and messaging when translating.
     'github-repo': 'github.com/golang/tour',

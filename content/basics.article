@@ -1,130 +1,130 @@
-Packages, variables, and functions.
-Learn the basic components of any Go program.
+Пакеты, переменные и функции.
+Изучите базовые компоненты любой программы на Go.
 
-The Go Authors
+Авторы Go
 https://golang.org
 
-* Packages
+* Пакеты
 
-Every Go program is made up of packages.
+Каждая программа на Go состоит из пакетов.
 
-Programs start running in package `main`.
+Программа начинает работу в пакете `main`.
 
-This program is using the packages with import paths `"fmt"` and `"math/rand"`.
+Эта программа используется пакеты с путями импорта `"fmt"` и `"math/rand"`.
 
-By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
+По соглашению, имя пакета совпадает с последним элементов пути импорта. Например, пакет `"math/rand"` состоит из файлов, которые начинаются с оператора `package`rand`.
 
-#appengine: *Note:* the environment in which these programs are executed is
-#appengine: deterministic, so each time you run the example program
-#appengine: `rand.Intn` will return the same number.
+#appengine: *Замечание:* окружение, в котором выполняются эти программы,
+#appengine: заранее предопределено, так что каждый раз, когда вы запускаете пример
+#appengine: `rand.Intn` будет возвращать одно и то же число.
 #appengine:
-#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
+#appengine: (Чтобы получить другое число, инициализируйте генератор случайных чисел; подробнее [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
 
 .play basics/packages.go
 
-* Imports
+* Импорты
 
-This code groups the imports into a parenthesized, "factored" import statement. 
+Этот код группирует импорты в один import оператор с помощью скобочек.
 
-You can also write multiple import statements, like:
+Вы также можете использовать несколько import операторов:
 
 	import "fmt"
 	import "math"
 
-But it is good style to use the factored import statement.
+Но хорошим тоном считается использование группированного import оператора.
 
 .play basics/imports.go
 
-* Exported names
+* Экспортированные имена
 
-In Go, a name is exported if it begins with a capital letter.
-For example, `Pizza` is an exported name, as is `Pi`, which is exported from
-the `math` package.
+В Go имя экспортируется, если оно начинается с заглавной буквы.
+Например, `Pizza` это экспортируемое имя, так же как и `Pi`, которое экспортируется
+из пакета `math`.
 
-`pizza` and `pi` do not start with a capital letter, so they are not exported.
+`pizza` и `pi` не начинаются с заглавной буквы, поэтому они не экспортируются.
 
-When importing a package, you can refer only to its exported names.
-Any "unexported" names are not accessible from outside the package.
+Когда вы импортируете пакет, то можете ссылаться только на его экспортируемые имена.
+Любые не экспортированные имена недоступны за пределами пакета.
 
-Run the code. Notice the error message.
+Запустите код. Обратите внимание на сообщение об ошибке.
 
-To fix the error, rename `math.pi` to `math.Pi` and try it again.
+Чтобы исправить ошибку, переименуйте `math.pi` в `math.Pi` и попробуйте снова.
 
 .play basics/exported-names.go
 
-* Functions
+* Функции
 
-A function can take zero or more arguments.
+Функция может принимать нуль или более аргументов.
 
-In this example, `add` takes two parameters of type `int`.
+В это примере, `add` принимает два параметра типа `int`.
 
-Notice that the type comes _after_ the variable name.
+Обратите внимание, что тип указывается _после_ имени переменной.
 
-(For more about why types look the way they do, see the [[https://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
+(Чтобы узнать, почему типы выглядят так, как они выглядят, прочтите [[https://blog.golang.org/gos-declaration-syntax][статью про объявление типов в Go]].)
 
 .play basics/functions.go
 
-* Functions continued
+* Функции, продолжение
 
-When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
+Когда два или более последовательных параметра функции имеют одинаковый тип, вы можете опустить указание типа для всех, кроме последнего.
 
-In this example, we shortened
+В этом примере мы сократили
 
 	x int, y int
 
-to
+до
 
 	x, y int
 
 .play basics/functions-continued.go
 
-* Multiple results
+* Множественные результаты
 
-A function can return any number of results.
+Функция может возвращать любое количество результатов.
 
-The `swap` function returns two strings.
+Функция `swap` возвращает две строки.
 
 .play basics/multiple-results.go
 
-* Named return values
+* Именованные возвращаемые значения
 
-Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+В Go возвращаемые значения могут быть именованными. В этом случае они расцениваются как переменные объявленные в начале функции.
 
-These names should be used to document the meaning of the return values.
+Эти имена следует использовать для документирования смысла возвращаемых значений.
 
-A `return` statement without arguments returns the named return values. This is known as a "naked" return.
+`return` без аргументов возвращает именованные возвращаемые значения, что известно как "голый" возврат.
 
-Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
+Такой способ возврата значений следует использовать только в коротких функциях, как в представленном здесь примере. В более длинных функциях это может ухудшить читаемость.
 
 .play basics/named-results.go
 
-* Variables
+* Переменные
 
-The `var` statement declares a list of variables; as in function argument lists, the type is last.
+Оператор `var` объявляет список переменных; как и в случае со списком аргументов функции, тип указывается последним.
 
-A `var` statement can be at package or function level. We see both in this example.
+Оператор `var` может быть использован на уровне пакета или функции. В данном примере мы видим оба варианта.
 
 .play basics/variables.go
 
-* Variables with initializers
+* Переменные с инициализирующими значениями
 
-A var declaration can include initializers, one per variable.
+Объявление переменной может включать инициализирующее значение, по одному на каждую переменную.
 
-If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+Если инициализирующее значение присутствует, то тип может быть опущен; переменная получит тип этого значения.
 
 .play basics/variables-with-initializers.go
 
-* Short variable declarations
+* Краткая форма объявления переменных
 
-Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
+Внутри функции, краткий оператор присваивания `:=` с неявным типом может быть использован вместо объявления с помощью `var`.
 
-Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available.
+Вне функции, каждый оператор начинается с ключевого слова (`var`, `func`, и так далее), и поэтому конструкция `:=` недоступна.
 
 .play basics/short-variable-declarations.go
 
-* Basic types
+* Базовые типы
 
-Go's basic types are
+Базовые типы Go следующие
 
 	bool
 
@@ -133,102 +133,98 @@ Go's basic types are
 	int  int8  int16  int32  int64
 	uint uint8 uint16 uint32 uint64 uintptr
 
-	byte // alias for uint8
+	byte // псевдоним для uint8
 
-	rune // alias for int32
-	     // represents a Unicode code point
+	rune // псевдоним для int32
+	     // представляет Unicode код
 
 	float32 float64
 
 	complex64 complex128
 
-The example shows variables of several types,
-and also that variable declarations may be "factored" into blocks,
-as with import statements.
+Пример демонстрирует переменные нескольких типов, а также то, что объявления переменных могут быть сгруппированы в блоки, так же как и операторы import.
 
-The `int`, `uint`, and `uintptr` types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.
-When you need an integer value you should use `int` unless you have a specific reason to use a sized or unsigned integer type.
+Типы `int`, `uint`, и `uintptr` обычно размером 32 бита на 32-битных системах и 64 бита на 64-битных системах.
+Когда вам надо целочисленное значение, то следует использовать `int`, если у вас нет особой причины использовать целочисленное значение конкретного размера или беззнаковое значение.
 
 .play basics/basic-types.go
 
-* Zero values
+* Нулевые значения
 
-Variables declared without an explicit initial value are given their
-_zero_value_.
+Переменные объявленные без указания начального значения получают _нулевое_значение_.
 
-The zero value is:
+Нулевое значение это:
 
-- `0` for numeric types,
-- `false` for the boolean type, and
-- `""` (the empty string) for strings.
+- `0` для числовых типов,
+- `false` для булевого типа, и
+- `""` (пустая строка) для строк.
 
 .play basics/zero.go
 
-* Type conversions
+* Приведение типа
 
-The expression `T(v)` converts the value `v` to the type `T`.
+Выражение `T(v)` приводит значение `v` к типу `T`.
 
-Some numeric conversions:
+Примеры для числовых типов:
 
 	var i int = 42
 	var f float64 = float64(i)
 	var u uint = uint(f)
 
-Or, put more simply:
+Или проще:
 
 	i := 42
 	f := float64(i)
 	u := uint(f)
 
-Unlike in C, in Go assignment between items of different type requires an
-explicit conversion.
-Try removing the `float64` or `uint` conversions in the example and see what happens.
+В отличие от C, в Go присвоения между элементами различных типов требуют явного приведения типов.
+Попробуйте удалить `float64` или `uint` в примере и посмотрите, что будет.
 
 .play basics/type-conversions.go
 
-* Type inference
+* Выведение типа
 
-When declaring a variable without specifying an explicit type (either by using the `:=` syntax or `var`=` expression syntax), the variable's type is inferred from the value on the right hand side.
+При объявлении переменной без явного указания типа (с помощью `:=` или `var`=`), тип переменной выводится из значения на правой стороне.
 
-When the right hand side of the declaration is typed, the new variable is of that same type:
+Когда правая часть объявления типизированна, новая переменная получает такой же тип:
 
 	var i int
-	j := i // j is an int
+	j := i // j это int
 
-But when the right hand side contains an untyped numeric constant, the new variable may be an `int`, `float64`, or `complex128` depending on the precision of the constant:
+Но когда правая часть содержит нетипизированную числовую константу, новая переменная может быть `int`, `float64`, или `complex128` в зависимости от точности константы:
 
 	i := 42           // int
 	f := 3.142        // float64
 	g := 0.867 + 0.5i // complex128
 
-Try changing the initial value of `v` in the example code and observe how its type is affected.
+Попробуйте изменить начальное значение `v` в примере и понаблюдайте, как изменяется ее тип.
 
 .play basics/type-inference.go
 
-* Constants
+* Константы
 
-Constants are declared like variables, but with the `const` keyword.
+Константы объявляются как переменные, но с помощью ключевого слова `const`.
 
-Constants can be character, string, boolean, or numeric values.
+Константы могут быть иметь символьные, строковые, булевые или числовые значения.
 
-Constants cannot be declared using the `:=` syntax.
+Константы не могут быть объявленные с помощью синтаксиса `:=`.
 
 .play basics/constants.go
 
-* Numeric Constants
+* Числовые константы
 
-Numeric constants are high-precision _values_.
+Числовые константы это _значения_ высокой точности.
 
-An untyped constant takes the type needed by its context.
+Нетипизированная константа принимает тип, необходимый в ее контексте.
 
-Try printing `needInt(Big)` too.
+Попробуйте также вывести `needInt(Big)`.
 
-(An `int` can store at maximum a 64-bit integer, and sometimes less.)
+(`int` может максимум хранить 64-битное целочисленное значение, а иногда меньше.)
 
 .play basics/numeric-constants.go
 
-* Congratulations!
+* Поздравляем!
 
-You finished this lesson!
+Вы закончили этот урок!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Вы можете вернуться к списку [[/list][модулей]], чтобы найти, что изучить дальше, или перейдите к [[javascript:click('.next-page')][следующему уроку]].

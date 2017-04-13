@@ -1,89 +1,83 @@
-Flow control statements: for, if, else, switch and defer
-Learn how to control the flow of your code with conditionals, loops, switches and defers.
+Операторы управления потоком: for, if, else, switch и defer
+Узнайте как управлять потоком выполнения программы с помощью условных выражений, циклов, конструкций switch и отложенных вызовов с defer.
 
-The Go Authors
+Авторы Go
 https://golang.org
 
 * For
 
-Go has only one looping construct, the `for` loop.
+В Go есть только одна циклическая конструкция - цикл `for`.
 
-The basic `for` loop has three components separated by semicolons:
+Базовый цикл `for` имеет три компонента разделенные точкой с запятой:
 
-- the init statement: executed before the first iteration
-- the condition expression: evaluated before every iteration
-- the post statement: executed at the end of every iteration
+- блок инициализации: выполняется перед первой итерацией
+- условный блок: выполняется перед каждой итерацией
+- завершающий блок: выполняется в конце каждой итерации
 
-The init statement will often be a short variable declaration, and the
-variables declared there are visible only in the scope of the `for`
-statement.
+Блок инициализации, как правило, содержит краткое объявление переменных; переменные
+объявленные здесь доступны только в области видимости цикла `for`.
 
-The loop will stop iterating once the boolean condition evaluates to `false`.
+Цикл прекратит итерации, как только значение логического выражения в условном блоке будет `false`.
 
-_Note_: Unlike other languages like C, Java, or Javascript there are no parentheses
-surrounding the three components of the `for` statement and the braces `{`}` are
-always required.
+_Замечание_: В отличие от таких языков как C, Java или Javascript блоки конструкции `for` не заключены в круглые скобки, а фигурные скобки `{`}` всегда обязательны.
 
 .play flowcontrol/for.go
 
-* For continued
+* For, продолжение
 
-The init and post statement are optional. 
+Блоки инициализации и завершения опциональны.
 
 .play flowcontrol/for-continued.go
 
-* For is Go's "while"
+* For это "while" в Go
 
-At that point you can drop the semicolons: C's `while` is spelled `for` in Go.
+В таком случае вы можете опустить точки с запятой: в Go `for` это как `while` в C.
 
 .play flowcontrol/for-is-gos-while.go
 
-* Forever
+* Бесконечно
 
-If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
+Если вы опустите условный блок, то получится компактная запись бесконечного цикла.
 
 .play flowcontrol/forever.go
 
 * If
 
-Go's `if` statements are like its `for` loops; the expression need not be
-surrounded by parentheses `(`)` but the braces `{`}` are required.
+Операторы `if` в Go такие же как и циклы `for`: выражение не должно быть заключено в круглые скобки `(`)`, но фигурные скобки `{`}` обязательны.
 
 .play flowcontrol/if.go
 
-* If with a short statement
+* If с краткой инструкцией
 
-Like `for`, the `if` statement can start with a short statement to execute before the condition.
+Так же как и `for`, оператор `if` может начинаться с инструкции, которая будет выполнена перед проверкой условия.
 
-Variables declared by the statement are only in scope until the end of the `if`.
+Переменные объявленные в этом блоке доступны только в области видимости, которая существует до конца `if`.
 
-(Try using `v` in the last `return` statement.)
+(Попробуйте использовать `v` в последнем операторе `return`.)
 
 .play flowcontrol/if-with-a-short-statement.go
 
-* If and else
+* If и else
 
-Variables declared inside an `if` short statement are also available inside any
-of the `else` blocks.
+Переменные объявленные внутри краткой инструкции `if` также доступны внутри всех `else` блоков.
 
-(Both calls to `pow` are executed and return before the call to `fmt.Println`
-in `main` begins.)
+(Оба вызова `pow` выполняются и возвращают результат перед тем, как происходит вызов `fmt.Println` в `main`.)
 
 .play flowcontrol/if-and-else.go
 
-* Exercise: Loops and Functions
+* Упражнение: циклы и функции
 
-As a simple way to play with functions and loops, implement the square root function using Newton's method.
+В качестве простого способа поэкспериментировать с функциями и циклами, реализуйте алгоритм нахождения квадратного корня методом Ньютона.
 
-In this case, Newton's method is to approximate `Sqrt(x)` by picking a starting point _z_ and then repeating:
+Метод Ньютона заключается в последовательном приближении `Sqrt(x)` путем выбора начального значения _z_, а затем повторения:
 
 .image /content/img/newton.png
 
-To begin with, just repeat that calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
+Для начала, просто повторите вычисления 10 раз и посмотрите, как близко вы к ответу для различных значений  (1, 2, 3, ...).
 
-Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small delta). See if that's more or fewer iterations. How close are you to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
+Затем измените условие цикла таким образом, чтобы остановиться, как только значение перестанет изменяться (или изменяется на очень малую величину). Посмотрите, получилось ли больше или меньше итераций. Насколько вы близки к [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
 
-Hint: to declare and initialize a floating point value, give it floating point syntax or use a conversion:
+Подсказка: чтобы объявить и инициализировать значение с плавающей запятой, используйте либо синтаксис для значений с плавающей запятой, либо приведение типа:
 
 	z := float64(1)
 	z := 1.0
@@ -92,61 +86,57 @@ Hint: to declare and initialize a floating point value, give it floating point s
 
 * Switch
 
-You probably knew what `switch` was going to look like.
+Вероятно вы уже догадались, на что будет похож `switch`.
 
-A case body breaks automatically, unless it ends with a `fallthrough` statement.
+Блок `case` прерывается автоматически, только если он не заканчивается оператором `fallthrough`.
 
 .play flowcontrol/switch.go
 
-* Switch evaluation order
+* Порядок выполнения Switch
 
-Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+Условия блоков `case` проверяются сверху вниз до тех пор, пока одно из них не будет успешным.
 
-(For example,
+(Например,
 
 	switch i {
 	case 0:
 	case f():
 	}
 
-does not call `f` if `i==0`.)
+не вызывает `f` если `i==0`.)
 
-#appengine: *Note:* Time in the Go playground always appears to start at
-#appengine: 2009-11-10 23:00:00 UTC, a value whose significance is left as an
-#appengine: exercise for the reader.
+#appengine: *Замечание:* В песочнице Go время начинается со значения
+#appengine: 2009-11-10 23:00:00 UTC, определение значимости которого оставляется в качестве
+#appengine: упражнения для читателя.
 
 .play flowcontrol/switch-evaluation-order.go
 
-* Switch with no condition
+* Switch без условия
 
-Switch without a condition is the same as `switch`true`.
+Switch без условия это тоже самое, что и `switch`true`.
 
-This construct can be a clean way to write long if-then-else chains.
+Эта конструкция может быть использована как более ясный способ записи длинной цепочки if-then-else.
 
 .play flowcontrol/switch-with-no-condition.go
 
 * Defer
 
-A defer statement defers the execution of a function until the surrounding
-function returns.
+Оператор `defer` откладывает выполнение функции до того момента, как произойдет возврат из окружающей функции.
 
-The deferred call's arguments are evaluated immediately, but the function call
-is not executed until the surrounding function returns.
+Аргументы отложенных вызовов вычисляются сразу же, но вызов функции не происходит до того, как произойдет возврат из окружающей функции.
 
 .play flowcontrol/defer.go
 
-* Stacking defers
+* Накопление отложенных вызовов
 
-Deferred function calls are pushed onto a stack. When a function returns, its
-deferred calls are executed in last-in-first-out order.
+Отложенные вызовы функций сохраняются в стеке. Когда происходит возврат из функции, ее отложенные вызовы выполняются в порядке "последним-пришел-первым-вышел".
 
-To learn more about defer statements read this
-[[https://blog.golang.org/defer-panic-and-recover][blog post]].
+Чтобы узнать больше об отложенных вызовах прочтите этот [[https://blog.golang.org/defer-panic-and-recover][пост в блоге]].
 
 .play flowcontrol/defer-multi.go
 
-* Congratulations!
+* Поздравляем!
 
-You finished this lesson!
+Вы закончили этот урок!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Вы можете вернуться к списку [[/list][модулей]], чтобы найти, что изучить дальше, или перейдите к [[javascript:click('.next-page')][следующему уроку]].
