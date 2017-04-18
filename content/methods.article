@@ -82,8 +82,8 @@ Comparing the previous two programs, you might notice that
 functions with a pointer argument must take a pointer:
 
 	var v Vertex
-	ScaleFunc(v)  // Compile error!
-	ScaleFunc(&v) // OK
+	ScaleFunc(v, 5)  // Compile error!
+	ScaleFunc(&v, 5) // OK
 
 while methods with pointer receivers take either a value or a pointer as the
 receiver when they are called:
@@ -291,7 +291,7 @@ For instance, `IPAddr{1,`2,`3,`4}` should print as `"1.2.3.4"`.
 
 * Errors
 
-Go programs express error state with `error` values. 
+Go programs express error state with `error` values.
 
 The `error` type is a built-in interface similar to `fmt.Stringer`:
 
@@ -353,7 +353,7 @@ The `io.Reader` interface has a `Read` method:
 populated and an error value. It returns an `io.EOF` error when the stream
 ends.
 
-The example code creates a 
+The example code creates a
 [[//golang.org/pkg/strings/#Reader][`strings.Reader`]]
 and consumes its output 8 bytes at a time.
 
