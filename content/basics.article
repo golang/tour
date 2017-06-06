@@ -18,13 +18,14 @@ By convention, the package name is the same as the last element of the import pa
 #appengine: deterministic, so each time you run the example program
 #appengine: `rand.Intn` will return the same number.
 #appengine:
-#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].)
+#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
+#appengine: Time is constant in the playground, so you will need to use something else as the seed.)
 
 .play basics/packages.go
 
 * Imports
 
-This code groups the imports into a parenthesized, "factored" import statement. 
+This code groups the imports into a parenthesized, "factored" import statement.
 
 You can also write multiple import statements, like:
 
