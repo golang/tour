@@ -89,10 +89,18 @@ In practice, slices are much more common than arrays.
 
 The type `[]T` is a slice with elements of type `T`.
 
-This expression creates a slice of the first five elements of the array `a`:
+A slice is formed by specifying two indices, a low and
+high bound, separated by a colon:
 
-	a[0:5]
+	a[low : high]
 
+This selects a half-open range which includes the first
+element, but excludes the last one.
+
+The following expression creates a slice which includes
+elements 1 through 3 of `a`:
+
+	a[1:4]
 
 .play moretypes/slices.go
 
