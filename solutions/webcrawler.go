@@ -59,19 +59,29 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 		return
 	}
 	fmt.Printf("Found: %s %q\n", url, body)
-	done := make(chan bool)
+
+	done := make(chan goroutineResult)
+
 	for i, u := range urls {
 		fmt.Printf("-> Crawling child %v/%v of %v : %v.\n", i, len(urls), url, u)
-		go func(url string) {
-			Crawl(url, depth-1, fetcher)
-			done <- true
-		}(u)
+		go func(url, u string, idx, len int) {
+			Crawl(u, depth-1, fetcher)
+			done <- goroutineResult{url, idx, len, u}
+		}(url, u, i, len(urls))
 	}
-	for i, u := range urls {
-		fmt.Printf("<- [%v] %v/%v Waiting for child %v.\n", url, i, len(urls), u)
-		<-done
+
+	for i := 0; i < len(urls); i++ {
+		r := <-done
+		fmt.Printf("Completed: %v/%v of %v : %v.\n", r.idx, r.length, r.url, r.val)
 	}
-	fmt.Printf("<- Done with %v\n", url)
+	fmt.Println("Crawl ran")
+}
+
+type goroutineResult struct {
+	url    string
+	idx    int
+	length int
+	val    string
 }
 
 func main() {
