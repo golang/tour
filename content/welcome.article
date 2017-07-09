@@ -48,6 +48,7 @@ https://golang.org
 
 Тур доступен на следующих языках:
 
+- [[https://tour.golang.com/][English]]
 - [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
 - [[https://go-tour-ca.appspot.com/][Catalan — Català]]
 - [[https://go-tour-de.appspot.com/][German — Deutsch]]
@@ -64,7 +65,6 @@ https://golang.org
 - [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
 - [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
 - [[https://go-tour-turkish.appspot.com/][Turkish - Türkçe]]
-- [[https://go-tour-ru-ru.appspot.com/][Russian - Русский]]
 
 Нажмите на кнопку [[javascript:highlightAndClick(".next-page")]["вперед"]] или клавишу `PageDown`, чтобы продолжить.
 
