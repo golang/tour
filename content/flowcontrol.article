@@ -20,7 +20,7 @@ statement.
 
 The loop will stop iterating once the boolean condition evaluates to `false`.
 
-_Note_: Unlike other languages like C, Java, or Javascript there are no parentheses
+_Note_: Unlike other languages like C, Java, or JavaScript there are no parentheses
 surrounding the three components of the `for` statement and the braces `{`}` are
 always required.
 
@@ -28,7 +28,7 @@ always required.
 
 * For continued
 
-The init and post statement are optional. 
+The init and post statement are optional.
 
 .play flowcontrol/for-continued.go
 
