@@ -117,7 +117,7 @@ Continue description on [[javascript:click('.next-page')][next page]].
 
 *2.* Test the `Walk` function.
 
-The function `tree.New(k)` constructs a randomly-structured binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
+The function `tree.New(k)` constructs a randomly-structured (but always sorted) binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
 
 Create a new channel `ch` and kick off the walker:
 
