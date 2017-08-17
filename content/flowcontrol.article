@@ -89,8 +89,8 @@ Next, change the loop condition to stop once the value has stopped changing (or 
 
 Hint: To declare and initialize a floating point value, give it floating point syntax or use a conversion:
 
-	z := float64(1)
 	z := 1.0
+	z := float64(1)
 
 .play flowcontrol/exercise-loops-and-functions.go
 
