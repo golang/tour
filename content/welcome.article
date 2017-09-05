@@ -81,6 +81,12 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: 
 #appengine: 	go tool tour
 #appengine: 
+#appengine: Or, you can install and run this tour manually if you have any trouble
+#appengine: running the above command:
+#appengine: 
+#appengine:   go get golang.org/x/tour/gotour
+#appengine:   gotour
+#appengine: 
 #appengine: The tour program will open a web browser displaying
 #appengine: your local version of the tour.
 #appengine: 
