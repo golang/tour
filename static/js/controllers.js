@@ -22,7 +22,12 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
                 var f = file();
                 return f && f.Content;
             }, function(val) {
-                storage.set(file().Hash, val);
+                var f = file();
+                
+                // if lesson has editor, save file in localstorage
+                if (f) {
+                    storage.set(f.Hash, val);
+                }
             });
         });
 
