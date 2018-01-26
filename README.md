@@ -16,4 +16,4 @@ Unless otherwise noted, the go-tour source files are distributed
 under the BSD-style license found in the LICENSE file.
 
 Contributions should follow the same procedure as for the Go project:
-http://golang.org/doc/contribute.html
+https://golang.org/doc/contribute.html

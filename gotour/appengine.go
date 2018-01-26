@@ -18,7 +18,7 @@ import (
 	_ "golang.org/x/tools/playground"
 )
 
-const runUrl = "http://golang.org/compile"
+const runUrl = "https://golang.org/compile"
 
 func init() {
 	http.Handle("/lesson/", hstsHandler(lessonHandler))

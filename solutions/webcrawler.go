@@ -20,7 +20,7 @@ type Fetcher interface {
 
 // fetched tracks URLs that have been (or are being) fetched.
 // The lock must be held while reading from or writing to the map.
-// See http://golang.org/ref/spec#Struct_types section on embedded types.
+// See https://golang.org/ref/spec#Struct_types section on embedded types.
 var fetched = struct {
 	m map[string]error
 	sync.Mutex
@@ -75,7 +75,7 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 }
 
 func main() {
-	Crawl("http://golang.org/", 4, fetcher)
+	Crawl("https://golang.org/", 4, fetcher)
 
 	fmt.Println("Fetching stats\n--------------")
 	for url, err := range fetched.m {
@@ -104,34 +104,34 @@ func (f *fakeFetcher) Fetch(url string) (string, []string, error) {
 
 // fetcher is a populated fakeFetcher.
 var fetcher = &fakeFetcher{
-	"http://golang.org/": &fakeResult{
+	"https://golang.org/": &fakeResult{
 		"The Go Programming Language",
 		[]string{
-			"http://golang.org/pkg/",
-			"http://golang.org/cmd/",
+			"https://golang.org/pkg/",
+			"https://golang.org/cmd/",
 		},
 	},
-	"http://golang.org/pkg/": &fakeResult{
+	"https://golang.org/pkg/": &fakeResult{
 		"Packages",
 		[]string{
-			"http://golang.org/",
-			"http://golang.org/cmd/",
-			"http://golang.org/pkg/fmt/",
-			"http://golang.org/pkg/os/",
+			"https://golang.org/",
+			"https://golang.org/cmd/",
+			"https://golang.org/pkg/fmt/",
+			"https://golang.org/pkg/os/",
 		},
 	},
-	"http://golang.org/pkg/fmt/": &fakeResult{
+	"https://golang.org/pkg/fmt/": &fakeResult{
 		"Package fmt",
 		[]string{
-			"http://golang.org/",
-			"http://golang.org/pkg/",
+			"https://golang.org/",
+			"https://golang.org/pkg/",
 		},
 	},
-	"http://golang.org/pkg/os/": &fakeResult{
+	"https://golang.org/pkg/os/": &fakeResult{
 		"Package os",
 		[]string{
-			"http://golang.org/",
-			"http://golang.org/pkg/",
+			"https://golang.org/",
+			"https://golang.org/pkg/",
 		},
 	},
 }
