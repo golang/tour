@@ -47,6 +47,7 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
             $scope.gotoPage($scope.curPage - 1);
         };
         $scope.gotoPage = function(page) {
+            $scope.kill();
             var l = $routeParams.lessonId;
             if (page >= 1 && page <= lessons[$scope.lessonId].Pages.length) {
                 $scope.curPage = page;
