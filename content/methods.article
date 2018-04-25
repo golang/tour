@@ -361,8 +361,8 @@ and consumes its output 8 bytes at a time.
 
 * Exercise: Readers
 
-Implement a `Reader` type that emits an infinite stream of the ASCII character
-`'A'`.
+Implement a `Reader` type, that emits an infinite stream of the ASCII character
+`'A'` to the supplied buffer `[]byte`.   
 
 .play methods/exercise-reader.go
 
