@@ -103,7 +103,7 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: 
 #appengine: There are limitations to the programs that can be run in the playground: 
 #appengine: 
-#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
+#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC. (This is the [founding date of Go](https://opensource.googleblog.com/2009/11/hey-ho-lets-go.html).) This makes it easier to cache programs by giving them deterministic output.
 #appengine: 
 #appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts. 
 #appengine: 
