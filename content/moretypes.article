@@ -247,7 +247,7 @@ The first is the index, and the second is a copy of the element at that index.
 
 You can skip the index or value by assigning to `_`.
 
-If you only want the index, drop the ", value" entirely.
+If you only want the index, drop the `, value` entirely.
 
 .play moretypes/range-continued.go
 
