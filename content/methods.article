@@ -403,7 +403,7 @@ The `color.Color` and `color.Model` types are also interfaces, but we'll ignore 
 
 * Exercise: Images
 
-Remember the picture generator you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+Remember the [[/moretypes/18][picture generator]] you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
 
 Define your own `Image` type, implement [[https://golang.org/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
 
