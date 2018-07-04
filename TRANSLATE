@@ -5,7 +5,7 @@ an App Engine app. The version available at tour.golang.org is run from
 App Engine. There are several localized versions of the tour, such as
 this Chinese translation, also running on App Engine:
 
-	http://go-tour-zh.appspot.com
+	https://go-tour-zh.appspot.com
 
 The Tour contains a slide named "Go local", which lists several of
 these translations. If you are a native speaker of a language not on
@@ -25,11 +25,9 @@ To translate the tour:
 
 The Tour content changes occasionally, and you should keep your
 translation up to date. To follow the development of the tour,
-subscribe to the go-tour-commits mailing list:
+you can subscribe to the feed at
 
-	https://groups.google.com/group/go-tour-commits
-
-All new commits to the go-tour repository are mailed there.
+	https://github.com/golang/tour/commits/master.atom
 
 Finally, if you have any questions about the Tour or Go,
 please mail golang-nuts@googlegroups.com.
