@@ -24,8 +24,8 @@ You can navigate through them using
 - [[javascript:highlight(".next-page")]["next"]] or `PageDown` to go to the next page.
 
 The tour is interactive. Click the
-[[javascript:highlightAndClick("#run")][Run]] button now 
-(or type `shift-enter`) to compile and run the program on
+[[javascript:highlightAndClick("#run")][Run]] button now
+(or press `Shift` + `Enter`) to compile and run the program on
 #appengine: a remote server.
 your computer.
 The result is displayed below the code.
@@ -34,8 +34,8 @@ These example programs demonstrate different aspects of Go. The programs in the 
 
 Edit the program and run it again.
 
-Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `ctrl-enter`
-the text in the editor is formatted using the
+When you click on [[javascript:highlightAndClick("#format")][Format]]
+(shortcut: `Ctrl` + `Enter`), the text in the editor is formatted using the
 [[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
 by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
