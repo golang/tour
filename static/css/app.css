@@ -267,7 +267,8 @@ a#run, a#kill {
     display: none;
 }
 #file-editor .CodeMirror {
-    height: auto;
+    height: 100%;
+    background: #FFFFD8;
 }
 #file-editor .CodeMirror-lines, #file-editor .CodeMirror-gutters {
     background: #FFFFD8;
