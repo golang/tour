@@ -309,7 +309,7 @@ If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
 
 If `key` is not in the map, then `elem` is the zero value for the map's element type.
 
-_Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
+*Note:* If `elem` or `ok` have not yet been declared you could use a short declaration form:
 
 	elem, ok := m[key]
 

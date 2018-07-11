@@ -20,7 +20,7 @@ statement.
 
 The loop will stop iterating once the boolean condition evaluates to `false`.
 
-_Note_: Unlike other languages like C, Java, or JavaScript there are no parentheses
+*Note:* Unlike other languages like C, Java, or JavaScript there are no parentheses
 surrounding the three components of the `for` statement and the braces `{`}` are
 always required.
 
@@ -102,7 +102,7 @@ See if that's more or fewer than 10 iterations.
 Try other initial guesses for z, like x, or x/2.
 How close are your function's results to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] in the standard library?
 
-(Note: If you are interested in the details of the algorithm, the z² − x above
+(*Note:* If you are interested in the details of the algorithm, the z² − x above
 is how far away z² is from where it needs to be (x), and the division by 2z is the derivative
 of z², to scale how much we adjust z by how quickly z² is changing.
 This general approach is called [[https://en.wikipedia.org/wiki/Newton%27s_method][Newton's method]].

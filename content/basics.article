@@ -14,7 +14,7 @@ This program is using the packages with import paths `"fmt"` and `"math/rand"`.
 
 By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
 
-#appengine: *Note:* the environment in which these programs are executed is
+#appengine: *Note:* The environment in which these programs are executed is
 #appengine: deterministic, so each time you run the example program
 #appengine: `rand.Intn` will return the same number.
 #appengine:
