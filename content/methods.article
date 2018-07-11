@@ -164,7 +164,7 @@ implementation, which could then appear in any package without prearrangement.
 
 * Interface values
 
-Under the covers, interface values can be thought of as a tuple of a value and a
+Under the hood, interface values can be thought of as a tuple of a value and a
 concrete type:
 
 	(value, type)
