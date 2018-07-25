@@ -1,106 +1,106 @@
-Concurrency
-Go provides concurrency constructions as part of the core language. This lessons presents them and gives some examples on how to use it.
+Souběžnost (konkurence)
+Go poskytuje konstrukce souběžnosti jako součást základů jazyka. Tyjo lekce je ukazují a přinášejí nějaké příklady jejího použití.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
-* Goroutines
+* Gorutiny (Goroutines)
 
-A _goroutine_ is a lightweight thread managed by the Go runtime.
+_Gorutina_ je odlehčené vlákno (thread) spravované běhovým prostředím Go.
 
 	go f(x, y, z)
 
-starts a new goroutine running
+spouští novou gorutinu se zavoláním
 
 	f(x, y, z)
 
-The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
+Vyhodnocení `f`, `x`, `y`, a `z` se stane v aktuální gorutině a provedení `f` se bude dít v nové gorutině.
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The [[https://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+Gorutiny běží ve stejném adresovém prostoru, takže přístup ke sdílené paměti musí být synchronizovaný. Balíček [[https://golang.org/pkg/sync/][`sync`]] poskytuje užitečné základní prvky, ale v Go je nebudeš tak moc potřebovat, protože jsou tu jiné možnosti. (Viz další slide.)
 
 .play concurrency/goroutines.go
 
-* Channels
+* Kanály (Channels)
 
-Channels are a typed conduit through which you can send and receive values with the channel operator, `<-`.
+Kanály jsou typové potrubí skrze které můžeš posílat a přijímat hodnoty pomocí kanálového operátoru `<-`.
 
-	ch <- v    // Send v to channel ch.
-	v := <-ch  // Receive from ch, and
-	           // assign value to v.
+	ch <- v    // Pošli v do kanálu ch.
+	v := <-ch  // Přijmi hodnotu z ch a
+	           // přiřaď ji do v.
 
-(The data flows in the direction of the arrow.)
+(Data tečou ve směru šipky.)
 
-Like maps and slices, channels must be created before use:
+Jako u map a řezů, i kanály musí být před použitím vytvořené:
 
 	ch := make(chan int)
 
-By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
+U běžných kanálů, posílání a přijímání blokuje dokud není druhá strana připravená. To umožňuje gorutinám se synchronizovat bez explicitních zámků nebo dalších řídících proměnných.
 
-The example code sums the numbers in a slice, distributing the work between two goroutines.
-Once both goroutines have completed their computation, it calculates the final result.
+Tento příklad sčítá čísla v řezu, a distribuuje práci mezi dvě gorutiny.
+Když obě rutiny skončí své výpočty, vypočítá finální výsledek.
 
 .play concurrency/channels.go
 
-* Buffered Channels
+* Kanály s vyrovnávací pamětí (Buffered Channels)
 
-Channels can be _buffered_.  Provide the buffer length as the second argument to `make` to initialize a buffered channel:
+Kanály mohou mít vyrovnávací paměť (_buffer_).  Pro inicializaci kanálu s vyrovnávací pamětí nastav velikost bufferu jako druhý parametr ve funkci `make`:
 
 	ch := make(chan int, 100)
 
-Sends to a buffered channel block only when the buffer is full. Receives block when the buffer is empty.
+Posílání do kanálu s vyrovnávací pamětí blokuje jenom když je paměť plná. Přijímání blokuje pokud je paměť prázdná.
 
-Modify the example to overfill the buffer and see what happens.
+Modifikuj tento příklad aby způsobil přeplnění vyrovnávací paměti a uvidíš co se stane.
 
 .play concurrency/buffered-channels.go
 
-* Range and Close
+* Range a Close
 
-A sender can `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+Odesílatel může `zav5ít` kanál aby naznačil že už nebudou poslané žádné další hodnoty. Příjemci mohou testovat jestli byl kanál už uzavřený přiřazením druhého parametru u přijímacího výrazu:
 
 	v, ok := <-ch
 
-`ok` is `false` if there are no more values to receive and the channel is closed.
+`ok` je `false` když už nejsou žádné další hodnoty k příjmu a kanál je uzavřený.
 
-The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
+Cyklus `for`i`:=`range`c` přijímá opakovaně hodnoty z kanálu dokud není uzavřený.
 
-*Note:* Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+*Poznámka:* Kanál by měl uzavírat jenom odesílatel, nikdy ne příjemce. Odeslání do uzavřeného kanálu způsobí paniku.
 
-*Another*note*: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+*Další*poznámka*: Kanály nejsou jako soubory; obvykle je nemusíš zavírat. Zavření je potřeba jenom pokud chceš oznámit příjemci, že už nepřijdou žádné další hodnoty, například kvůli ukončení cyklu `range`.
 
 .play concurrency/range-and-close.go
 
-* Select
+* Výběr (Select)
 
-The `select` statement lets a goroutine wait on multiple communication operations.
+Příkaz `select` umožňuje gorutině čekat na víc komunikačních operací.
 
-A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
+Příkaz `select` je blokující dokud je možné spustit jeden z jeho případů case - potom ho provede.  A když jich je dostupných víc, náhodně si vybere jeden z nich.
 
 .play concurrency/select.go
 
-* Default Selection
+* Defaultní výběr (Default Selection)
 
-The `default` case in a `select` is run if no other case is ready.
+Případ `default` se uvnitř `select` spustí pokud není dostupný žádný jiný případ.
 
-Use a `default` case to try a send or receive without blocking:
+Použij případ `default` k vyzkoušení odeslání nebo příjem bez blokování:
 
 	select {
 	case i := <-c:
-		// use i
+		// i je používané
 	default:
-		// receiving from c would block
+		// přijímání z c by blokovalo
 	}
 
 .play concurrency/default-selection.go
 
-* Exercise: Equivalent Binary Trees
+* Cvičení: Ekvivalentní Binární stromy
 
-There can be many different binary trees with the same sequence of values stored at the leaves. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+Může být spousta různých binárních stromů se stejnou sekvencí hodnot uložených v listech. Například, tady jsou dva binární stromy držící sekvenci 1, 1, 2, 3, 5, 8, 13.
 
 .image /content/img/tree.png
 
-A function to check whether two binary trees store the same sequence is quite complex in most languages. We'll use Go's concurrency and channels to write a simple solution.
+Vě většině jazyků je funkce pro kontrolu že dva binární stromy tvoří stejnou sekvenci celkem složitá. My použijeme konkurenci a kanály z Go abychom napsali jednoduché řešení.
 
-This example uses the `tree` package, which defines the type:
+Tento příklad používá balíček `tree`, který definuje typ:
 
 	type Tree struct {
 		Left  *Tree
@@ -109,100 +109,99 @@ This example uses the `tree` package, which defines the type:
 	}
 
 
-Continue description on [[javascript:click('.next-page')][next page]].
+Popis pokračuje na [[javascript:click('.next-page')][další stránce]].
 
-* Exercise: Equivalent Binary Trees
+* Cvičení: Ekvivalentí Binární stromy
 
-*1.* Implement the `Walk` function.
+*1.* Naimplementuj funkci `Walk`.
 
-*2.* Test the `Walk` function.
+*2.* Otestuj funkci `Walk`.
 
-The function `tree.New(k)` constructs a randomly-structured (but always sorted) binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
+Funkce `tree.New(k)` vytváří náhodně strukturovaný (ale vždy seřazený) binární strom s hodnotami `k`, `2k`, `3k`, ..., `10k`.
 
-Create a new channel `ch` and kick off the walker:
+Vytvoř nový kanál `ch` vypusti chodce:
 
 	go Walk(tree.New(1), ch)
 
-Then read and print 10 values from the channel. It should be the numbers 1, 2, 3, ..., 10.
+Potom načti a vytiskni 10 hodnot z kanálu. Měly by to být čísla 1, 2, 3, ..., 10.
 
-*3.* Implement the `Same` function using `Walk` to determine whether `t1` and `t2` store the same values.
+*3.* Naimplementuj funkci `Same` s použitím `Walk` abys zjistil/a jestli `t1` a `t2` drží stejné hodnoty.
 
-*4.* Test the `Same` function.
+*4.* Otestuj funkci `Same`.
 
-`Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
+`Same(tree.New(1),`tree.New(1))` by měla vrátit true, a `Same(tree.New(1),`tree.New(2))` by měla vrátit false.
 
-The documentation for `Tree` can be found [[https://godoc.org/golang.org/x/tour/tree#Tree][here]].
+Dokumentace k `Tree` se dá nají [[thttps://godoc.org/golang.org/x/tour/tree#Tree][zde]].
 
 .play concurrency/exercise-equivalent-binary-trees.go
 
 * sync.Mutex
 
-We've seen how channels are great for communication among goroutines.
+Viděli jsme jak jsou kanály skvělé pro komunikaci mezi gorutinami.
 
-But what if we don't need communication? What if we just want to make sure only
-one goroutine can access a variable at a time to avoid conflicts?
+Ale co když nepotřebujeme komunikovat? Co když se jenom chceme ujistit že jen jedna
+gorutina může přistupovat k proměnné naráz aby se zabránilo konfliktům?
 
-This concept is called _mutual_exclusion_, and the conventional name for the data structure that provides it is _mutex_.
+Tento koncept se jmenuje _vzájemné_vyloučení_, a konvenční název pro datovou strukturu která to poskytuje je _mutex_.
 
-Go's standard library provides mutual exclusion with
-[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
+Standardní knihovna v Go poskytuje vzájemné vyloučení s
+[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] a a jeho dvěma metodami
 
 - `Lock`
 - `Unlock`
 
-We can define a block of code to be executed in mutual exclusion by surrounding it
-with a call to `Lock` and `Unlock` as shown on the `Inc` method.
+Můžeme definovat blok kódu který se provede ve vzájemném vyloučení jeho obalením
+voláními `Lock` a `Unlock` jako je ukázáno nametodě `Inc`.
 
-We can also use `defer` to ensure the mutex will be unlocked as in the `Value` method.
+Taky můžeme použít `defer` pro zajištění že se mutex odemkne jako v metodě `Value`.
 
 .play concurrency/mutex-counter.go
 
-* Exercise: Web Crawler
+* Cvičení: Web crawler
 
-In this exercise you'll use Go's concurrency features to parallelize a web crawler.
+V tomto cvičení použijeme vlastnosti Go konkurence pro paralelizaci web crawleru.
 
-Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+Změň funkci `Crawl` aby stahovala URL paralelně be stahování stejného URL dvakrát.
 
-_Hint_: you can keep a cache of the URLs that have been fetched on a map, but maps alone are not
-safe for concurrent use!
+_Nápověda: můžeš si držet cache URL které jsou prošel/la v mapě, ale mapy samotné nejsou
+bezpečné pro konkurenční použi!
 
 .play concurrency/exercise-web-crawler.go
 
-* Where to Go from here...
+* Kam jít odsud pro více o Go...
 
-#appengine: You can get started by
-#appengine: [[https://golang.org/dl/][installing Go]].
+#appengine: Můžeš začít
+#appengine: [[https://golang.org/dl/][instalací Go]].
 
-#appengine: Once you have Go installed, the
-The
-[[https://golang.org/doc/][Go Documentation]] is a great place to
-#appengine: continue.
-start.
-It contains references, tutorials, videos, and more.
+#appengine: Když budeš mít Go nainstalované
+[[https://golang.org/doc/][Dokumentace Go]] je skvělé místo pro
+#appengine: pokračování
+začátek.
+Ta obsahuje reference, tutoriály, videa a další.
 
-To learn how to organize and work with Go code, watch [[https://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[https://golang.org/doc/code.html][How to Write Go Code]].
+Jestli se chceš naučit jak organizovat a pracovat s Go kódem, podívej se na [[https://www.youtube.com/watch?v=XCsL89YtqCs][tento screencast]] nebo si přečti [[https://golang.org/doc/code.html][Jak psát Go kód (en)]].
 
-If you need help with the standard library, see the [[https://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[https://golang.org/ref/spec][Language Spec]] is quite readable.
+Pokud potřebuješ pomoc se standardní knihovnou, podívej se na [[https://golang.org/pkg/][referenci balíčku]]. Pro pomoc s jazykem, můžeš být překvapený/á že [[https://golang.org/ref/spec][Specifikace jazyka (en)]] je docela čitelná.
 
-To further explore Go's concurrency model, watch
-[[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
-([[https://talks.golang.org/2012/concurrency.slide][slides]])
-and
-[[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
-([[https://talks.golang.org/2013/advconc.slide][slides]])
-and read the
-[[https://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
-codewalk.
+Pro další průzkum modelu souběžnosti jazyka Go, podívej se na 
+[[https://www.youtube.com/watch?v=f6kdp27TYZs][Vzory souběžnosti v Go (en)]]
+([[https://talks.golang.org/2012/concurrency.slide][slidy]])
+a
+[[https://www.youtube.com/watch?v=QDDwwePbDtw][Pokročilé vzory souběžnosti v Go]]
+([[https://talks.golang.org/2013/advconc.slide][slidy]])
+a přečti si
+[[https://golang.org/doc/codewalk/sharemem/][Sdílej paměť komunikací]]
+průchod kódem.
 
-To get started writing web applications, watch
-[[https://vimeo.com/53221558][A simple programming environment]]
-([[https://talks.golang.org/2012/simple.slide][slides]])
-and read the
-[[https://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
+Pro začátky s psaním web aplikací, podívej se na
+[[https://vimeo.com/53221558][Jednodluché programovací prostředí]]
+([[https://talks.golang.org/2012/simple.slide][slidy]])
+a přečti si tutoriál
+[[https://golang.org/doc/articles/wiki/][Píšeme Web aplikace (en)]].
 
-The [[https://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+Průchod kódem [[https://golang.org/doc/codewalk/functions/][Funkce první třídy v Go (en)]] dává zajímavou perspektivu na Go funkční typy.
 
-The [[https://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+[[https://blog.golang.org/][Go Blog]] má velký archiv informativních článků o Go.
 
-Visit [[https://golang.org][golang.org]] for more.
+A navštiv [[https://golang.org][golang.org]] pro více.
 

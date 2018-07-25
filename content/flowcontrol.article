@@ -1,178 +1,177 @@
-Flow control statements: for, if, else, switch and defer
-Learn how to control the flow of your code with conditionals, loops, switches and defers.
+Příkazy pro řízení běhu: for, if, else, switch a defer
+Nauč se jak řídit běh své aplikace s podmínkami, cykly, přepínači switch a odloženími defers.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
 * For
 
-Go has only one looping construct, the `for` loop.
+Go má jen jeden konstrukt pro cykly, cyklus `for`.
 
-The basic `for` loop has three components separated by semicolons:
+Základní `for` cyklus má tři komponenty oddělené středníky:
 
-- the init statement: executed before the first iteration
-- the condition expression: evaluated before every iteration
-- the post statement: executed at the end of every iteration
+- počáteční příkaz: vykonaný před první iterací
+- výraz podmínky: vyhodnocený před každou iterací
+- následující příkaz: provedený na konci každé iterace
 
-The init statement will often be a short variable declaration, and the
-variables declared there are visible only in the scope of the `for`
-statement.
+Počátečhí příkaz bude často krátká deklarace proměnné, a proměnné tady
+deklararované jsou dostupné jenom v rozsahu  `for`
+příkazu.
 
-The loop will stop iterating once the boolean condition evaluates to `false`.
+Cyklus skončí vyhodnocování jakmile se jeho booleanská podmínka vyhodnotí jako `false`.
 
-_Note_: Unlike other languages like C, Java, or JavaScript there are no parentheses
-surrounding the three components of the `for` statement and the braces `{`}` are
-always required.
+_Poznámka_: Na rozdíl od jazyků jako C, Java, nebo JavaScript tadz nejsou žádné závorky
+obklopující tři komponenty příkazu `for` a složené závorky `{`}` jsou
+vždy povinné.
 
 .play flowcontrol/for.go
 
-* For continued
+* For (pokračování)
 
-The init and post statement are optional.
+Počáteční a následující příkaz jsou nepovinné.
 
 .play flowcontrol/for-continued.go
 
-* For is Go's "while"
+* For je "while" jazyka Go
 
-At that point you can drop the semicolons: C's `while` is spelled `for` in Go.
+V tomto bodu můžeme vypustit středníky: C-čkový `while` se v Go píše jako `for`.
 
 .play flowcontrol/for-is-gos-while.go
 
-* Forever
+* Navždy
 
-If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
+Pokud vypustíš podmínku cyklu bude se provádět donekonečna, takže nekonečný cyklus má kompaktní vyjádření.
 
 .play flowcontrol/forever.go
 
 * If
 
-Go's `if` statements are like its `for` loops; the expression need not be
-surrounded by parentheses `(`)` but the braces `{`}` are required.
+V jazyku Go jsou příkazy `if` jako jeho `for` cykly; výrazy nemusí být 
+obklopené závorkami `(`)` ale složené závorky `{`}` jsou povinné.
 
 .play flowcontrol/if.go
 
-* If with a short statement
+* If se zkráceným příkazem
 
-Like `for`, the `if` statement can start with a short statement to execute before the condition.
+Jako u `for`, příkaz `if` můžé začínat s krátkým příkazem, které se provede před podmínkou.
 
-Variables declared by the statement are only in scope until the end of the `if`.
+Proměnné deklarované příkazem jsou dostupné jenom do konce příkazu `if`.
 
-(Try using `v` in the last `return` statement.)
+(Zkus použít `v` v poslednbím příkazu `return`.)
 
 .play flowcontrol/if-with-a-short-statement.go
 
-* If and else
+* If a else
 
-Variables declared inside an `if` short statement are also available inside any
-of the `else` blocks.
+Proměnné deklarované uvnitř zkráceného příkazu `if` jsou také dostupné uvnitř nějakého z jeho 
+`else` bloků.
 
-(Both calls to `pow` are executed and return before the call to `fmt.Println`
-in `main` begins.)
+(Obojí volání funkce `pow` jsou provedeny a vrátí hodnoty předtím než v `main` začne volání
+funkce `fmt.Println`.)
 
 .play flowcontrol/if-and-else.go
 
-* Exercise: Loops and Functions
+* Cvičení: Cykly a funkce
 
-As a way to play with functions and loops, let's implement a square root function: given a number x, we want to find the number z for which z² is most nearly x.
+Jako způsob k pohrání si s funkcemi a cykly pojďme naimplementovat funkci pro odmocninu: je dáno číslo x a my chceme najít číslo z pro které z² je co nejblíže x.
 
-Computers typically compute the square root of x using a loop.
-Starting with some guess z, we can adjust z based on how close z² is to x,
-producing a better guess:
+Počítače obvykle počítají odmocninu x s použitím cyklu.
+Začínáme s nějakým odhadem z, můžeme z upravit podle toho jak blízko z² je k x,
+což nám poskytne lepší odhad:
 
 	z -= (z*z - x) / (2*z)
 
-Repeating this adjustment makes the guess better and better
-until we reach an answer that is as close to the actual square root as can be.
+Opakováním těchtu úprav se náš odhad zlepšuje a zlepšuje
+dokud nedostaneme hodnotu která je tak blízko, jak jen může být.
 
-Implement this in the `func`Sqrt` provided.
-A decent starting guess for z is 1, no matter what the input.
-To begin with, repeat the calculation 10 times and print each z along the way.
-See how close you get to the answer for various values of x (1, 2, 3, ...)
-and how quickly the guess improves.
+Naimplementuj to v poskutnutné funkci `func`Sqrt`.
+Rozumný startovací odhad pro z je 1, bez ohlednu na vstup.
+Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z které jsi vypočítal/a.
+Vykoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
+a jak rychle se odhad zlepšuje.
 
-Hint: To declare and initialize a floating point value,
-give it floating point syntax or use a conversion:
+Nápověda: Pro deklarování a inicializaci hodnoty s plovoucí řádovou čárkou (floating point),
+použij syntaxi floating pointu, nebo použij konverzi:
 
 	z := 1.0
 	z := float64(1)
 
-Next, change the loop condition to stop once the value has stopped
-changing (or only changes by a very small amount).
-See if that's more or fewer than 10 iterations.
-Try other initial guesses for z, like x, or x/2.
-How close are your function's results to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] in the standard library?
+Dále, změň podmínku v cyklu tak, aby se zastavil jakmile se hodnota přestane
+měnit (nebo jestli se změní jen velmi málo).
+Zjisti jestli je to po více, nebo méně než 10 iteracích.
+Vyzkoušej další počáteční odhady pro z, jako třeba x, nebo x/2.
+Jak blízké jsem výsledky tvé funkce k funkci [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] ze standardní knihovny?
 
-(Note: If you are interested in the details of the algorithm, the z² − x above
-is how far away z² is from where it needs to be (x), and the division by 2z is the derivative
-of z², to scale how much we adjust z by how quickly z² is changing.
-This general approach is called [[https://en.wikipedia.org/wiki/Newton%27s_method][Newton's method]].
-It works well for many functions but especially well for square root.)
+(Poznámka: Pokud tě zajímají detaily algorithmu, výraz z² − x nahoře
+je jak je daleko z² od toho co by mělo být (x), a dělení 2z je derivací
+z², pro zjištění jak moc upravit (z) pomocí toho jak rychle se z² mění.
+Tento obecný příštup se jmenuje [[https://en.wikipedia.org/wiki/Newton%27s_method][Newtonova metoda]].
+Funguje dobře pro mnoho funkcí, ale zvlášť dobře pro odmocninu.)
 
 .play flowcontrol/exercise-loops-and-functions.go
 
 * Switch
 
-A `switch` statement is a shorter way to write a sequence of `if`-`else` statements.
-It runs the first case whose value is equal to the condition expression.
+Příkaz `switch` je kratší verzí zápisu sekvence příkazů `if`-`else`.
+Spustí to první případ (case) jehož hodnota se rovná výrazu podmínky.
 
-Go's switch is like the one in C, C++, Java, JavaScript, and PHP,
-except that Go only runs the selected case, not all the cases that follow.
-In effect, the `break` statement that is needed at the end of each case in those
-languages is provided automatically in Go.
-Another important difference is that Go's switch cases need not
-be constants, and the values involved need not be integers.
+Příkaz switch v Go je jako ten v C, C++, Java, JavaScript, a PHP,
+kromě toho že Go spouští jenom vybraný případ, ne všechny případy které následují.
+To znamená že příkaz `break` který je potřeba na konci každého case v těchto
+jazycích je dodán v Go automaticky.
+Další důležitý rozdíl je, že switch případy v Go nemusí být
+konstanty, a že tyto hodnoty nemusejí být celočíselné (integer).
 
 .play flowcontrol/switch.go
 
-* Switch evaluation order
+* Pořadí vyhodnocování u příkazu Switch
 
-Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+Switch případy jsou vyhodnocované odshora dolů, se zastavením když výraz case uspěje.
 
-(For example,
+(Například,
 
 	switch i {
 	case 0:
 	case f():
 	}
 
-does not call `f` if `i==0`.)
+nezavolá `f` když bude `i==0`.)
 
-#appengine: *Note:* Time in the Go playground always appears to start at
-#appengine: 2009-11-10 23:00:00 UTC, a value whose significance is left as an
-#appengine: exercise for the reader.
+#appengine: *Poznámka:* Čas uvnitř Go hřiště začíná vždycky ve
+#appengine: 2009-11-10 23:00:00 UTC, zjištění významu této hodnoty je ponecháno
+#appengine: jako cvičení pro čtenáře.
 
 .play flowcontrol/switch-evaluation-order.go
 
-* Switch with no condition
+* Switch bez podmínek
 
-Switch without a condition is the same as `switch`true`.
+Příkaz switch bez podmínkz je stejný jako `switch`true`.
 
-This construct can be a clean way to write long if-then-else chains.
+Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce if-then-else.
 
 .play flowcontrol/switch-with-no-condition.go
 
-* Defer
+* Defer (odložení)
 
-A defer statement defers the execution of a function until the surrounding
-function returns.
+Příkaz defer odkládá provedení funkce dokud funkce ve které je použit neukončí.
 
-The deferred call's arguments are evaluated immediately, but the function call
-is not executed until the surrounding function returns.
+Argumentz volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
+se neprovede dokud obklopující funkce neskončí.
 
 .play flowcontrol/defer.go
 
-* Stacking defers
+* Ukládání odložení (defers) na zásobník
 
-Deferred function calls are pushed onto a stack. When a function returns, its
-deferred calls are executed in last-in-first-out order.
+Odložená volání funkce jsou vložena do zásobníku. Když se funkce ukončí, její
+odložená volání jsou provedena v obráceném pořadí (LIFO) - poslední uložený je první provedený.
 
-To learn more about defer statements read this
+Pro zjištění více o příkazech defer si přečti tento
 [[https://blog.golang.org/defer-panic-and-recover][blog post]].
 
 .play flowcontrol/defer-multi.go
 
-* Congratulations!
+* Gratulujeme!
 
-You finished this lesson!
+Dokončil/a jsi tuto lekci!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Můžeš jít zpět na seznam [[/list][modulů]] kde najdeš co se naučit dalšího, nebo pokračovat na [[javascript:click('.next-page')][další lekci]].

@@ -11,10 +11,10 @@ func main() {
 	t := time.Now()
 	switch {
 	case t.Hour() < 12:
-		fmt.Println("Good morning!")
+		fmt.Println("Dobré ráno!")
 	case t.Hour() < 17:
-		fmt.Println("Good afternoon.")
+		fmt.Println("Dobré odpoledne.")
 	default:
-		fmt.Println("Good evening.")
+		fmt.Println("Dobrý večer.")
 	}
 }

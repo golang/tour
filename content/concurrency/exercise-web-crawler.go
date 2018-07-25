@@ -7,13 +7,13 @@ import (
 )
 
 type Fetcher interface {
-	// Fetch returns the body of URL and
-	// a slice of URLs found on that page.
+	// Fetch vrací základ URL a
+	// slice odkazů URL nalezených na té stránce.
 	Fetch(url string) (body string, urls []string, err error)
 }
 
-// Crawl uses fetcher to recursively crawl
-// pages starting with url, to a maximum of depth.
+// Crawl používá fetcher aby rekurzivn proparsoval
+// stránky začínající s url až do maximální hloubky.
 func Crawl(url string, depth int, fetcher Fetcher) {
 	// TODO: Fetch URLs in parallel.
 	// TODO: Don't fetch the same URL twice.
@@ -26,7 +26,7 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("found: %s %q\n", url, body)
+	fmt.Printf("našel: %s %q\n", url, body)
 	for _, u := range urls {
 		Crawl(u, depth-1, fetcher)
 	}
@@ -37,7 +37,7 @@ func main() {
 	Crawl("https://golang.org/", 4, fetcher)
 }
 
-// fakeFetcher is Fetcher that returns canned results.
+// fakeFetcher je Fetcher který vrací předpřipravené výsledky.
 type fakeFetcher map[string]*fakeResult
 
 type fakeResult struct {
@@ -49,20 +49,20 @@ func (f fakeFetcher) Fetch(url string) (string, []string, error) {
 	if res, ok := f[url]; ok {
 		return res.body, res.urls, nil
 	}
-	return "", nil, fmt.Errorf("not found: %s", url)
+	return "", nil, fmt.Errorf("nenalezeno: %s", url)
 }
 
-// fetcher is a populated fakeFetcher.
+// fetcher je naplněný fakeFetcher.
 var fetcher = fakeFetcher{
 	"https://golang.org/": &fakeResult{
-		"The Go Programming Language",
+		"Programovací jazyk Go",
 		[]string{
 			"https://golang.org/pkg/",
 			"https://golang.org/cmd/",
 		},
 	},
 	"https://golang.org/pkg/": &fakeResult{
-		"Packages",
+		"Balíčky",
 		[]string{
 			"https://golang.org/",
 			"https://golang.org/cmd/",
@@ -71,14 +71,14 @@ var fetcher = fakeFetcher{
 		},
 	},
 	"https://golang.org/pkg/fmt/": &fakeResult{
-		"Package fmt",
+		"Balíček fmt",
 		[]string{
 			"https://golang.org/",
 			"https://golang.org/pkg/",
 		},
 	},
 	"https://golang.org/pkg/os/": &fakeResult{
-		"Package os",
+		"Balíček os",
 		[]string{
 			"https://golang.org/",
 			"https://golang.org/pkg/",

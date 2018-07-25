@@ -1,131 +1,131 @@
-Packages, variables, and functions.
-Learn the basic components of any Go program.
+Balíčky, proměnné a funkce.
+Nauč se základní konceptz každého Go programu.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
-* Packages
+* Balíčky (Packages)
 
-Every Go program is made up of packages.
+Každý Go program se skládá z balíčků.
 
-Programs start running in package `main`.
+Programy začínají běh v balíčku `main`.
 
-This program is using the packages with import paths `"fmt"` and `"math/rand"`.
+Tenhle program používá balíčky importováním lokací `"fmt"` a `"math/rand"`.
 
-By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
+Podle konvence, jméno balíčku je stejné jako poslední část importované lokace. Například, balíček `"math/rand"` se obsahuje soubory které při použití začíhají příkazem `package`rand`.
 
-#appengine: *Note:* the environment in which these programs are executed is
-#appengine: deterministic, so each time you run the example program
-#appengine: `rand.Intn` will return the same number.
+#appengine: *Poznámka:* prostředí ve kterém tyto jsou programy spouštěné je
+#appengine: deterministické, takže pokaždé když spustíš tenhle příklad
+#appengine: `rand.Intn` vfrátí stejné číslo.
 #appengine:
-#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
-#appengine: Time is constant in the playground, so you will need to use something else as the seed.)
+#appengine: (Abys viděl jiné číslo, zinicializuj generátor čísel pomocí `Seed`; podívej se na [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
+#appengine: V Playgroundu je čas konstantní, takže budeš muset použít něco jiného k inicializaci jako semínko.)
 
 .play basics/packages.go
 
-* Imports
+* Importy (Imports)
 
-This code groups the imports into a parenthesized, "factored" import statement.
+Tyto příkazy seskupují importované balíčky do ozávorkovaného, "rozděleného" příkazu.
 
-You can also write multiple import statements, like:
+Také můžeš napsat víc import příkazů, jako např.:
 
 	import "fmt"
 	import "math"
 
-But it is good style to use the factored import statement.
+Ale pro lepší styl je lepší použít rozdělený import příkaz.
 
 .play basics/imports.go
 
-* Exported names
+* Exportované názvy
 
-In Go, a name is exported if it begins with a capital letter.
-For example, `Pizza` is an exported name, as is `Pi`, which is exported from
-the `math` package.
+Název je v Go exportovaný (tj dostupný z jiného balíčku), pokud začíhá velkým písemenem.
+Například, `Pizza` je exportovaný název, stejně jako `Pi`, které je exportované z
+balíčku `math`.
 
-`pizza` and `pi` do not start with a capital letter, so they are not exported.
+`pizza` a `pi` nezačínají velkým písmenem, takže nejsou exportované.
 
-When importing a package, you can refer only to its exported names.
-Any "unexported" names are not accessible from outside the package.
+Když importujete balíček, můžete se odkázat pouze na jeho exportovaná jména.
+Jakákoliv "neimportovaná" jména nebudou z jiného balíčku dostupná.
 
-Run the code. Notice the error message.
+Spusti tento kód a všimni si chybové hlášky.
 
-To fix the error, rename `math.pi` to `math.Pi` and try it again.
+Aby si ho spravil/a, přejmenuj `math.pi` na `math.Pi` a zkus to znovu.
 
 .play basics/exported-names.go
 
-* Functions
+* Funkce
 
-A function can take zero or more arguments.
+Funkce může mít žádný, nebo víc argumentů.
 
-In this example, `add` takes two parameters of type `int`.
+V tomto příkladu, `add` má dva parametry typu `int`.
 
-Notice that the type comes _after_ the variable name.
+Povšimni si, že typ je specifikovaný až _po_ názvu proměnné.
 
-(For more about why types look the way they do, see the [[https://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
+(Pro více o tom proč typy vypadají tak jak vypadají se podívej na [[https://blog.golang.org/gos-declaration-syntax][článek o syntaxi Go deklarací]].)
 
 .play basics/functions.go
 
-* Functions continued
+* Funkce (pokračování)
 
-When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
+Když dva nebo více po sobě specifikovaných parametrů sdílí jeden typ, je možné ho vynechat ze všech, až na poslední.
 
-In this example, we shortened
+V tomto příkladu jsme zkrátili
 
 	x int, y int
 
-to
+na
 
 	x, y int
 
 .play basics/functions-continued.go
 
-* Multiple results
+* Více výsledků (Multiple results)
 
-A function can return any number of results.
+Funkce mohou vracet libovolné množství výsledků.
 
-The `swap` function returns two strings.
+Funkce `swap` vrací dva stringy.
 
 .play basics/multiple-results.go
 
-* Named return values
+* Pojmenované návratové hodnoty
 
-Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+Návratové hodnoty v Go mohou být pojmenované. Pokud jsou, je s nimi nakládáno jako s proměnnými definovanými na začátku funkce.
 
-These names should be used to document the meaning of the return values.
+Tato jména by měla být použita pro dokumentaci významu návratových hodnot.
 
-A `return` statement without arguments returns the named return values. This is known as a "naked" return.
+Příkaz `return` bez argumentů vrátí pojmenované návratové hodnoty a říká se tomu "holý" ("naked") return.
 
-Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
+Holý příkaz `return` by měl být použitý jenom u krátkých funkcí, jako je to tady v příkladu. U delších funkcí by mohl zhoršit čitelnost.
 
 .play basics/named-results.go
 
-* Variables
+* Proměnné
 
-The `var` statement declares a list of variables; as in function argument lists, the type is last.
+Příkaz `var` deklaruje seznam proměnných; a stejně jako u seznamu argumentů funkce, typ je poslední.
 
-A `var` statement can be at package or function level. We see both in this example.
+Příkaz `var` může být na úrovni balíčku, nebo funkce. Obojí je ukázáno v tomto příkladu.
 
 .play basics/variables.go
 
-* Variables with initializers
+* Proměnné s inicializátory
 
-A var declaration can include initializers, one per variable.
+Deklarace var může obsahovat inicializátory, jeden na proměnnou.
 
-If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+Pokud je nějaký inicializátor použitý je možné vynechat typ; proměnné převezmou typ z inicializátoru.
 
 .play basics/variables-with-initializers.go
 
-* Short variable declarations
+* Krátké deklarace proměnných
 
-Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
+Uvnitř funkce je možné použít příkaz pro zkrácené přiřazení `:=` namísto deklarace `var` s implicitním typem.
 
-Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available.
+Mimo funkce musí každý příkaz začínat klíčovým slovem (`var`, `func`, a tak dále) takže výraz `:=` není možný.
 
 .play basics/short-variable-declarations.go
 
-* Basic types
+* Základní typy
 
-Go's basic types are
+Základní typy v Go jsou
 
 	bool
 
@@ -134,102 +134,102 @@ Go's basic types are
 	int  int8  int16  int32  int64
 	uint uint8 uint16 uint32 uint64 uintptr
 
-	byte // alias for uint8
+	byte // alias pro uint8
 
-	rune // alias for int32
-	     // represents a Unicode code point
+	rune // alias pro int32
+	     // reprezentuje Unicode code point
 
 	float32 float64
 
 	complex64 complex128
 
-The example shows variables of several types,
-and also that variable declarations may be "factored" into blocks,
-as with import statements.
+Tento příklad ukazuje proměnné různých typů,
+a také že deklarace proměnných mohou být rozděleny do bloků,
+podobně jako příkazy import.
 
-The `int`, `uint`, and `uintptr` types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.
-When you need an integer value you should use `int` unless you have a specific reason to use a sized or unsigned integer type.
+Typy `int`, `uint`, a `uintptr` jsou obvykle na 32bitových systémech dlouhé 32 bitů a na 64bitových systémech dlouhé 64 bitů.
+Když potřebuješ integer, tak bys měl použít `int` pokud nemáš speciální důvod pro použití konkrétně velikého, nebo bez-znaménkového typu.
 
 .play basics/basic-types.go
 
-* Zero values
+* Defaultní (nulové) hodnoty
 
-Variables declared without an explicit initial value are given their
-_zero_value_.
+Proměnné deklarované bey explicitní počáteční hodnoty jsou nastavené na jejich
+_nulovou_hodnotu_.
 
-The zero value is:
+Nulová hodnota je:
 
-- `0` for numeric types,
-- `false` for the boolean type, and
-- `""` (the empty string) for strings.
+- `0` pro číselné typy,
+- `false` pro typy boolean, a
+- `""` (prázdný řetězec) pro řetězce.
 
 .play basics/zero.go
 
-* Type conversions
+* Převody typů
 
-The expression `T(v)` converts the value `v` to the type `T`.
+Výraz `T(v)` převede (converts) hodnotu `v` na typ `T`.
 
-Some numeric conversions:
+Příklady číselných konverzí
 
 	var i int = 42
 	var f float64 = float64(i)
 	var u uint = uint(f)
 
-Or, put more simply:
+Nebo ještě zjednodušeno:
 
 	i := 42
 	f := float64(i)
 	u := uint(f)
 
-Unlike in C, in Go assignment between items of different type requires an
-explicit conversion.
-Try removing the `float64` or `uint` conversions in the example and see what happens.
+Na rozdíl od C, přiřazení mezi položkami různých typů v Go vyžaduje
+explicitní konverzi.
+Zkus odstranit konverzi `float64` nebo `uint` v tomto příkladu a uvidíš co se stane.
 
 .play basics/type-conversions.go
 
-* Type inference
+* Odvezení typu (Type inference)
 
-When declaring a variable without specifying an explicit type (either by using the `:=` syntax or `var`=` expression syntax), the variable's type is inferred from the value on the right hand side.
+Když deklarujete proměnnou bez uvedení explicitního typu (buď pomocí `:=` syntaxe, nebo syntaktického výrazu `var`=`), typ této proměnné je odvozený od hodnoty na pravé straně.
 
-When the right hand side of the declaration is typed, the new variable is of that same type:
+Když je na pravá strana deklarace typová tak tato nová proměnná bude tohoto typu:
 
 	var i int
-	j := i // j is an int
+	j := i // j je int
 
-But when the right hand side contains an untyped numeric constant, the new variable may be an `int`, `float64`, or `complex128` depending on the precision of the constant:
+Ale pokud pravá strance obsahuje netypovou číselnou konstantu, nová promwnná může být `int`, `float64`, nebo `complex128` podle přesnosti této konstanty:
 
 	i := 42           // int
 	f := 3.142        // float64
 	g := 0.867 + 0.5i // complex128
 
-Try changing the initial value of `v` in the example code and observe how its type is affected.
+Zkus změnit počáteční hodnotu `v` v kódu příkladu a pozoruj jak to ovlivní její typ.
 
 .play basics/type-inference.go
 
-* Constants
+* Konstanty
 
-Constants are declared like variables, but with the `const` keyword.
+Konstanty jsou deklarované jako proměnné, ale s klíčovým slovem `const`.
 
-Constants can be character, string, boolean, or numeric values.
+Konstanty mohou být znaky, řetězce, booleanské nebo číselné hodnoty.
 
-Constants cannot be declared using the `:=` syntax.
+Konstanty nemohou být deklarované s použitím syntaxe `:=`.
 
 .play basics/constants.go
 
-* Numeric Constants
+* Číselné konstanty
 
-Numeric constants are high-precision _values_.
+Číselné konstanty jsou _hodnoty_ s vysokou přesností.
 
-An untyped constant takes the type needed by its context.
+Netypové konstanty přebírají potřebný typ podle kontextu použití.
 
-Try printing `needInt(Big)` too.
+Vyzkoušej si také vypsat `needInt(Big)`.
 
-(An `int` can store at maximum a 64-bit integer, and sometimes less.)
+(Typ `int` může obsahovat maximálně 64-bitový integer, a někdy méně.)
 
 .play basics/numeric-constants.go
 
-* Congratulations!
+* Gratulujeme!
 
-You finished this lesson!
+Dokončil/a jsi tuto lekci!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Můžeš jít zpět na seznam [[/list][modulů]] kde najdeš co se naučit dalšího, nebo pokračovat na [[javascript:click('.next-page')][další lekci]].

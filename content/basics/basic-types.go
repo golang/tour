@@ -14,7 +14,7 @@ var (
 )
 
 func main() {
-	fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)
-	fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt)
-	fmt.Printf("Type: %T Value: %v\n", z, z)
+	fmt.Printf("Typ: %T Hodnota: %v\n", ToBe, ToBe)
+	fmt.Printf("Typ: %T Hodnota: %v\n", MaxInt, MaxInt)
+	fmt.Printf("Typ: %T Hodnota: %v\n", z, z)
 }

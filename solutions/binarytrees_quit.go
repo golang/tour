@@ -19,22 +19,22 @@ func walkImpl(t *tree.Tree, ch, quit chan int) {
 	walkImpl(t.Left, ch, quit)
 	select {
 	case ch <- t.Value:
-		// Value successfully sent.
+		// Hodnota úspěšně poslaná.
 	case <-quit:
 		return
 	}
 	walkImpl(t.Right, ch, quit)
 }
 
-// Walk walks the tree t sending all values
-// from the tree to the channel ch.
+// Walk prochází strom t a posílá všechny hodnoty
+// ze stromu do kanálu ch.
 func Walk(t *tree.Tree, ch, quit chan int) {
 	walkImpl(t, ch, quit)
 	close(ch)
 }
 
-// Same determines whether the trees
-// t1 and t2 contain the same values.
+// Same určuje jestli stromy
+// t1 a t2 osahují stejné hodnoty.
 func Same(t1, t2 *tree.Tree) bool {
 	w1, w2 := make(chan int), make(chan int)
 	quit := make(chan int)

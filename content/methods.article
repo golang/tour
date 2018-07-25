@@ -1,387 +1,386 @@
-Methods and interfaces
-This lesson covers methods and interfaces, the constructs that define objects and their behavior.
+Metody a interface
+Tato lekce pokrývá metody a interface, konstrukce, které definují objekty a jejich chování.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
-* Methods
+* Metody
 
-Go does not have classes.
-However, you can define methods on types.
+Go nemá třídy.
+Přesto ale, je možné na typech definovat metody.
 
-A method is a function with a special _receiver_ argument.
+Metoda je funkce se speciálním argumentem _příjemce_ (receiver).
 
-The receiver appears in its own argument list between the `func` keyword and
-the method name.
+Příjemci se objevují ve svém vlasním seznamu argumentů mezi klíčovým slovem`func` a
+názvem metody.
 
-In this example, the `Abs` method has a receiver of type `Vertex` named `v`.
+V tomto příkladu, metoda `Abs` má příjemce typu `Vertex` nazvaného `v`.
 
 .play methods/methods.go
 
-* Methods are functions
+* Metody jsou funkce
 
-Remember: a method is just a function with a receiver argument.
+Pamatuj: metoda je jenom funkce s argumentem příjemce.
 
-Here's `Abs` written as a regular function with no change in functionality.
+Tady je `Abs` napsaná jako obyčejná funkce beze změny funkce.
 
 .play methods/methods-funcs.go
 
-* Methods continued
+* Metody (pokračování)
 
-You can declare a method on non-struct types, too.
+Metodu můžeš nadeklarovat i na jiných typech než struktury.
 
-In this example we see a numeric type `MyFloat` with an `Abs` method.
+V tomto příkladu vidíme číselný typ `MyFloat` s metodou `Abs`.
 
-You can only declare a method with a receiver whose type is defined in the same
-package as the method.
-You cannot declare a method with a receiver whose type is defined in another
-package (which includes the built-in types such as `int`).
+Metodu můžeš deklarovat jenom s příjemcem jehož typ je definovaný ve stejném
+balíčku jako tato metoda.
+Nemůžš delrarovat metodu s příjemcem jehož typ je definovaný v jiném balíčku
+(týká se to i zabudovaných typů jako je `int`).
 
 .play methods/methods-continued.go
 
-* Pointer receivers
+* Ukazatele na příjemce
 
-You can declare methods with pointer receivers.
+Můžeš deklarovat metody s ukazateli na příjemce.
 
-This means the receiver type has the literal syntax `*T` for some type `T`.
-(Also, `T` cannot itself be a pointer such as `*int`.)
+To znamená že typ příjemce se doslova zapisuje jako `*T` pro nějaký typ `T`.
+(Také, samotný typ `T` nemůže být ukazatel jako třeba `*int`.)
 
-For example, the `Scale` method here is defined on `*Vertex`.
+Například metoda `Scale` je tu definována na `*Vertex`.
 
-Methods with pointer receivers can modify the value to which the receiver
-points (as `Scale` does here).
-Since methods often need to modify their receiver, pointer receivers are more
-common than value receivers.
+Metody s ukazateli na příjemce mohou měnit hodnoty na které příjemce
+ukazuje (jako se tady děje se `Scale`).
+Protože metody potřebují často měnit své příjemce, jsou ukazatele na příjemce běžnější
+než hodnotoví příjemci.
 
-Try removing the `*` from the declaration of the `Scale` function on line 16
-and observe how the program's behavior changes.
+Vyzkoušej odstranit `*` z deklarace funkce `Scale` na řádku 16
+a sleduj jak se změní chování přogramu.
 
-With a value receiver, the `Scale` method operates on a copy of the original
-`Vertex` value.
-(This is the same behavior as for any other function argument.)
-The `Scale` method must have a pointer receiver to change the `Vertex` value
-declared in the `main` function.
+S hodnotovým příjemcem, metoda `Scale`operuje na koii původní hodnoty
+`Vertex`.
+(Tohle je stejné chování jako u kteréhokoliv jiného parametru funkce.)
+Metoda `Scale` musím mít ukazatel na pointer aby mohla měnit hodnotu `Vertex`
+deklarovanou ve funkci `main`.
 
 .play methods/methods-pointers.go
 
-* Pointers and functions
+* Ukazatele a funkce
 
-Here we see the `Abs` and `Scale` methods rewritten as functions.
+Tady vidíme metody `Abs` a `Scale` přepsané jako funkce.
 
-Again, try removing the `*` from line 16.
-Can you see why the behavior changes?
-What else did you need to change for the example to compile?
+Znovu, zikus odstranit `*` z řádku 16.
+Vidíš proč se změnilo chování?
+Co ještě bylo potřeba změnit aby se dal příklad přeložit?
 
-(If you're not sure, continue to the next page.)
+(Pokud si nejsi jistý/á, pokračuj na další stránku.)
 
 .play methods/methods-pointers-explained.go
 
-* Methods and pointer indirection
+* Metody a nepřímost ukazatelů
 
-Comparing the previous two programs, you might notice that
-functions with a pointer argument must take a pointer:
+Porovnáním předchozích dvoj programů si můžeš všimnout,
+že funkce s ukazatelem v parametru musejí být volané s ukazatelem:
 
 	var v Vertex
-	ScaleFunc(v, 5)  // Compile error!
+	ScaleFunc(v, 5)  // Chyba v kompilaci!
 	ScaleFunc(&v, 5) // OK
 
-while methods with pointer receivers take either a value or a pointer as the
-receiver when they are called:
+zatímco metody s ukazatelem na příjemce akceptují obojí, jak hodnotu tak i ukazatel
+jako příjemce, když jsou volané:
 
 	var v Vertex
 	v.Scale(5)  // OK
 	p := &v
 	p.Scale(10) // OK
 
-For the statement `v.Scale(5)`, even though `v` is a value and not a pointer,
-the method with the pointer receiver is called automatically.
-That is, as a convenience, Go interprets the statement `v.Scale(5)` as
-`(&v).Scale(5)` since the `Scale` method has a pointer receiver.
+V příkazu `v.Scale(5)`, i přesto že `v` je hodnota a ne ukazatel,
+je metoda automaticky volaná s ukazatelem na příjemce.
+To je, že pro pohodlí, Go interpretuje příkaz `v.Scale(5)` jako
+`(&v).Scale(5)` protože metoda `Scale` má ukazatel na příjemce.
 
 .play methods/indirection.go
 
-* Methods and pointer indirection (2)
+* Metody a nepřímost ukazatelů (2)
 
-The equivalent thing happens in the reverse direction.
+Podobná věc se děje v obráceném směru.
 
-Functions that take a value argument must take a value of that specific type:
+Funkce které mají hodnotový argument musejí přijímat hodnotu daného typu:
 
 	var v Vertex
 	fmt.Println(AbsFunc(v))  // OK
-	fmt.Println(AbsFunc(&v)) // Compile error!
+	fmt.Println(AbsFunc(&v)) // Chyba kompilace!
 
-while methods with value receivers take either a value or a pointer as the
-receiver when they are called:
+zatímce když jsou volané metody s hodnotovými příjemci přijímají jako příjemce
+buď hodnotu nebo ukazatel:
 
 	var v Vertex
 	fmt.Println(v.Abs()) // OK
 	p := &v
 	fmt.Println(p.Abs()) // OK
 
-In this case, the method call `p.Abs()` is interpreted as `(*p).Abs()`.
+V tomto případě volání metody `p.Abs()` je interpretováno jako `(*p).Abs()`.
 
 .play methods/indirection-values.go
 
-* Choosing a value or pointer receiver
+* Výběr hodnotového nebo ukazatelového příjemce
 
-There are two reasons to use a pointer receiver.
+Existují dva důvody proč použít ukazatele na příjemce.
 
-The first is so that the method can modify the value that its receiver points to.
+První je že metoda může měnit hodnotu na kterou příjemce ukazuje.
 
-The second is to avoid copying the value on each method call.
-This can be more efficient if the receiver is a large struct, for example.
+Druhý je, aby se zabránílo kopírování hodnoty při každém volání metody.
+Pokud je příjemce například velká struktura, tak to může být efektivnější.
 
-In this example, both `Scale` and `Abs` are with receiver type `*Vertex`,
-even though the `Abs` method needn't modify its receiver.
+V tomto p59kladu, obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
+přestože metoda `Abs` nepotřebuje modifikovat svého příjemce.
 
-In general, all methods on a given type should have either value or pointer
-receivers, but not a mixture of both.
-(We'll see why over the next few pages.)
+Obecně řečeno, všechny metody na daném typu by měly být buď hodnotového, nebo ukazatelového
+příjemce, ale ne kombinaci obou.
+(uvidíme proč za dalších pár stránek.)
 
 .play methods/methods-with-pointer-receivers.go
 
-* Interfaces
+* Interface (rozhraní)
 
-An _interface_type_ is defined as a set of method signatures.
+Typ _typ_interface_ je definovaný jako sada signatur metod.
 
-A value of interface type can hold any value that implements those methods.
+Hodnota typu interface může obsahovat jakoukoliv hodnotu, která implementuje tuto sadu metod.
 
-*Note:* There is an error in the example code on line 22.
-`Vertex` (the value type) doesn't implement `Abser` because
-the `Abs` method is defined only on `*Vertex` (the pointer type).
+*Poznámka:* Na řádku 22 v kódu příkladu je chyba.
+`Vertex` (hodnotový typ) neimplementuje `Abser` protože
+metoda `Abs` je definována jen na typu `*Vertex` (ukazatelový typ).
 
 .play methods/interfaces.go
 
-* Interfaces are implemented implicitly
+* Interface jsou implementovány implicitně
 
-A type implements an interface by implementing its methods.
-There is no explicit declaration of intent, no "implements" keyword.
+Typ implementuje interface, tím že implementuje jeho metody.
+Neexistuje žádná explicitní deklarace záměru, nebo klíčové slovo "implements".
 
-Implicit interfaces decouple the definition of an interface from its
-implementation, which could then appear in any package without prearrangement.
+Implicitní interface dovolují oddělit (decouple) definici interface od jeho
+implementace, která se tak může objevit v jakémkoliv balíčku bez nějaké předpřípravy.
 
 .play methods/interfaces-are-satisfied-implicitly.go
 
-* Interface values
+* Hodnoty Interfaců
 
-Under the covers, interface values can be thought of as a tuple of a value and a
-concrete type:
+Pod povrchem je o interface možné přemýšlet jako o dvojici (tuple) hodnoty a
+konkrétního typu:
 
-	(value, type)
+	(hodnota, typ)
 
-An interface value holds a value of a specific underlying concrete type.
+Hodnota interface obsahuje hodnotu specifického základního konkrétního typu.
 
-Calling a method on an interface value executes the method of the same name on
-its underlying type.
+Volání metody na hodnotě interface provede metodu se stejným názvem na
+základním typu interface.
 
 .play methods/interface-values.go
 
-* Interface values with nil underlying values
+* Hodnoty interfaců se základním typem nil
 
-If the concrete value inside the interface itself is nil,
-the method will be called with a nil receiver.
+Pokud je konkrétní typ v samotném interface nil,
+metoda bude zavolaná na nil příjemci.
 
-In some languages this would trigger a null pointer exception,
-but in Go it is common to write methods that gracefully handle being called
-with a nil receiver (as with the method `M` in this example.)
+V některých jazycích by to vedlo k vyvolání null pointer exception,
+ale v Go je běžné psát metody které pracují správně i když jsou zavolané
+s nil příjemcem (jako v případě metody `M` v tomto příkladu.)
 
-Note that an interface value that holds a nil concrete value is itself non-nil.
+Všimni si, že hodnota interface která obsahuje konkrétní hodnotu nil sama není nil.
 
 .play methods/interface-values-with-nil.go
 
-* Nil interface values
+* Nil hodnoty interface
 
-A nil interface value holds neither value nor concrete type.
+Hodnota nil v interface nedrží ani hodnotu, ani konkrétní typ.
 
-Calling a method on a nil interface is a run-time error because there is no
-type inside the interface tuple to indicate which _concrete_ method to call.
+Voláním metody na nil interface vyvolá chybu run-time protože není
+žádný typ v dvojici tuple interface, který by naznačil jakou _konkrétní_ metodu zavolat.
 
 .play methods/nil-interface-values.go
 
-* The empty interface
+* Prázdný interface
 
-The interface type that specifies zero methods is known as the _empty_interface_:
+Typ interface který nespecifikuje žádné metody je známý jako _prázdný_interface_ (empty interface):
 
 	interface{}
 
-An empty interface may hold values of any type.
-(Every type implements at least zero methods.)
+Prázdný inteface může držet hodnoty jakéhokoliv typu.
+(Každý typ implementuje alespoň žádné metody.)
 
-Empty interfaces are used by code that handles values of unknown type.
-For example, `fmt.Print` takes any number of arguments of type `interface{}`.
+Prádné interface jsou používané v kódu který ošetřuje hodnoty nezných typů.
+Například `fmt.Print` přijímá libovolný počet argumentů typu `interface{}`.
 
 .play methods/empty-interface.go
 
-* Type assertions
+* Vynucení typu (Type assertions)
 
-A _type_assertion_ provides access to an interface value's underlying concrete value.
+_Vynucení_typu_ poskytuje přístup ke konkrétnímu základnímu typu interface.
 
 	t := i.(T)
 
-This statement asserts that the interface value `i` holds the concrete type `T`
-and assigns the underlying `T` value to the variable `t`.
+Takový příklad vynutí aby hodnota interface `i` držela konkrétní typ `T`
+a přiřadila  základní hodnotu `T` do proměnné `t`.
 
-If `i` does not hold a `T`, the statement will trigger a panic.
+POkud `i` nedrží typ `T`, tento příkaz spustí paniku (panic).
 
-To _test_ whether an interface value holds a specific type,
-a type assertion can return two values: the underlying value
-and a boolean value that reports whether the assertion succeeded.
+Pro _test_ jestli hodnota interface drží specifický typ,
+vynucení typu může vrátit dvě hodnoty: základní hodnotu a
+booleanskou hodnotu která signalizuje jestli se vynucení povedlo.
 
 	t, ok := i.(T)
 
-If `i` holds a `T`, then `t` will be the underlying value and `ok` will be true.
+Pokud `i` drží nějaký `T`, potom bude `t` základní hodnota a `ok` bude true.
 
-If not, `ok` will be false and `t` will be the zero value of type `T`,
-and no panic occurs.
+Pokud ne, `ok` bude false a `t` nulová hodnota typu `T`
+a nevyvolá se žádná panika.
 
-Note the similarity between this syntax and that of reading from a map.
+Povšimni si podobnosti mezí touto syntaxí a tím jak se čte z mapy.
 
 .play methods/type-assertions.go
 
-* Type switches
+* Typové přepínače (Type switches)
 
-A _type_switch_ is a construct that permits several type assertions in series.
+_Typový_přepínač_ je konstrukt který dovoluje sérii několika typových vynucení.
 
-A type switch is like a regular switch statement, but the cases in a type
-switch specify types (not values), and those values are compared against
-the type of the value held by the given interface value.
+Typový přepíjač je jako běžný příkaz switch, ale jednotlivé případy u typového
+přepínače specifikují typy (ne hodnoty), a tyto hodnoty jsou porovnávané s
+typem hodnoty drženou hodnotou daného interface.
 
 	switch v := i.(type) {
 	case T:
-		// here v has type T
+		// tady má v typ T
 	case S:
-		// here v has type S
+		// tady v má typ S
 	default:
-		// no match; here v has the same type as i
+		// žádná shoda;  tady má v stejný typ jako i
 	}
 
-The declaration in a type switch has the same syntax as a type assertion `i.(T)`,
-but the specific type `T` is replaced with the keyword `type`.
+Deklarace má v typovém přepínači stejný syntax jako typové vynucení `i.(T)`,
+ale konkrétní typ `T` je nahrazený klíčovým slovem `type`.
 
-This switch statement tests whether the interface value `i`
-holds a value of type `T` or `S`.
-In each of the `T` and `S` cases, the variable `v` will be of type
-`T` or `S` respectively and hold the value held by `i`.
-In the default case (where there is no match), the variable `v` is
-of the same interface type and value as `i`.
+Tento příkaz switch testuje jestli hodnota interface `i`
+obsahuje nějakou hodnotu typu `T` nebo `S`.
+V každém z případů pro  `T` a `S`, bude proměnná `v` typu 
+`T` nebo `S` v tomto pořadí a bude mít hodnotu kterou má `i`.
+V defaultním případě (pokud se nenajde shoda), proměnná `v` má
+stejný interface type a hodnotu jako `i`.
 
 .play methods/type-switches.go
 
-* Stringers
+* Stringery (Stringers)
 
-One of the most ubiquitous interfaces is [[//golang.org/pkg/fmt/#Stringer][`Stringer`]] defined by the [[//golang.org/pkg/fmt/][`fmt`]] package.
+Jeden z nejvíce všudypřítomných rozhraní je [[//golang.org/pkg/fmt/#Stringer][`Stringer`]] definovaný v balíčku [[//golang.org/pkg/fmt/][`fmt`]].
 
 	type Stringer interface {
 		String() string
 	}
 
-A `Stringer` is a type that can describe itself as a string. The `fmt` package
-(and many others) look for this interface to print values.
+`Stringer` je typ, který se sám může popsat jako řetězec. Balíček `fmt`
+(a řada dalších) hledá toto rozhraní během výpisů hodnot.
 
 .play methods/stringer.go
 
-* Exercise: Stringers
+* Cvičení: Stringery
 
-Make the `IPAddr` type implement `fmt.Stringer` to print the address as
-a dotted quad.
+Změň typ `IPAddr` aby implementoval `fmt.Stringer` pro výpis adres jako
+tečkami oddělenou čtveřici čísel.
 
-For instance, `IPAddr{1,`2,`3,`4}` should print as `"1.2.3.4"`.
+Například, `IPAddr{1,`2,`3,`4}` by se mělo vypsat jako `"1.2.3.4"`.
 
 .play methods/exercise-stringer.go
 
-* Errors
+* Chyby
 
-Go programs express error state with `error` values.
+Go programy vyjadřují chybové stavy jako hodnoty typu `error`.
 
-The `error` type is a built-in interface similar to `fmt.Stringer`:
+Typ `error` je zabudovaný interface podobně jako `fmt.Stringer`:
 
 	type error interface {
 		Error() string
 	}
 
-(As with `fmt.Stringer`, the `fmt` package looks for the `error` interface when
-printing values.)
+(Podobně jako u `fmt.Stringer`, balíček `fmt` hledá interface `error` když
+vypisuje hodnoty.)
 
-Functions often return an `error` value, and calling code should handle errors
-by testing whether the error equals `nil`.
+Funkce často vrací hodnotu `error` a volající kód by měl ošetřit chyby pomocí testu
+jestli se error rovná `nil`.
 
 	i, err := strconv.Atoi("42")
 	if err != nil {
-		fmt.Printf("couldn't convert number: %v\n", err)
+		fmt.Printf("nemohu převést číslo: %v\n", err)
 		return
 	}
-	fmt.Println("Converted integer:", i)
+	fmt.Println("Převedený integer:", i)
 
-A nil `error` denotes success; a non-nil `error` denotes failure.
+Hodnota nil v `error` oznamuje úspěch; ne nilová hodnota `error` označuje chybu.
 
 .play methods/errors.go
 
-* Exercise: Errors
+* Cvičení: Chyby Errors
 
-Copy your `Sqrt` function from the [[/flowcontrol/8][earlier exercise]] and modify it to return an `error` value.
+Zkopíruj svoji funkci `Sqrt` z [[/flowcontrol/8][dřívější cvičení]] a změň ji aby vracela hodnotu `error`.
 
-`Sqrt` should return a non-nil error value when given a negative number, as it doesn't support complex numbers.
+`Sqrt` by měla vracet ne=nil chybovou hodotu pokud dostane záporné číslo, protože nepodporuje komplexní čísla.
 
-Create a new type
+Vytvoř nový typ<
 
 	type ErrNegativeSqrt float64
 
-and make it an `error` by giving it a
+a udělej z něho `error` pomocí přidání metody
 
-	func (e ErrNegativeSqrt) Error() string
+	func (e ErrNegativeSqrt) Errors() string
 
-method such that `ErrNegativeSqrt(-2).Error()` returns `"cannot`Sqrt`negative`number:`-2"`.
+se kterou vrátí volání `ErrNegativeSqrt(-2).Error()` chybu `"nemohu provést `Sqrt` na záporném `čísle:`-2"`.
 
-*Note:* a call to `fmt.Sprint(e)` inside the `Error` method will send the program into an infinite loop. You can avoid this by converting `e` first: `fmt.Sprint(float64(e))`. Why?
+*Poznámka:* Volání `fmt.Sprint(e)` uvnitř metody `Error` zacyklí program v nekonečné smyčce. Tomu se můžeš vyhnout pokud nejdřív zkonvertuješ `e` takto: `fmt.Sprint(float64(e))`. Proč?
 
-Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a negative number.
+Změň svoji funkci `Sqrt` aby vracela hodnotu `ErrNegativeSqrt` pokud je jí předané záporné číslo.
 
 .play methods/exercise-errors.go
 
-* Readers
+* Čtenáři (Readers)
 
-The `io` package specifies the `io.Reader` interface,
-which represents the read end of a stream of data.
+Balíček `io` specifikuje interface `io.Reader`,
+který reprezentuje operaci čtení ze streamu dat.
 
-The Go standard library contains [[https://golang.org/search?q=Read#Global][many implementations]] of these interfaces, including files, network connections, compressors, ciphers, and others.
+Standardní knihovna Go obsahuje [[https://golang.org/search?q=Read#Global][množství implementací]] tohoto interface, Včetně souborů, síťových spojení, kompresorů, šifrovačů, a jiných.
 
-The `io.Reader` interface has a `Read` method:
+Rozhraní `io.Reader` má metodu `Read`:
 
 	func (T) Read(b []byte) (n int, err error)
 
-`Read` populates the given byte slice with data and returns the number of bytes
-populated and an error value. It returns an `io.EOF` error when the stream
-ends.
+Metoda `Read` načítá data do daného řezu bytů a vrací počet načtených
+bytů a hodnotu chyby. Když stream skončí, tak vrací chybu `io.EOF`.
 
-The example code creates a
+Tento příklad vytváří
 [[//golang.org/pkg/strings/#Reader][`strings.Reader`]]
-and consumes its output 8 bytes at a time.
+a konzumuje jeho výstup najednou po 8mi bytech.
 
 .play methods/reader.go
 
-* Exercise: Readers
+* Cvičení: Čtenáři (Readers)
 
-Implement a `Reader` type that emits an infinite stream of the ASCII character
+Naimplementuj typ `Reader` který vytváří nekonečný stream ASCII znaků
 `'A'`.
 
 .play methods/exercise-reader.go
 
-* Exercise: rot13Reader
+* Cvičení: rot13Reader
 
-A common pattern is an [[https://golang.org/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+Běžný vzor je obalit původní [[https://golang.org/pkg/io/#Reader][io.Reader]] novým `io.Reader`-em který ten původní stream nějak mění.
 
-For example, the [[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of compressed data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+Například, funkce[[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] přijíká `io.Reader` (stream kompresovaných dat) a vrací `*gzip.Reader` který také implementuje `io.Reader` (stream dekompresovaných dat).
 
-Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[https://en.wikipedia.org/wiki/ROT13][rot13]] substitution cipher to all alphabetical characters.
+Naimplementuj `rot13Reader` který implementuje `io.Reader` a čte z nějakého `io.Reader`-u, měnícím původní stream aplikujícím substituční šifru [[https://en.wikipedia.org/wiki/ROT13][rot13]] na všechny alfanumerické.
 
-The `rot13Reader` type is provided for you.
-Make it an `io.Reader` by implementing its `Read` method.
+Typ `rot13Reader` je pro tebe připravený.
+Udělej z něho `io.Reader` naimplementováním jeho metody `Read`.
 
 .play methods/exercise-rot-reader.go
 
-* Images
+* Obrázky
 
-[[https://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
+[[https://golang.org/pkg/image/#Image][Balíček image]] Definuje interface `Image`:
 
 	package image
 
@@ -391,32 +390,32 @@ Make it an `io.Reader` by implementing its `Read` method.
 		At(x, y int) color.Color
 	}
 
-*Note*: the `Rectangle` return value of the `Bounds` method is actually an
-[[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]], as the
-declaration is inside package `image`.
+*Poznámka*: Metoda `Rectangle` která vrací jako hodnotu metodu `Bounds` je vlastně funkce
+[[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]], protože je
+uvnitř balíčku `image`.
 
-(See [[https://golang.org/pkg/image/#Image][the documentation]] for all the details.)
+(Podívej se na [[https://golang.org/pkg/image/#Image][dokumentaci]] pro všechny detaily.)
 
-The `color.Color` and `color.Model` types are also interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[https://golang.org/pkg/image/color/][image/color package]]
+Typy `color.Color` a `color.Model` jsou také interface, ale budeme to ignorovat a použijeme předdefinoané implementace `color.RGBA` a `color.RGBAModel`. Tyto interface a typy jsou specifiiované v [[https://golang.org/pkg/image/color/][balíčku image/color]]
 
 .play methods/images.go
 
-* Exercise: Images
+* Cvičení: Obrázky
 
-Remember the picture generator you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+Vzpomínáš si na generátor obrázků který si napsal/a dříve? Pojďme napsat další, ale tentokrát bude vracet implementaci `image.Image` místo řezu dat.
 
-Define your own `Image` type, implement [[https://golang.org/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+Definuj svůj vlastní typ `Image` a implementuj [[https://golang.org/pkg/image/#Image][potřebné metody]], a zavolej `pic.ShowImage`.
 
-`Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
+`Bounds` by měl vracet `image.Rectangle`, jako třeba `image.Rect(0,`0,`w,`h)`.
 
-`ColorModel` should return `color.RGBAModel`.
+`ColorModel` by měl vracet `color.RGBAModel`.
 
-`At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
+`At` by měl vracet barvu; hodnota `v` z posledního generáturu obrázků koresponduje s `color.RGBA{v,`v,`255,`255}` v tomto.
 
 .play methods/exercise-images.go
 
-* Congratulations!
+* Gratulujeme!
 
-You finished this lesson!
+Dokončil/a jsi tuto lekci!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Můžeš jít zpět na seznam [[/list][modulů]] kde najdeš co se naučit dalšího, nebo pokračovat na [[javascript:click('.next-page')][další lekci]].
