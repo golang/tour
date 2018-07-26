@@ -9,50 +9,50 @@ angular.module('tour.values', []).
 // List of modules with description and lessons in it.
 value('tableOfContents', [{
     'id': 'mechanics',
-    'title': 'Using the tour',
-    'description': '<p>Welcome to a tour of the <a href="https://golang.org">Go programming language</a>. The tour covers the most important features of the language, mainly:</p>',
+    'title': 'Používání průvodce',
+    'description': '<p>Vítejte u průvodce <a href="https://golang.org">Programovacím jazykem Go</a>. Průvodce pokrývá nejdůležitější vlastnosti jazyka, hlavně:</p>',
     'lessons': ['welcome']
 }, {
     'id': 'basics',
-    'title': 'Basics',
-    'description': '<p>The starting point, learn all the basics of the language.</p><p>Declaring variables, calling functions, and all the things you need to know before moving to the next lessons.</p>',
+    'title': 'Základy',
+    'description': '<p>Startovací bod, nauč se všechny základz jazyka</p><p>Deklarace proměnných, volání funkcí, a všechnz věci které potřebuješ vědět pro postup k dalším lekcím.</p>',
     'lessons': ['basics', 'flowcontrol', 'moretypes']
 }, {
     'id': 'methods',
-    'title': 'Methods and interfaces',
-    'description': '<p>Learn how to define methods on types, how to declare interfaces, and how to put everything together.</p>',
+    'title': 'Metody a interface',
+    'description': '<p>Nauč se jak definovat metody na typech, jak deklarovat interface, a jak to všechno spojit.</p>',
     'lessons': ['methods']
 }, {
     'id': 'concurrency',
-    'title': 'Concurrency',
-    'description': '<p>Go provides concurrency features as part of the core language.</p><p>This module goes over goroutines and channels, and how they are used to implement different concurrency patterns.</p>',
+    'title': 'Konkurence',
+    'description': '<p>Go poskytuje vlastnosti souběžnosti jako jeden ze základů jazyka.</p><p>Tento modul prochází přes go rutiny a kanály a jejich použití v různých vzorech konkurence.</p>',
     'lessons': ['concurrency']
 }]).
 
 // translation
 value('translation', {
-    'off': 'off',
-    'on': 'on',
+    'off': 'vyp',
+    'on': 'zap',
     'syntax': 'Syntax-Highlighting',
     'lineno': 'Line-Numbers',
     'reset': 'Reset Slide',
-    'format': 'Format Source Code',
-    'kill': 'Kill Program',
-    'run': 'Run',
-    'compile': 'Compile and Run',
-    'more': 'Options',
-    'toc': 'Table of Contents',
-    'prev': 'Previous',
-    'next': 'Next',
-    'waiting': 'Waiting for remote server...',
-    'errcomm': 'Error communicating with remote server.',
-    'submit-feedback': 'Send feedback about this page',
+    'format': 'Naformátuj zdrojový kód',
+    'kill': 'Ukonči Program',
+    'run': 'Start',
+    'compile': 'Zkompiluj a Start',
+    'more': 'Volby',
+    'toc': 'Obsah',
+    'prev': 'Předchozí',
+    'next': 'Další',
+    'waiting': 'Čekám na vzdálený server...',
+    'errcomm': 'Chyba při komunikaci se vzdáleným serverem.',
+    'submit-feedback': 'Pošli zpětnou vazbu o téhle stránce',
 
     // GitHub issue template: update repo and messaging when translating.
-    'github-repo': 'github.com/golang/tour',
-    'issue-title': 'tour: [REPLACE WITH SHORT DESCRIPTION]',
-    'issue-message': 'Change the title above to describe your issue and add your feedback here, including code if necessary',
-    'context': 'Context',
+    'github-repo': 'github.com/martinkunc/go-tour-cz',
+    'issue-title': 'průvodce: [NAHRAĎTE KRÁTKÝM POPISEM]',
+    'issue-message': 'Nahoře uveďte titulek a zde poskytněte svůj popis problému, nebo poskytněte zpětnou vazbu. Včetně kódu, pokud je potřeba',
+    'context': 'Kontext',
 }).
 
 // Config for codemirror plugin

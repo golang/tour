@@ -1,51 +1,51 @@
-Welcome!
-Learn how to use this tour: including how to navigate the different lessons and how to run code.
+Vítejte!
+Naučte se jak používat tohohle průvodce: jak navigovat skrze lekce a jak spouštět kód.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
-* Hello, 世界
+* Ahoj, 世界
 
-Welcome to a tour of the [[https://golang.org/][Go programming language]].
+Vítejte do průvodce [[https://golang.org/][programovacím jazykem Go]].
 
-The tour is divided into a list of modules that you can
-access by clicking on
-[[javascript:highlight(".logo")][A Tour of Go]] on the top left of the page.
+Tenhle průvodce je rozdělený do seznamu několika modulů na které
+můžete přejít kliknutím na logo
+[[javascript:highlight(".logo")][Průvodce Go]] v levém horním rohu stránky.
 
-You can also view the table of contents at any time by clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
+Také se kdykoliv můžete podívat na obsah kliknutím na [[javascript:highlightAndClick(".nav")][menu]] na horním pravém rohu stránky.
 
-Throughout the tour you will find a series of slides and exercises for you
-to complete.
+Během průvodce budete nacházet kolekce slidů a cvičení 
+k vyzkoušení.
 
-You can navigate through them using
+Skrze ně se budete moci navigovat s pomocí
 
-- [[javascript:highlight(".prev-page")]["previous"]] or `PageUp` to go to the previous page,
+- [[javascript:highlight(".prev-page")]["předchozí"]] nebo `PageUp` pro přechod na předchozí stránku,
 
-- [[javascript:highlight(".next-page")]["next"]] or `PageDown` to go to the next page.
+- [[javascript:highlight(".next-page")]["další"]] nebo `PageDown` pro přechod na další stránku.
 
-The tour is interactive. Click the
-[[javascript:highlightAndClick("#run")][Run]] button now 
-(or type `shift-enter`) to compile and run the program on
-#appengine: a remote server.
-your computer.
-The result is displayed below the code.
+Tenhle průvodce je interaktivní. Teď klikněte na
+tlačítko [[javascript:highlightAndClick("#run")][Start]] 
+(nebo stlačte `shift-enter`) pro překompilování a spuštění programu na 
+#appengine: vzdáleném serveru.
+vašem počítači.
+Výsledek je zobrazený pod kódem.
 
-These example programs demonstrate different aspects of Go. The programs in the tour are meant to be starting points for your own experimentation.
+Tyto ukázkové programy demonstrují různé aspekty Go. Programy v průvodci mají být prvnímy kroky ve tvých vlastních experimentech.
 
-Edit the program and run it again.
+Změň program a znova ho spusti.
 
-Note that when you click on [[javascript:highlightAndClick("#format")][Format]] or `ctrl-enter`
-the text in the editor is formatted using the
-[[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
-by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
+Všimni si, že kliknutím na [[javascript:highlightAndClick("#format")][Naformátovat]] nebo `ctrl-enter`
+text v editoru je naformátován s pomocí
+nástroje [[https://golang.org/cmd/gofmt/][gofmt]]. Můžeš zapnout a vypnout zvýraznění syntaxe 
+kliknutím na tlačítko [[javascript:highlightAndClick(".syntax-checkbox")][Syntax]].
 
-When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
+Když budeš připravený se posunout, klikni na [[javascript:highlightAndClick(".next-page")][šipku doprava]] níže, nebo stiskni klávesu  `PageDown`.
 
 .play welcome/hello.go
 
 * Go local
 
-The tour is available in other languages:
+Tenhle průvodce je dostupný v dalších jazycích:
 
 - [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
 - [[https://go-tour-ca.appspot.com/][Catalan — Català]]
@@ -66,56 +66,56 @@ The tour is available in other languages:
 - [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
 - [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
 
-Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
+Klikni na tlačítko [[javascript:highlightAndClick(".next-page")]["další"]] nebo zmáčkni `PageDown` pro pokračování.
 
 #appengine: * Go offline
 #appengine: 
-#appengine: This tour is also available as a stand-alone program that you can use
-#appengine: without access to the internet.
+#appengine: Tento průvodce je také dostupný jako samostatně spustitelný program který můžeš použít
+#appengine: bez přístupu k internetu.
 #appengine: 
-#appengine: The stand-alone tour is faster, as it builds and runs the code samples
-#appengine: on your own machine.
+#appengine: Samostatně spustitelný průvodce je rychlejší, protože spoustí zdrojový kód ukázek
+#appengine: na tvém vlastním počítači.
 #appengine: 
-#appengine: To run the tour locally first
-#appengine: [[https://golang.org/dl/][download and install Go]]
-#appengine: then start the tour from the command line:
+#appengine: Pro spuštění lokálního průvodce si nejprve
+#appengine: [[https://golang.org/dl/][stáhni a nainstaluj Go]]
+#appengine: a potom zapneš průvodce z příkazové řádky:
 #appengine: 
 #appengine: 	go tool tour
 #appengine: 
-#appengine: Or, you can install and run this tour manually if you have any trouble
-#appengine: running the above command:
+#appengine: Nebo pokud s tím náš nějaké potíže můžeš nainstalovat a zapnout průvodce ručně
+#appengine: spuštěním těchto příkazů:
 #appengine: 
 #appengine:   go get golang.org/x/tour/gotour
 #appengine:   gotour
 #appengine: 
-#appengine: The tour program will open a web browser displaying
-#appengine: your local version of the tour.
+#appengine: Průvodce otevře webový prohlížeč
+#appengine: s tvoji lokální verzí průvodce.
 #appengine: 
-#appengine: Or, of course, you can continue to take the tour through this web site.
+#appengine: Nebo samozřejmě, můžeš pokračovat v tomto průvodci na této stránce.
 
-#appengine: * The Go Playground
+#appengine: * Go Playground
 #appengine: 
-#appengine: This tour is built atop the [[https://play.golang.org/][Go Playground]], a
-#appengine: web service that runs on [[https://golang.org/][golang.org]]'s servers.
+#appengine: Tento průvodce je založený na [[https://play.golang.org/][Go Playground]],
+#appengine: webové službě, která běží na serverech [[https://golang.org/][golang.org]].
 #appengine: 
-#appengine: The service receives a Go program, compiles, links, and runs the program inside
-#appengine: a sandbox, then returns the output.
+#appengine: Tato služba přijímá Go program, kompiluje, linkuje a spouští program uvnitř
+#appengine: sandboxu a potom vrátí výstup.
 #appengine: 
-#appengine: There are limitations to the programs that can be run in the playground: 
+#appengine: Kvůli tomu má běh programů v Go Plagroundu určité limitace: 
 #appengine: 
-#appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
+#appengine: - Čas uvnitř playgroundu začíná ve 2009-11-10 23:00:00 UTC (necháme na čtenáří jako cvičení zjištění významu tohoto data). Protože když mají programy neměnný výstup, tak to zjednodušuje jejich ukládání do cache.
 #appengine: 
-#appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts. 
+#appengine: - Také tam existují limity na běhový čas a na využití CPU a paměti, a program nemůže přistupovat k externím síťovým hostům. 
 #appengine: 
-#appengine: The playground uses the latest stable release of Go.
+#appengine: Playground používá posladní stabilní verzi Go.
 #appengine: 
-#appengine: Read "[[https://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
+#appengine: Pro další informace si přečti "[[https://blog.golang.org/playground][Uvnitř Go Playgroundu]]".
 #appengine: 
 #appengine: .play welcome/sandbox.go
 
-* Congratulations
+* Gratulujeme!
 
-You've finished the first module of the tour!
+Právě jsi dokončil/a první modul průvodce!
 
-Now click on [[javascript:highlightAndClick(".logo")][A Tour of Go]] to find out what else
-you can learn about Go, or go directly to the [[javascript:click('.next-page')][next lesson]].
+Teď klikni na logo [[javascript:highlightAndClick(".logo")][Průvodce Go]] abys zjistil co dalšího
+se můžeš o Go naučit, nebo jdi přímo na [[javascript:click('.next-page')][další lekci]].

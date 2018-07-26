@@ -1,150 +1,150 @@
-More types: structs, slices, and maps.
-Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
+Víc typů: struktury, slice, a mapy.
+Nauč se jak definovat typy založené na existujících: tato lekce pokrývá struktury, pole, výřezy (slice) a mapy.
 
-The Go Authors
+Autoři Go
 https://golang.org
 
-* Pointers
+* Ukazatele
 
-Go has pointers.
-A pointer holds the memory address of a value.
+Go má ukazatele (pointers).
+Ukazatel drží paměťovou adresu nějaké hodnoty.
 
-The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
+Typ `*T` je ukauzatel na `T` hodnotu. Jeho nulová hodnota (zero value) je `nil`.
 
 	var p *int
 
-The `&` operator generates a pointer to its operand.
+Operátor `&` generuje pointer na svůj operand.
 
 	i := 42
 	p = &i
 
-The `*` operator denotes the pointer's underlying value.
+Operátor `*` ukazuje hodnotu ležící za pointerem.
 
-	fmt.Println(*p) // read i through the pointer p
-	*p = 21         // set i through the pointer p
+	fmt.Println(*p) // načte i skrze pointer p
+	*p = 21         // nastaví i skrze pointer p
 
-This is known as "dereferencing" or "indirecting".
+Tohle je známé jako "dereferencování", nebo nepřímý přístup ("indirecting").
 
-Unlike C, Go has no pointer arithmetic.
+Na rozdíl od C, Go nemá žádnou pointerovou aritmetiku.
 
 .play moretypes/pointers.go
 
-* Structs
+* Struktury (Structs)
 
-A `struct` is a collection of fields.
+Struktura `struct` je kolekcí položek.
 
 .play moretypes/structs.go
 
-* Struct Fields
+* Položky struktur
 
-Struct fields are accessed using a dot.
+Položky struktur jsou přistupovámy s použitím tečky.
 
 .play moretypes/struct-fields.go
 
-* Pointers to structs
+* Ukazatele na struktury
 
-Struct fields can be accessed through a struct pointer.
+Položky struktur mohou být zpřístupněny skrze ukazatel na strukturu.
 
-To access the field `X` of a struct when we have the struct pointer `p` we could
-write `(*p).X`.
-However, that notation is cumbersome, so the language permits us instead to
-write just `p.X`, without the explicit dereference.
+Když máme ukazatel `p` na stukturu, pro přístup k položce `X` ze struktury  můžeme
+napsat `(*p).X`.
+Nicméně takový zápis je těžkopádný, takže nám jazyk dovoluje místo toho
+napsat jenom `p.X`, bez explicitní dereference.
 
 .play moretypes/struct-pointers.go
 
-* Struct Literals
+* Strukturové literály (literals)
 
-A struct literal denotes a newly allocated struct value by listing the values of its fields.
+Strukturové literály označují nově alokované struktury pomocí uvedení hodnot jejích položek.
 
-You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
+Můžeš uvést jenom část položek s použitím `Name:` syntaxe. (A pořadí pojmenovaných položek je irelevantní.)
 
-The special prefix `&` returns a pointer to the struct value.
+Speciální prefix `&` vrací ukazatel na hodnotu struktury.
 
 .play moretypes/struct-literals.go
 
 
-* Arrays
+* Pole
 
-The type `[n]T` is an array of `n` values of type `T`.
+Typ `[n]T` je pole `n` hodnot typu `T`.
 
-The expression
+Výraz
 
 	var a [10]int
 
-declares a variable `a` as an array of ten integers.
+deklaruje proměnnou `a` jako pole deseti celých čísel.
 
-An array's length is part of its type, so arrays cannot be resized.
-This seems limiting, but don't worry;
-Go provides a convenient way of working with arrays.
+Délka pole je součástí jeho typu, takže velist pole se nemůže měnit.
+To se zdá limitujcí, ale neboj se;
+Go poskytuje vhodný způsob pro práci s poli.
 
 .play moretypes/array.go
 
 
-* Slices
+* Výřezy (Slices)
 
-An array has a fixed size.
-A slice, on the other hand, is a dynamically-sized,
-flexible view into the elements of an array.
-In practice, slices are much more common than arrays.
+Pole má pevnou velikost.
+na druhou stranu velikost slice je dynamický
+flexibilní pohled do elementů pole.
+V praxi, výřezy jsou mnohem běžnější než pole.
 
-The type `[]T` is a slice with elements of type `T`.
+Typ `[]T` je výřez s elementy typu `T`.
 
-A slice is formed by specifying two indices, a low and
-high bound, separated by a colon:
+Výřez se vytváří specifikací dvou indexů, spodní a
+horní hranicí, oddělených dvojtečkou:
 
-	a[low : high]
+	a[spodní : horní]
 
-This selects a half-open range which includes the first
-element, but excludes the last one.
+To vybere polo-otevřený rozsah který obsahuje první
+element, ale nezahrnuje poslední.
 
-The following expression creates a slice which includes
-elements 1 through 3 of `a`:
+Následující výraz vytvoří výřez který obsahuje 
+elementy `a` od 1 do 3:
 
 	a[1:4]
 
 .play moretypes/slices.go
 
 
-* Slices are like references to arrays
+* Výřezy jsou jako reference na pole
 
-A slice does not store any data,
-it just describes a section of an underlying array.
+Výřez neukládá žádná data,
+ale jen popisuje sekci pole které je pod ním.
 
-Changing the elements of a slice modifies the
-corresponding elements of its underlying array.
+Změnou elementů výřezu modifikuje korespondující elementy
+v poli které je pod ním.
 
-Other slices that share the same underlying array will see those changes.
+Další výrezy které sdílejí stejné základní pole také uvidí tyto změny.
 
 .play moretypes/slices-pointers.go
 
 
-* Slice literals
+* Výřezové literály
 
-A slice literal is like an array literal without the length.
+Výřezový literál je jako literál pole, ale bez uvedení délky.
 
-This is an array literal:
+Tohle je literál pole:
 
 	[3]bool{true, true, false}
 
-And this creates the same array as above,
-then builds a slice that references it:
+A tohle vytvoří stejné pole jako nahoře,
+a pak vytvoří výřez který se na pole odkazuje:
 
 	[]bool{true, true, false}
 
 .play moretypes/slice-literals.go
 
 
-* Slice defaults
+* Defaultní výřezy
 
-When slicing, you may omit the high or low bounds to use their defaults instead.
+Když vyřezáváte, můžete vynechat horní nebo spodní indexy aby se použily místo toho jejich defaultní hodnoty.
 
-The default is zero for the low bound and the length of the slice for the high bound.
+Defaultní hodnota pro spodní index je nula a pro horní index délka výřezu.
 
-For the array
+Pro pole
 
 	var a [10]int
 
-these slice expressions are equivalent:
+jsou tyto výrazy výřezů ekvivalentní:
 
 	a[0:10]
 	a[:10]
@@ -154,47 +154,47 @@ these slice expressions are equivalent:
 .play moretypes/slice-bounds.go
 
 
-* Slice length and capacity
+* Délka a kapacita výřezu
 
-A slice has both a _length_ and a _capacity_.
+Výřez má zároveň _délku_ a _kapacitu_.
 
-The length of a slice is the number of elements it contains.
+Délka výřezu je počet elementů které obsahuje.
 
-The capacity of a slice is the number of elements in the underlying array,
-counting from the first element in the slice.
+Kapacita výřezu je počet elementů v základním poli,
+počítaná od prvního elementu výřezu.
 
-The length and capacity of a slice `s` can be obtained using the expressions
-`len(s)` and `cap(s)`.
+Délka a kapacita výřezu `s` může být získána s použitím výrazů
+`len(s)` a `cap(s)`.
 
-You can extend a slice's length by re-slicing it,
-provided it has sufficient capacity.
-Try changing one of the slice operations in the example program to extend it
-beyond its capacity and see what happens.
+Můžeš zvětšit délku výřezu pomocí znovu-vyříznutí,
+pokud ten má dostatečnou kapacitu.
+Vyzkoušej změnit jednu z výřezových operací v ukázkovém programu a zvětšit ho
+za jeho kapacitu a zjisti co se stane.
 
 .play moretypes/slice-len-cap.go
 
 
-* Nil slices
+* Výřezy Nil
 
-The zero value of a slice is `nil`.
+Nulová hodnota výřezu je `nil`.
 
-A nil slice has a length and capacity of 0
-and has no underlying array.
+Výřez nil má délku a kapacitu 0
+a nemá pod sebou žádné pole.
 
 .play moretypes/nil-slices.go
 
 
-* Creating a slice with make
+* Vytváření výřezu pomocí make
 
-Slices can be created with the built-in `make` function;
-this is how you create dynamically-sized arrays.
+Výřezy mohou být vytvořené s zabudovanou funkcí `make`;
+a takhle se vytvářejí pole s dynamickou velikostí.
 
-The `make` function allocates a zeroed array
-and returns a slice that refers to that array:
+Funkce `make` alokuje vynulované polé
+a vrátí výřez které se na pole odkazuje:
 
 	a := make([]int, 5)  // len(a)=5
 
-To specify a capacity, pass a third argument to `make`:
+Pro určení kapacity, předej funkci `make` třetí argument:
 
 	b := make([]int, 0, 5) // len(b)=0, cap(b)=5
 
@@ -204,153 +204,152 @@ To specify a capacity, pass a third argument to `make`:
 .play moretypes/making-slices.go
 
 
-* Slices of slices
+* Výřezy výřezů
 
-Slices can contain any type, including other slices.
+Výřezy mohou obsahovat libovolné typy, včetně dalších výřezů.
 
 .play moretypes/slices-of-slice.go
 
 
-* Appending to a slice
+* Přidávání do výřezu
 
-It is common to append new elements to a slice, and so Go provides a built-in
-`append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
-of the built-in package describes `append`.
+Je běžné do výřezu přidávat nový element a tak Go nabízí zabudovanou
+funkci `append`. Dokumentace balíčku built-in 
+[[https://golang.org/pkg/builtin/#append][documentation]] `append` popisuje.
 
 	func append(s []T, vs ...T) []T
 
-The first parameter `s` of `append` is a slice of type `T`, and the rest are
-`T` values to append to the slice.
+První parametr `append`, `s` je výřez typu `T` a zbytek jsou `T` hodnoty
+pro přidání do výřezu.
 
-The resulting value of `append` is a slice containing all the elements of the
-original slice plus the provided values.
+Výsledná hodnota `append` je výřez obsahující všechny elementy
+původního výřezu plus hodnoty které jsi poskytl/a.
 
-If the backing array of `s` is too small to fit all the given values a bigger
-array will be allocated. The returned slice will point to the newly allocated
-array.
+Pokud je základní pole `s` moc malé aby se do něho vešly všechny dodané hodnoty
+bude alokované větší pole. Vracený výřez bude odkazovat na nově vytvořené pole.
 
-(To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
+(Pro zjištění více o výřezech, přečti si článek [[https://blog.golang.org/go-slices-usage-and-internals][Výřezy: použití a detaily o implementaci]].)
 
 .play moretypes/append.go
 
 
-* Range
+* Rozsah (range)
 
-The `range` form of the `for` loop iterates over a slice or map.
+Forma `range` cyklu `for` procháyí přes výřez nebo mapu.
 
-When ranging over a slice, two values are returned for each iteration.
-The first is the index, and the second is a copy of the element at that index.
+Když procháyíte výřez pomocí range, pro každou iteraci jsou vráceny dvě hodnoty.
+První je index a druhá je kopie elementu na daném indexu.
 
 .play moretypes/range.go
 
-* Range continued
+* Rozsah (range) - pokračování
 
-You can skip the index or value by assigning to `_`.
+Můžeš přeskočit index nebo hodnotu pomocí přiřazení do `_`.
 
-If you only want the index, drop the `, value` entirely.
+Pokud potřebuješ jenom index, vypusti úplně `, hodnota`.
 
 .play moretypes/range-continued.go
 
-* Exercise: Slices
+* Cvičení: Výřezy
 
-Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+Implementuj `Pic`. Mělo by to vrátit výřez délky `dy`, jehož každý element je výřez `dx` 8-bitových neznaménkových celých čísel. Když zapneš program, zobrazí to tvůj obrázek, interpretující celá čísla jako hodnoty odstíny šedi (no dobře modři).
 
-The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`, and `x^y`.
+Volba obrázku je na tobě. Zajímavé funkce jsou `(x+y)/2`, `x*y`, a `x^y`.
 
-(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+(Budeš potřebovat použít cyklus pro alokování každého `[]uint8` uvnitř `[][]uint8`.)
 
-(Use `uint8(intValue)` to convert between types.)
+(Použij `uint8(intValue)` pro převod mezi typy.)
 
 .play moretypes/exercise-slices.go
 
-* Maps
+* Mapy (maps)
 
 A map maps keys to values.
 
-The zero value of a map is `nil`.
-A `nil` map has no keys, nor can keys be added.
+Nulová hodnota mapy je `nil`.
+`nil` mapa nemá žádné klíče, ani nemohou být žádné klíče přidány.
 
-The `make` function returns a map of the given type,
-initialized and ready for use.
+Funkce `make` vrací returns mapu daného typu,
+inicializovanou a připravenou k použití.
 
 .play moretypes/maps.go
 
-* Map literals
+* Mapové literály
 
-Map literals are like struct literals, but the keys are required.
+Mapové literály jsou jako strukturové literély, ale klíče jsou povinné.
 
 .play moretypes/map-literals.go
 
-* Map literals continued
+* Mapové literály - pokračování
 
-If the top-level type is just a type name, you can omit it from the elements of the literal.
+Pokud je typ horní úrovně jen název typu, můžeš ho vynechat z elementů literálu.
 
 .play moretypes/map-literals-continued.go
 
-* Mutating Maps
+* Změny v mapách (mutating maps)
 
-Insert or update an element in map `m`:
+Vložení nebo změna elementu v mapě `m`:
 
 	m[key] = elem
 
-Retrieve an element:
+Získání elementu:
 
 	elem = m[key]
 
-Delete an element:
+Smazání elementu:
 
 	delete(m, key)
 
-Test that a key is present with a two-value assignment:
+Test jestli klíč existuje s pomocí přiřazení dvou hodnot:
 
 	elem, ok = m[key]
 
-If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
+Pokud je `key` v `m`, `ok` je `true`. Pokud není, `ok` je `false`.
 
-If `key` is not in the map, then `elem` is the zero value for the map's element type.
+Pokud není `key` v mapě, potom `elem` je nulová hodnota elementového typu mapy.
 
-_Note_: if `elem` or `ok` have not yet been declared you could use a short declaration form:
+_Poznámka_: Pokud `elem` nebo `ok` ještě nebyly deklarované, můžeš použít formu krátké deklarace:
 
 	elem, ok := m[key]
 
 .play moretypes/mutating-maps.go
 
-* Exercise: Maps
+* Cvičení: Mapy
 
-Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+Naimplementuj `WordCount`.  Mělo by vracet mapu počtů každého “slova” v řezězci `s`. Funkce `wc.Test` spouští sadu testů proti poskytnuté funkci a vypisuje úspěch něbo selhání.
 
-You might find [[https://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+Možná se ti bude hodit [[https://golang.org/pkg/strings/#Fields][strings.Fields]].
 
 .play moretypes/exercise-maps.go
 
-* Function values
+* Funkční hodnoty
 
-Functions are values too. They can be passed around just like other values.
+Funkce jsou také hodnoty. Můžeš je různě předávat stejně jako jiné hodnoty.
 
-Function values may be used as function arguments and return values.
+Funkční hodnoty mohou být použité jako argumenty funkcí a návratové hodnoty.
 
 .play moretypes/function-values.go
 
-* Function closures
+* Uzávěry funkcí
 
-Go functions may be closures. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnotakterá odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
 
-For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke své vlastí proměnné `sum`.
 
 .play moretypes/function-closures.go
 
-* Exercise: Fibonacci closure
+* Cvičení: Fibonacciho uzávěra
 
-Let's have some fun with functions.
+Pojďme se trochu pobavit s funkcemi.
 
-Implement a `fibonacci` function that returns a function (a closure) that
-returns successive [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonacci numbers]]
+Naimplementuj funkci `fibonacci'` která vrací funkci (uzávěru) která
+vrací po sobě jdoucí [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonnacciho čísla]]
 (0, 1, 1, 2, 3, 5, ...).
 
 .play moretypes/exercise-fibonacci-closure.go
 
-* Congratulations!
+* Gratulujeme!
 
-You finished this lesson!
+Dokončil/a jsi tuto lekci!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Můžeš jít zpět na seznam [[/list][modulů]] kde najdeš co se naučit dalšího, nebo pokračovat na [[javascript:click('.next-page')][další lekci]].

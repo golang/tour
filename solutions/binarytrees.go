@@ -21,18 +21,18 @@ func walkImpl(t *tree.Tree, ch chan int) {
 	walkImpl(t.Right, ch)
 }
 
-// Walk walks the tree t sending all values
-// from the tree to the channel ch.
+// Walk prochází strom t a posílá všechny hodnoty
+// ze stromu do kanálu ch.
 func Walk(t *tree.Tree, ch chan int) {
 	walkImpl(t, ch)
-	// Need to close the channel here
+	// Tady je potřeba kanál zavřít
 	close(ch)
 }
 
-// Same determines whether the trees
-// t1 and t2 contain the same values.
-// NOTE: The implementation leaks goroutines when trees are different.
-// See binarytrees_quit.go for a better solution.
+// Same určuje jestli stromy
+// t1 a t2 osahují stejné hodnoty.
+// POZN: Tato implementace leakuje goroutiny pokud jsou stromy různé.
+// Viz binarytrees_quit.go pro lepší řešení.
 func Same(t1, t2 *tree.Tree) bool {
 	w1, w2 := make(chan int), make(chan int)
 
