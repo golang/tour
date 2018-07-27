@@ -16,7 +16,6 @@ W każdym momencie dostępny jest spis treści, do którego można przejść kli
 
 W trakcie kursu odkryjesz serię slajdów i ćwiczeń do ukończenia.
 
-You can navigate through them using
 Nawigacja pomiędzy nimi odbywa się poprzez użycie
 
 - [[javascript:highlight(".prev-page")]["poprzedni"]] lub `PageUp`, aby przejść do poprzedniej strony ,
