@@ -63,6 +63,11 @@ Notice that the type comes _after_ the variable name.
 
 (For more about why types look the way they do, see the [[https://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
 
+*Note:* If you see an argument list in parenthesis between the `func` keyword and the _function_ name, you are looking at a [[/methods/1][method declaration]].
+
+	func (v Vertex) Abs() float64 {
+	...
+
 .play basics/functions.go
 
 * Functions continued
