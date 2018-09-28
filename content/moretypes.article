@@ -235,9 +235,9 @@ bude alokované větší pole. Vracený výřez bude odkazovat na nově vytvoře
 
 * Rozsah (range)
 
-Forma `range` cyklu `for` procháyí přes výřez nebo mapu.
+Forma `range` cyklu `for` prochází přes výřez nebo mapu.
 
-Když procháyíte výřez pomocí range, pro každou iteraci jsou vráceny dvě hodnoty.
+Když procházíte výřez pomocí range, pro každou iteraci jsou vráceny dvě hodnoty.
 První je index a druhá je kopie elementu na daném indexu.
 
 .play moretypes/range.go
@@ -332,7 +332,7 @@ Funkční hodnoty mohou být použité jako argumenty funkcí a návratové hodn
 
 * Uzávěry funkcí
 
-Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnotakterá odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
+Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnota, která odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
 
 Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke své vlastí proměnné `sum`.
 

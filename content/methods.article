@@ -131,7 +131,7 @@ První je že metoda může měnit hodnotu na kterou příjemce ukazuje.
 Druhý je, aby se zabránílo kopírování hodnoty při každém volání metody.
 Pokud je příjemce například velká struktura, tak to může být efektivnější.
 
-V tomto p59kladu, obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
+V tomto příkladu obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
 přestože metoda `Abs` nepotřebuje modifikovat svého příjemce.
 
 Obecně řečeno, všechny metody na daném typu by měly být buď hodnotového, nebo ukazatelového

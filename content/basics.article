@@ -196,7 +196,7 @@ Když je na pravá strana deklarace typová tak tato nová proměnná bude tohot
 	var i int
 	j := i // j je int
 
-Ale pokud pravá strance obsahuje netypovou číselnou konstantu, nová promwnná může být `int`, `float64`, nebo `complex128` podle přesnosti této konstanty:
+Ale pokud pravá strana obsahuje netypovou číselnou konstantu, nová proměnná může být `int`, `float64`, nebo `complex128` podle přesnosti této konstanty:
 
 	i := 42           // int
 	f := 3.142        // float64
