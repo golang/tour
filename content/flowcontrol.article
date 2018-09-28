@@ -84,7 +84,7 @@ což nám poskytne lepší odhad:
 Opakováním těchtu úprav se náš odhad zlepšuje a zlepšuje
 dokud nedostaneme hodnotu která je tak blízko, jak jen může být.
 
-Naimplementuj to v poskutnutné funkci `func`Sqrt`.
+Naimplementuj to v poskytnutné funkci `func`Sqrt`.
 Rozumný startovací odhad pro z je 1, bez ohlednu na vstup.
 Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z které jsi vypočítal/a.
 Vykoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
