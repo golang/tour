@@ -57,7 +57,7 @@ Jako u `for`, příkaz `if` můžé začínat s krátkým příkazem, které se 
 
 Proměnné deklarované příkazem jsou dostupné jenom do konce příkazu `if`.
 
-(Zkus použít `v` v poslednbím příkazu `return`.)
+(Zkus použít `v` v posledním příkazu `return`.)
 
 .play flowcontrol/if-with-a-short-statement.go
 
