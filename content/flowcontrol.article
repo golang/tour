@@ -155,7 +155,7 @@ Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce i
 
 Příkaz defer odkládá provedení funkce dokud funkce ve které je použit neukončí.
 
-Argumentz volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
+Argumenty volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
 se neprovede dokud obklopující funkce neskončí.
 
 .play flowcontrol/defer.go
