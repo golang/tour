@@ -106,7 +106,7 @@ func main() {
 	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
 	http.Handle(socketPath, socket.NewHandler(origin))
 
-	// Keep these static file handlers in sync with ../app.yaml.
+	// Keep these static file handlers in sync with app.yaml.
 	static := http.FileServer(http.Dir(root))
 	http.Handle("/content/img/", static)
 	http.Handle("/static/", static)

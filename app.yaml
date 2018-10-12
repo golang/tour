@@ -1,5 +1,4 @@
-application: go-tour
-version: 1
+service: tour
 runtime: go
 api_version: go1
 
@@ -7,7 +6,7 @@ default_expiration: "7d"
 
 handlers:
 
-# Keep these static file handlers in sync with gotour/local.go.
+# Keep these static file handlers in sync with local.go.
 - url: /favicon.ico
   static_files: static/img/favicon.ico
   upload: static/img/favicon.ico
