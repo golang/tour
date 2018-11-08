@@ -17,6 +17,6 @@ func main() {
 	default:
 		// freebsd, openbsd,
 		// plan9, windows...
-		fmt.Printf("%s.", os)
+		fmt.Printf("%s.\n", os)
 	}
 }
