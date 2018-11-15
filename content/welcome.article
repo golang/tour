@@ -80,7 +80,7 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: To run the tour locally install and run the tour binary:
 #appengine:
 #appengine:   go get golang.org/x/tour
-#appengine:   tour
+#appengine:   tour.
 #appengine:
 #appengine: The tour program will open a web browser displaying
 #appengine: your local version of the tour.
