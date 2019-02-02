@@ -82,8 +82,8 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine:   go get golang.org/x/tour
 #appengine:   $GOPATH/bin/tour
 #appengine:
-#appengine: (where $GOPATH is the path to your workspace, e.g. /Users/peter/go/ on OSX for a user named "peter")
-#appengine: You can also add "$GOPATH/bin" to your path and open the tour by simply typing `tour`
+#appengine: Where $GOPATH is the path to your workspace (e.g. /Users/peter/go/ on OSX for a user named "peter")
+#appengine: You can also add "$GOPATH/bin" to your path (e.g. by modifying your ~/.bash_profile) allowing you to open the tour by simply typing `tour`.
 #appengine: 
 #appengine: The tour program will open a web browser displaying
 #appengine: your local version of the tour.
