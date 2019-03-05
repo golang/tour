@@ -70,41 +70,41 @@ The tour is available in other languages:
 Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
 
 #appengine: * Go offline
-#appengine:
+#appengine: 
 #appengine: This tour is also available as a stand-alone program that you can use
 #appengine: without access to the internet.
-#appengine:
+#appengine: 
 #appengine: The stand-alone tour is faster, as it builds and runs the code samples
 #appengine: on your own machine.
-#appengine:
+#appengine: 
 #appengine: To run the tour locally install and run the tour binary:
-#appengine:
+#appengine: 
 #appengine:   go get golang.org/x/tour
 #appengine:   tour
-#appengine:
+#appengine: 
 #appengine: The tour program will open a web browser displaying
 #appengine: your local version of the tour.
-#appengine:
+#appengine: 
 #appengine: Or, of course, you can continue to take the tour through this web site.
 
 #appengine: * The Go Playground
-#appengine:
+#appengine: 
 #appengine: This tour is built atop the [[https://play.golang.org/][Go Playground]], a
 #appengine: web service that runs on [[https://golang.org/][golang.org]]'s servers.
-#appengine:
+#appengine: 
 #appengine: The service receives a Go program, compiles, links, and runs the program inside
 #appengine: a sandbox, then returns the output.
-#appengine:
+#appengine: 
 #appengine: There are limitations to the programs that can be run in the playground:
-#appengine:
+#appengine: 
 #appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
-#appengine:
+#appengine: 
 #appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts.
-#appengine:
+#appengine: 
 #appengine: The playground uses the latest stable release of Go.
-#appengine:
+#appengine: 
 #appengine: Read "[[https://blog.golang.org/playground][Inside the Go Playground]]" to learn more.
-#appengine:
+#appengine: 
 #appengine: .play welcome/sandbox.go
 
 * Congratulations

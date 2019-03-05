@@ -17,7 +17,7 @@ By convention, the package name is the same as the last element of the import pa
 #appengine: *Note:* The environment in which these programs are executed is
 #appengine: deterministic, so each time you run the example program
 #appengine: `rand.Intn` will return the same number.
-#appengine:
+#appengine: 
 #appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
 #appengine: Time is constant in the playground, so you will need to use something else as the seed.)
 
