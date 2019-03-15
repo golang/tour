@@ -5,14 +5,21 @@ package main
 import "fmt"
 
 func main() {
-	s := []int{2, 3, 5, 7, 11, 13}
+	s := []rune{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'}
 
 	s = s[1:4]
-	fmt.Println(s)
+	prynt(s)
 
 	s = s[:2]
-	fmt.Println(s)
+	prynt(s)
 
 	s = s[1:]
-	fmt.Println(s)
+	prynt(s)
 }
+
+func prynt(charslice []rune) {
+	for i := range charslice {
+		fmt.Printf("%c", charslice[i])
+		}
+	fmt.Print("\n")
+	}
