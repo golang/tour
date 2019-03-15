@@ -36,10 +36,10 @@ func gaeMain() {
 }
 
 // gaePrepContent returns a Reader that produces the content from the given
-// Reader, but strips the prefix "#appengine: " from each line. It also drops
-// any non-blank like that follows a series of 1 or more lines with the prefix.
+// Reader, but strips the prefix "#appengine:", optionally followed by a space, from each line.
+// It also drops any non-blank line that follows a series of 1 or more lines with the prefix.
 func gaePrepContent(in io.Reader) io.Reader {
-	var prefix = []byte("#appengine: ")
+	var prefix = []byte("#appengine:")
 	out, w := io.Pipe()
 	go func() {
 		r := bufio.NewReader(in)
@@ -52,6 +52,10 @@ func gaePrepContent(in io.Reader) io.Reader {
 			}
 			if bytes.HasPrefix(b, prefix) {
 				b = b[len(prefix):]
+				if b[0] == ' ' {
+					// Consume a single space after the prefix.
+					b = b[1:]
+				}
 				drop = true
 			} else if drop {
 				if len(b) > 1 {
