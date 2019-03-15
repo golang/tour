@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build !appengine
-
 package main
 
 import (
@@ -31,7 +29,7 @@ import (
 )
 
 const (
-	basePkg    = "golang.org/x/tour/"
+	basePkg    = "golang.org/x/tour"
 	socketPath = "/socket"
 )
 
@@ -76,6 +74,12 @@ func findRoot() (string, error) {
 func main() {
 	flag.Parse()
 
+	if os.Getenv("GAE_ENV") == "standard" {
+		log.Println("running in App Engine Standard mode")
+		gaeMain()
+		return
+	}
+
 	// find and serve the go tour files
 	root, err := findRoot()
 	if err != nil {
@@ -106,12 +110,7 @@ func main() {
 	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
 	http.Handle(socketPath, socket.NewHandler(origin))
 
-	// Keep these static file handlers in sync with ../app.yaml.
-	static := http.FileServer(http.Dir(root))
-	http.Handle("/content/img/", static)
-	http.Handle("/static/", static)
-	imgDir := filepath.Join(root, "static", "img")
-	http.Handle("/favicon.ico", http.FileServer(http.Dir(imgDir)))
+	registerStatic(root)
 
 	go func() {
 		url := "http://" + httpAddr
@@ -122,6 +121,16 @@ func main() {
 		}
 	}()
 	log.Fatal(http.ListenAndServe(httpAddr, nil))
+}
+
+// registerStatic registers handlers to serve static content
+// from the directory root.
+func registerStatic(root string) {
+	// Keep these static file handlers in sync with app.yaml.
+	http.Handle("/favicon.ico", http.FileServer(http.Dir(filepath.Join(root, "static", "img"))))
+	static := http.FileServer(http.Dir(root))
+	http.Handle("/content/img/", static)
+	http.Handle("/static/", static)
 }
 
 // rootHandler returns a handler for all the requests except the ones for lessons.
@@ -146,7 +155,8 @@ func lessonHandler(w http.ResponseWriter, r *http.Request) {
 const localhostWarning = `
 WARNING!  WARNING!  WARNING!
 
-I appear to be listening on an address that is not localhost.
+The tour server appears to be listening on an address that is
+not localhost and is configured to run code snippets locally.
 Anyone with access to this address and port will have access
 to this machine as the user running gotour.
 
@@ -210,7 +220,7 @@ func startBrowser(url string) bool {
 }
 
 // prepContent for the local tour simply returns the content as-is.
-func prepContent(r io.Reader) io.Reader { return r }
+var prepContent = func(r io.Reader) io.Reader { return r }
 
 // socketAddr returns the WebSocket handler address.
-func socketAddr() string { return "ws://" + httpAddr + socketPath }
+var socketAddr = func() string { return "ws://" + httpAddr + socketPath }

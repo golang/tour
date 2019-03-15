@@ -247,7 +247,12 @@ The first is the index, and the second is a copy of the element at that index.
 
 You can skip the index or value by assigning to `_`.
 
-If you only want the index, drop the `,` `value` entirely.
+    for i, _ := range pow
+    for _, value := range pow
+
+If you only want the index, you can omit the second variable.
+
+    for i := range pow
 
 .play moretypes/range-continued.go
 

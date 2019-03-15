@@ -61,7 +61,7 @@ The tour is available in other languages:
 - [[https://go-tour-kr.appspot.com/][Korean — 한국어]]
 - [[https://go-tour-ro.appspot.com/][Romanian — Română]]
 - [[https://go-tour-ru-ru.appspot.com/][Russian - Русский]]
-- [[https://go-tour-es.appspot.com/][Spanish — Español]]
+- [[https://gotour-es.appspot.com/][Spanish — Español]]
 - [[https://go-tour-th.appspot.com/][Thai - ภาษาไทย]]
 - [[https://go-tour-turkish.appspot.com/][Turkish - Türkçe]]
 - [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
@@ -77,17 +77,10 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: The stand-alone tour is faster, as it builds and runs the code samples
 #appengine: on your own machine.
 #appengine: 
-#appengine: To run the tour locally first
-#appengine: [[https://golang.org/dl/][download and install Go]]
-#appengine: then start the tour from the command line:
+#appengine: To run the tour locally install and run the tour binary:
 #appengine: 
-#appengine: 	go tool tour
-#appengine: 
-#appengine: Or, you can install and run this tour manually if you have any trouble
-#appengine: running the above command:
-#appengine: 
-#appengine:   go get golang.org/x/tour/gotour
-#appengine:   gotour
+#appengine:   go get golang.org/x/tour
+#appengine:   tour
 #appengine: 
 #appengine: The tour program will open a web browser displaying
 #appengine: your local version of the tour.
@@ -102,11 +95,11 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: The service receives a Go program, compiles, links, and runs the program inside
 #appengine: a sandbox, then returns the output.
 #appengine: 
-#appengine: There are limitations to the programs that can be run in the playground: 
+#appengine: There are limitations to the programs that can be run in the playground:
 #appengine: 
 #appengine: - In the playground the time begins at 2009-11-10 23:00:00 UTC (determining the significance of this date is an exercise for the reader). This makes it easier to cache programs by giving them deterministic output.
 #appengine: 
-#appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts. 
+#appengine: - There are also limits on execution time and on CPU and memory usage, and the program cannot access external network hosts.
 #appengine: 
 #appengine: The playground uses the latest stable release of Go.
 #appengine: 
