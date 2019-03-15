@@ -5,8 +5,11 @@ package main
 import "fmt"
 
 func main() {
-	primes := [6]int{2, 3, 5, 7, 11, 13}
+	letters := [7]rune{'a','b','c','d','e','f','g'}
 
-	var s []int = primes[1:4]
-	fmt.Println(s)
+	var slice []rune = letters[1:4]
+	
+	for i := range slice {
+		fmt.Printf("%c", slice[i])
+		}
 }
