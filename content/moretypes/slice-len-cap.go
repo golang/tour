@@ -5,7 +5,7 @@ package main
 import "fmt"
 
 func main() {
-	s := []int{2, 3, 5, 7, 11, 13}
+	s := []rune{'a', 'b', 'c', 'd', 'e', 'f'}
 	printSlice(s)
 
 	// Slice the slice to give it zero length.
@@ -21,6 +21,6 @@ func main() {
 	printSlice(s)
 }
 
-func printSlice(s []int) {
-	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+func printSlice(s []rune) {
+	fmt.Printf("len=%d cap=%d %c\n", len(s), cap(s), s)
 }
