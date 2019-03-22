@@ -5,22 +5,29 @@ package main
 import "fmt"
 
 func main() {
-	q := []int{2, 3, 5, 7, 11, 13}
-	fmt.Println(q)
+	q := []rune{'a', 'b', 'c', 'd', 'e', 'f'}
+	printChars(q)
 
 	r := []bool{true, false, true, true, false, true}
 	fmt.Println(r)
 
 	s := []struct {
-		i int
+		c rune
 		b bool
 	}{
-		{2, true},
-		{3, false},
-		{5, true},
-		{7, true},
-		{11, false},
-		{13, true},
+		{'a', true},
+		{'b', false},
+		{'c', true},
+		{'d', true},
+		{'e', false},
+		{'f', true},
 	}
 	fmt.Println(s)
+}
+
+func printChars(letters []rune ) {
+	for i := range letters {
+		fmt.Printf("%c", letters[i])
+	}
+	fmt.Println()
 }
