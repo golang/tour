@@ -94,7 +94,7 @@ Use a `default` case to try a send or receive without blocking:
 
 * Exercise: Equivalent Binary Trees
 
-There can be many different binary trees with the same sequence of values stored at the leaves. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+There can be many different binary trees with the same sequence of values stored in it. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
 
 .image /content/img/tree.png
 
