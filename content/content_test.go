@@ -21,6 +21,10 @@ import (
 // Files that contain the string "// +build no-build" are not built.
 // Files that contain the string "// +build no-run" are not executed.
 func TestContent(t *testing.T) {
+	if _, err := exec.LookPath("go"); err != nil {
+		t.Skipf("skipping because 'go' executable not available: %v", err)
+	}
+
 	scratch, err := ioutil.TempDir("", "tour-content-test")
 	if err != nil {
 		t.Fatal(err)
