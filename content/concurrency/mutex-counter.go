@@ -10,8 +10,8 @@ import (
 
 // SafeCounter is safe to use concurrently.
 type SafeCounter struct {
-	v  map[string]int
 	mu sync.Mutex
+	v  map[string]int
 }
 
 // Inc increments the counter for the given key.
