@@ -6,12 +6,13 @@ https://tour.golang.org to start the tour.
 ## Download/Install
 
 To install the tour from source, first
-[set up a workspace](https://golang.org/doc/code.html) and then run:
+[install Go](https://golang.org/doc/install) and then run:
 
 	$ go get golang.org/x/tour
 
-This will place a `tour` binary in your workspace's `bin` directory, which
-can be run offline.
+This will place a `tour` binary in your
+[workspace](https://golang.org/doc/code.html#Workspaces)'s `bin` directory.
+The tour program can be run offline.
 
 ## Contributing
 

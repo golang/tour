@@ -69,23 +69,23 @@ The tour is available in other languages:
 
 Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
 
-#appengine: * Go offline
+#appengine: * Go offline (optional)
 #appengine:
 #appengine: This tour is also available as a stand-alone program that you can use
-#appengine: without access to the internet.
+#appengine: without access to the internet. It builds and runs the code samples on
+#appengine: your own machine.
 #appengine:
-#appengine: The stand-alone tour is faster, as it builds and runs the code samples
-#appengine: on your own machine.
-#appengine:
-#appengine: To run the tour locally install and run the tour binary:
+#appengine: To run the tour locally, you'll need to first
+#appengine: [[https://golang.org/doc/install][install Go]] and then run:
 #appengine:
 #appengine:   go get golang.org/x/tour
-#appengine:   tour
 #appengine:
-#appengine: The tour program will open a web browser displaying
+#appengine: This will place a `tour` binary in your
+#appengine: [[https://golang.org/doc/code.html#Workspaces][workspace]]'s `bin` directory.
+#appengine: When you run the tour program, it will open a web browser displaying
 #appengine: your local version of the tour.
 #appengine:
-#appengine: Or, of course, you can continue to take the tour through this web site.
+#appengine: Of course, you can continue to take the tour through this web site.
 
 #appengine: * The Go Playground
 #appengine:
