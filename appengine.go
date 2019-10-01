@@ -7,6 +7,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -18,6 +19,7 @@ import (
 func gaeMain() {
 	prepContent = gaePrepContent
 	socketAddr = gaeSocketAddr
+	analyticsHTML = template.HTML(os.Getenv("TOUR_ANALYTICS"))
 
 	if err := initTour(".", "HTTPTransport"); err != nil {
 		log.Fatal(err)

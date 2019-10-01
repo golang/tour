@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"go/build"
+	"html/template"
 	"io"
 	"log"
 	"net"
@@ -224,3 +225,6 @@ var prepContent = func(r io.Reader) io.Reader { return r }
 
 // socketAddr returns the WebSocket handler address.
 var socketAddr = func() string { return "ws://" + httpAddr + socketPath }
+
+// analyticsHTML is optional analytics HTML to insert at the beginning of <head>.
+var analyticsHTML template.HTML
