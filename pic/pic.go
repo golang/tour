@@ -39,5 +39,5 @@ func ShowImage(m image.Image) {
 		panic(err)
 	}
 	enc := base64.StdEncoding.EncodeToString(buf.Bytes())
-	fmt.Println("IMAGE:" + enc)
+	fmt.Printf("<html>\n<body>\n<img width='250px' height='250px' src='data:image/png;base64,%v' />\n</body>\n</html>", enc)
 }
