@@ -22,7 +22,7 @@ func (m Image) ColorModel() color.Model {
 }
 
 func (m Image) Bounds() image.Rectangle {
-	return image.Rect(0, 0, m.Height, m.Width)
+	return image.Rect(0, 0, m.Width, m.Height)
 }
 
 func (m Image) At(x, y int) color.Color {
