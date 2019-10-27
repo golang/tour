@@ -61,14 +61,14 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 	fmt.Printf("Found: %s %q\n", url, body)
 	done := make(chan bool)
 	for i, u := range urls {
-		fmt.Printf("-> Crawling child %v/%v of %v : %v.\n", i, len(urls), url, u)
+		fmt.Printf("-> Crawling child %v/%v of %v : %v.\n", i+1, len(urls), url, u)
 		go func(url string) {
 			Crawl(url, depth-1, fetcher)
 			done <- true
 		}(u)
 	}
 	for i, u := range urls {
-		fmt.Printf("<- [%v] %v/%v Waiting for child %v.\n", url, i, len(urls), u)
+		fmt.Printf("<- [%v] %v/%v Waiting for child %v.\n", url, i+1, len(urls), u)
 		<-done
 	}
 	fmt.Printf("<- Done with %v\n", url)
