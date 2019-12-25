@@ -4,7 +4,7 @@ package main
 
 import "golang.org/x/tour/tree"
 
-// Walk procháyí strojm t a posílá všechny hodnoty
+// Walk prochází strojm t a posílá všechny hodnoty
 // ze stromu do kanálu ch.
 func Walk(t *tree.Tree, ch chan int)
 
