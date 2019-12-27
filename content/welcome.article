@@ -8,13 +8,13 @@ https://golang.org
 
 Vítejte do průvodce [[https://golang.org/][programovacím jazykem Go]].
 
-Tenhle průvodce je rozdělený do seznamu několika modulů, na které
+Tento průvodce je rozdělený do seznamu několika modulů, na které
 můžete přejít kliknutím na logo
 [[javascript:highlight(".logo")][Průvodce Go]] v levém horním rohu stránky.
 
 Také se kdykoliv můžete podívat na obsah kliknutím na [[javascript:highlightAndClick(".nav")][menu]] na horním pravém rohu stránky.
 
-Během průvodce budete nacházet kolekce slidů a cvičení 
+Během průvodce budete procházet kolekce prezentací a cvičení 
 k vyzkoušení.
 
 Skrze ně se budete moci navigovat s pomocí
@@ -23,29 +23,29 @@ Skrze ně se budete moci navigovat s pomocí
 
 - [[javascript:highlight(".next-page")]["další"]] nebo `PageDown` pro přechod na další stránku.
 
-Tenhle průvodce je interaktivní. Teď klikněte na
+Tento průvodce je interaktivní. Teď klikněte na
 tlačítko [[javascript:highlightAndClick("#run")][Start]] 
 (nebo stlačte `shift-enter`) pro překompilování a spuštění programu na 
 #appengine: vzdáleném serveru.
 vašem počítači.
 Výsledek je zobrazený pod kódem.
 
-Tyto ukázkové programy demonstrují různé aspekty Go. Programy v průvodci mají být prvnímy kroky ve tvých vlastních experimentech.
+Tyto ukázkové programy demonstrují různé aspekty Go. Programy v průvodci mají být prvními kroky ve tvých vlastních experimentech.
 
-Změň program a znova ho spusti.
+Změň program a znovu ho spusť.
 
 Všimni si, že kliknutím na [[javascript:highlightAndClick("#format")][Naformátovat]] nebo `ctrl-enter`
 text v editoru je naformátován s pomocí
 nástroje [[https://golang.org/cmd/gofmt/][gofmt]]. Můžeš zapnout a vypnout zvýraznění syntaxe 
 kliknutím na tlačítko [[javascript:highlightAndClick(".syntax-checkbox")][Syntax]].
 
-Když budeš připravený se posunout, klikni na [[javascript:highlightAndClick(".next-page")][šipku doprava]] níže, nebo stiskni klávesu  `PageDown`.
+Když budeš připravený/á se posunout, klikni na [[javascript:highlightAndClick(".next-page")][šipku doprava]] níže, nebo stiskni klávesu  `PageDown`.
 
 .play welcome/hello.go
 
 * Go local
 
-Tenhle průvodce je dostupný v dalších jazycích:
+Tento průvodce je dostupný v dalších jazycích:
 
 - [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
 - [[https://go-tour-ca.appspot.com/][Catalan — Català]]

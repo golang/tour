@@ -10,16 +10,16 @@ Každý Go program se skládá z balíčků.
 
 Programy začínají běh v balíčku `main`.
 
-Tenhle program používá balíčky importováním lokací `"fmt"` a `"math/rand"`.
+Tento program používá balíčky importováním lokací `"fmt"` a `"math/rand"`.
 
-Podle konvence, jméno balíčku je stejné jako poslední část importované lokace. Například, balíček `"math/rand"` se obsahuje soubory, které při použití začíhají příkazem `package`rand`.
+Podle konvence, jméno balíčku je stejné jako poslední část importované lokace. Například, balíček `"math/rand"` se obsahuje soubory, které při použití začínají příkazem `package`rand`.
 
 #appengine: *Poznámka:* prostředí ve kterém tyto jsou programy spouštěné je
-#appengine: deterministické, takže pokaždé když spustíš tenhle příklad
-#appengine: `rand.Intn` vfrátí stejné číslo.
+#appengine: deterministické, takže pokaždé když spustíš tento příklad
+#appengine: `rand.Intn` vrátí stejné číslo.
 #appengine:
 #appengine: (Abys viděl jiné číslo, zinicializuj generátor čísel pomocí `Seed`; podívej se na [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
-#appengine: V Playgroundu je čas konstantní, takže budeš muset použít něco jiného k inicializaci jako semínko.)
+#appengine: Ve hřišti je čas konstantní, takže budeš muset použít něco jiného jako počáteční hodnotu k inicializaci.)
 
 .play basics/packages.go
 
@@ -38,7 +38,7 @@ Ale pro lepší styl je lepší použít rozdělený import příkaz.
 
 * Exportované názvy
 
-Název je v Go exportovaný (tj dostupný z jiného balíčku), pokud začíhá velkým písemenem.
+Název je v Go exportovaný (tj dostupný z jiného balíčku), pokud začíná velkým písmenem.
 Například, `Pizza` je exportovaný název, stejně jako `Pi`, které je exportované z
 balíčku `math`.
 
@@ -47,7 +47,7 @@ balíčku `math`.
 Když importujete balíček, můžete se odkázat pouze na jeho exportovaná jména.
 Jakákoliv "neimportovaná" jména nebudou z jiného balíčku dostupná.
 
-Spusti tento kód a všimni si chybové hlášky.
+Spusť tento kód a všimni si chybové hlášky.
 
 Aby si ho spravil/a, přejmenuj `math.pi` na `math.Pi` a zkus to znovu.
 
@@ -61,7 +61,7 @@ V tomto příkladu, `add` má dva parametry typu `int`.
 
 Povšimni si, že typ je specifikovaný až _po_ názvu proměnné.
 
-(Pro více o tom proč typy vypadají tak jak vypadají se podívej na [[https://blog.golang.org/gos-declaration-syntax][článek o syntaxi Go deklarací]].)
+(Pro více o tom, proč typy vypadají tak, jak vypadají, se podívej na [[https://blog.golang.org/gos-declaration-syntax][článek o syntaxi Go deklarací]].)
 
 .play basics/functions.go
 

@@ -7,12 +7,12 @@ import "fmt"
 func main() {
 	i, j := 42, 2701
 
-	p := &i         // point to i
-	fmt.Println(*p) // read i through the pointer
-	*p = 21         // set i through the pointer
-	fmt.Println(i)  // see the new value of i
+	p := &i         // Ukazuje na i
+	fmt.Println(*p) // načítá i přes ukazatel
+	*p = 21         // nastavuje i přes ukazatel
+	fmt.Println(i)  // Zobrazí novou hodnotu i
 
-	p = &j         // point to j
-	*p = *p / 37   // divide j through the pointer
-	fmt.Println(j) // see the new value of j
+	p = &j         // ukazuje na j
+	*p = *p / 37   // vydělí j přes ukazatel
+	fmt.Println(j) // zobrazí novou hodnotu j
 }

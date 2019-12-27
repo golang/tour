@@ -334,7 +334,7 @@ Funkční hodnoty mohou být použité jako argumenty funkcí a návratové hodn
 
 Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnota, která odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
 
-Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke své vlastí proměnné `sum`.
+Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke své vlastní proměnné `sum`.
 
 .play moretypes/function-closures.go
 

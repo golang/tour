@@ -8,7 +8,7 @@ const (
 	// Vytvoř obrovské číslo posouváním 1 bitu doleva o 100 míst.
 	// Jinými slovy,, binární číslo 1, následované 100 nulami.
 	Big = 1 << 100
-	// Posuň ho zase zpátky o 99 míst, takže skončímeme s 1<<1, nebo 2.
+	// Posuň ho zase zpátky o 99 míst, takže skončíme s 1<<1, nebo 2.
 	Small = Big >> 99
 )
 

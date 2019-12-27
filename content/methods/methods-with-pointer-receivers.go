@@ -22,7 +22,7 @@ func (v *Vertex) Abs() float64 {
 
 func main() {
 	v := &Vertex{3, 4}
-	fmt.Printf("Before scaling: %+v, Abs: %v\n", v, v.Abs())
+	fmt.Printf("Před škálováním: %+v, Abs: %v\n", v, v.Abs())
 	v.Scale(5)
-	fmt.Printf("After scaling: %+v, Abs: %v\n", v, v.Abs())
+	fmt.Printf("Po škálování: %+v, Abs: %v\n", v, v.Abs())
 }

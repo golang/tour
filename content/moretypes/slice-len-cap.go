@@ -8,15 +8,15 @@ func main() {
 	s := []int{2, 3, 5, 7, 11, 13}
 	printSlice(s)
 
-	// Slice the slice to give it zero length.
+	// Rozřízne řez aby dostal nulovou délku.
 	s = s[:0]
 	printSlice(s)
 
-	// Extend its length.
+	// Rozšíří jeho délku.
 	s = s[:4]
 	printSlice(s)
 
-	// Drop its first two values.
+	// Vypustí jeho první dvě hodnoty.
 	s = s[2:]
 	printSlice(s)
 }

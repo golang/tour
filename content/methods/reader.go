@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	r := strings.NewReader("Hello, Reader!")
+	r := strings.NewReader("Ahoj z Reader-u!")
 
 	b := make([]byte, 8)
 	for {

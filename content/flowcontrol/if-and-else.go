@@ -13,7 +13,7 @@ func pow(x, n, lim float64) float64 {
 	} else {
 		fmt.Printf("%g >= %g\n", v, lim)
 	}
-	// přesto nemůžu v požít tady
+	// ale tady už v použít nemůžu
 	return lim
 }
 

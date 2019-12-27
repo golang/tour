@@ -8,14 +8,14 @@ import (
 )
 
 func main() {
-	// Create a tic-tac-toe board.
+	// Vytvoří hrací desku na piškvorky.
 	board := [][]string{
 		[]string{"_", "_", "_"},
 		[]string{"_", "_", "_"},
 		[]string{"_", "_", "_"},
 	}
 
-	// The players take turns.
+	// Hráči se střídají.
 	board[0][0] = "X"
 	board[2][2] = "O"
 	board[1][2] = "X"

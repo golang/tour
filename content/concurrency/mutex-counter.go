@@ -17,7 +17,7 @@ type SafeCounter struct {
 // Inc zvýší počítadlo pro daný klíč
 func (c *SafeCounter) Inc(key string) {
 	c.mux.Lock()
-	// Zamkne pomocí Lock, tekže jenom jedna gorutina může přistoupit k mapě c.v v jednu chvíli.
+	// Zamkne pomocí Lock, takže jenom jedna gorutina může přistoupit k mapě c.v v jednu chvíli.
 	c.v[key]++
 	c.mux.Unlock()
 }
@@ -25,7 +25,7 @@ func (c *SafeCounter) Inc(key string) {
 // Value vrátí aktuální hodnotu počítadla pro daný klíč
 func (c *SafeCounter) Value(key string) int {
 	c.mux.Lock()
-	// Zamkne, takže jen jedna gorutina může v jeden čas pristoupit k mapě c.v.
+	// Zamkne, takže jen jedna gorutina může v jeden čas přistoupit k mapě c.v.
 	defer c.mux.Unlock()
 	return c.v[key]
 }

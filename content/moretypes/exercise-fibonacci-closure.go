@@ -4,8 +4,8 @@ package main
 
 import "fmt"
 
-// fibonacci is a function that returns
-// a function that returns an int.
+// fibonacci je funkce která vrací
+// funkci která vrací int.
 func fibonacci() func() int {
 }
 

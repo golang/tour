@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome to the playground!")
+	fmt.Println("Vítejte na hřišti!")
 
-	fmt.Println("The time is", time.Now())
+	fmt.Println("Právě je", time.Now())
 }
