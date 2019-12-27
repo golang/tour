@@ -57,7 +57,7 @@ Jako u `for`, příkaz `if` můžé začínat s krátkým příkazem, které se 
 
 Proměnné deklarované příkazem jsou dostupné jenom do konce příkazu `if`.
 
-(Zkus použít `v` v poslednbím příkazu `return`.)
+(Zkus použít `v` v posledním příkazu `return`.)
 
 .play flowcontrol/if-with-a-short-statement.go
 
@@ -84,10 +84,10 @@ což nám poskytne lepší odhad:
 Opakováním těchtu úprav se náš odhad zlepšuje a zlepšuje
 dokud nedostaneme hodnotu, která je tak blízko, jak jen může být.
 
-Naimplementuj to v poskutnutné funkci `func`Sqrt`.
+Naimplementuj to v poskytnutné funkci `func`Sqrt`.
 Rozumný startovací odhad pro z je 1, bez ohlednu na vstup.
 Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z, které jsi vypočítal/a.
-Vykoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
+Vyzkoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
 a jak rychle se odhad zlepšuje.
 
 Nápověda: Pro deklarování a inicializaci hodnoty s plovoucí řádovou čárkou (floating point),
@@ -155,7 +155,7 @@ Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce i
 
 Příkaz defer odkládá provedení funkce, dokud se funkce ve které je použit neukončí.
 
-Argumentz volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
+Argumenty volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
 se neprovede dokud obklopující funkce neskončí.
 
 .play flowcontrol/defer.go

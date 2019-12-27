@@ -187,7 +187,7 @@ Zkus odstranit konverzi `float64` nebo `uint` v tomto příkladu a uvidíš co s
 
 .play basics/type-conversions.go
 
-* Odvezení typu (Type inference)
+* Odvození typu (Type inference)
 
 Když deklarujete proměnnou bez uvedení explicitního typu (buď pomocí `:=` syntaxe, nebo syntaktického výrazu `var`=`), typ této proměnné je odvozený od hodnoty na pravé straně.
 
@@ -196,7 +196,7 @@ Když je na pravá strana deklarace typová tak tato nová proměnná bude tohot
 	var i int
 	j := i // j je int
 
-Ale pokud pravá strance obsahuje netypovou číselnou konstantu, nová promwnná může být `int`, `float64`, nebo `complex128` podle přesnosti této konstanty:
+Ale pokud pravá strana obsahuje netypovou číselnou konstantu, nová proměnná může být `int`, `float64`, nebo `complex128` podle přesnosti této konstanty:
 
 	i := 42           // int
 	f := 3.142        // float64

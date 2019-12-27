@@ -235,9 +235,9 @@ bude alokované větší pole. Vracený výřez bude odkazovat na nově vytvoře
 
 * Rozsah (range)
 
-Forma `range` cyklu `for` procháyí přes výřez nebo mapu.
+Forma `range` cyklu `for` prochází přes výřez nebo mapu.
 
-Když procháyíte výřez pomocí range, pro každou iteraci jsou vráceny dvě hodnoty.
+Když procházíte výřez pomocí range, pro každou iteraci jsou vráceny dvě hodnoty.
 První je index a druhá je kopie elementu na daném indexu.
 
 .play moretypes/range.go
