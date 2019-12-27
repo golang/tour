@@ -1,5 +1,5 @@
 Souběžnost (konkurence)
-Go poskytuje konstrukce souběžnosti jako součást základů jazyka. Tyjo lekce je ukazují a přinášejí nějaké příklady jejího použití.
+Go poskytuje konstrukce souběžnosti jako součást základů jazyka. Tyto lekce je ukazují a přinášejí nějaké příklady jejího použití.
 
 Autoři Go
 https://golang.org
@@ -131,7 +131,7 @@ Potom načti a vytiskni 10 hodnot z kanálu. Měly by to být čísla 1, 2, 3, .
 
 `Same(tree.New(1),`tree.New(1))` by měla vrátit true, a `Same(tree.New(1),`tree.New(2))` by měla vrátit false.
 
-Dokumentace k `Tree` se dá nají [[thttps://godoc.org/golang.org/x/tour/tree#Tree][zde]].
+Dokumentace k `Tree` se dá nají [[https://godoc.org/golang.org/x/tour/tree#Tree][zde]].
 
 .play concurrency/exercise-equivalent-binary-trees.go
 

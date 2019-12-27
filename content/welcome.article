@@ -107,7 +107,7 @@ Klikni na tlačítko [[javascript:highlightAndClick(".next-page")]["další"]] n
 #appengine: 
 #appengine: - Také tam existují limity na běhový čas a na využití CPU a paměti, a program nemůže přistupovat k externím síťovým hostům. 
 #appengine: 
-#appengine: Playground používá posladní stabilní verzi Go.
+#appengine: Playground používá poslední stabilní verzi Go.
 #appengine: 
 #appengine: Pro další informace si přečti "[[https://blog.golang.org/playground][Uvnitř Go Playgroundu]]".
 #appengine: 

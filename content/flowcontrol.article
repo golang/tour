@@ -145,7 +145,7 @@ nezavolá `f` když bude `i==0`.)
 
 * Switch bez podmínek
 
-Příkaz switch bez podmínkz je stejný jako `switch`true`.
+Příkaz switch bez podmínky je stejný jako `switch`true`.
 
 Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce if-then-else.
 

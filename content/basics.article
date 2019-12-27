@@ -1,5 +1,5 @@
 Balíčky, proměnné a funkce.
-Nauč se základní konceptz každého Go programu.
+Nauč se základní koncepty každého Go programu.
 
 Autoři Go
 https://golang.org
@@ -154,7 +154,7 @@ Když potřebuješ integer, tak bys měl použít `int` pokud nemáš speciáln�
 
 * Defaultní (nulové) hodnoty
 
-Proměnné deklarované bey explicitní počáteční hodnoty jsou nastavené na jejich
+Proměnné deklarované bez explicitní počáteční hodnoty jsou nastavené na jejich
 _nulovou_hodnotu_.
 
 Nulová hodnota je:
