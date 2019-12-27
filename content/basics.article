@@ -12,7 +12,7 @@ Programy začínají běh v balíčku `main`.
 
 Tenhle program používá balíčky importováním lokací `"fmt"` a `"math/rand"`.
 
-Podle konvence, jméno balíčku je stejné jako poslední část importované lokace. Například, balíček `"math/rand"` se obsahuje soubory které při použití začíhají příkazem `package`rand`.
+Podle konvence, jméno balíčku je stejné jako poslední část importované lokace. Například, balíček `"math/rand"` se obsahuje soubory, které při použití začíhají příkazem `package`rand`.
 
 #appengine: *Poznámka:* prostředí ve kterém tyto jsou programy spouštěné je
 #appengine: deterministické, takže pokaždé když spustíš tenhle příklad

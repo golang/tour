@@ -22,7 +22,7 @@ Gorutiny běží ve stejném adresovém prostoru, takže přístup ke sdílené 
 
 * Kanály (Channels)
 
-Kanály jsou typové potrubí skrze které můžeš posílat a přijímat hodnoty pomocí kanálového operátoru `<-`.
+Kanály jsou typové potrubí, skrze které můžeš posílat a přijímat hodnoty pomocí kanálového operátoru `<-`.
 
 	ch <- v    // Pošli v do kanálu ch.
 	v := <-ch  // Přijmi hodnotu z ch a
@@ -142,7 +142,7 @@ Viděli jsme jak jsou kanály skvělé pro komunikaci mezi gorutinami.
 Ale co když nepotřebujeme komunikovat? Co když se jenom chceme ujistit že jen jedna
 gorutina může přistupovat k proměnné naráz aby se zabránilo konfliktům?
 
-Tento koncept se jmenuje _vzájemné_vyloučení_, a konvenční název pro datovou strukturu která to poskytuje je _mutex_.
+Tento koncept se jmenuje _vzájemné_vyloučení_, a konvenční název pro datovou strukturu, která to poskytuje je _mutex_.
 
 Standardní knihovna v Go poskytuje vzájemné vyloučení s
 [[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] a a jeho dvěma metodami
@@ -150,7 +150,7 @@ Standardní knihovna v Go poskytuje vzájemné vyloučení s
 - `Lock`
 - `Unlock`
 
-Můžeme definovat blok kódu který se provede ve vzájemném vyloučení jeho obalením
+Můžeme definovat blok kódu, který se provede ve vzájemném vyloučení jeho obalením
 voláními `Lock` a `Unlock` jako je ukázáno nametodě `Inc`.
 
 Taky můžeme použít `defer` pro zajištění že se mutex odemkne jako v metodě `Value`.

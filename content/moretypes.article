@@ -94,10 +94,10 @@ horní hranicí, oddělených dvojtečkou:
 
 	a[spodní : horní]
 
-To vybere polo-otevřený rozsah který obsahuje první
+To vybere polo-otevřený rozsah, který obsahuje první
 element, ale nezahrnuje poslední.
 
-Následující výraz vytvoří výřez který obsahuje 
+Následující výraz vytvoří výřez, který obsahuje 
 elementy `a` od 1 do 3:
 
 	a[1:4]
@@ -108,12 +108,12 @@ elementy `a` od 1 do 3:
 * Výřezy jsou jako reference na pole
 
 Výřez neukládá žádná data,
-ale jen popisuje sekci pole které je pod ním.
+ale jen popisuje sekci pole, které je pod ním.
 
 Změnou elementů výřezu modifikuje korespondující elementy
-v poli které je pod ním.
+v poli, které je pod ním.
 
-Další výrezy které sdílejí stejné základní pole také uvidí tyto změny.
+Další výřezy, které sdílejí stejné základní pole také uvidí tyto změny.
 
 .play moretypes/slices-pointers.go
 
@@ -127,7 +127,7 @@ Tohle je literál pole:
 	[3]bool{true, true, false}
 
 A tohle vytvoří stejné pole jako nahoře,
-a pak vytvoří výřez který se na pole odkazuje:
+a pak vytvoří výřez, který se na pole odkazuje:
 
 	[]bool{true, true, false}
 
@@ -158,7 +158,7 @@ jsou tyto výrazy výřezů ekvivalentní:
 
 Výřez má zároveň _délku_ a _kapacitu_.
 
-Délka výřezu je počet elementů které obsahuje.
+Délka výřezu je počet elementů, které obsahuje.
 
 Kapacita výřezu je počet elementů v základním poli,
 počítaná od prvního elementu výřezu.
@@ -189,8 +189,8 @@ a nemá pod sebou žádné pole.
 Výřezy mohou být vytvořené s zabudovanou funkcí `make`;
 a takhle se vytvářejí pole s dynamickou velikostí.
 
-Funkce `make` alokuje vynulované polé
-a vrátí výřez které se na pole odkazuje:
+Funkce `make` alokuje vynulované pole
+a vrátí výřez, který na pole odkazuje:
 
 	a := make([]int, 5)  // len(a)=5
 
@@ -223,7 +223,7 @@ První parametr `append`, `s` je výřez typu `T` a zbytek jsou `T` hodnoty
 pro přidání do výřezu.
 
 Výsledná hodnota `append` je výřez obsahující všechny elementy
-původního výřezu plus hodnoty které jsi poskytl/a.
+původního výřezu plus hodnoty, které jsi poskytl/a.
 
 Pokud je základní pole `s` moc malé aby se do něho vešly všechny dodané hodnoty
 bude alokované větší pole. Vracený výřez bude odkazovat na nově vytvořené pole.
@@ -332,7 +332,7 @@ Funkční hodnoty mohou být použité jako argumenty funkcí a návratové hodn
 
 * Uzávěry funkcí
 
-Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnotakterá odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
+Funkce v Go mohou být uzávěrami. Uzávěra je funkční hodnota, která odkazuje na proměnné mimo své tělo. Funkce může přistupovat k a přiřazovat referenované proměnné; V tomto smyslu je funkce "svázána" s proměnnými.
 
 Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke své vlastí proměnné `sum`.
 
@@ -342,7 +342,7 @@ Například, funkce `adder` vrací uzávěru. Každá uzávěra je navázána ke
 
 Pojďme se trochu pobavit s funkcemi.
 
-Naimplementuj funkci `fibonacci'` která vrací funkci (uzávěru) která
+Naimplementuj funkci `fibonacci'`, která vrací funkci (uzávěru), která
 vrací po sobě jdoucí [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonnacciho čísla]]
 (0, 1, 1, 2, 3, 5, ...).
 

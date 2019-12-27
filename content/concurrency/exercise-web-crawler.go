@@ -37,7 +37,7 @@ func main() {
 	Crawl("https://golang.org/", 4, fetcher)
 }
 
-// fakeFetcher je Fetcher který vrací předpřipravené výsledky.
+// fakeFetcher je Fetcher, který vrací předpřipravené výsledky.
 type fakeFetcher map[string]*fakeResult
 
 type fakeResult struct {

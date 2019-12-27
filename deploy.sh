@@ -1,2 +1,2 @@
 #`-bin-bash
-gcloud app deploy app.yaml
+GO111MODULE=on gcloud --project=go-tour-cz app deploy --no-promote app.yaml

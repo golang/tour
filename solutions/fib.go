@@ -8,8 +8,8 @@ package main
 
 import "fmt"
 
-// fibonacci je funkce ktará vrací
-// funkci která vrací int.
+// fibonacci je funkce, která vrací
+// funkci a ta vrací int.
 func fibonacci() func() int {
 	f, g := 1, 0
 	return func() int {

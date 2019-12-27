@@ -15,7 +15,7 @@ value('tableOfContents', [{
 }, {
     'id': 'basics',
     'title': 'Základy',
-    'description': '<p>Startovací bod, nauč se všechny základz jazyka</p><p>Deklarace proměnných, volání funkcí, a všechnz věci které potřebuješ vědět pro postup k dalším lekcím.</p>',
+    'description': '<p>Startovací bod, nauč se všechny základy jazyka</p><p>Deklarace proměnných, volání funkcí, a všechno ostatní co potřebuješ vědět pro postup k dalším lekcím.</p>',
     'lessons': ['basics', 'flowcontrol', 'moretypes']
 }, {
     'id': 'methods',

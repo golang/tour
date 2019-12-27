@@ -1,7 +1,18 @@
 #application: go-tour
 #version: 1
-runtime: go
-api_version: go1
+runtime: go112
+
+env_variables:
+  GOLANGORG_CHECK_COUNTRY: true
+  # TOUR_ANALYTICS: |
+  #   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11222381-5"></script>
+  #   <script>
+  #   window.dataLayer = window.dataLayer || [];
+  #   function gtag(){dataLayer.push(arguments);}
+  #   gtag("js", new Date());
+  #   gtag("config", "UA-11222381-5");
+  #   gtag("config", "UA-49880327-6");
+  #   </script>
 
 default_expiration: "7d"
 
@@ -17,11 +28,4 @@ handlers:
   secure: always
 - url: /static
   static_dir: static
-  application_readable: true
   secure: always
-
-- url: /(.*|list|lesson/.*|compile|fmt|script\.js)
-  script: _go_app
-  secure: always
-
-nobuild_files: (solutions|content)/.*

@@ -2,57 +2,46 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build appengine
-
 package main
 
 import (
 	"bufio"
 	"bytes"
+	"html/template"
 	"io"
+	"log"
 	"net/http"
-	"strings"
-
-	"appengine"
+	"os"
 
 	_ "golang.org/x/tools/playground"
 )
 
-const runUrl = "https://golang.org/compile"
-
-func init() {
-	http.Handle("/lesson/", hstsHandler(lessonHandler))
-	http.Handle("/", hstsHandler(rootHandler))
+func gaeMain() {
+	prepContent = gaePrepContent
+	socketAddr = gaeSocketAddr
+	analyticsHTML = template.HTML(os.Getenv("TOUR_ANALYTICS"))
 
 	if err := initTour(".", "HTTPTransport"); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+
+	http.Handle("/", hstsHandler(rootHandler))
+	http.Handle("/lesson/", hstsHandler(lessonHandler))
+
+	registerStatic(".")
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	c := appengine.NewContext(r)
-	if err := renderUI(w); err != nil {
-		c.Criticalf("UI render: %v", err)
-	}
-}
-
-func lessonHandler(w http.ResponseWriter, r *http.Request) {
-	c := appengine.NewContext(r)
-	lesson := strings.TrimPrefix(r.URL.Path, "/lesson/")
-	if err := writeLesson(lesson, w); err != nil {
-		if err == lessonNotFound {
-			http.NotFound(w, r)
-		} else {
-			c.Criticalf("tour render: %v", err)
-		}
-	}
-}
-
-// prepContent returns a Reader that produces the content from the given
-// Reader, but strips the prefix "#appengine: " from each line. It also drops
-// any non-blank like that follows a series of 1 or more lines with the prefix.
-func prepContent(in io.Reader) io.Reader {
-	var prefix = []byte("#appengine: ")
+// gaePrepContent returns a Reader that produces the content from the given
+// Reader, but strips the prefix "#appengine:", optionally followed by a space, from each line.
+// It also drops any non-blank line that follows a series of 1 or more lines with the prefix.
+func gaePrepContent(in io.Reader) io.Reader {
+	var prefix = []byte("#appengine:")
 	out, w := io.Pipe()
 	go func() {
 		r := bufio.NewReader(in)
@@ -65,6 +54,10 @@ func prepContent(in io.Reader) io.Reader {
 			}
 			if bytes.HasPrefix(b, prefix) {
 				b = b[len(prefix):]
+				if b[0] == ' ' {
+					// Consume a single space after the prefix.
+					b = b[1:]
+				}
 				drop = true
 			} else if drop {
 				if len(b) > 1 {
@@ -84,9 +77,9 @@ func prepContent(in io.Reader) io.Reader {
 	return out
 }
 
-// socketAddr returns the WebSocket handler address.
+// gaeSocketAddr returns the WebSocket handler address.
 // The App Engine version does not provide a WebSocket handler.
-func socketAddr() string { return "" }
+func gaeSocketAddr() string { return "" }
 
 // hstsHandler wraps an http.HandlerFunc such that it sets the HSTS header.
 func hstsHandler(fn http.HandlerFunc) http.Handler {

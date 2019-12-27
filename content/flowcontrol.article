@@ -73,7 +73,7 @@ funkce `fmt.Println`.)
 
 * Cvičení: Cykly a funkce
 
-Jako způsob k pohrání si s funkcemi a cykly pojďme naimplementovat funkci pro odmocninu: je dáno číslo x a my chceme najít číslo z pro které z² je co nejblíže x.
+Jako způsob k pohrání si s funkcemi a cykly pojďme naimplementovat funkci pro odmocninu: je dáno číslo x a my chceme najít číslo z, pro které z² je co nejblíže x.
 
 Počítače obvykle počítají odmocninu x s použitím cyklu.
 Začínáme s nějakým odhadem z, můžeme z upravit podle toho jak blízko z² je k x,
@@ -82,11 +82,11 @@ což nám poskytne lepší odhad:
 	z -= (z*z - x) / (2*z)
 
 Opakováním těchtu úprav se náš odhad zlepšuje a zlepšuje
-dokud nedostaneme hodnotu která je tak blízko, jak jen může být.
+dokud nedostaneme hodnotu, která je tak blízko, jak jen může být.
 
 Naimplementuj to v poskutnutné funkci `func`Sqrt`.
 Rozumný startovací odhad pro z je 1, bez ohlednu na vstup.
-Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z které jsi vypočítal/a.
+Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z, které jsi vypočítal/a.
 Vykoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
 a jak rychle se odhad zlepšuje.
 
@@ -116,8 +116,8 @@ Příkaz `switch` je kratší verzí zápisu sekvence příkazů `if`-`else`.
 Spustí to první případ (case) jehož hodnota se rovná výrazu podmínky.
 
 Příkaz switch v Go je jako ten v C, C++, Java, JavaScript, a PHP,
-kromě toho že Go spouští jenom vybraný případ, ne všechny případy které následují.
-To znamená že příkaz `break` který je potřeba na konci každého case v těchto
+kromě toho že Go spouští jenom vybraný případ, ne všechny případy, které následují.
+To znamená že příkaz `break`, který je potřeba na konci každého case v těchto
 jazycích je dodán v Go automaticky.
 Další důležitý rozdíl je, že switch případy v Go nemusí být
 konstanty, a že tyto hodnoty nemusejí být celočíselné (integer).
@@ -153,7 +153,7 @@ Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce i
 
 * Defer (odložení)
 
-Příkaz defer odkládá provedení funkce dokud funkce ve které je použit neukončí.
+Příkaz defer odkládá provedení funkce, dokud se funkce ve které je použit neukončí.
 
 Argumentz volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
 se neprovede dokud obklopující funkce neskončí.

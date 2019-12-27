@@ -8,7 +8,7 @@ https://golang.org
 
 Vítejte do průvodce [[https://golang.org/][programovacím jazykem Go]].
 
-Tenhle průvodce je rozdělený do seznamu několika modulů na které
+Tenhle průvodce je rozdělený do seznamu několika modulů, na které
 můžete přejít kliknutím na logo
 [[javascript:highlight(".logo")][Průvodce Go]] v levém horním rohu stránky.
 
@@ -70,7 +70,7 @@ Klikni na tlačítko [[javascript:highlightAndClick(".next-page")]["další"]] n
 
 #appengine: * Go offline
 #appengine: 
-#appengine: Tento průvodce je také dostupný jako samostatně spustitelný program který můžeš použít
+#appengine: Tento průvodce je také dostupný jako samostatně spustitelný program, který můžeš použít
 #appengine: bez přístupu k internetu.
 #appengine: 
 #appengine: Samostatně spustitelný průvodce je rychlejší, protože spoustí zdrojový kód ukázek

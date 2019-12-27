@@ -104,7 +104,7 @@ To je, že pro pohodlí, Go interpretuje příkaz `v.Scale(5)` jako
 
 Podobná věc se děje v obráceném směru.
 
-Funkce které mají hodnotový argument musejí přijímat hodnotu daného typu:
+Funkce, které mají hodnotový argument musejí přijímat hodnotu daného typu:
 
 	var v Vertex
 	fmt.Println(AbsFunc(v))  // OK
@@ -131,7 +131,7 @@ První je že metoda může měnit hodnotu na kterou příjemce ukazuje.
 Druhý je, aby se zabránílo kopírování hodnoty při každém volání metody.
 Pokud je příjemce například velká struktura, tak to může být efektivnější.
 
-V tomto p59kladu, obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
+V tomto příkladu, obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
 přestože metoda `Abs` nepotřebuje modifikovat svého příjemce.
 
 Obecně řečeno, všechny metody na daném typu by měly být buď hodnotového, nebo ukazatelového
@@ -182,10 +182,10 @@ Pokud je konkrétní typ v samotném interface nil,
 metoda bude zavolaná na nil příjemci.
 
 V některých jazycích by to vedlo k vyvolání null pointer exception,
-ale v Go je běžné psát metody které pracují správně i když jsou zavolané
+ale v Go je běžné psát metody, které pracují správně i když jsou zavolané
 s nil příjemcem (jako v případě metody `M` v tomto příkladu.)
 
-Všimni si, že hodnota interface která obsahuje konkrétní hodnotu nil sama není nil.
+Všimni si, že hodnota interface, která obsahuje konkrétní hodnotu nil sama není nil.
 
 .play methods/interface-values-with-nil.go
 
@@ -194,20 +194,20 @@ Všimni si, že hodnota interface která obsahuje konkrétní hodnotu nil sama n
 Hodnota nil v interface nedrží ani hodnotu, ani konkrétní typ.
 
 Voláním metody na nil interface vyvolá chybu run-time protože není
-žádný typ v dvojici tuple interface, který by naznačil jakou _konkrétní_ metodu zavolat.
+žádný typ ve dvojici tuple interface, který by naznačil jakou _konkrétní_ metodu zavolat.
 
 .play methods/nil-interface-values.go
 
 * Prázdný interface
 
-Typ interface který nespecifikuje žádné metody je známý jako _prázdný_interface_ (empty interface):
+Typ interface, který nespecifikuje žádné metody je známý jako _prázdný_interface_ (empty interface):
 
 	interface{}
 
 Prázdný inteface může držet hodnoty jakéhokoliv typu.
 (Každý typ implementuje alespoň žádné metody.)
 
-Prádné interface jsou používané v kódu který ošetřuje hodnoty nezných typů.
+Prázdné interface jsou používané v kódu, který ošetřuje hodnoty neznámých typů.
 Například `fmt.Print` přijímá libovolný počet argumentů typu `interface{}`.
 
 .play methods/empty-interface.go
@@ -221,11 +221,11 @@ _Vynucení_typu_ poskytuje přístup ke konkrétnímu základnímu typu interfac
 Takový příklad vynutí aby hodnota interface `i` držela konkrétní typ `T`
 a přiřadila  základní hodnotu `T` do proměnné `t`.
 
-POkud `i` nedrží typ `T`, tento příkaz spustí paniku (panic).
+Pokud `i` nedrží typ `T`, tento příkaz spustí paniku (panic).
 
 Pro _test_ jestli hodnota interface drží specifický typ,
-vynucení typu může vrátit dvě hodnoty: základní hodnotu a
-booleanskou hodnotu která signalizuje jestli se vynucení povedlo.
+může vynucení typu  vrátit dvě hodnoty: základní hodnotu a
+booleanskou hodnotu, která signalizuje jestli se vynucení povedlo.
 
 	t, ok := i.(T)
 
@@ -240,7 +240,7 @@ Povšimni si podobnosti mezí touto syntaxí a tím jak se čte z mapy.
 
 * Typové přepínače (Type switches)
 
-_Typový_přepínač_ je konstrukt který dovoluje sérii několika typových vynucení.
+_Typový_přepínač_ je konstrukt, který dovoluje sérii několika typových vynucení.
 
 Typový přepíjač je jako běžný příkaz switch, ale jednotlivé případy u typového
 přepínače specifikují typy (ne hodnoty), a tyto hodnoty jsou porovnávané s
@@ -261,7 +261,7 @@ ale konkrétní typ `T` je nahrazený klíčovým slovem `type`.
 Tento příkaz switch testuje jestli hodnota interface `i`
 obsahuje nějakou hodnotu typu `T` nebo `S`.
 V každém z případů pro  `T` a `S`, bude proměnná `v` typu 
-`T` nebo `S` v tomto pořadí a bude mít hodnotu kterou má `i`.
+`T` nebo `S` v tomto pořadí a bude mít hodnotu, kterou má `i`.
 V defaultním případě (pokud se nenajde shoda), proměnná `v` má
 stejný interface type a hodnotu jako `i`.
 
@@ -360,18 +360,18 @@ a konzumuje jeho výstup najednou po 8mi bytech.
 
 * Cvičení: Čtenáři (Readers)
 
-Naimplementuj typ `Reader` který vytváří nekonečný stream ASCII znaků
+Naimplementuj typ `Reader`, který vytváří nekonečný stream ASCII znaků
 `'A'`.
 
 .play methods/exercise-reader.go
 
 * Cvičení: rot13Reader
 
-Běžný vzor je obalit původní [[https://golang.org/pkg/io/#Reader][io.Reader]] novým `io.Reader`-em který ten původní stream nějak mění.
+Běžný vzor je obalit původní [[https://golang.org/pkg/io/#Reader][io.Reader]] novým `io.Reader`-em, který ten původní stream nějak mění.
 
-Například, funkce[[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] přijíká `io.Reader` (stream kompresovaných dat) a vrací `*gzip.Reader` který také implementuje `io.Reader` (stream dekompresovaných dat).
+Například, funkce[[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] přijíká `io.Reader` (stream kompresovaných dat) a vrací `*gzip.Reader`, který také implementuje `io.Reader` (stream dekompresovaných dat).
 
-Naimplementuj `rot13Reader` který implementuje `io.Reader` a čte z nějakého `io.Reader`-u, měnícím původní stream aplikujícím substituční šifru [[https://en.wikipedia.org/wiki/ROT13][rot13]] na všechny alfanumerické.
+Naimplementuj `rot13Reader`, který implementuje `io.Reader` a čte z nějakého `io.Reader`-u, měnícím původní stream aplikujícím substituční šifru [[https://en.wikipedia.org/wiki/ROT13][rot13]] na všechny alfanumerické.
 
 Typ `rot13Reader` je pro tebe připravený.
 Udělej z něho `io.Reader` naimplementováním jeho metody `Read`.
@@ -390,7 +390,7 @@ Udělej z něho `io.Reader` naimplementováním jeho metody `Read`.
 		At(x, y int) color.Color
 	}
 
-*Poznámka*: Metoda `Rectangle` která vrací jako hodnotu metodu `Bounds` je vlastně funkce
+*Poznámka*: Metoda `Rectangle`, která vrací jako hodnotu metodu `Bounds` je vlastně funkce
 [[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]], protože je
 uvnitř balíčku `image`.
 
@@ -402,7 +402,7 @@ Typy `color.Color` a `color.Model` jsou také interface, ale budeme to ignorovat
 
 * Cvičení: Obrázky
 
-Vzpomínáš si na generátor obrázků který si napsal/a dříve? Pojďme napsat další, ale tentokrát bude vracet implementaci `image.Image` místo řezu dat.
+Vzpomínáš si na generátor obrázků, který si napsal/a dříve? Pojďme napsat další, ale tentokrát bude vracet implementaci `image.Image` místo řezu dat.
 
 Definuj svůj vlastní typ `Image` a implementuj [[https://golang.org/pkg/image/#Image][potřebné metody]], a zavolej `pic.ShowImage`.
 
