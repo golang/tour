@@ -343,7 +343,7 @@ Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a ne
 The `io` package specifies the `io.Reader` interface,
 which represents the read end of a stream of data.
 
-The Go standard library contains [[https://golang.org/search?q=Read#Global][many implementations]] of these interfaces, including files, network connections, compressors, ciphers, and others.
+The Go standard library contains [[https://golang.org/search?q=Read#Global][many implementations]] of this interface, including files, network connections, compressors, ciphers, and others.
 
 The `io.Reader` interface has a `Read` method:
 
