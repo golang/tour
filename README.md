@@ -22,10 +22,11 @@ https://golang.org/doc/contribute.html
 To run the tour server locally:
 
 ```sh
-dev_appserver.py app.yaml
+go run .
 ```
 
-and then visit [http://localhost:8080/](http://localhost:8080) in your browser.
+Your browser should now open. If not, please visit [http://localhost:3999/](http://localhost:3999).
+
 
 ## Report Issues / Send Patches
 
