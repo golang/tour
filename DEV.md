@@ -3,7 +3,7 @@ Running locally
 go run .
 
 Deployment
-O111MODULE=on gcloud --project=go-tour-cz app deploy --no-promote app.yaml
+GO111MODULE=on gcloud --project=go-tour-cz app deploy --no-promote app.yaml
 
 Removing previous app versions
 ```

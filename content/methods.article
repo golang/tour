@@ -11,7 +11,7 @@ Přesto ale, je možné na typech definovat metody.
 
 Metoda je funkce se speciálním argumentem _příjemce_ (receiver).
 
-Příjemci se objevují ve svém vlasním seznamu argumentů mezi klíčovým slovem`func` a
+Příjemci se objevují ve svém vlastním seznamu argumentů mezi klíčovým slovem`func` a
 názvem metody.
 
 V tomto příkladu, metoda `Abs` má příjemce typu `Vertex` nazvaného `v`.
@@ -22,7 +22,7 @@ V tomto příkladu, metoda `Abs` má příjemce typu `Vertex` nazvaného `v`.
 
 Pamatuj: metoda je jenom funkce s argumentem příjemce.
 
-Tady je `Abs` napsaná jako obyčejná funkce beze změny funkce.
+Tady je `Abs` napsaná jako obyčejná funkce bez změny funkcionality.
 
 .play methods/methods-funcs.go
 
@@ -34,7 +34,7 @@ V tomto příkladu vidíme číselný typ `MyFloat` s metodou `Abs`.
 
 Metodu můžeš deklarovat jenom s příjemcem jehož typ je definovaný ve stejném
 balíčku jako tato metoda.
-Nemůžš delrarovat metodu s příjemcem jehož typ je definovaný v jiném balíčku
+Nemůžeš deklarovat metodu s příjemcem jehož typ je definovaný v jiném balíčku
 (týká se to i zabudovaných typů jako je `int`).
 
 .play methods/methods-continued.go
@@ -56,10 +56,10 @@ než hodnotoví příjemci.
 Vyzkoušej odstranit `*` z deklarace funkce `Scale` na řádku 16
 a sleduj jak se změní chování přogramu.
 
-S hodnotovým příjemcem, metoda `Scale`operuje na koii původní hodnoty
+S hodnotovým příjemcem, metoda `Scale`operuje na kopii původní hodnoty
 `Vertex`.
 (Tohle je stejné chování jako u kteréhokoliv jiného parametru funkce.)
-Metoda `Scale` musím mít ukazatel na pointer aby mohla měnit hodnotu `Vertex`
+Metoda `Scale` musí mít ukazatel na pointer aby mohla měnit hodnotu `Vertex`
 deklarovanou ve funkci `main`.
 
 .play methods/methods-pointers.go
@@ -68,7 +68,7 @@ deklarovanou ve funkci `main`.
 
 Tady vidíme metody `Abs` a `Scale` přepsané jako funkce.
 
-Znovu, zikus odstranit `*` z řádku 16.
+Znovu, zkus odstranit `*` z řádku 16.
 Vidíš proč se změnilo chování?
 Co ještě bylo potřeba změnit aby se dal příklad přeložit?
 
@@ -78,7 +78,7 @@ Co ještě bylo potřeba změnit aby se dal příklad přeložit?
 
 * Metody a nepřímost ukazatelů
 
-Porovnáním předchozích dvoj programů si můžeš všimnout,
+Porovnáním předchozích dvou programů si můžeš všimnout,
 že funkce s ukazatelem v parametru musejí být volané s ukazatelem:
 
 	var v Vertex
@@ -95,14 +95,14 @@ jako příjemce, když jsou volané:
 
 V příkazu `v.Scale(5)`, i přesto že `v` je hodnota a ne ukazatel,
 je metoda automaticky volaná s ukazatelem na příjemce.
-To je, že pro pohodlí, Go interpretuje příkaz `v.Scale(5)` jako
+Kvůli většímu komfortu Go interpretuje příkaz `v.Scale(5)` jako
 `(&v).Scale(5)` protože metoda `Scale` má ukazatel na příjemce.
 
 .play methods/indirection.go
 
 * Metody a nepřímost ukazatelů (2)
 
-Podobná věc se děje v obráceném směru.
+Podobná věc se děje i v obráceném směru.
 
 Funkce, které mají hodnotový argument musejí přijímat hodnotu daného typu:
 
@@ -110,7 +110,7 @@ Funkce, které mají hodnotový argument musejí přijímat hodnotu daného typu
 	fmt.Println(AbsFunc(v))  // OK
 	fmt.Println(AbsFunc(&v)) // Chyba kompilace!
 
-zatímce když jsou volané metody s hodnotovými příjemci přijímají jako příjemce
+zatímco když jsou volané metody s hodnotovými příjemci přijímají jako příjemce
 buď hodnotu nebo ukazatel:
 
 	var v Vertex
@@ -128,7 +128,7 @@ Existují dva důvody proč použít ukazatele na příjemce.
 
 První je že metoda může měnit hodnotu na kterou příjemce ukazuje.
 
-Druhý je, aby se zabránílo kopírování hodnoty při každém volání metody.
+Druhý je, aby se zabránilo kopírování hodnoty při každém volání metody.
 Pokud je příjemce například velká struktura, tak to může být efektivnější.
 
 V tomto příkladu, obě `Scale` i `Abs` jsou s příjemcem typu `*Vertex`,
@@ -164,7 +164,7 @@ implementace, která se tak může objevit v jakémkoliv balíčku bez nějaké 
 
 * Hodnoty Interfaců
 
-Pod povrchem je o interface možné přemýšlet jako o dvojici (tuple) hodnoty a
+Pod povrchem je o interface možné uvažovat jako o dvojici hodnoty a
 konkrétního typu:
 
 	(hodnota, typ)
@@ -204,7 +204,7 @@ Typ interface, který nespecifikuje žádné metody je známý jako _prázdný_i
 
 	interface{}
 
-Prázdný inteface může držet hodnoty jakéhokoliv typu.
+Prázdný interface může držet hodnoty jakéhokoliv typu.
 (Každý typ implementuje alespoň žádné metody.)
 
 Prázdné interface jsou používané v kódu, který ošetřuje hodnoty neznámých typů.
@@ -238,12 +238,12 @@ Povšimni si podobnosti mezí touto syntaxí a tím jak se čte z mapy.
 
 .play methods/type-assertions.go
 
-* Typové přepínače (Type switches)
+* Typové switch (Type switches)
 
-_Typový_přepínač_ je konstrukt, který dovoluje sérii několika typových vynucení.
+_Typový_switch_ je konstrukt, který dovoluje sérii několika typových vynucení.
 
-Typový přepíjač je jako běžný příkaz switch, ale jednotlivé případy u typového
-přepínače specifikují typy (ne hodnoty), a tyto hodnoty jsou porovnávané s
+Typový switch je jako běžný příkaz switch, ale jednotlivé case u typového
+switch specifikují typy (ne hodnoty), a tyto hodnoty jsou porovnávané s
 typem hodnoty drženou hodnotou daného interface.
 
 	switch v := i.(type) {
@@ -255,7 +255,7 @@ typem hodnoty drženou hodnotou daného interface.
 		// žádná shoda;  tady má v stejný typ jako i
 	}
 
-Deklarace má v typovém přepínači stejný syntax jako typové vynucení `i.(T)`,
+Deklarace má v typovém switchi stejný syntax jako typové vynucení `i.(T)`,
 ale konkrétní typ `T` je nahrazený klíčovým slovem `type`.
 
 Tento příkaz switch testuje jestli hodnota interface `i`
@@ -269,14 +269,14 @@ stejný interface type a hodnotu jako `i`.
 
 * Stringery (Stringers)
 
-Jeden z nejvíce všudypřítomných rozhraní je [[//golang.org/pkg/fmt/#Stringer][`Stringer`]] definovaný v balíčku [[//golang.org/pkg/fmt/][`fmt`]].
+Jeden z nejvíce všudypřítomných interface je [[//golang.org/pkg/fmt/#Stringer][`Stringer`]] definovaný v balíčku [[//golang.org/pkg/fmt/][`fmt`]].
 
 	type Stringer interface {
 		String() string
 	}
 
 `Stringer` je typ, který se sám může popsat jako řetězec. Balíček `fmt`
-(a řada dalších) hledá toto rozhraní během výpisů hodnot.
+(a řada dalších) hledá tento interface během výpisů hodnot.
 
 .play methods/stringer.go
 
@@ -320,9 +320,9 @@ Hodnota nil v `error` oznamuje úspěch; ne nilová hodnota `error` označuje ch
 
 Zkopíruj svoji funkci `Sqrt` z [[/flowcontrol/8][dřívější cvičení]] a změň ji aby vracela hodnotu `error`.
 
-`Sqrt` by měla vracet ne=nil chybovou hodotu pokud dostane záporné číslo, protože nepodporuje komplexní čísla.
+`Sqrt` by měla vracet ne-nil chybovou hodnotu pokud dostane záporné číslo, protože nepodporuje komplexní čísla.
 
-Vytvoř nový typ<
+Vytvoř nový typ:
 
 	type ErrNegativeSqrt float64
 
@@ -369,7 +369,7 @@ Naimplementuj typ `Reader`, který vytváří nekonečný stream ASCII znaků
 
 Běžný vzor je obalit původní [[https://golang.org/pkg/io/#Reader][io.Reader]] novým `io.Reader`-em, který ten původní stream nějak mění.
 
-Například, funkce[[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] přijíká `io.Reader` (stream kompresovaných dat) a vrací `*gzip.Reader`, který také implementuje `io.Reader` (stream dekompresovaných dat).
+Například, funkce[[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] přijímá `io.Reader` (stream kompresovaných dat) a vrací `*gzip.Reader`, který také implementuje `io.Reader` (stream dekompresovaných dat).
 
 Naimplementuj `rot13Reader`, který implementuje `io.Reader` a čte z nějakého `io.Reader`-u, měnícím původní stream aplikujícím substituční šifru [[https://en.wikipedia.org/wiki/ROT13][rot13]] na všechny alfanumerické.
 
@@ -390,13 +390,13 @@ Udělej z něho `io.Reader` naimplementováním jeho metody `Read`.
 		At(x, y int) color.Color
 	}
 
-*Poznámka*: Metoda `Rectangle`, která vrací jako hodnotu metodu `Bounds` je vlastně funkce
+*Poznámka*: Metoda `Rectangle`, kterou vrací jako hodnotu metoda `Bounds` je vlastně funkce
 [[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]], protože je
 uvnitř balíčku `image`.
 
-(Podívej se na [[https://golang.org/pkg/image/#Image][dokumentaci]] pro všechny detaily.)
+(Podívej se na [[https://golang.org/pkg/image/#Image][dokumentaci]] pro další detaily.)
 
-Typy `color.Color` a `color.Model` jsou také interface, ale budeme to ignorovat a použijeme předdefinoané implementace `color.RGBA` a `color.RGBAModel`. Tyto interface a typy jsou specifiiované v [[https://golang.org/pkg/image/color/][balíčku image/color]]
+Typy `color.Color` a `color.Model` jsou také interface, ale budeme to ignorovat a použijeme předdefinované implementace `color.RGBA` a `color.RGBAModel`. Tyto interface a typy jsou specifikované v [[https://golang.org/pkg/image/color/][balíčku image/color]]
 
 .play methods/images.go
 
@@ -410,7 +410,7 @@ Definuj svůj vlastní typ `Image` a implementuj [[https://golang.org/pkg/image/
 
 `ColorModel` by měl vracet `color.RGBAModel`.
 
-`At` by měl vracet barvu; hodnota `v` z posledního generáturu obrázků koresponduje s `color.RGBA{v,`v,`255,`255}` v tomto.
+`At` by měl vracet barvu; hodnota `v` z posledního generátoru obrázků koresponduje s `color.RGBA{v,`v,`255,`255}` v tomto.
 
 .play methods/exercise-images.go
 

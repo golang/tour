@@ -1,5 +1,5 @@
 Souběžnost (konkurence)
-Go poskytuje konstrukce souběžnosti jako součást základů jazyka. Tyto lekce je ukazují a přinášejí nějaké příklady jejího použití.
+Go poskytuje konstrukce souběžnosti jako základní součást jazyka. Tyto lekce je ukazují a přinášejí nějaké příklady jejího použití.
 
 Autoři Go
 https://golang.org
@@ -55,13 +55,13 @@ Modifikuj tento příklad aby způsobil přeplnění vyrovnávací paměti a uvi
 
 * Range a Close
 
-Odesílatel může `zav5ít` kanál aby naznačil že už nebudou poslané žádné další hodnoty. Příjemci mohou testovat jestli byl kanál už uzavřený přiřazením druhého parametru u přijímacího výrazu:
+Odesílatel může `zavřít` kanál aby naznačil že už nebudou poslané žádné další hodnoty. Příjemci mohou testovat jestli byl kanál už uzavřený přiřazením druhého parametru u přijímaného výrazu:
 
 	v, ok := <-ch
 
-`ok` je `false` když už nejsou žádné další hodnoty k příjmu a kanál je uzavřený.
+`ok` je `false`, když už nejsou žádné další hodnoty k příjmu a kanál je uzavřený.
 
-Cyklus `for`i`:=`range`c` přijímá opakovaně hodnoty z kanálu dokud není uzavřený.
+Cyklus `for`i`:=`range`c` přijímá opakovaně hodnoty z kanálu, dokud není uzavřený.
 
 *Poznámka:* Kanál by měl uzavírat jenom odesílatel, nikdy ne příjemce. Odeslání do uzavřeného kanálu způsobí paniku.
 
@@ -73,7 +73,7 @@ Cyklus `for`i`:=`range`c` přijímá opakovaně hodnoty z kanálu dokud není uz
 
 Příkaz `select` umožňuje gorutině čekat na víc komunikačních operací.
 
-Příkaz `select` je blokující dokud je možné spustit jeden z jeho případů case - potom ho provede.  A když jich je dostupných víc, náhodně si vybere jeden z nich.
+Příkaz `select` je blokující, dokud není možné spustit jednu z jeho větví case - potom ji provede.  A když jich je dostupných víc, náhodně si vybere jeden z nich.
 
 .play concurrency/select.go
 
@@ -94,11 +94,11 @@ Použij případ `default` k vyzkoušení odeslání nebo příjem bez blokován
 
 * Cvičení: Ekvivalentní Binární stromy
 
-Může být spousta různých binárních stromů se stejnou sekvencí hodnot uložených v listech. Například, tady jsou dva binární stromy držící sekvenci 1, 1, 2, 3, 5, 8, 13.
+Různých binárních stromů se stejnou sekvencí uloženou v listech může být mnoho. Například, tady jsou dva binární stromy obsahující sekvenci 1, 1, 2, 3, 5, 8, 13.
 
 .image /content/img/tree.png
 
-Vě většině jazyků je funkce pro kontrolu že dva binární stromy tvoří stejnou sekvenci celkem složitá. My použijeme konkurenci a kanály z Go abychom napsali jednoduché řešení.
+Ve většině jazyků je funkce pro kontrolu že dva binární stromy tvoří stejnou sekvenci celkem složitá. My použijeme konkurenci a kanály z Go abychom napsali jednoduché řešení.
 
 Tento příklad používá balíček `tree`, který definuje typ:
 
@@ -111,7 +111,7 @@ Tento příklad používá balíček `tree`, který definuje typ:
 
 Popis pokračuje na [[javascript:click('.next-page')][další stránce]].
 
-* Cvičení: Ekvivalentí Binární stromy
+* Cvičení: Ekvivalentní Binární stromy
 
 *1.* Naimplementuj funkci `Walk`.
 
@@ -119,41 +119,41 @@ Popis pokračuje na [[javascript:click('.next-page')][další stránce]].
 
 Funkce `tree.New(k)` vytváří náhodně strukturovaný (ale vždy seřazený) binární strom s hodnotami `k`, `2k`, `3k`, ..., `10k`.
 
-Vytvoř nový kanál `ch` vypusti chodce:
+Vytvoř nový kanál `ch` a zavolej Walk:
 
 	go Walk(tree.New(1), ch)
 
 Potom načti a vytiskni 10 hodnot z kanálu. Měly by to být čísla 1, 2, 3, ..., 10.
 
-*3.* Naimplementuj funkci `Same` s použitím `Walk` abys zjistil/a jestli `t1` a `t2` drží stejné hodnoty.
+*3.* Naimplementuj funkci `Same` s použitím `Walk` abys zjistil/a jestli `t1` a `t2` obsahují stejné hodnoty.
 
 *4.* Otestuj funkci `Same`.
 
 `Same(tree.New(1),`tree.New(1))` by měla vrátit true, a `Same(tree.New(1),`tree.New(2))` by měla vrátit false.
 
-Dokumentace k `Tree` se dá nají [[https://godoc.org/golang.org/x/tour/tree#Tree][zde]].
+Dokumentace k `Tree` se dá najít [[https://godoc.org/golang.org/x/tour/tree#Tree][zde]].
 
 .play concurrency/exercise-equivalent-binary-trees.go
 
 * sync.Mutex
 
-Viděli jsme jak jsou kanály skvělé pro komunikaci mezi gorutinami.
+Viděli jsme, jak jsou kanály skvělé pro komunikaci mezi gorutinami.
 
-Ale co když nepotřebujeme komunikovat? Co když se jenom chceme ujistit že jen jedna
-gorutina může přistupovat k proměnné naráz aby se zabránilo konfliktům?
+Ale co když nepotřebujeme komunikovat? Co když se jenom chceme ujistit, že jen jedna
+gorutina bude k přoměnné přistupovat naráz, aby se zabránilo konfliktům?
 
-Tento koncept se jmenuje _vzájemné_vyloučení_, a konvenční název pro datovou strukturu, která to poskytuje je _mutex_.
+Tento koncept se jmenuje _vzájemné_vyloučení_ (mutual exclusion), a konvenční název pro datovou strukturu, která to poskytuje je _mutex_.
 
 Standardní knihovna v Go poskytuje vzájemné vyloučení s
-[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] a a jeho dvěma metodami
+[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] a jeho dvěma metodami
 
 - `Lock`
 - `Unlock`
 
 Můžeme definovat blok kódu, který se provede ve vzájemném vyloučení jeho obalením
-voláními `Lock` a `Unlock` jako je ukázáno nametodě `Inc`.
+voláními `Lock` a `Unlock`, jak je ukázáno v metodě `Inc`.
 
-Taky můžeme použít `defer` pro zajištění že se mutex odemkne jako v metodě `Value`.
+Také můžeme použít `defer` pro zajištění, že se mutex odemkne, jako v metodě `Value`.
 
 .play concurrency/mutex-counter.go
 
@@ -161,14 +161,14 @@ Taky můžeme použít `defer` pro zajištění že se mutex odemkne jako v meto
 
 V tomto cvičení použijeme vlastnosti Go konkurence pro paralelizaci web crawleru.
 
-Změň funkci `Crawl` aby stahovala URL paralelně be stahování stejného URL dvakrát.
+Změň funkci `Crawl` aby stahovala URL paralelně bez stahování stejného URL dvakrát.
 
 _Nápověda: můžeš si držet cache URL které jsou prošel/la v mapě, ale mapy samotné nejsou
-bezpečné pro konkurenční použi!
+bezpečné pro konkurenční použití!
 
 .play concurrency/exercise-web-crawler.go
 
-* Kam jít odsud pro více o Go...
+* Kam jít odsud pro více informací o Go...
 
 #appengine: Můžeš začít
 #appengine: [[https://golang.org/dl/][instalací Go]].
@@ -179,29 +179,28 @@ bezpečné pro konkurenční použi!
 začátek.
 Ta obsahuje reference, tutoriály, videa a další.
 
-Jestli se chceš naučit jak organizovat a pracovat s Go kódem, podívej se na [[https://www.youtube.com/watch?v=XCsL89YtqCs][tento screencast]] nebo si přečti [[https://golang.org/doc/code.html][Jak psát Go kód (en)]].
+Jestli se chceš naučit jak organizovat a pracovat s Go kódem, podívej se na [[https://www.youtube.com/watch?v=XCsL89YtqCs][tento screencast]], nebo si přečti [[https://golang.org/doc/code.html][Jak psát Go kód (en)]].
 
-Pokud potřebuješ pomoc se standardní knihovnou, podívej se na [[https://golang.org/pkg/][referenci balíčku]]. Pro pomoc s jazykem, můžeš být překvapený/á že [[https://golang.org/ref/spec][Specifikace jazyka (en)]] je docela čitelná.
+Pokud potřebuješ pomoc se standardní knihovnou, podívej se na [[https://golang.org/pkg/][referenci balíčku]]. Pro lepší seznámení s jazykem se můžeš podívat na [[https://golang.org/ref/spec][Specifikace jazyka (en)]] a možná budeš překvapený/á že je docela čitelná.
 
-Pro další průzkum modelu souběžnosti jazyka Go, podívej se na 
+Pro další informace o modelu souběžnosti jazyka Go se podívej na 
 [[https://www.youtube.com/watch?v=f6kdp27TYZs][Vzory souběžnosti v Go (en)]]
 ([[https://talks.golang.org/2012/concurrency.slide][slidy]])
 a
 [[https://www.youtube.com/watch?v=QDDwwePbDtw][Pokročilé vzory souběžnosti v Go]]
 ([[https://talks.golang.org/2013/advconc.slide][slidy]])
-a přečti si
-[[https://golang.org/doc/codewalk/sharemem/][Sdílej paměť komunikací]]
-průchod kódem.
+a přečti si průvodce kódem (codewalk) 
+[[https://golang.org/doc/codewalk/sharemem/][Sdílení paměti pomocí komunikace]].
 
-Pro začátky s psaním web aplikací, podívej se na
-[[https://vimeo.com/53221558][Jednodluché programovací prostředí]]
+Pro úvod do psaní web aplikací se podívej na
+[[https://vimeo.com/53221558][Jednoduché programovací prostředí]]
 ([[https://talks.golang.org/2012/simple.slide][slidy]])
 a přečti si tutoriál
 [[https://golang.org/doc/articles/wiki/][Píšeme Web aplikace (en)]].
 
-Průchod kódem [[https://golang.org/doc/codewalk/functions/][Funkce první třídy v Go (en)]] dává zajímavou perspektivu na Go funkční typy.
+Průvodce kódem [[https://golang.org/doc/codewalk/functions/][Funkce prvního řádu v Go (en)]] odhaluje zajímavou perspektivu na Go funkční typy.
 
 [[https://blog.golang.org/][Go Blog]] má velký archiv informativních článků o Go.
 
-A navštiv [[https://golang.org][golang.org]] pro více.
+A navštiv [[https://golang.org][golang.org]] pro více informací.
 

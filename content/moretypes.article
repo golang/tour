@@ -1,5 +1,5 @@
 Víc typů: struktury, slice, a mapy.
-Nauč se jak definovat typy založené na existujících: tato lekce pokrývá struktury, pole, výřezy (slice) a mapy.
+Nauč se, jak definovat typy založené na existujících: tato lekce pokrývá struktury, pole, výřezy (slice) a mapy.
 
 Autoři Go
 https://golang.org
@@ -9,7 +9,7 @@ https://golang.org
 Go má ukazatele (pointers).
 Ukazatel drží paměťovou adresu nějaké hodnoty.
 
-Typ `*T` je ukauzatel na `T` hodnotu. Jeho nulová hodnota (zero value) je `nil`.
+Typ `*T` je ukazatel na `T` hodnotu. Jeho nulová hodnota (zero value) je `nil`.
 
 	var p *int
 
@@ -23,7 +23,7 @@ Operátor `*` ukazuje hodnotu ležící za pointerem.
 	fmt.Println(*p) // načte i skrze pointer p
 	*p = 21         // nastaví i skrze pointer p
 
-Tohle je známé jako "dereferencování", nebo nepřímý přístup ("indirecting").
+Tohle se říká "dereferencování", nebo nepřímý přístup ("indirecting").
 
 Na rozdíl od C, Go nemá žádnou pointerovou aritmetiku.
 
@@ -37,7 +37,7 @@ Struktura `struct` je kolekcí položek.
 
 * Položky struktur
 
-Položky struktur jsou přistupovámy s použitím tečky.
+Položky struktur jsou zpřístupňovány s použitím tečky.
 
 .play moretypes/struct-fields.go
 
@@ -73,8 +73,8 @@ Výraz
 
 deklaruje proměnnou `a` jako pole deseti celých čísel.
 
-Délka pole je součástí jeho typu, takže velist pole se nemůže měnit.
-To se zdá limitujcí, ale neboj se;
+Délka pole je součástí jeho typu, takže velikost pole se nemůže měnit.
+To se může zdát limitující, ale neboj se;
 Go poskytuje vhodný způsob pro práci s poli.
 
 .play moretypes/array.go
@@ -83,9 +83,9 @@ Go poskytuje vhodný způsob pro práci s poli.
 * Výřezy (Slices)
 
 Pole má pevnou velikost.
-na druhou stranu velikost slice je dynamický
+Na druhou stranu velikost slice je dynamický,
 flexibilní pohled do elementů pole.
-V praxi, výřezy jsou mnohem běžnější než pole.
+V praxi jsou výřezy mnohem běžnější než pole.
 
 Typ `[]T` je výřez s elementy typu `T`.
 
@@ -113,7 +113,7 @@ ale jen popisuje sekci pole, které je pod ním.
 Změnou elementů výřezu modifikuje korespondující elementy
 v poli, které je pod ním.
 
-Další výřezy, které sdílejí stejné základní pole také uvidí tyto změny.
+Další výřezy, které sdílejí stejné základní pole tyto změny také uvidí.
 
 .play moretypes/slices-pointers.go
 
@@ -186,7 +186,7 @@ a nemá pod sebou žádné pole.
 
 * Vytváření výřezu pomocí make
 
-Výřezy mohou být vytvořené s zabudovanou funkcí `make`;
+Výřezy mohou být vytvořené zabudovanou funkcí `make`;
 a takhle se vytvářejí pole s dynamickou velikostí.
 
 Funkce `make` alokuje vynulované pole
@@ -225,10 +225,10 @@ pro přidání do výřezu.
 Výsledná hodnota `append` je výřez obsahující všechny elementy
 původního výřezu plus hodnoty, které jsi poskytl/a.
 
-Pokud je základní pole `s` moc malé aby se do něho vešly všechny dodané hodnoty
+Pokud je základní pole `s` moc malé, aby se do něho vešly všechny dodané hodnoty
 bude alokované větší pole. Vracený výřez bude odkazovat na nově vytvořené pole.
 
-(Pro zjištění více o výřezech, přečti si článek [[https://blog.golang.org/go-slices-usage-and-internals][Výřezy: použití a detaily o implementaci]].)
+(Pro získání více informací o výřezech si přečti článek [[https://blog.golang.org/go-slices-usage-and-internals][Výřezy: použití a detaily o implementaci]].)
 
 .play moretypes/append.go
 
@@ -316,7 +316,7 @@ _Poznámka_: Pokud `elem` nebo `ok` ještě nebyly deklarované, můžeš použ�
 
 * Cvičení: Mapy
 
-Naimplementuj `WordCount`.  Mělo by vracet mapu počtů každého “slova” v řezězci `s`. Funkce `wc.Test` spouští sadu testů proti poskytnuté funkci a vypisuje úspěch něbo selhání.
+Naimplementuj `WordCount`.  Mělo by vracet mapu počtů každého “slova” v řetězci `s`. Funkce `wc.Test` spouští sadu testů proti poskytnuté funkci a vypisuje úspěch něbo selhání.
 
 Možná se ti bude hodit [[https://golang.org/pkg/strings/#Fields][strings.Fields]].
 

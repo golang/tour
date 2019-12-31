@@ -1,5 +1,5 @@
 Příkazy pro řízení běhu: for, if, else, switch a defer
-Nauč se jak řídit běh své aplikace s podmínkami, cykly, přepínači switch a odloženími defers.
+Nauč se, jak řídit běh své aplikace s podmínkami, cykly, přepínači switch a odloženími defers.
 
 Autoři Go
 https://golang.org
@@ -14,13 +14,13 @@ Základní `for` cyklus má tři komponenty oddělené středníky:
 - výraz podmínky: vyhodnocený před každou iterací
 - následující příkaz: provedený na konci každé iterace
 
-Počátečhí příkaz bude často krátká deklarace proměnné, a proměnné tady
-deklararované jsou dostupné jenom v rozsahu  `for`
+Počáteční příkaz bude často krátká deklarace proměnné, a proměnné tady
+deklarované jsou dostupné jenom v rozsahu  `for`
 příkazu.
 
-Cyklus skončí vyhodnocování jakmile se jeho booleanská podmínka vyhodnotí jako `false`.
+Cyklus skončí vyhodnocování, jakmile se jeho booleanská podmínka vyhodnotí jako `false`.
 
-_Poznámka_: Na rozdíl od jazyků jako C, Java, nebo JavaScript tadz nejsou žádné závorky
+_Poznámka_: Na rozdíl od jazyků jako C, Java, nebo JavaScript, tady nejsou žádné závorky,
 obklopující tři komponenty příkazu `for` a složené závorky `{`}` jsou
 vždy povinné.
 
@@ -53,7 +53,7 @@ obklopené závorkami `(`)` ale složené závorky `{`}` jsou povinné.
 
 * If se zkráceným příkazem
 
-Jako u `for`, příkaz `if` můžé začínat s krátkým příkazem, které se provede před podmínkou.
+Jako u `for`, příkaz `if` může začínat krátkým příkazem, které se provede před podmínkou.
 
 Proměnné deklarované příkazem jsou dostupné jenom do konce příkazu `if`.
 
@@ -73,7 +73,7 @@ funkce `fmt.Println`.)
 
 * Cvičení: Cykly a funkce
 
-Jako způsob k pohrání si s funkcemi a cykly pojďme naimplementovat funkci pro odmocninu: je dáno číslo x a my chceme najít číslo z, pro které z² je co nejblíže x.
+Jako hravé cvičení s funkcemi si pojďme naimplementovat funkci pro odmocninu: je dáno číslo x a my chceme najít číslo z, pro které z² je co nejblíže x.
 
 Počítače obvykle počítají odmocninu x s použitím cyklu.
 Začínáme s nějakým odhadem z, můžeme z upravit podle toho jak blízko z² je k x,
@@ -81,13 +81,13 @@ což nám poskytne lepší odhad:
 
 	z -= (z*z - x) / (2*z)
 
-Opakováním těchtu úprav se náš odhad zlepšuje a zlepšuje
+Opakováním těchto úprav se náš odhad zlepšuje a zlepšuje
 dokud nedostaneme hodnotu, která je tak blízko, jak jen může být.
 
-Naimplementuj to v poskytnutné funkci `func`Sqrt`.
-Rozumný startovací odhad pro z je 1, bez ohlednu na vstup.
+Můžeš to naimplementovat v připravené funkci `func`Sqrt`.
+Rozumný startovací odhad pro z bez ohledu na vstup je 1.
 Pro začátek, zopakuj výpočet 10 krát a vytiskni každé z, které jsi vypočítal/a.
-Vyzkoušej jak blízko se dostaneš k adpovědi s různými hodnotami x (1, 2, 3, ...)
+Vyzkoušej jak blízko se dostaneš k odpovědi s různými hodnotami x (1, 2, 3, ...)
 a jak rychle se odhad zlepšuje.
 
 Nápověda: Pro deklarování a inicializaci hodnoty s plovoucí řádovou čárkou (floating point),
@@ -96,16 +96,16 @@ použij syntaxi floating pointu, nebo použij konverzi:
 	z := 1.0
 	z := float64(1)
 
-Dále, změň podmínku v cyklu tak, aby se zastavil jakmile se hodnota přestane
-měnit (nebo jestli se změní jen velmi málo).
+Dále, změň podmínku v cyklu tak, aby se zastavil, jakmile se hodnota přestane
+měnit (nebo když se změní jen velmi málo).
 Zjisti jestli je to po více, nebo méně než 10 iteracích.
 Vyzkoušej další počáteční odhady pro z, jako třeba x, nebo x/2.
 Jak blízké jsem výsledky tvé funkce k funkci [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] ze standardní knihovny?
 
-(Poznámka: Pokud tě zajímají detaily algorithmu, výraz z² − x nahoře
+(Poznámka: Pokud tě zajímají detaily algoritmu, výraz z² − x nahoře
 je jak je daleko z² od toho co by mělo být (x), a dělení 2z je derivací
 z², pro zjištění jak moc upravit (z) pomocí toho jak rychle se z² mění.
-Tento obecný příštup se jmenuje [[https://en.wikipedia.org/wiki/Newton%27s_method][Newtonova metoda]].
+Tento obecný přístup se jmenuje [[https://en.wikipedia.org/wiki/Newton%27s_method][Newtonova metoda]].
 Funguje dobře pro mnoho funkcí, ale zvlášť dobře pro odmocninu.)
 
 .play flowcontrol/exercise-loops-and-functions.go
@@ -115,12 +115,12 @@ Funguje dobře pro mnoho funkcí, ale zvlášť dobře pro odmocninu.)
 Příkaz `switch` je kratší verzí zápisu sekvence příkazů `if`-`else`.
 Spustí to první případ (case) jehož hodnota se rovná výrazu podmínky.
 
-Příkaz switch v Go je jako ten v C, C++, Java, JavaScript, a PHP,
+Příkaz switch v Go je jako ten v C, C++, Java, JavaScript a PHP,
 kromě toho že Go spouští jenom vybraný případ, ne všechny případy, které následují.
 To znamená že příkaz `break`, který je potřeba na konci každého case v těchto
 jazycích je dodán v Go automaticky.
-Další důležitý rozdíl je, že switch případy v Go nemusí být
-konstanty, a že tyto hodnoty nemusejí být celočíselné (integer).
+Další důležitý rozdíl je, že výrazy case větví v Go nemusí být
+konstanty a že tyto hodnoty nemusejí být celočíselné (integer).
 
 .play flowcontrol/switch.go
 
@@ -156,7 +156,7 @@ Taková konstrukce může být čistým způsobem jak zapsat dlouhé řetězce i
 Příkaz defer odkládá provedení funkce, dokud se funkce ve které je použit neukončí.
 
 Argumenty volání odložené funkce jsou vyhodnocené okamžitě, ale volání funkce 
-se neprovede dokud obklopující funkce neskončí.
+se neprovede, dokud obklopující funkce neskončí.
 
 .play flowcontrol/defer.go
 

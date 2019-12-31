@@ -73,7 +73,7 @@ Klikni na tlačítko [[javascript:highlightAndClick(".next-page")]["další"]] n
 #appengine: Tento průvodce je také dostupný jako samostatně spustitelný program, který můžeš použít
 #appengine: bez přístupu k internetu.
 #appengine: 
-#appengine: Samostatně spustitelný průvodce je rychlejší, protože spoustí zdrojový kód ukázek
+#appengine: Samostatně spustitelný průvodce je rychlejší, protože spouští zdrojový kód ukázek
 #appengine: na tvém vlastním počítači.
 #appengine: 
 #appengine: Pro spuštění lokálního průvodce si nejprve
@@ -103,7 +103,7 @@ Klikni na tlačítko [[javascript:highlightAndClick(".next-page")]["další"]] n
 #appengine: 
 #appengine: Kvůli tomu má běh programů v Go Plagroundu určité limitace: 
 #appengine: 
-#appengine: - Čas uvnitř playgroundu začíná ve 2009-11-10 23:00:00 UTC (necháme na čtenáří jako cvičení zjištění významu tohoto data). Protože když mají programy neměnný výstup, tak to zjednodušuje jejich ukládání do cache.
+#appengine: - Čas uvnitř playgroundu začíná ve 2009-11-10 23:00:00 UTC (necháme na čtenáři jako cvičení zjištění významu tohoto data). Protože když mají programy neměnný výstup, tak to zjednodušuje jejich ukládání do cache.
 #appengine: 
 #appengine: - Také tam existují limity na běhový čas a na využití CPU a paměti, a program nemůže přistupovat k externím síťovým hostům. 
 #appengine: 
