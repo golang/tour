@@ -33,9 +33,11 @@ Your browser should now open. If not, please visit [http://localhost:3999/](http
 This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://golang.org/doc/contribute.html.
 
-The main issue tracker for the tour is located at
-https://github.com/golang/go/issues. Prefix your issue with "tour:" in the
-subject line, so it is easy to find.
+The issue tracker for the tour's code is located at https://github.com/golang/go/issues.
+Prefix your issue with "x/tour:" in the subject line, so it is easy to find.
+
+Issues with the tour's content itself should be reported in the issue tracker 
+at https://github.com/golang/tour/issues.
 
 ## Deploying
 
