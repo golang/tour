@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+  "errors"
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 		n, err := r.Read(b)
 		fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
 		fmt.Printf("b[:n] = %q\n", b[:n])
-		if err == io.EOF {
+		if errors.Is(err,io.EOF) {
 			break
 		}
 	}
