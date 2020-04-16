@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
-  "errors"
+	"errors"
 )
 
 func main() {
