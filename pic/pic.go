@@ -7,11 +7,12 @@
 package pic // import "golang.org/x/tour/pic"
 
 import (
-	"bytes"
+	"bufio"
 	"encoding/base64"
-	"fmt"
 	"image"
 	"image/png"
+	"io"
+	"os"
 )
 
 // Show displays a picture defined by the function f
@@ -46,11 +47,14 @@ func Show(f func(dx, dy int) [][]uint8) {
 // ShowImage displays the image m
 // when executed on the Go Playground.
 func ShowImage(m image.Image) {
-	var buf bytes.Buffer
-	err := png.Encode(&buf, m)
+	w := bufio.NewWriter(os.Stdout)
+	defer w.Flush()
+	io.WriteString(w, "IMAGE:")
+	b64 := base64.NewEncoder(base64.StdEncoding, w)
+	err := (&png.Encoder{CompressionLevel: png.BestCompression}).Encode(b64, m)
 	if err != nil {
 		panic(err)
 	}
-	enc := base64.StdEncoding.EncodeToString(buf.Bytes())
-	fmt.Println("IMAGE:" + enc)
+	b64.Close()
+	io.WriteString(w, "\n")
 }
