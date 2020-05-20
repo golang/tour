@@ -13,7 +13,7 @@ The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
 
 	var p *int
 
-The `&` operator generates a pointer to its operand.
+The `&` operator returns the memory address of its operand.
 
 	i := 42
 	p = &i
