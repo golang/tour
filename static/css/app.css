@@ -386,6 +386,7 @@ a#run, a#kill {
     }
     #explorer + div {
         top: 32px;
+        height: calc(100% - 32px);
     }
     #file-menu {
         position: absolute;
