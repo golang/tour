@@ -39,7 +39,7 @@ When you click on [[javascript:highlightAndClick("#format")][Format]]
 [[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
 by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
-When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
+When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or press the `PageDown` key.
 
 .play welcome/hello.go
 
@@ -68,7 +68,7 @@ The tour is available in other languages:
 - [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
 - [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
 
-Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
+Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or press `PageDown` to continue.
 
 #appengine: * Go offline (optional)
 #appengine:
