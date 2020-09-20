@@ -65,6 +65,8 @@ The special prefix `&` returns a pointer to the struct value.
 
 * Arrays
 
+Array indexes start at 0
+
 The type `[n]T` is an array of `n` values of type `T`.
 
 The expression
