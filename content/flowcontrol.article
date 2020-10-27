@@ -69,6 +69,10 @@ of the `else` blocks.
 (Both calls to `pow` return their results before the call to `fmt.Println`
 in `main` begins.)
 
+*Note:* The `else` block must start on the same line as the closing brace of the if-statement because Go's lexer automatically inserts a semicolon after the closing brace.
+
+Read [[https://golang.org/doc/effective_go.html#semicolons][Effective Go]] for more details around how Go handles semicolons to terminate statements.
+
 .play flowcontrol/if-and-else.go
 
 * Exercise: Loops and Functions
