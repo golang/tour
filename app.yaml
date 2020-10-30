@@ -1,5 +1,5 @@
 service: tour
-runtime: go112
+runtime: go114
 
 env_variables:
   GOLANGORG_CHECK_COUNTRY: true
