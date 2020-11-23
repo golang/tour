@@ -98,7 +98,7 @@ This selects a half-open range which includes the first
 element, but excludes the last one.
 
 The following expression creates a slice which includes
-elements 1 through 3 of `a`:
+second to fourth element of `a`:
 
 	a[1:4]
 
