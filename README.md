@@ -1,5 +1,7 @@
 # Go Tour
 
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/tour.svg)](https://pkg.go.dev/golang.org/x/tour)
+
 A Tour of Go is an introduction to the Go programming language. Visit
 https://tour.golang.org to start the tour.
 
@@ -36,7 +38,7 @@ this repository, see https://golang.org/doc/contribute.html.
 The issue tracker for the tour's code is located at https://github.com/golang/go/issues.
 Prefix your issue with "x/tour:" in the subject line, so it is easy to find.
 
-Issues with the tour's content itself should be reported in the issue tracker 
+Issues with the tour's content itself should be reported in the issue tracker
 at https://github.com/golang/tour/issues.
 
 ## Deploying
