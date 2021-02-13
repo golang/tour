@@ -49,6 +49,29 @@ factory('run', ['$window', 'editor',
             };
         };
         return function(code, output, options, done) {
+            // We want to build tour snippets in module mode, so append
+            // a default go.mod file when it is not already included in
+            // the txtar archive.
+            //
+            // The exercises use golang.org/x/tour/{pic,reader,tree,wc}
+            // packages, so include the golang.org/x/tour module in the
+            // build list.
+            const hasGoMod = code.indexOf('\n-- go.mod --\n') !== -1 || code.startsWith('-- go.mod --\n');
+            if (!hasGoMod) {
+                code += '\n' +
+                    '-- go.mod --\n' +
+                    'module example\n' +
+                    'require golang.org/x/tour v0.0.0-20201207214521-004403599411\n' +
+                    '-- go.sum --\n' +
+                    'golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=\n' +
+                    'golang.org/x/net v0.0.0-20190311183353-d8887717615a/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=\n' +
+                    'golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=\n' +
+                    'golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=\n' +
+                    'golang.org/x/tools v0.0.0-20190312164927-7b79afddac43/go.mod h1:LCzVGOaR6xXOjkQ3onu1FJEFr0SW1gC7cKk1uF8kGRs=\n' +
+                    'golang.org/x/tour v0.0.0-20201207214521-004403599411 h1:dJ4kVwSGlrLZXW6eo2IOer4Pm3wl2GIG4fytRziMgL8=\n' +
+                    'golang.org/x/tour v0.0.0-20201207214521-004403599411/go.mod h1:qMugOFWX59KzC8Nx7f2uvXxKxAqJfi1J6ZUHAWKnrRA=\n';
+            }
+
             // PlaygroundOutput is defined in playground.js which is prepended
             // to the generated script.js in gotour/tour.go.
             // The next line removes the jshint warning.
