@@ -16,11 +16,11 @@ func main() {
 	f := MyFloat(-math.Sqrt2)
 	v := Vertex{3, 4}
 
-	a = f  // a MyFloat implements Abser
-	a = &v // a *Vertex implements Abser
+	a = f  // MyFloat implementuje Abser
+	a = &v // *Vertex implementuje Abser
 
-	// In the following line, v is a Vertex (not *Vertex)
-	// and does NOT implement Abser.
+	// W następnej lini, v jest Vertex (nie *Vertex)
+	// oraz NIE implementuje Abser.
 	a = v
 
 	fmt.Println(a.Abs())

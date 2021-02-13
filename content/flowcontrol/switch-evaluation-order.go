@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	fmt.Println("When's Saturday?")
+	fmt.Println("Kiedy jest sobota?")
 	today := time.Now().Weekday()
 	switch time.Saturday {
 	case today + 0:
-		fmt.Println("Today.")
+		fmt.Println("Dzisiaj.")
 	case today + 1:
-		fmt.Println("Tomorrow.")
+		fmt.Println("Jutro.")
 	case today + 2:
-		fmt.Println("In two days.")
+		fmt.Println("Za dwa dni.")
 	default:
-		fmt.Println("Too far away.")
+		fmt.Println("Zbyt daleko!")
 	}
 }

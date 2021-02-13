@@ -1,150 +1,147 @@
-More types: structs, slices, and maps.
-Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
+Więcej typów: struktury (structs), wycinki (slices), oraz mapy (maps).
+Naucz się jak zdefniować typy: ta lekcja pokrywa struktury (structs), tablice (arrays), wycinki (slices) oraz mapy (maps).
 
-The Go Authors
+Autorzy Go
 https://golang.org
 
-* Pointers
+* Wskaźniki (tzw. pointers)
 
-Go has pointers.
-A pointer holds the memory address of a value.
+Go posiada wskaźniki.
+Wskaźnik przetrzymuje adres w pamięci danej wartości.
 
-The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
+Typ `*T` to wksaźnik do wartości `T`. Jego wartość zerowa wynosi `nil`.
 
 	var p *int
 
-The `&` operator generates a pointer to its operand.
+`&` operator generuje wskaźnik do jego operanda.
 
 	i := 42
 	p = &i
 
-The `*` operator denotes the pointer's underlying value.
+Operator `*` określa wartość bazowa wskaźnika.
 
-	fmt.Println(*p) // read i through the pointer p
-	*p = 21         // set i through the pointer p
+	fmt.Println(*p) // przyczytaj i poprzez wskaźnik p
+	*p = 21         // ustaw i poprzez wskaźnik p
 
-This is known as "dereferencing" or "indirecting".
+Znane jest to jako "dereferencja"(tzw. dereferencing) lub "pośrednictwo"(tzw. indirecting).
 
-Unlike C, Go has no pointer arithmetic.
+W przeciwieństwie do C, Go nie ma wskaźnika arytmetycznego.
 
 .play moretypes/pointers.go
 
-* Structs
+* Struktury (tzw. structs)
 
-A `struct` is a collection of fields.
+`struct` jest kolekcją pól. 
 
 .play moretypes/structs.go
 
-* Struct Fields
+* Pola Struktur (Struct Fields)
 
-Struct fields are accessed using a dot.
+Aby uzyskać dostęp do pola stuktury używamy kropki.
 
 .play moretypes/struct-fields.go
 
-* Pointers to structs
+* Wskaźniki do struktur (Pointers to structs)
 
-Struct fields can be accessed through a struct pointer.
+Pola struktury mogą być rownierz osiągnięte poprzez użycie wskaźnika struktury.
 
-To access the field `X` of a struct when we have the struct pointer `p` we could
-write `(*p).X`.
-However, that notation is cumbersome, so the language permits us instead to
-write just `p.X`, without the explicit dereference.
+By uzyskać dostęp do pola `X` w danej strukturze gdy mamy wskaźnik struktury `p`, możemy 
+napisać `(*p).X`. 
+Jednakże, ta notacja jest niezbyt poręczna, więc Go, pozwala użyć nam następującej notacji
+`p.X`, czyli bez uwzględniania jawnej derefencji. 
 
 .play moretypes/struct-pointers.go
 
-* Struct Literals
+* Literały Struktur (tzw. struct literals)
 
-A struct literal denotes a newly allocated struct value by listing the values of its fields.
+Literał stuktury oznacza przydzielanie wartości po przez wymienianie kolejno pól struktury.
 
-You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
+Możesz przypisać wartości pól poprzez użycie `Name:`. ( Porządek pól nie ma znaczenia )
 
-The special prefix `&` returns a pointer to the struct value.
+Prefix `&` zwraca wskaźnik do wartości stuktury.
 
 .play moretypes/struct-literals.go
 
 
-* Arrays
+* Tablice (tzw. arrays)
 
-The type `[n]T` is an array of `n` values of type `T`.
+Typ `[n]T` jest tablicą która zawiera wartości `n` typu `T`.
 
-The expression
+Wyrażenie
 
 	var a [10]int
 
-declares a variable `a` as an array of ten integers.
+deklaruje zmienna `a` jako tablice zawierającą dziesięć integerów (liczbowy typ danych). 
 
-An array's length is part of its type, so arrays cannot be resized.
-This seems limiting, but don't worry;
-Go provides a convenient way of working with arrays.
+Długość tablicy jest częścią jej typu, tak więc rozmiar tablicy nie może być zmieniany. 
+To może wydawać się niedogodne, jednak nie martw się;
+Go posiada wiele wygodnych sposobów na pracę z tablicami.
 
 .play moretypes/array.go
 
+* Wycinki (tzw. slices)
 
-* Slices
+Tablice mają określony rozmiar.
+Wycinki znów, poznawalają na dynamiczną, elastyczną pracę z tablicami.
+W praktyce, wycinki są dużo cześciej używane niżeli tablice.
 
-An array has a fixed size.
-A slice, on the other hand, is a dynamically-sized,
-flexible view into the elements of an array.
-In practice, slices are much more common than arrays.
+Type `[]T` jest wycinkiem z elementami o typie `T`.
 
-The type `[]T` is a slice with elements of type `T`.
-
-A slice is formed by specifying two indices, a low and
-high bound, separated by a colon:
+Wycinek jest stworzony poprzez określenie dwóch indeksów, dolnego (low)
+oraz górnego (high) ograniczenia, oddzielonego dwukropiem:
 
 	a[low : high]
 
-This selects a half-open range which includes the first
-element, but excludes the last one.
+Wyrażnie powyżej specyfikuje zasięg elemntów który zawiera 
+pierwszy element, lecz wyklucza ostatni.
 
-The following expression creates a slice which includes
-elements 1 through 3 of `a`:
+Następujące wyrażenie tworzy wycinek który zawiera elementy od 1 do 3 z `a`:
 
 	a[1:4]
 
 .play moretypes/slices.go
 
 
-* Slices are like references to arrays
+* Wycinki są jak referencje do tablic
 
-A slice does not store any data,
-it just describes a section of an underlying array.
+Wycinek nie przetrzymuje żadnych danych,
+lecz określa sekcje danej tablicy.
 
-Changing the elements of a slice modifies the
-corresponding elements of its underlying array.
+Zmienianie wartości wycinka modyfikuje dany element 
+z danej tablicy.
 
-Other slices that share the same underlying array will see those changes.
+Inne wycinki które równierz nawiązuja do tej samej tablicy będa odzwierciedlały dokonane zmiany.
 
 .play moretypes/slices-pointers.go
 
 
-* Slice literals
+* Literały wycinków  (tzw. slice literals)
 
-A slice literal is like an array literal without the length.
+Literał wycinków jest jak literał tablicy bez długości.
 
-This is an array literal:
+Oto literał tablicy:
 
 	[3]bool{true, true, false}
 
-And this creates the same array as above,
-then builds a slice that references it:
+A to tworzy taką samą tablicę jak powyżej,
+oraz tworzy wycinek który odnosi się do niej:
 
 	[]bool{true, true, false}
 
 .play moretypes/slice-literals.go
 
 
-* Slice defaults
+* Wycinki domyślne (tzw. slice defaults)
 
-When slicing, you may omit the high or low bounds to use their defaults instead.
+Gdy tworzymy wycinki, można pominąć wysokie lub niskie granice by użyć wartości domyślnych.
 
-The default is zero for the low bound and the length of the slice for the high bound.
+Wartość domyślna dla dolniej granicy wynosi zero, wartość górna granicy jest równa długości tablicy.
 
-For the array
+Dla poniżej tablicy:
 
 	var a [10]int
 
-these slice expressions are equivalent:
+te wartości wycinków są identyczne:
 
 	a[0:10]
 	a[:10]
@@ -154,47 +151,47 @@ these slice expressions are equivalent:
 .play moretypes/slice-bounds.go
 
 
-* Slice length and capacity
+* Długości i pojemność wycinków
 
-A slice has both a _length_ and a _capacity_.
+Wycinek posiada _długość_ (length) oraz _pojemność_ (capacity).
 
-The length of a slice is the number of elements it contains.
+Długość(len) wycinka to liczba elemntów które posiada.
 
-The capacity of a slice is the number of elements in the underlying array,
-counting from the first element in the slice.
+Pojemność(cap) wycinków to liczba elementów tablicy do której dany wycinek nawiązuje,
+licząc od pierwszego elementu w wycinku.
 
-The length and capacity of a slice `s` can be obtained using the expressions
-`len(s)` and `cap(s)`.
+Dlugość i pojemność wycinka `s` może zostać uzyskana po przez użycie wyrażenia
+`len(s)` oraz `cap(s)`.
 
-You can extend a slice's length by re-slicing it,
-provided it has sufficient capacity.
-Try changing one of the slice operations in the example program to extend it
-beyond its capacity and see what happens.
+Możesz zwiększyć długość wycinka poprzez tworzenie z niego kolejnego wycinka (tzw. re-slicing),
+jeśli tylko dany wycinek posiada wymaganą pojemność.
+Spróbuj zmienić jeden z wycinków w przykładowym programie, tak by wykroczyć poza jego pojemność
+i zobacz co się stanie.
 
 .play moretypes/slice-len-cap.go
 
 
-* Nil slices
+* Wycinki zerowe (Nil slices)
 
-The zero value of a slice is `nil`.
+Wartość zerowa wycinka to `nil`.
 
-A nil slice has a length and capacity of 0
-and has no underlying array.
+Wycinek `nil` ma długość oraz pojemność równa 0 oraz 
+nie posiada żadnej tablicy odnośnej.
 
 .play moretypes/nil-slices.go
 
 
-* Creating a slice with make
+* Tworzenie wycinka za pomocą `make`
 
-Slices can be created with the built-in `make` function;
-this is how you create dynamically-sized arrays.
+Wycinki mogą być stworzone poprzez wbudowana funkcję `make`;
+tak właśnie tworzy się dynamiczne tablice.
 
-The `make` function allocates a zeroed array
-and returns a slice that refers to that array:
+Funkcja `make` przydziela zerową tablice oraz 
+zwraca wycinek który odnosi się do tej tablicy:
 
 	a := make([]int, 5)  // len(a)=5
 
-To specify a capacity, pass a third argument to `make`:
+By określić pojemność, wystarczy podać trzeci argument do funkcji `make`:
 
 	b := make([]int, 0, 5) // len(b)=0, cap(b)=5
 
@@ -204,158 +201,156 @@ To specify a capacity, pass a third argument to `make`:
 .play moretypes/making-slices.go
 
 
-* Slices of slices
+* Wycinki wycinków
 
-Slices can contain any type, including other slices.
+Wycinki mogą zawierać każdy typ, tak równierz jak i inne wycinki.
 
 .play moretypes/slices-of-slice.go
 
 
-* Appending to a slice
+* Dołączanie do wycinka
 
-It is common to append new elements to a slice, and so Go provides a built-in
-`append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
-of the built-in package describes `append`.
+Bardzo często zdarza się że chcemy dodać nowy element do wycinka, Go posiada wbudowaną funkcję `append`.
+[[https://golang.org/pkg/builtin/#append][Dokumentacja]] wbudowanej funkcji `append`.
 
 	func append(s []T, vs ...T) []T
 
-The first parameter `s` of `append` is a slice of type `T`, and the rest are
-`T` values to append to the slice.
+Pierwszy parametr `s` funckcji `append` jest wycinek o typie `T`, a reszta parametrów to 
+wartości `T` które chcemy dołączyć do wycinka.
 
-The resulting value of `append` is a slice containing all the elements of the
-original slice plus the provided values.
+Rezultatem funkcji `append` jest wycinek zawierający wszystkie elementy oryginalnego wycinka 
+oraz dodatkowe elementy.
 
-If the backing array of `s` is too small to fit all the given values a bigger
-array will be allocated. The returned slice will point to the newly allocated
-array.
+Jeśli tablica odpowiadająca wartości `s` jest zbyt mała by pomieścić wszystkie wartości, nowa, większa tablica
+zostanie utworzona. Zwrócony wycinek będzie wskazywał nowo przydzieloną tablice.
 
-(To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
+(By nauczyć się więcej o wycinkach, przeczytaj artykuł [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]])
 
 .play moretypes/append.go
 
 
-* Range
+* Zakres (tzw. range)
 
-The `range` form of the `for` loop iterates over a slice or map.
+`range` z pętli(`for`) iteruje poprzez mapę(tzw. map) lub wycinek(tzw. slice).
 
-When ranging over a slice, two values are returned for each iteration.
-The first is the index, and the second is a copy of the element at that index.
+Gdy przechodzimy przez zakres wycinka, dwie wartości są zwrócone przy każdej iteracji.
+Pierwszą jest indeks, a drugą jest kopia elementu o tym właśnie indeksie.
 
 .play moretypes/range.go
 
-* Range continued
+* Zakres ciąg dalszy
 
-You can skip the index or value by assigning to `_`.
+Możesz pominąć indeks lub wartość zwrotu poprzez `_`.
 
     for i, _ := range pow
     for _, value := range pow
 
-If you only want the index, you can omit the second variable.
+Jeśli chcesz otrzymać tylko indeks, możesz pominąć wartość: 
 
     for i := range pow
 
 .play moretypes/range-continued.go
 
-* Exercise: Slices
+* Ćwiczenie: Wycinki
 
-Implement `Pic`. It should return a slice of length `dy`, each element of which is a slice of `dx` 8-bit unsigned integers. When you run the program, it will display your picture, interpreting the integers as grayscale (well, bluescale) values.
+Zaimplementuj `Pic`. Powinnien on zwrócić wycinek o długości `dy`, każdy element tego wycinka powinien być wycinkiem `dx`  8-bitowych unsigned-integers. Gdy uruchomisz program, wyświetli on obrazek, interpretując wartości integerów w skali szarości.
 
-The choice of image is up to you. Interesting functions include `(x+y)/2`, `x*y`, and `x^y`.
+Wybór obrazka należy do ciebie. Funkcje które mogą cię zainteresowac: `(x+y)/2`, `x*y`, and `x^y`.
 
-(You need to use a loop to allocate each `[]uint8` inside the `[][]uint8`.)
+(Musisz użyć pętli by przypisać każdą wartość `[]uint8` w wewnątrz `[][]uint8`.)
 
-(Use `uint8(intValue)` to convert between types.)
+(Użyj `uint8(intValue)` by zmieniać(konwertować) typy)
 
 .play moretypes/exercise-slices.go
 
-* Maps
+* Mapy (Maps)
 
-A map maps keys to values.
+Mapa mapuje klucze do wartości.
 
-The zero value of a map is `nil`.
-A `nil` map has no keys, nor can keys be added.
+Wartość zerowa mapy to `nil`.
+Mapa `nil` nie posiada kluczy, tak równierz, jak i klucze nie mogą być dodane.
 
-The `make` function returns a map of the given type,
-initialized and ready for use.
+Funkcja `make` zwraca mapę danego typu,
+zaincjanowaną i gotową do użytku.
 
 .play moretypes/maps.go
 
-* Map literals
+* Literały map (tzw. map literals)
 
-Map literals are like struct literals, but the keys are required.
+Literały map są podobne do literałów struktór, jednak klucze są wymage.
 
 .play moretypes/map-literals.go
 
-* Map literals continued
+* Literały map ciąg dalszy
 
-If the top-level type is just a type name, you can omit it from the elements of the literal.
+Jeśli typ użyty jest tylko nazwą typu, możesz pominać element literału.
 
 .play moretypes/map-literals-continued.go
 
-* Mutating Maps
+* Mutowanie map
 
-Insert or update an element in map `m`:
+Wstaw lub zaktualizuj element w mapie `m`:
 
 	m[key] = elem
 
-Retrieve an element:
+Odzyskaj element: 
 
 	elem = m[key]
 
-Delete an element:
+Usuń element:
 
 	delete(m, key)
 
-Test that a key is present with a two-value assignment:
+Sprawdź czy dany klucz znajduje się w mapie poprzez przypisanie rezultatowi dwóch elementów:
 
 	elem, ok = m[key]
 
-If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
+Jeśli `key` znajduje się w mapie `m`, `ok` jest wartością `true`. Jeśli nie, `ok` jest równe `false`.
 
-If `key` is not in the map, then `elem` is the zero value for the map's element type.
+Jeśli `key` nie znajduje się w mapie, wtedy `elem` jest wartością zerową dla typu elementu mapy. 
 
-*Note:* If `elem` or `ok` have not yet been declared you could use a short declaration form:
+*Uwaga:* Jeśli `elem` lub `ok` nie zostało zadeklarowane, możesz użyc formy deklaracji krótkiej:
 
 	elem, ok := m[key]
 
 .play moretypes/mutating-maps.go
 
-* Exercise: Maps
+* Ćwiczenie: Mapy
 
-Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
+Zaimplementuj `WordCount`.  Program powinien zwrócić mapę która policzy każde "słowo" w stringu `s`. Funkcja `wc.Test` puszcza test twojej funkcji i zwraca "success"(sukces) lub "failure"(porażka)
 
-You might find [[https://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+Ten materiał może ci pomóc [[https://golang.org/pkg/strings/#Fields][strings.Fields]].
 
 .play moretypes/exercise-maps.go
 
-* Function values
+* Wartości funkcji
 
-Functions are values too. They can be passed around just like other values.
+Funkcje są równierz wartościami. Mogą zostać przekazywane tak samo jak inne wartości.
 
-Function values may be used as function arguments and return values.
+Wartości funkcji mogą być użyte jako argumenty funkcji oraz wartości zwrócone.
 
 .play moretypes/function-values.go
 
-* Function closures
+* Domknięcia funkcji (tzw. function closures)
 
-Go functions may be closures. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+Funkcje w Go mogą być domknięciami. Domknięcie to wartość funkcji która odnosi się do zmiennych które znajdują się poza kodem zawartym w funkcji. Funkcja ma dostęp do wspomnianych zmiennych; w tym sensie funkcja jest "powiązana" z zmiennymi.
 
-For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+Na przykład, funkcja `adder` zwraca domknięcie. Każde domknięcie jest połączone z własną zmienną `sum`.
 
 .play moretypes/function-closures.go
 
-* Exercise: Fibonacci closure
+* Ćwiczenie: Domknięcie Fibonacci
 
-Let's have some fun with functions.
+Zabawmy się z funkcjami.
 
-Implement a `fibonacci` function that returns a function (a closure) that
-returns successive [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonacci numbers]]
+Zaimplementuj funkcję `fibonacci` która zwróci funkcję (domknięcie) która zwróci 
+[[https://en.wikipedia.org/wiki/Fibonacci_number][liczby fibonacciego]]
 (0, 1, 1, 2, 3, 5, ...).
 
 .play moretypes/exercise-fibonacci-closure.go
 
-* Congratulations!
+* Gratulujemy!
 
-You finished this lesson!
+Ukończyłeś tą lekcję!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+Możesz wrócić do listy [[/list][modułów]] by dowiedzieć się czego nauczyć się następnie, lub kontynuować do [[javascript:click('.next-page')][następnej lekcji]].
