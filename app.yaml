@@ -2,7 +2,6 @@ service: tour
 runtime: go114
 
 env_variables:
-  GOLANGORG_CHECK_COUNTRY: true
   TOUR_ANALYTICS: |
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11222381-5"></script>
     <script>
