@@ -8,15 +8,15 @@ func main() {
 	var s []int
 	printSlice(s)
 
-	// append works on nil slices.
+	// append działa na wycinkach nilowych.
 	s = append(s, 0)
 	printSlice(s)
 
-	// The slice grows as needed.
+	// Wycinek powiększa się w miarę potrzeb.
 	s = append(s, 1)
 	printSlice(s)
 
-	// We can add more than one element at a time.
+	// Możemy dodać więcej niż jeden element w danym czasie.
 	s = append(s, 2, 3, 4)
 	printSlice(s)
 }

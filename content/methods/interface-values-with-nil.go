@@ -28,7 +28,7 @@ func main() {
 	describe(i)
 	i.M()
 
-	i = &T{"hello"}
+	i = &T{"witaj"}
 	describe(i)
 	i.M()
 }

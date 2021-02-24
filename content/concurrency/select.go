@@ -11,7 +11,7 @@ func fibonacci(c, quit chan int) {
 		case c <- x:
 			x, y = y, x+y
 		case <-quit:
-			fmt.Println("quit")
+			fmt.Println("Wyjście")
 			return
 		}
 	}

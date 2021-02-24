@@ -7,17 +7,17 @@ import (
 )
 
 type Fetcher interface {
-	// Fetch returns the body of URL and
-	// a slice of URLs found on that page.
+	// Fetch zwraca body URL'a oraz
+	// wycinek URL'ów z tej strony.
 	Fetch(url string) (body string, urls []string, err error)
 }
 
-// Crawl uses fetcher to recursively crawl
-// pages starting with url, to a maximum of depth.
+// Crawl używa fetcher'a by rekurencyjnie przejść przez
+// strony zacynające się z url, to maksymalnej głębokości.
 func Crawl(url string, depth int, fetcher Fetcher) {
-	// TODO: Fetch URLs in parallel.
-	// TODO: Don't fetch the same URL twice.
-	// This implementation doesn't do either:
+	// TODO: Ozdyskaj URL'e równolegle.
+	// TODO: Nie odzyskuj tego samego url'a dwa razy.
+	// Ta implementacja nie zawiera obu kroków powyżej:
 	if depth <= 0 {
 		return
 	}
