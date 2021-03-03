@@ -25,7 +25,7 @@ Możesz równierz nawigować poprzez slidy za pomocą przycisku
 Przewodnik jest interaktywny. Kliknij na
 [[javascript:highlightAndClick("#run")][Run]]
 (lub wciśnij `Shift` + `Enter`) by zkompilować i uruchomić swój program na
-#appengine: zdalenym serwerze.
+#appengine: zdalnym serwerze.
 Rezultat będzie wyświetlony poniżej kodu.
 
 Te przykładowe programy demonstrują różne aspekty Go. Programy w Wycieczce po Go mają na celu być punktem startowym twych własnych eksperymentów z Go!
@@ -68,7 +68,7 @@ Przewodnik po Go jest równierz dostępna w następujących językach:
 
 Naciśnij przycisk [[javascript:highlightAndClick(".next-page")]["dalej"]] lub `PageDown` by kontynuować.
 
-#appengine: * Go offline (optional)
+#appengine: * Go offline (opcjonalne)
 #appengine:
 #appengine: Ten przewodnik jest równierz dostępny jako samodzielny program
 #appengine: bez dostępu do internetu.
@@ -85,7 +85,7 @@ Naciśnij przycisk [[javascript:highlightAndClick(".next-page")]["dalej"]] lub `
 #appengine:
 #appengine: Oczywiście, możesz kontynuować z Wycieczką po Go używając tej strony!
 
-#appengine: * The Go Playground
+#appengine: * Go Playground
 #appengine:
 #appengine: Przewodnik po Go zbudowana jest na [[https://play.golang.org/][Go Playground]], który jest
 #appengine: serwisem webowym działającym na serwerach [[https://golang.org/][golang.org]].
