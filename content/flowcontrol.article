@@ -24,13 +24,13 @@ otaczających trzy komponenty instrukcji `for` jednak `{`}` są zawsze wymagane.
 
 .play flowcontrol/for.go
 
-* Pętla `for` ciąg dalszy
+* Pętla "for" ciąg dalszy
 
 Inicjalizacja oraz inkrementacja są opcjonalne.
 
 .play flowcontrol/for-continued.go
 
-* Pętla `for` jest w Go jak "while"
+* "for" jest w Go jak "while"
 
 Używane w C `while` jest tym samym co `for` w Go.
 
