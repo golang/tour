@@ -9,8 +9,8 @@ angular.module('tour.values', []).
 // List of modules with description and lessons in it.
 value('tableOfContents', [{
     'id': 'mechanics',
-    'title': 'Używanie wycieczki po Go',
-    'description': '<p>Witaj w wycieczce po <a href="https://golang.org">języku programowania Go</a>. Wycieczka po Go omawia najważniejsze funkcjonalności języka, mianowicie:</p>',
+    'title': 'Używanie przewodnika po Go',
+    'description': '<p>Witaj w przewodniku po <a href="https://golang.org">języku programowania Go</a>. Przewodnik po Go omawia najważniejsze funkcjonalności języka, mianowicie:</p>',
     'lessons': ['welcome']
 }, {
     'id': 'basics',
