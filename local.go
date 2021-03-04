@@ -5,8 +5,8 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
-	"fmt"
 	"go/build"
 	"html/template"
 	"io"
@@ -18,6 +18,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"runtime/debug"
 	"strings"
 	"time"
 
@@ -30,7 +31,6 @@ import (
 )
 
 const (
-	basePkg    = "golang.org/x/tour"
 	socketPath = "/socket"
 )
 
@@ -40,9 +40,6 @@ var (
 )
 
 var (
-	// GOPATH containing the tour packages
-	gopath = os.Getenv("GOPATH")
-
 	httpAddr string
 )
 
@@ -56,20 +53,41 @@ func isRoot(path string) bool {
 	return err == nil
 }
 
-func findRoot() (string, error) {
-	ctx := build.Default
-	p, err := ctx.Import(basePkg, "", build.FindOnly)
+// findRoot is a best-effort attempt to find a tour directory
+// that contains the files it needs. It may not always work.
+//
+// TODO: Delete after Go 1.17 is out and we can just use embed; see CL 291849.
+func findRoot() (string, bool) {
+	// Try finding the golang.org/x/tour package in the
+	// legacy GOPATH mode workspace or in build list.
+	p, err := build.Import("golang.org/x/tour", "", build.FindOnly)
 	if err == nil && isRoot(p.Dir) {
-		return p.Dir, nil
+		return p.Dir, true
 	}
-	tourRoot := filepath.Join(runtime.GOROOT(), "misc", "tour")
-	ctx.GOPATH = tourRoot
-	p, err = ctx.Import(basePkg, "", build.FindOnly)
-	if err == nil && isRoot(tourRoot) {
-		gopath = tourRoot
-		return tourRoot, nil
+	// If that didn't work, perhaps we're not inside any module
+	// and the binary was built in module mode (e.g., 'go install
+	// golang.org/x/tour@latest' or 'go get golang.org/x/tour'
+	// outside a module).
+	// In that's the case, find out what version it is,
+	// and access its content from the module cache.
+	if info, ok := debug.ReadBuildInfo(); ok &&
+		info.Main.Path == "golang.org/x/tour" &&
+		info.Main.Replace == nil &&
+		info.Main.Version != "(devel)" {
+		// Make some assumptions for brevity:
+		// • the 'go' binary is in $PATH
+		// • the main module isn't replaced
+		// • the version isn't "(devel)"
+		// They should hold for the use cases we care about, until this
+		// entire mechanism is obsoleted by file embedding.
+		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/tour@"+info.Main.Version).Output()
+		var tourRoot struct{ Dir string }
+		jsonError := json.Unmarshal(out, &tourRoot)
+		if execError == nil && jsonError == nil && isRoot(tourRoot.Dir) {
+			return tourRoot.Dir, true
+		}
 	}
-	return "", fmt.Errorf("could not find go-tour content; check $GOROOT and $GOPATH")
+	return "", false
 }
 
 func main() {
@@ -82,9 +100,9 @@ func main() {
 	}
 
 	// find and serve the go tour files
-	root, err := findRoot()
-	if err != nil {
-		log.Fatalf("Couldn't find tour files: %v", err)
+	root, ok := findRoot()
+	if !ok {
+		log.Fatalln("Couldn't find files for the Go tour. Try reinstalling it.")
 	}
 
 	log.Println("Serving content from", root)
@@ -165,27 +183,6 @@ If you don't understand this message, hit Control-C to terminate this process.
 
 WARNING!  WARNING!  WARNING!
 `
-
-type response struct {
-	Output string `json:"output"`
-	Errors string `json:"compile_errors"`
-}
-
-func init() {
-	socket.Environ = environ
-}
-
-// environ returns the original execution environment with GOPATH
-// replaced (or added) with the value of the global var gopath.
-func environ() (env []string) {
-	for _, v := range os.Environ() {
-		if !strings.HasPrefix(v, "GOPATH=") {
-			env = append(env, v)
-		}
-	}
-	env = append(env, "GOPATH="+gopath)
-	return
-}
 
 // waitServer waits some time for the http Server to start
 // serving url. The return value reports whether it starts.

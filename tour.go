@@ -223,17 +223,6 @@ func renderUI(w io.Writer) error {
 	return err
 }
 
-// nocode returns true if the provided Section contains
-// no Code elements with Play enabled.
-func nocode(s present.Section) bool {
-	for _, e := range s.Elem {
-		if c, ok := e.(present.Code); ok && c.Play {
-			return false
-		}
-	}
-	return true
-}
-
 // initScript concatenates all the javascript files needed to render
 // the tour UI and serves the result on /script.js.
 func initScript(root string) error {
