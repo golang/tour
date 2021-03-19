@@ -45,25 +45,16 @@ Gdy będziesz gotów by zacząć, naciśnij [[javascript:highlightAndClick(".nex
 
 Przewodnik po Go jest równierz dostępna w następujących językach:
 
-- [[https://go-tour-ar.appspot.com/][Arabic — العربية]]
 - [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
 - [[https://go-tour-ca.appspot.com/][Catalan — Català]]
 - [[https://tour.go-zh.org/][Simplified Chinese — 中文（简体）]]
-- [[https://go-tour-zh-tw.appspot.com/][Traditional Chinese — 中文（繁體）]]
 - [[https://go-tour-cz.appspot.com/][Czech — Česky]]
 - [[https://go-tour-fr.appspot.com/][French — Français]]
-- [[https://go-tour-de.appspot.com/][German — Deutsch]]
-- [[https://go-tour-he.appspot.com/][Hebrew — עִבְרִית]]
 - [[https://go-tour-id2.appspot.com/][Indonesian — Bahasa Indonesia]]
-- [[https://go-tour-ita.appspot.com/][Italian — Italiano]]
 - [[https://go-tour-jp.appspot.com/][Japanese — 日本語]]
 - [[https://go-tour-ko.appspot.com/][Korean — 한국어]]
-- [[https://go-tour-ro.appspot.com/][Romanian — Română]]
-- [[https://go-tour-ru-ru.appspot.com/][Russian - Русский]]
-- [[https://gotour-es.appspot.com/][Spanish — Español]]
+- [[https://go-tour-pl1.ew.r.appspot.com/][Polish - Polski]]
 - [[https://go-tour-th.appspot.com/][Thai - ภาษาไทย]]
-- [[https://go-tour-turkish.appspot.com/][Turkish - Türkçe]]
-- [[https://go-tour-ua.appspot.com/][Ukrainian — Українська]]
 - [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
 
 Naciśnij przycisk [[javascript:highlightAndClick(".next-page")]["dalej"]] lub `PageDown` by kontynuować.
