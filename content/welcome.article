@@ -67,8 +67,9 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: without access to the internet. It builds and runs the code samples on
 #appengine: your own machine.
 #appengine:
-#appengine: To run the tour locally, you'll need to first
-#appengine: [[https://golang.org/doc/install][install Go]] and then run:
+#appengine: To run the tour locally, you'll first need to install
+#appengine: [[https://git-scm.com/book/en/v2/Getting-Started-Installing-Git][Git]] and
+#appengine: [[https://golang.org/doc/install][Go]] and then run:
 #appengine:
 #appengine:   go get golang.org/x/tour
 #appengine:
