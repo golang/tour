@@ -31,7 +31,6 @@ func (c *SafeCounter) Value() int {
 }
 
 func main() {
-
 	c := SafeCounter{}
 	for i := 0; i < 1000; i++ {
 		go c.Inc()
