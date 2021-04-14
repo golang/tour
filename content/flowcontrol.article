@@ -61,7 +61,7 @@ Zmienne zadeklarowane poprzez wyrażenie są zawarte w bloku tylko do końca `if
 
 * If oraz else
 
-Zmienne zadeklarowane w środku krótkiej instrukcji `if` są równierz dostępne w środku
+Zmienne zadeklarowane w środku krótkiej instrukcji `if` są również dostępne w środku
 każdego bloku `else`.
 
 (Oba wywołania `pow` zwracają rezultat zanim wywołanie do `fmt.Println` w `main` się zaczyna.)
