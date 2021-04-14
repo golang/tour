@@ -11,31 +11,33 @@ import (
 // SafeCounter is safe to use concurrently.
 type SafeCounter struct {
 	mu sync.Mutex
-	v  map[string]int
+	v  int
 }
 
-// Inc increments the counter for the given key.
-func (c *SafeCounter) Inc(key string) {
+// Inc increments the counter.
+func (c *SafeCounter) Inc() {
 	c.mu.Lock()
-	// Lock so only one goroutine at a time can access the map c.v.
-	c.v[key]++
+	// Lock so only one goroutine at a time can access the int c.v.
+	c.v++
 	c.mu.Unlock()
 }
 
-// Value returns the current value of the counter for the given key.
-func (c *SafeCounter) Value(key string) int {
+// Value returns the current value of the counter.
+func (c *SafeCounter) Value() int {
 	c.mu.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
 	defer c.mu.Unlock()
-	return c.v[key]
+	return c.v
 }
 
 func main() {
-	c := SafeCounter{v: make(map[string]int)}
+
+	c := SafeCounter{}
 	for i := 0; i < 1000; i++ {
-		go c.Inc("somekey")
+		go c.Inc()
 	}
 
 	time.Sleep(time.Second)
-	fmt.Println(c.Value("somekey"))
+	fmt.Println(c.Value())
 }
+
