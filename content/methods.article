@@ -68,7 +68,7 @@ declared in the `main` function.
 
 Here we see the `Abs` and `Scale` methods rewritten as functions.
 
-Again, try removing the `*` from line 16.
+Again, try removing the `*` from line 16 and `&` from line 23.
 Can you see why the behavior changes?
 What else did you need to change for the example to compile?
 
