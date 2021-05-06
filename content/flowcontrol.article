@@ -70,7 +70,7 @@ każdego bloku `else`.
 
 * Ćwiczenie: Pętle oraz Funkcje
 
-Jako sposób przećwiczenia funkcji oraz pętli, zaimplementujmy funkcję pierwiastka kwadratowego: posiadając numer x, chcemy znaleźć numer dla którego z² jest najbliższy numberowi x.
+Jako sposób przećwiczenia funkcji oraz pętli, zaimplementujmy funkcję pierwiastka kwadratowego: posiadając liczbę x, chcemy znaleźć liczbę dla której z² jest najbliższy liczbie x.
 
 Komputery z reguły obliczają pierwiastek kwadratowy x używając pętli.
 Zaczynając od jakieś przykładowej liczby `z`, możemy dopasować `z` na podstawie tego jak zbliżone z² jest do x,
@@ -96,7 +96,7 @@ skorzystaj z syntaxu zmiennoprzecinkowego lub użyj konwersji:
 Następnie, zmień warunek pętli tak, by zatrzymała się gdy wartość
 przestanie się zmieniać (lub będzie się zmieniać tylko o bardzo niską wartość).
 Zaobserwuj czy stanie się to po więcej lub mniej niż 10 powtórzeniach.
-Spróbuj równierz innych wartości podstawowych dla z, x, lub nawet x/2!
+Spróbuj również innych wartości podstawowych dla z, x, lub nawet x/2!
 Jak blisko twoja funkcja jest funkcji [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] ze standardowej biblioteki?
 
 (*Uwaga:* Jeśli jesteś zainteresowany detalami algorytmu, wyżej wymienione z² − x 
