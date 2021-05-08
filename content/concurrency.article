@@ -1,6 +1,6 @@
 Współbieżność (tzw. concurrency)
 
-Go dostarcza możliwość współbierzności jako podstawową część języka. Ta lekcja ją zaprezentuje oraz przedstawi przykłady które mogą zostać użyte.
+Go dostarcza możliwość współbieżności jako podstawową część języka. Ta lekcja ją zaprezentuje oraz przedstawi przykłady które mogą zostać użyte.
 
 Autorzy Go
 https://golang.org
@@ -15,7 +15,7 @@ rozpoczyna nową gorutynę:
 
 	f(x, y, z)
 
-Ewaluacja `f`, `x`, `y` oraz `z` ma miejsce w współbierznej gorutynie, a egzekucja `f`, w nowej gorutynie.
+Ewaluacja `f`, `x`, `y` oraz `z` ma miejsce w współbieżnej gorutynie, a egzekucja `f`, w nowej gorutynie.
 
 Gorutyny działają w tej samej przesteni adresowej, tak więc dostęp do dzielonej pamięci musi być zsynchronizowany. Pakiet [[https://golang.org/pkg/sync/][`sync`]] dostarcza przydatnych prymitywów, jednak nie będziesz ich tak często potrzebował w Go jako że istnieją inne prymitywy. (Zobacz następny slide).
 
@@ -99,7 +99,7 @@ Może istnieć wiele różnych równowartościowych drzew binarnych o tej samej 
 
 .image /content/img/tree.png
 
-Funkcja która sprawdza czy oba drzewa binarne przetrzymują tę samą sekwencję jest bardzo skomplikowana w wielu językach. My użyjemy współbierzności Go oraz kanałów by napisać łatwe rozwiązanie.
+Funkcja która sprawdza czy oba drzewa binarne przetrzymują tę samą sekwencję jest bardzo skomplikowana w wielu językach. My użyjemy współbieżności Go oraz kanałów by napisać łatwe rozwiązanie.
 Ten przykład używa pakietu `tree`, które definiuje typ:
 
 	type Tree struct {
@@ -159,13 +159,13 @@ Możemy równierz użyć `defer` by upewnić się że mutex będzie otwarty (unl
 
 * Ćwiczenie: Web Crawler
 
-W tym ćwiczeniu użyjemy współbierzności Go by równolegle puścić web crawlera.
+W tym ćwiczeniu użyjemy współbieżności Go by równolegle puścić web crawlera.
 
 Zmodyfikuj funkcję `Crawl` by odzyskała URLe równolegle bez odzyskiwania tego samego URLa dwa razy.
 
  
 _Podpowiedź_: możesz zachować odzyskane URLe w pamięci podręcznej za pomocą mapy, jedak mapy same w sobie nie są bezpieczne
-do użytku w współbierzności.
+do użytku w współbieżności.
 
 .play concurrency/exercise-web-crawler.go
 
