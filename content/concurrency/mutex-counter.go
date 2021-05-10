@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// SafeCounter może być użyty współbierznie.
+// SafeCounter może być użyty współbieżnie.
 type SafeCounter struct {
 	mu sync.Mutex
 	v  map[string]int
