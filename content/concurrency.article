@@ -180,7 +180,7 @@ The
 start.
 It contains references, tutorials, videos, and more.
 
-To learn how to organize and work with Go code, watch [[https://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[https://golang.org/doc/code.html][How to Write Go Code]].
+To learn how to organize and work with Go code, read [[https://golang.org/doc/code][How to Write Go Code]].
 
 If you need help with the standard library, see the [[https://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[https://golang.org/ref/spec][Language Spec]] is quite readable.
 
