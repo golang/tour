@@ -58,12 +58,7 @@ code {
     user-select: none;
 }
 .wrapper {
-    position: fixed;
-    overflow: auto;
-    top: 48px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    padding-top: 48px;
 }
 .container {
     max-width: 800px;
