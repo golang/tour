@@ -46,8 +46,8 @@ If you omit the loop condition it loops forever, so an infinite loop is compactl
 
 * If
 
-Go's `if` statements are like its `for` loops; the expression need not be
-surrounded by parentheses `(`)` but the braces `{`}` are required.
+The expression does not need to be surrounded by parentheses `(`)` in Go's `if` statement and 
+the braces `{`}` are always required.
 
 .play flowcontrol/if.go
 
