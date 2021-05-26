@@ -138,7 +138,7 @@ then builds a slice that references it:
 
 When slicing, you may omit the high or low bounds to use their defaults instead.
 
-The default is zero for the low bound and the length of the slice for the high bound.
+The default is zero for the low bound and the length of the array for the high bound.
 
 For the array
 
