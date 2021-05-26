@@ -13,16 +13,17 @@ import (
 )
 
 func rot13(b byte) byte {
-	var a, z byte
+	const alphabetLength = 26
+	var a byte
 	switch {
 	case 'a' <= b && b <= 'z':
-		a, z = 'a', 'z'
+		a = 'a'
 	case 'A' <= b && b <= 'Z':
-		a, z = 'A', 'Z'
+		a = 'A'
 	default:
 		return b
 	}
-	return (b-a+13)%(z-a+1) + a
+	return (b-a+13)%alphabetLength + a
 }
 
 type rot13Reader struct {
