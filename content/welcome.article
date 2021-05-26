@@ -39,6 +39,11 @@ When you click on [[javascript:highlightAndClick("#format")][Format]]
 [[https://golang.org/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
 by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
+When you click on [[javascript:highlightAndClick(".imports-checkbox")][Imports On/Off]],
+it enables or disables [[https://pkg.go.dev/golang.org/x/tools/cmd/goimports][goimports]].
+goimport does everything that [[https://golang.org/cmd/gofmt/][gofmt]] do. Furthermore it groups and corrects imported packages.
+While correcting, goimports adds missing imports and removes unused ones.
+
 When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
 
 .play welcome/hello.go
