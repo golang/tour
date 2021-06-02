@@ -17,13 +17,6 @@ When [filing an issue](https://golang.org/issue/new), make sure to answer these 
 General questions should go to the [golang-nuts mailing list](https://groups.google.com/group/golang-nuts) instead of the issue tracker.
 The gophers there will answer or ask you to file an issue if you've tripped over a bug.
 
-## Verifying changes during development
-
-In order to verify changes to the slides or code examples while developing
-locally compile with your local toolchain:
-
-    $ go run golang.org/x/tour
-
 ## Contributing code
 
 Please read the [Contribution Guidelines](https://golang.org/doc/contribute.html)
