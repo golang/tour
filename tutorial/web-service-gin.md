@@ -393,11 +393,7 @@ To do this, you'll write the following:
     a request to your running web service.
 
     ```bash
-    curl http://localhost:8080/albums \
-        --include \
-        --header "Content-Type: application/json" \
-        --request "POST" \
-        --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+    curl http://localhost:8080/albums --include --header "Content-Type: application/json" --request "POST" --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
     ```
 
     The command should display headers and JSON for the added album.
@@ -420,9 +416,7 @@ To do this, you'll write the following:
     which you can use to confirm that the new album was added.
 
     ```bash
-    curl http://localhost:8080/albums \
-        --header "Content-Type: application/json" \
-        --request "GET"
+    curl http://localhost:8080/albums --header "Content-Type: application/json" --request "GET"
     ```
 
     The command should display the album list. 
