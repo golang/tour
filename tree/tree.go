@@ -16,7 +16,7 @@ type Tree struct {
 	Right *Tree
 }
 
-// New returns a new, random binary tree holding the values k, 2k, ..., 10k.
+// New returns a new, randomly-structured, sorted binary tree holding the values k, 2k, ..., 10k.
 func New(k int) *Tree {
 	var t *Tree
 	for _, v := range rand.Perm(10) {
