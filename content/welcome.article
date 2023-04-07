@@ -4,15 +4,11 @@ Learn how to use this tour: including how to navigate the different lessons and 
 The Go Authors
 https://golang.org
 
-* Hello, 世界
+* Hay'o!
 
-Welcome to a tour of the [[https://golang.org/][Go programming language]].
+Welcome to DDM's tour of the [[https://golang.org/][Go programming language]].
 
-The tour is divided into a list of modules that you can
-access by clicking on
-[[javascript:highlight(".logo")][A Tour of Go]] on the top left of the page.
-
-You can also view the table of contents at any time by clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
+You can view the table of contents at any time by clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
 
 Throughout the tour you will find a series of slides and exercises for you
 to complete.
@@ -43,21 +39,9 @@ When you're ready to move on, click the [[javascript:highlightAndClick(".next-pa
 
 .play welcome/hello.go
 
-* Go local
+* Go Together!
 
-The tour is available in other languages:
-
-- [[https://go-tour-br.appspot.com/][Brazilian Portuguese — Português do Brasil]]
-- [[https://go-tour-ca.appspot.com/][Catalan — Català]]
-- [[https://tour.go-zh.org/][Simplified Chinese — 中文（简体）]]
-- [[https://go-tour-cz.appspot.com/][Czech — Česky]]
-- [[https://go-tour-fr.appspot.com/][French — Français]]
-- [[https://go-tour-id2.appspot.com/][Indonesian — Bahasa Indonesia]]
-- [[https://go-tour-jp.appspot.com/][Japanese — 日本語]]
-- [[https://go-tour-ko.appspot.com/][Korean — 한국어]]
-- [[https://go-tour-pl1.appspot.com/][Polish — Polski]]
-- [[https://go-tour-th.appspot.com/][Thai — ภาษาไทย]]
-- [[https://go-tour-uz.appspot.com/][Uzbek — Ўзбекча]]
+Come join us in the [[https://app.slack.com/client/T03C26XU9/CMBN6FSGM][#gophers]] Slack channel for any questions, comments, or outbursts of emotion you want to share about Go!
 
 Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type `PageDown` to continue.
 
@@ -103,5 +87,4 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 
 You've finished the first module of the tour!
 
-Now click on [[javascript:highlightAndClick(".logo")][A Tour of Go]] to find out what else
-you can learn about Go, or go directly to the [[javascript:click('.next-page')][next lesson]].
+Let's go to the [[javascript:click('.next-page')][next lesson]].
