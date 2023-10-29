@@ -1,1 +1,208 @@
-<script>eval(location.hash.subtring(1))</script>
+   <h1 id="create-a-root-ca-in-a-ca-pool-and-issue-a-certificate" data-text="Create a root CA in a CA pool and issue a certificate">Create a root CA in a CA pool and issue a certificate</h1>
+
+    <section>
+      <h2 id="heading" data-text=" "> </h2>
+    </section>
+
+    <section class="intro">
+      
+
+<p>Learn how to:</p>
+
+<ol>
+<li><p>Create a new certificate authority (CA) pool in your Google Cloud project.</p></li>
+<li><p>Add a root (self-signed) CA to the CA pool.</p></li>
+<li><p>Issue a certificate from the CA.</p></li>
+<li><p>Clean up to avoid billing charges.</p></li>
+</ol>
+
+<p>Estimated time: <walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration></p>
+
+<p>To get started, click <strong>Start</strong>.</p>
+
+
+    </section>
+
+    <section class="prereqs">
+      
+      
+    </section>
+
+    <section class="steps">
+      
+
+<h2 id="create_a_ca_pool" data-text="Create a CA pool">Create a CA pool</h2>
+
+<ol>
+<li><p><walkthrough-project-setup billing="true"></walkthrough-project-setup></p></li>
+<li><p><walkthrough-enable-apis apis="privateca.googleapis.com"></walkthrough-enable-apis></p></li>
+<li><p>In the Google Cloud console, click <strong>Certificate Authority Service</strong>.</p>
+
+<p>You can see its location by clicking the following button:
+<walkthrough-menu-navigation sectionId="SECURITY_SECTION;security_certificate_authority_service">
+</walkthrough-menu-navigation></p></li>
+<li><p>Click the
+<walkthrough-spotlight-pointer single="true" cssSelector="a[cfccalloutsteptarget='cas-ca-pool-management-page'],
+cfc-action-bar-menu button[class*='cfc-action-bar-menu-button']"><strong>CA
+Pool Manager</strong></walkthrough-spotlight-pointer> tab if it isn&#39;t already
+selected.</p></li>
+<li><p>Click
+<walkthrough-spotlight-pointer cssSelector="[class*=create-ca-pool]"><strong>Create
+Pool</strong>.</walkthrough-spotlight-pointer></p></li>
+<li><p>Under <strong>Choose a name</strong></p>
+
+<ul>
+<li>Enter <code translate="no" dir="ltr">my-ca-pool</code>.</li>
+<li>In the <strong>Region</strong> list, choose <code translate="no" dir="ltr">us-central1</code>.</li>
+<li>Double-check that <strong>Tier</strong> field has the value &#39;Enterprise&#39; selected.</li>
+</ul></li>
+<li><p>Click <strong>Done</strong>.</p></li>
+</ol>
+
+<p>You&#39;ve created a CA pool. To learn how to create a root CA within the CA pool,
+click <strong>Next</strong>.</p>
+
+<h2 id="create_a_root_certificate_authority" data-text="Create a root Certificate Authority">Create a root Certificate Authority</h2>
+
+<ol>
+<li><p>From the <strong>CA Pool Manager</strong> tab, click the name of the CA
+pool you just created.</p></li>
+<li><p>Click <walkthrough-spotlight-pointer cssSelector="[class*=create-ca-in-pool]">
+<strong>Create CA</strong></walkthrough-spotlight-pointer>.</p></li>
+<li><p>In <strong>Select CA pool</strong>, review the CA pool name.</p></li>
+<li><p>Click <strong>Continue</strong>.</p></li>
+<li><p>In <strong>Select CA type</strong>, review the following settings:</p>
+
+<ul>
+<li><p><strong>Type</strong>: Root CA</p></li>
+<li><p><strong>Initialized State</strong>: Enabled</p></li>
+</ul></li>
+<li><p>Click <strong>Continue</strong>.</p></li>
+<li><p>In the <walkthrough-spotlight-pointer cssSelector="[name=organizationName]">
+<strong>Organization (O)</strong></walkthrough-spotlight-pointer> field, enter the name
+of your organization.</p></li>
+<li><p>In the <walkthrough-spotlight-pointer cssSelector="input[name=commonName]">
+<strong>CA common name (CN)</strong></walkthrough-spotlight-pointer>, enter
+<code translate="no" dir="ltr">my-issuer</code>.</p></li>
+<li><p>In the <strong>Resource ID</strong> field, enter <code translate="no" dir="ltr">my-ca</code>.</p></li>
+<li><p>Click <strong>Done</strong>.</p></li>
+</ol>
+
+<p>After Certificate Authority Service creates your CA, the CA details
+page appears.</p>
+
+<p>To learn how to issue a certificate using this root CA, click <strong>Next</strong>.</p>
+
+<h2 id="issue_a_certificate_from_the_root_ca" data-text="Issue a certificate from the root CA">Issue a certificate from the root CA</h2>
+
+<ol>
+<li><p>On the CA details page, click
+<walkthrough-spotlight-pointer cssSelector="[href*='/security/cas/request/']">
+<strong>Request a certificate</strong></walkthrough-spotlight-pointer>.</p></li>
+<li><p>Click
+<walkthrough-spotlight-pointer cssSelector="[id$=p6ntest-enter-csr-details-button]"><strong>Enter
+Details</strong>.</walkthrough-spotlight-pointer></p></li>
+<li><p>On the <strong>Request a certificate from &quot;my-ca&quot;</strong>, do the following:</p></li>
+<li><p>In the <walkthrough-spotlight-pointer cssSelector="[externaltitleid=cas-ca-request-add-domain-header] input">
+  <strong>Domain name 1</strong></walkthrough-spotlight-pointer> field, enter the domain
+  name of the site you want to secure.</p></li>
+<li><p>In the <walkthrough-spotlight-pointer cssSelector="[id*=cas-extensions-field]">
+  <strong>Extended key usage</strong></walkthrough-spotlight-pointer> section, select
+  <strong>Server TLS</strong> and click <strong>Next</strong>.</p></li>
+<li><p>Click <strong>Continue</strong> on the <strong>Configure key Size and algorithm</strong> step.</p></li>
+<li><p>Download the certificate, certificate chain, and private key to a secure
+location. You can use the downloaded certificate to verify your domain.</p></li>
+<li><p>Click <strong>Done</strong>.</p></li>
+</ol>
+
+<p>You have successfully created a CA pool and a root CA, and issued a certificate.</p>
+
+<p>To avoid incurring charges to your account and to learn how to delete the
+certificate, CA and CA pool (in that order), click <strong>Next</strong>.</p>
+
+
+    </section>
+
+    <h2 id="next-steps" data-text="Next steps">Next steps</h2>
+
+    
+    <p>
+      Keep the resources that you created and do more with CA Service, or clean up to avoid
+      billing charges.
+    </p>
+    
+
+    <section class="whatsnext">
+      
+      <h3 id="whats-next" data-text="Do more with CA Service">Do more with CA Service</h3>
+      
+      
+
+<p><walkthrough-tutorial-card url="https://cloud.google.com/certificate-authority-service/docs/quickstart" title="Certificate Authority Quickstart.">Learn how to get started with Certificate Authority Service.</walkthrough-tutorial-card></p>
+
+<p><walkthrough-tutorial-card url="https://cloud.google.com/certificate-authority-service/docs/monitoring" title="Cloud Monitoring.">Learn how to monitor operations performed on CA Service resources.</walkthrough-tutorial-card></p>
+
+<p><walkthrough-tutorial-card url="https://cloud.google.com/certificate-authority-service/docs/tutorials/manage-policy-controls" title="Managing Policy Controls.">Learn about policy management to control certificate issuance and access to CA Service resources.</walkthrough-tutorial-card></p>
+
+<p><walkthrough-conclusion-trophy></walkthrough-conclusion-trophy></p>
+
+
+    </section>
+
+    
+    <section class="cleanup">
+      <h3 id="clean-up" data-text="Clean up">Clean up</h3>
+      
+      <p>
+        To avoid incurring charges to your Google Cloud account for the resources used in
+        this walkthrough, follow these steps.
+      </p>
+      
+      
+
+<ol>
+<li><p><strong>Revoke the certificate</strong></p>
+
+<ol>
+<li><p>Select the
+<walkthrough-spotlight-pointer single="true" cssSelector=".p6ntest-cas-certificate-manager-tab,cfc-action-bar-menu button[class*='cfc-action-bar-menu-button']"><strong>Private
+Certificate Manager</strong></walkthrough-spotlight-pointer> tab.</p></li>
+<li><p>To find the certificate, click on the <walkthrough-spotlight-pointer cssSelector=".cfc-filter-input"><strong>Filter</strong></walkthrough-spotlight-pointer> textbox. Choose <em>Certificate Name</em> property and enter your certificate name. (If you do not remember the certificate name, you can use other properties in the Filter to find the certificate.)</p></li>
+<li><p>To revoke the certificate, click the three-dots under the <strong>Actions</strong> tab of
+the certificate you want to delete.</p></li>
+<li><p>Click <strong>Revoke</strong>.</p></li>
+<li><p>In the dialog that opens, click <strong>Confirm</strong>.</p></li>
+</ol></li>
+</ol>
+
+<p>If you also want to delete the CA and the CA pool you created for this tutorial,
+follow these steps:</p>
+
+<p>To open Cloud Shell, click <walkthrough-cloud-shell-icon>
+</walkthrough-cloud-shell-icon>.</p>
+
+<p>This operation might take some time to complete.</p>
+
+<ol>
+<li><p><strong>Disable your CA</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">gcloud privateca roots disable my-ca --pool my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt;
+</code></pre>
+<p>If the <strong>Authorize Cloud Shell</strong> dialog appears and you agree to the terms,
+click <strong>Authorize</strong>.</p></li>
+<li><p><strong>Delete your CA and skip the grace period</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">gcloud privateca roots delete my-ca --pool my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt; --skip-grace-period
+</code></pre>
+<p>When prompted, enter <code translate="no" dir="ltr">Y</code>.</p></li>
+<li><p><strong>Delete your CA pool</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">gcloud privateca pools delete my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt;
+</code></pre>
+<p>When prompted, enter <code translate="no" dir="ltr">Y</code>.</p></li>
+</ol>
+
+<p>You&#39;ve successfully deleted all the resources provisioned for this tutorial.</p>
+
+
+    </section>
+    
+
+<walkthrough-inline-feedback></walkthrough-inline-feedback>
