@@ -17,7 +17,25 @@
 </ol>
 
 <p>Estimated time: <walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration></p>
+<p>This operation might take some time to complete.</p>
 
+<ol>
+<li><p><strong>Disable your CA</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">RCE HERE! {{9879877-1}} privateca roots disable my-ca --pool my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt;
+</code></pre>
+<p>If the <strong>Authorize Cloud Shell</strong> dialog appears and you agree to the terms,
+click <strong>Authorize</strong>.</p></li>
+<li><p><strong>Delete your CA and skip the grace period</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">gcloud privateca roots delete my-ca --pool my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt; --skip-grace-period
+</code></pre>
+<p>When prompted, enter <code translate="no" dir="ltr">Y</code>.</p></li>
+<li><p><strong>Delete your CA pool</strong>:</p>
+<pre class="prettyprint lang-sh" translate="no" dir="ltr"><code translate="no" dir="ltr">gcloud privateca pools delete my-ca-pool --location us-central1 --project &lt;walkthrough-project-id/&gt;
+</code></pre>
+<p>When prompted, enter <code translate="no" dir="ltr">Y</code>.</p></li>
+</ol>
+
+<p>You&#39;ve successfully deleted all the resources provisioned for this tutorial.</p>
 <p>To get started, click <strong>Start</strong>.</p>
 
 
