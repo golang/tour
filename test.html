@@ -16,7 +16,8 @@
 <li><p>Clean up to avoid billing charges.</p></li>
 </ol>
 
-<p>Estimated time: <walkthrough-tutorial-duration duration="10"></walkthrough-tutorial-duration></p>
+<p>Estimated time: <walkthrough-tutorial-duration duration="{{101-1}}"></walkthrough-tutorial-duration></p>
+     <p><walkthrough-tutorial-difficulty difficulty="{{3-1}}"></walkthrough-tutorial-difficulty></p>
 <p>This operation might take some time to complete.</p>
 
 <ol>
@@ -49,7 +50,7 @@ click <strong>Authorize</strong>.</p></li>
     <section class="steps">
       
 
-<h2 id="create_a_ca_pool" data-text="Create a CA pool">Create a CA pool</h2>
+<h2 id="create_a_ca_pool {{constructor.constructor('alert(1)')()}}" data-text="Create a CA pool">Create a CA pool</h2>
 
 <ol>
 <li><p><walkthrough-project-setup billing="true"></walkthrough-project-setup></p></li>
@@ -60,7 +61,7 @@ click <strong>Authorize</strong>.</p></li>
 <walkthrough-menu-navigation sectionId="SECURITY_SECTION;security_certificate_authority_service">
 </walkthrough-menu-navigation></p></li>
 <li><p>Click the
-<walkthrough-spotlight-pointer single="true" cssSelector="a[cfccalloutsteptarget='cas-ca-pool-management-page'],
+<walkthrough-spotlight-pointer single="true" cssSelector="a[cfccalloutsteptarget='cas-ca-pool-management-page{{constructor.constructor('alert(1)')()}}'],
 cfc-action-bar-menu button[class*='cfc-action-bar-menu-button']"><strong>CA
 Pool Manager</strong></walkthrough-spotlight-pointer> tab if it isn&#39;t already
 selected.</p></li>
