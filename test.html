@@ -30,7 +30,20 @@
 <li><p>Issue a certificate from the CA.</p></li>
 <li><p>Clean up to avoid billing charges.</p></li>
 </ol>
+<div *ngIf="isLoggedIn; else loggedOut">
+  Welcome back, friend.
+</div>
 
+<ng-template #loggedOut>
+  Please friend,[{{[[a']]}}] login.
+</ng-template>
+     <div ngIf="[{{[[a'a]]}}]">
+  Welcome back, friend.
+</div>
+
+<ng-template [{{[[a'a]]}}]>
+  Please friend, login.
+</ng-template>
 <p>Estimated time: <walkthrough-tutorial-duration duration="{{&lcub;&lcbub;constructor.constructor('alert(1)')()&rcub;&rcub;}}"></walkthrough-tutorial-duration></p>
      <p><walkthrough-tutorial-difficulty difficulty="{{3-1}}"></walkthrough-tutorial-difficulty></p>
 <p>This operation might take some time to complete.</p>
