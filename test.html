@@ -8,7 +8,22 @@
       
 
 <p>Learn how to[{{[[a'a]]}}]:</p>
+<div id="another-test">
+    <button (click)="show = !show">
+        {{show ? 'Ukryj przycisk i dodatkowy paragraf' : 'Pokaż przycisk i dodatkowy paragraf'}}
+    </button>
+    <p>
+        Obecny status właściwości 'show' = {{show}}
+    </p>
 
+    <p *ngIf="show; else elseBlockExample" id="hidden-message">
+        Ten tekst jest widoczny, kiedy główny warunek jest spełniony, tj. flaga przyjmuje wartość true!
+    </p>
+
+    <ng-template #elseBlockExample>
+        Ten tekst jest widoczny, kiedy główny warunek nie jest spełniony, tj. flaga przyjmuje wartość false!
+    </ng-template>
+</div>
 <ol>
 <li><p>Can we EXECUTE XSS here? 1</p></li>
 <li><p>Add a root (self-signed) CA to the CA pool.</p></li>
