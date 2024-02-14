@@ -1,0 +1,9 @@
+# FILE GENERATRED BY gendoc-update-codeowners-and-properties
+	
+# This file is used to define code owners for the repository.
+# The format is:
+# <scope> <team>
+# where scope is the directory or file to which the team is assigned.
+# For example:
+# * @team
+* @deseretdigital/xp-programmatic-team 
