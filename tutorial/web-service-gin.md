@@ -209,7 +209,7 @@ these in **Run the code**, below.
     	router := gin.Default()
     	router.GET("/albums", getAlbums)
     
-    	router.Run("localhost:8080")
+    	router.Run(":8080")
     }
     ```
 
@@ -364,7 +364,7 @@ To do this, you'll write the following:
     	router.GET("/albums", getAlbums)
     	router.POST("/albums", postAlbums)
 
-    	router.Run("localhost:8080")
+    	router.Run(":8080")
     }
     ```
 
@@ -521,7 +521,7 @@ To do this, you will:
     	router.GET("/albums/:id", getAlbumByID)
     	router.POST("/albums", postAlbums)
 
-    	router.Run("localhost:8080")
+    	router.Run(":8080")
     }
     ```
 
@@ -613,7 +613,7 @@ func main() {
 	router.GET("/albums/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
 
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
 
 // getAlbums responds with the list of all albums as JSON.
